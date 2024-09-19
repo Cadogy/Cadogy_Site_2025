@@ -2,15 +2,16 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { KeyIcon } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
-import { KeyIcon } from "lucide-react"
 
 export function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredText, setHoveredText] = useState(siteConfig.name)
 
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+  const alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
   const textCipherEffect = (text: string) => {
     let iterations = 0
     const interval = setInterval(() => {
@@ -42,7 +43,7 @@ export function NavigationMenu() {
 
   return (
     <nav className="w-full bg-background">
-      <div className="container mx-auto flex items-center justify-between md:px-0 py-4">
+      <div className="container mx-auto flex items-center justify-between py-4 md:px-0">
         {/* Logo Section with Cipher Effect */}
         <Link
           href="/"
@@ -66,14 +67,20 @@ export function NavigationMenu() {
         </Link>
 
         {/* Centered Navigation Menu (for Desktop) */}
-        <ul className="hidden lg:flex lg:items-center lg:gap-12 lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2">
+        <ul className="hidden lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:transform lg:items-center lg:gap-12">
           <li>
-            <Link href="/who-we-are" className="text-sm transition duration-150">
+            <Link
+              href="/who-we-are"
+              className="text-sm transition duration-150"
+            >
               Who We Are
             </Link>
           </li>
           <li>
-            <Link href="/quick-reads" className="text-sm transition duration-150">
+            <Link
+              href="/quick-reads"
+              className="text-sm transition duration-150"
+            >
               Quick Reads
             </Link>
           </li>
@@ -85,16 +92,19 @@ export function NavigationMenu() {
         </ul>
 
         {/* Right-aligned Sign-in Button & Mode Toggle */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Link href="/signin" className="text-sm group flex items-center transition duration-350 border border-white/10 hover:border-white/20 text-gray-200 hover:text-gray-100 px-4 py-1 rounded-md">
-            <KeyIcon className="w-[14px] h-[14px] mr-1 transition duration-350 group-hover:rotate-12 text-gray-200 group-hover:text-gray-100" />
+        <div className="hidden items-center gap-4 lg:flex">
+          <Link
+            href="/signin"
+            className="duration-350 group flex items-center rounded-md border border-white/10 px-4 py-1 text-sm text-gray-200 transition hover:border-white/20 hover:text-gray-100"
+          >
+            <KeyIcon className="duration-350 mr-1 h-[14px] w-[14px] text-gray-200 transition group-hover:rotate-12 group-hover:text-gray-100" />
             Clients
           </Link>
         </div>
 
         {/* Mobile Menu Toggle Button */}
         <button
-          className="block lg:hidden text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus:outline-none"
+          className="block text-gray-600 hover:text-gray-900 focus:outline-none dark:text-gray-300 dark:hover:text-white lg:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
@@ -132,13 +142,13 @@ export function NavigationMenu() {
 
         {/* Full-Screen Mobile Menu */}
         <div
-          className={`fixed inset-0 z-50 flex flex-col items-start ml-1 p-5 bg-black/50 backdrop-blur-xl transition-all duration-700 ease-in-out ${
-            isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+          className={`fixed inset-0 z-50 flex flex-col items-start bg-black/50 p-5 backdrop-blur-xl transition-all duration-700 ease-in-out ${
+            isMenuOpen ? "visible opacity-100" : "invisible opacity-0"
           }`}
           onClick={closeMenu} // Close the menu on backdrop click
         >
           {/* Close Icon in the Top Right */}
-          <div className="flex items-center space-x-1 mb-6">
+          <div className="mb-6 flex items-center space-x-1">
             <svg
               width="20px"
               height="20px"
@@ -155,26 +165,42 @@ export function NavigationMenu() {
           </div>
 
           <ul
-            className="space-y-8 text-white mt-10 text-2xl"
+            className="mt-10 space-y-8 text-2xl text-white"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on menu items
           >
             <li>
-              <Link className="text-slate-200" href="/who-we-are" onClick={closeMenu}>
+              <Link
+                className="text-slate-200"
+                href="/who-we-are"
+                onClick={closeMenu}
+              >
                 Who We Are
               </Link>
             </li>
             <li>
-              <Link className="text-slate-200" href="/quick-reads" onClick={closeMenu}>
+              <Link
+                className="text-slate-200"
+                href="/quick-reads"
+                onClick={closeMenu}
+              >
                 Quick Reads
               </Link>
             </li>
             <li>
-              <Link className="text-slate-200" href="/contact-us" onClick={closeMenu}>
+              <Link
+                className="text-slate-200"
+                href="/contact-us"
+                onClick={closeMenu}
+              >
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link className="text-slate-200" href="/signin" onClick={closeMenu}>
+              <Link
+                className="text-slate-200"
+                href="/signin"
+                onClick={closeMenu}
+              >
                 For Clients
               </Link>
             </li>

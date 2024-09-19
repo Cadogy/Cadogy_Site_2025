@@ -78,32 +78,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-h1 {
-  font-size: 3rem;
-  margin: 1rem 0;
-}
-
-h2 {
-  font-size: 2.5rem;
-  margin: 1rem 0;
-}
-
-p {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  margin: 1rem 0;
-}
-
-ul,
-ol {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
-
-blockquote {
-  padding-left: 1rem;
-  border-left: 4px solid #ccc;
-  font-style: italic;
-  color: #555;
-}

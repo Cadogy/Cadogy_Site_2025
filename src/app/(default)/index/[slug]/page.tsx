@@ -19,7 +19,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const { content, data } = matter(source)
 
   return (
-    <MDXLayout title={data.title} date={data.date}>
+    <MDXLayout
+      title={data.title}
+      date={data.date}
+      description={data.description}
+      keywords={data.keywords}
+      image={data.image}
+    >
       <MDXRemote source={content} />
     </MDXLayout>
   )

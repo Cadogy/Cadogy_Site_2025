@@ -1,0 +1,78 @@
+/** MAIN SECTION **/
+
+.prose h1 {
+  font-size: 3rem;
+  margin: 2rem 0;
+}
+
+.prose h2 {
+  font-size: 2.5rem;
+  margin: 1.5rem 0;
+}
+
+.prose h3 {
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+
+.prose p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+  color: #c5cbcf;
+}
+
+/** HEADER CLONE SECTION **/
+
+.proseheader h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.proseheader h2 {
+  font-size: 2.5rem;
+}
+
+.proseheader h3 {
+  margin: 1rem 0;
+}
+
+.proseheader p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #c5cbcf;
+}
+
+/** MAIN SECTION AGAIN **/
+
+.prose p em {
+  font-size: 0.9rem;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose blockquote {
+  padding-left: 1rem;
+  border-left: 4px solid #ccc;
+  font-style: italic;
+  color: #555;
+}
+
+@media screen and (max-width: 768px) {
+  .prose h1,
+  .proseheader h1 {
+    font-size: 1.75rem;
+  }
+  .prose h2,
+  .proseheader h2 {
+    font-size: 1.46rem;
+  }
+  .prose h3,
+  .proseheader h3 {
+    font-size: 1.17rem;
+  }
+}

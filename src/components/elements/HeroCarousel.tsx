@@ -145,7 +145,9 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               key={index}
               className={cn(
                 "relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
-                isNextSlide || isPrevSlide ? "" : ""
+                isNextSlide || isPrevSlide
+                  ? "cursor-pointer transition duration-500 hover:brightness-125"
+                  : ""
               )}
               style={{
                 width: `${settings.mainCardWidth}%`, // Dynamic width for the main card based on screen size
