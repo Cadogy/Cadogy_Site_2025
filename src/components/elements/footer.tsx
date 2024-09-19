@@ -2,14 +2,16 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="ease-out-cubic container mb-8 mt-40 transition-[opacity,transform,filter] md:p-0">
+    <footer className="ease-out-cubic mt-40 transition-[opacity,transform,filter] md:mx-4 md:p-0">
       <div className="mb-32">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Column 1 */}
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-sm font-medium text-gray-100">Company</h3>
-              <ul className="flex flex-col gap-2" role="list">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="items-center text-sm font-medium text-gray-100">
+                The Company
+              </h3>
+              <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
                     href="/who-we-are"
@@ -20,10 +22,11 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/news"
+                    href="https://www.linkedin.com/company/cadogy"
+                    target="_blank"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
-                    In the News
+                    Our LinkedIn
                   </Link>
                 </li>
               </ul>
@@ -31,10 +34,12 @@ export function Footer() {
           </div>
 
           {/* Column 2 */}
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-sm font-medium text-gray-100">API</h3>
-              <ul className="flex flex-col gap-2" role="list">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="items-center text-sm font-medium text-gray-100">
+                The API
+              </h3>
+              <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
                     href="/api"
@@ -51,14 +56,6 @@ export function Footer() {
                     Features
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/api/pricing"
-                    className="text-sm text-gray-400 transition hover:text-gray-300"
-                  >
-                    Pricing
-                  </Link>
-                </li>
                 {/* <li>
                   <Link href="https://platform.openai.com/docs/introduction" target="_blank" className="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-300 transition">
                     Documentation
@@ -73,10 +70,10 @@ export function Footer() {
           </div>
 
           {/* Column 3 */}
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-sm font-medium text-gray-100">
-                Terms & Policies
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="items-center text-sm font-medium text-gray-100">
+                The Policies
               </h3>
               <ul className="flex flex-col gap-2" role="list">
                 <li>
@@ -100,20 +97,12 @@ export function Footer() {
           </div>
 
           {/* Column 4 */}
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-sm font-medium text-gray-100">
-                Explore More
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="items-center text-sm font-medium text-gray-100">
+                The Misc.
               </h3>
-              <ul className="flex flex-col gap-2" role="list">
-                <li>
-                  <Link
-                    href="/signin"
-                    className="text-sm text-gray-400 transition hover:text-gray-300"
-                  >
-                    Client Access
-                  </Link>
-                </li>
+              <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
                     href="/quick-reads"
@@ -136,7 +125,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="flex w-full flex-col-reverse justify-between gap-4 md:flex-row">
+      <div className="mx-auto flex w-[94%] flex-col-reverse justify-between gap-4 rounded-t-md bg-[#101010] px-4 py-3 md:flex-row">
         <div className="flex items-center">
           <span className="text-sm text-gray-400">Cadogy © 2019–2024</span>
         </div>
