@@ -2,9 +2,9 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="ease-out-cubic mt-40 transition-[opacity,transform,filter] md:mx-4 md:p-0">
-      <div className="mb-32">
-        <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="ease-out-cubic mt-40 bg-gray-900/20 transition-[opacity,transform,filter] md:mx-4 md:bg-transparent md:p-0">
+      <div className="mb-20 md:mb-32">
+        <div className="container grid grid-cols-1 gap-20 pt-16 md:grid-cols-2 md:gap-6 md:pt-0 lg:grid-cols-4">
           {/* Column 1 */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-2">
@@ -125,7 +125,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-[94%] flex-col-reverse justify-between gap-4 rounded-t-md bg-[#101010] px-4 py-3 md:flex-row">
+      <div className="container mx-auto flex w-full flex-col-reverse items-center justify-between gap-4 px-4 py-3 md:flex-row md:items-start">
         <div className="flex items-center">
           <span className="text-sm text-gray-400">Cadogy © 2019–2024</span>
         </div>
