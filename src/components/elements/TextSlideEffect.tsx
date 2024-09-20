@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { useEffect, useRef, useState } from "react"
 
@@ -7,22 +7,24 @@ const TextSlideEffect = () => {
   const [fontSize, setFontSize] = useState("1rem")
   const baseSpeed = 1
   const maxSpeed = 10
-  const textRef = useRef(null)
-  const containerRef = useRef(null)
+  const textRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const positionRef = useRef(0)
   const speedRef = useRef(baseSpeed)
   const targetSpeedRef = useRef(baseSpeed)
-  const scrollTimeoutRef = useRef(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Infinite scrolling effect (starts automatically)
   useEffect(() => {
-    let animationFrameId
+    let animationFrameId: number
 
     const animateText = () => {
       const textElement = textRef.current
-      if (textElement) {
+      const containerElement = containerRef.current
+
+      if (textElement && containerElement) {
         const textWidth = textElement.scrollWidth / 2 // Half the width to account for duplication
-        const containerWidth = containerRef.current.offsetWidth // Width of the container
+        const containerWidth = containerElement.offsetWidth // Width of the container
 
         // Smoothly update speed towards the target speed
         speedRef.current += (targetSpeedRef.current - speedRef.current) * 0.05
@@ -135,19 +137,24 @@ const TextSlideEffect = () => {
   }, [])
 
   return (
-    <div className="relative overflow-hidden" ref={containerRef}>
+    <div
+      className="relative mx-auto max-w-[94%] overflow-hidden py-3 pt-6"
+      ref={containerRef}
+    >
       {/* Left and Right gradient overlays for the blurry darkness effect */}
       <div
-        className="absolute left-0 top-0 h-full w-[16%] bg-gradient-to-r from-background to-transparent pointer-events-none"
+        className="pointer-events-none absolute left-0 top-0 h-full w-[16%] bg-gradient-to-r from-background to-transparent"
         style={{ zIndex: 1 }}
       />
       <div
-        className="absolute right-0 top-0 h-full w-[16%] bg-gradient-to-l from-background to-transparent pointer-events-none"
+        className="pointer-events-none absolute right-0 top-0 h-full w-[16%] bg-gradient-to-l from-background to-transparent"
         style={{ zIndex: 1 }}
       />
 
       <div
-        className={`relative z-0 duration-400 flex whitespace-nowrap transition-all ease-out ${hasScrolled ? "blur-in" : ""}`}
+        className={`duration-400 relative z-0 flex whitespace-nowrap transition-all ease-out ${
+          hasScrolled ? "blur-in" : ""
+        }`}
         ref={textRef}
         style={{
           filter: hasScrolled ? "blur(0)" : "blur(10px)",
