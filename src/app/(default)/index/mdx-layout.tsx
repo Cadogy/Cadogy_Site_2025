@@ -5,11 +5,12 @@ import "@/styles/mdx-style.css"
 import { ReactNode, useEffect, useState } from "react"
 
 interface MDXLayoutProps {
-  children: ReactNode
   title: string
   date: string
   description: string
   keywords: string
+  image?: string
+  children: React.ReactNode
 }
 
 export default function MDXLayout({
@@ -77,7 +78,7 @@ export default function MDXLayout({
       const articleBottom =
         document.querySelector("article")?.getBoundingClientRect().bottom || 0
       const viewportHeight = window.innerHeight
-      const scrollPosition = window.scrollY
+      const scrollPosition = window.scrollY + viewportHeight
 
       // Show TOC when reaching the first section (smooth transition)
       if (scrollPosition > headerHeight && firstSection < viewportHeight) {
@@ -88,9 +89,10 @@ export default function MDXLayout({
         setShowMobileTOC(false)
       }
 
-      // Adjust fade-out threshold for mobile TOC
-      // Instead of hiding as soon as the bottom is in view, add a buffer to keep it longer
-      if (articleBottom <= scrollPosition + viewportHeight * 0.3) {
+      // Ensure mobile TOC remains visible until the bottom of the article is fully out of view
+      if (articleBottom >= scrollPosition) {
+        setShowMobileTOC(true)
+      } else {
         setShowMobileTOC(false)
       }
     }
@@ -136,7 +138,7 @@ export default function MDXLayout({
           }`}
           aria-label="Table of contents"
         >
-          <ul className="flex flex-col space-y-2 px-4 py-2">
+          <ul className="flex flex-col space-y-2 px-4 py-2 text-sm">
             {headings.map((heading) => (
               <li key={heading.id}>
                 <a
@@ -168,7 +170,7 @@ export default function MDXLayout({
           </button>
           {showDropdown && (
             <nav className="bg-neutral-800/50 backdrop-blur-sm">
-              <ul className="space-y-2 p-4">
+              <ul className="space-y-2 p-4 text-sm">
                 {headings.map((heading) => (
                   <li key={heading.id}>
                     <a

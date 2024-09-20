@@ -153,7 +153,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             <div
               key={index}
               className={cn(
-                "group relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
+                "relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
                 isNextSlide || isPrevSlide
                   ? "cursor-pointer transition duration-700 hover:brightness-125"
                   : ""
@@ -172,7 +172,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               onClick={() => handleCardClick(index)}
             >
               <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[6px] bg-black/30 p-4 text-white">
-                <h2 className="mb-4 text-center text-4xl text-slate-100 md:text-3xl">
+                <h2 className="mb-4 text-center text-3xl text-slate-100">
                   {slide.title}
                 </h2>
                 <p className="hidden max-w-lg text-center text-sm text-slate-200 md:flex">

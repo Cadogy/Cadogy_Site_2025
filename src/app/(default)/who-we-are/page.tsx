@@ -1,6 +1,35 @@
+import { Metadata } from "next"
 import Link from "next/link"
 
+import { siteConfig } from "@/config/site"
 import { Button } from "@/components/ui/button"
+
+// Export metadata for this specific page
+export const metadata: Metadata = {
+  title: `Who We Are`,
+  description:
+    "Learn more about our mission, approach, and team at our company.",
+  keywords: ["company", "mission", "team", "digital experiences", "innovation"],
+  openGraph: {
+    title: `Who We Are`,
+    description:
+      "Discover our team of passionate innovators and learn more about how we shape the future of digital experiences.",
+    url: `${siteConfig.url.base}/who-we-are`,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        alt: `${siteConfig.name} - Who We Are`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Who We Are | ${siteConfig.name}`,
+    description:
+      "Meet our team of innovators shaping the future of digital experiences.",
+    images: [siteConfig.ogImage],
+  },
+}
 
 export default function WhoWeAre() {
   return (

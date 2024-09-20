@@ -3,6 +3,8 @@ import path from "path"
 import matter from "gray-matter"
 import { MDXRemote } from "next-mdx-remote/rsc"
 
+import { siteConfig } from "@/config/site"
+
 import MDXLayout from "../mdx-layout"
 
 export async function generateStaticParams() {
@@ -10,6 +12,39 @@ export async function generateStaticParams() {
   return files.map((fileName) => ({
     slug: fileName.replace(".mdx", ""),
   }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const { slug } = params
+  const filePath = path.join(process.cwd(), "content/posts", `${slug}.mdx`)
+  const source = fs.readFileSync(filePath, "utf8")
+  const { data } = matter(source) // Extract frontmatter
+
+  return {
+    title: `${data.title}`,
+    description: data.description,
+    keywords: data.keywords,
+    openGraph: {
+      title: data.title,
+      description: data.description,
+      images: [
+        {
+          url: data.image,
+          alt: data.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.title,
+      description: data.description,
+      images: [data.image],
+    },
+  }
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
