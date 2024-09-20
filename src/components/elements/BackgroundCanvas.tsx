@@ -18,7 +18,7 @@ export function BackgroundCanvas({
   onHover = false,
 }: BackgroundCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  let animationFrameId: number
+  const animationFrameIdRef = useRef<number | null>(null) // Use ref for the animation frame ID
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -65,13 +65,16 @@ export function BackgroundCanvas({
         ctx.putImageData(imageData, 0, 0)
       }
 
-      animationFrameId = requestAnimationFrame(draw)
+      // Store the animation frame ID in ref
+      animationFrameIdRef.current = requestAnimationFrame(draw)
     }
 
     draw()
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      if (animationFrameIdRef.current) {
+        cancelAnimationFrame(animationFrameIdRef.current)
+      }
     }
   }, [width, height, colors, morphDuration, noiseLevel])
 
