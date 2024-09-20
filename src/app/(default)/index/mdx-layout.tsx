@@ -26,7 +26,7 @@ export default function MDXLayout({
     <>
       {/* Blog header */}
       <div className="mx-auto w-full">
-        <header className="proseheader mb-12 select-none bg-gradient-to-r from-stone-600 to-neutral-600 py-12 md:py-16">
+        <header className="proseheader mb-12 select-none bg-gradient-to-r from-stone-800 to-zinc-800 py-12 md:py-16">
           <div className="container mx-auto max-w-4xl text-center">
             {/* Title */}
             <h1 className="mb-4 text-4xl text-gray-200 md:text-5xl">{title}</h1>
@@ -37,21 +37,21 @@ export default function MDXLayout({
 
             {/* Date and Keywords */}
             <div className="flex flex-col items-center justify-center space-y-2">
-              {/* Date */}
-              <p className="!text-xs text-zinc-300">
-                Published on <span className="text-stone-300">{date}</span>
-              </p>
               {/* Render keyword pill designs */}
               <div className="mt-2 flex flex-wrap justify-center gap-1">
                 {keywordArray.map((keyword, index) => (
                   <span
                     key={index}
-                    className="inline-block rounded-md bg-stone-500/30 px-3 py-1 text-sm text-white"
+                    className="inline-block rounded-md bg-stone-600/30 px-3 py-1 text-sm text-white backdrop-blur-sm transition duration-500 hover:bg-stone-500/30"
                   >
                     {keyword.trim()}
                   </span>
                 ))}
               </div>
+              {/* Date */}
+              <p className="!text-xs text-zinc-300">
+                Published on <span className="text-stone-300">{date}</span>
+              </p>
             </div>
           </div>
         </header>

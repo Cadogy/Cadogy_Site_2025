@@ -7,7 +7,13 @@ import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface HeroCarouselProps {
-  slides: { image: string; title: string; description: string; link: string }[]
+  slides: {
+    image: string
+    altImage: string
+    title: string
+    description: string
+    link: string
+  }[]
 }
 
 export function HeroCarousel({ slides }: HeroCarouselProps) {
@@ -30,7 +36,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     }
 
     window.addEventListener("resize", handleResize)
-    handleResize() // Call the function on mount to set the initial state
+    handleResize()
 
     return () => {
       window.removeEventListener("resize", handleResize)
@@ -56,15 +62,15 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
 
   // Configurable layout settings for the carousel
   const mobileSettings = {
-    gap: 2, // Gap between slides for mobile as percentage (1%)
-    mainCardWidth: 86, // Width of the current (main) card for mobile (88%)
-    visibleNextPrevPercentage: 7, // Amount of next/previous card visible for mobile (6%)
+    gap: 2, // Gap between slides for mobile as percentage
+    mainCardWidth: 86, // Width of the current (main) card for mobile
+    visibleNextPrevPercentage: 7, // Amount of next/previous card visible for mobile
   }
 
   const desktopSettings = {
-    gap: 1.25, // Gap between slides for medium+ as percentage (0.75%)
-    mainCardWidth: 92, // Width of the current (main) card for medium+ (94%)
-    visibleNextPrevPercentage: 4, // Amount of next/previous card visible for medium+ (3%)
+    gap: 1.25, // Gap between slides for medium+ as percentage
+    mainCardWidth: 92, // Width of the current (main) card for medium+
+    visibleNextPrevPercentage: 4, // Amount of next/previous card visible for medium+
   }
 
   const settings = isMobile ? mobileSettings : desktopSettings
@@ -171,13 +177,13 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
                   {slide.description}
                 </p>
                 <Link
-                  className="group mt-8 flex items-center rounded-sm bg-background/70 px-4 py-2 text-white transition duration-500 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
+                  className="group mt-8 flex items-center rounded-sm bg-background/70 px-4 py-2 text-slate-300 transition duration-500 hover:text-slate-100 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
                   href={slide.link}
                 >
                   <span className="transition duration-500 group-hover:-translate-x-1">
                     Read More
                   </span>
-                  <ArrowRight className="h-5 w-5 transition duration-500 group-hover:translate-x-1" />
+                  <ArrowRight className="ml-1 h-4 w-4 text-slate-300 transition duration-500 hover:text-slate-100 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
