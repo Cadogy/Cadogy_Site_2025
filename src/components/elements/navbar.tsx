@@ -77,11 +77,8 @@ export function NavigationMenu() {
             </Link>
           </li>
           <li>
-            <Link
-              href="/quick-reads"
-              className="text-sm transition duration-150"
-            >
-              Quick Reads
+            <Link href="/articles" className="text-sm transition duration-150">
+              Articles
             </Link>
           </li>
           <li>
@@ -183,10 +180,10 @@ export function NavigationMenu() {
             <li>
               <Link
                 className="text-slate-200"
-                href="/quick-reads"
+                href="/articles"
                 onClick={closeMenu}
               >
-                Quick Reads
+                Articles
               </Link>
             </li>
             <li>

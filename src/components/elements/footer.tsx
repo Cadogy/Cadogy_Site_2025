@@ -141,10 +141,10 @@ export function Footer() {
               <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
-                    href="/quick-reads"
+                    href="/articles"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
-                    Quick Reads
+                    Articles
                   </Link>
                 </li>
                 <li>
