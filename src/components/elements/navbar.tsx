@@ -85,7 +85,10 @@ export function NavigationMenu() {
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="text-sm transition duration-150">
+            <Link
+              href="/contact-us"
+              className="text-sm transition duration-150"
+            >
               Contact Us
             </Link>
           </li>
