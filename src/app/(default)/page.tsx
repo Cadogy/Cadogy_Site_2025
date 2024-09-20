@@ -9,9 +9,10 @@ import { Icons } from "@/components/icons"
 export default function Home() {
   const slides = [
     {
-      link: "/index/the-accessible-licensing-crisis",
+      link: "/index/can_piracy_be_stopped",
       image: "/images/slide_1_bg.jpg",
-      title: "The Accessible Licensing Crisis: Piracy in the Digital Age",
+      title:
+        "Can Piracy Be Stopped? Lessons from Real-World Anti-Piracy Efforts",
       description:
         "When a majority of the world's population cannot afford food, what makes you think they can afford your WordPress theme?",
     },

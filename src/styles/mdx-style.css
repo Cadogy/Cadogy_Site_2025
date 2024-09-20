@@ -3,11 +3,13 @@
 .prose h1 {
   font-size: 3rem;
   margin: 2rem 0;
+  color: #d1dced;
 }
 
 .prose h2 {
   font-size: 2.5rem;
   margin: 1.5rem 0;
+  color: #d1dced;
 }
 
 .prose h3 {
@@ -20,6 +22,31 @@
   line-height: 1.6;
   margin: 1rem 0;
   color: #c5cbcf;
+}
+
+.prose p em {
+  font-size: 0.9rem;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose blockquote {
+  padding-left: 1rem;
+  border-left: 4px solid #ccc;
+  font-style: italic;
+  color: #555;
+}
+
+.prose hr {
+  border-color: #161616;
+}
+
+.prose img {
+  border-radius: 7px;
 }
 
 /** HEADER CLONE SECTION **/
@@ -43,24 +70,7 @@
   color: #c5cbcf;
 }
 
-/** MAIN SECTION AGAIN **/
-
-.prose p em {
-  font-size: 0.9rem;
-}
-
-.prose ul,
-.prose ol {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
-
-.prose blockquote {
-  padding-left: 1rem;
-  border-left: 4px solid #ccc;
-  font-style: italic;
-  color: #555;
-}
+/** MEDIA RESPONSIVE SECTION AGAIN **/
 
 @media screen and (max-width: 768px) {
   .prose h1,
