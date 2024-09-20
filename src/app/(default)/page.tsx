@@ -29,9 +29,9 @@ export default function Home() {
       link: "/index/how-to-train-your-own-large-language-model-for-business-ai",
       image: "/images/slide_3_bg.jpg",
       altImage: "/images/slide_3_bg_alt_2.jpg",
-      title: "Training Your Own Large Language Model. AI for Your Business",
+      title: "Can You Train Your Own Large Language Model?",
       description:
-        "Here's how you can start training your own artificial intelligence locally and why it's essential.",
+        "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
     },
   ]
 

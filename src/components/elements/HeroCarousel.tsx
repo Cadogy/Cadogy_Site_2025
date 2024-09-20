@@ -177,13 +177,13 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
                   {slide.description}
                 </p>
                 <Link
-                  className="group mt-8 flex items-center rounded-sm bg-background/70 px-4 py-2 text-slate-300 transition duration-500 hover:text-slate-100 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
+                  className="group mt-8 flex items-center rounded-sm bg-background/70 px-4 py-2 text-slate-200 transition duration-500 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
                   href={slide.link}
                 >
                   <span className="transition duration-500 group-hover:-translate-x-1">
                     Read More
                   </span>
-                  <ArrowRight className="ml-1 h-4 w-4 text-slate-300 transition duration-500 hover:text-slate-100 group-hover:translate-x-1" />
+                  <ArrowRight className="ml-1 h-4 w-4 text-slate-200 transition duration-500 group-hover:translate-x-1 " />
                 </Link>
               </div>
             </div>
