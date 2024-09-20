@@ -7,8 +7,6 @@ const nextConfig = {
     unoptimized: true,
   },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  //distDir: "build",
-  //output: "export",
 }
 
 const withMDX = createMDX({})
