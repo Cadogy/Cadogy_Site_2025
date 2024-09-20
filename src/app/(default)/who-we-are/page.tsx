@@ -15,15 +15,14 @@ export default function WhoWeAre() {
         </p>
       </header>
 
-      <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 pb-16 sm:px-6 lg:px-8">
         <section className="mb-20">
           <h2 className="mb-6 text-2xl font-semibold">Our Mission</h2>
           <p className="text-md mb-6">
             At the intersection of creativity and technology, we strive to push
-            the boundaries of what&apos;s possible in the digital realm. Our
-            mission is to empower businesses and individuals with cutting-edge
-            solutions that not only meet their needs but exceed their
-            expectations.
+            the boundaries of what&apos;s possible. Our mission is to empower
+            businesses and individuals with cutting-edge solutions that not only
+            meet their needs but exceed their expectations.
           </p>
           <p className="text-md mb-6">
             We believe that great design and powerful functionality should
@@ -69,7 +68,7 @@ export default function WhoWeAre() {
         </section>
 
         <section className="mb-20">
-          <h2 className="mb-6 text-3xl font-semibold">Our Team</h2>
+          <h2 className="mb-6 text-2xl font-semibold">Our Team</h2>
           <p className="text-md mb-6">
             Behind every successful project is a team of dedicated
             professionals. Our diverse group of experts brings together a wealth

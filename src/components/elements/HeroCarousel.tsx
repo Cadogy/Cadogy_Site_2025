@@ -13,6 +13,8 @@ interface HeroCarouselProps {
     title: string
     description: string
     link: string
+    authorName: string
+    authorImage: string
   }[]
 }
 
@@ -151,9 +153,9 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             <div
               key={index}
               className={cn(
-                "relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
+                "group relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
                 isNextSlide || isPrevSlide
-                  ? "cursor-pointer transition duration-500 hover:brightness-125"
+                  ? "cursor-pointer transition duration-700 hover:brightness-125"
                   : ""
               )}
               style={{

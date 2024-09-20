@@ -78,7 +78,7 @@ export function Footer() {
               <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
-                    href="/api"
+                    href="/signin"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
                     Overview
@@ -86,7 +86,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/api/features"
+                    href="/the-api/features"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
                     Features
