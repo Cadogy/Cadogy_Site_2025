@@ -1,33 +1,44 @@
 import fs from "fs"
 import path from "path"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import matter from "gray-matter"
 import { MDXRemote } from "next-mdx-remote/rsc"
 
-import { siteConfig } from "@/config/site"
-
 import MDXLayout from "../mdx-layout"
 
+const postsDirectory = path.join(process.cwd(), "content/posts")
+
+// Use generateStaticParams to define the dynamic routes for MDX pages
 export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join(process.cwd(), "content/posts"))
+  const files = fs.readdirSync(postsDirectory)
   return files.map((fileName) => ({
     slug: fileName.replace(".mdx", ""),
   }))
 }
 
+// Use generateMetadata to define metadata for each MDX page
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
-}) {
+}): Promise<Metadata> {
   const { slug } = params
-  const filePath = path.join(process.cwd(), "content/posts", `${slug}.mdx`)
+  const filePath = path.join(postsDirectory, `${slug}.mdx`)
+
+  if (!fs.existsSync(filePath)) {
+    return {
+      title: "Not Found",
+      description: "The page you're looking for does not exist.",
+    }
+  }
+
   const source = fs.readFileSync(filePath, "utf8")
   const { data } = matter(source) // Extract frontmatter
 
   return {
-    title: `${data.title}`,
+    title: data.title,
     description: data.description,
-    keywords: data.keywords,
     openGraph: {
       title: data.title,
       description: data.description,
@@ -47,9 +58,19 @@ export async function generateMetadata({
   }
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+// Dynamic MDX page
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const { slug } = params
-  const filePath = path.join(process.cwd(), "content/posts", `${slug}.mdx`)
+  const filePath = path.join(postsDirectory, `${slug}.mdx`)
+
+  if (!fs.existsSync(filePath)) {
+    notFound() // Return a 404 page if the file doesn't exist
+  }
+
   const source = fs.readFileSync(filePath, "utf8")
   const { content, data } = matter(source)
 
