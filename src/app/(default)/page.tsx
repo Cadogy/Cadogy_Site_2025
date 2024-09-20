@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import { Icons } from "@/components/icons"
+import TextSlideEffect from "@/components/elements/TextSlideEffect"
 
 export default function Home() {
   const slides = [
@@ -38,6 +39,7 @@ export default function Home() {
   return (
     <>
       <HeroCarousel slides={slides} />
+      <TextSlideEffect />
     </>
   )
 }
