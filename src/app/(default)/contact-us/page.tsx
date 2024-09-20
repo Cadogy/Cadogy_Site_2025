@@ -37,7 +37,7 @@ const ContactPage = () => {
       <section className="relative flex h-screen w-full flex-col md:flex-row">
         {/* Image Background on the Left */}
         <div
-          className="relative h-1/2 w-full bg-cover bg-center md:h-full md:w-1/2"
+          className="relative h-1/2 w-full rounded-xl bg-cover bg-center md:h-full md:w-1/2"
           style={{
             backgroundImage: `url('/images/posts/crowd-people-walking-street.webp')`,
           }}
@@ -51,8 +51,8 @@ const ContactPage = () => {
             Get In Touch
           </h1>
           <p className="text-md mb-8 max-w-xl text-center text-slate-200">
-            Have a question or want to work together? We'd love to hear from
-            you.
+            Have a question or want to work together? We&apos;d love to hear
+            from you.
           </p>
 
           {/* Contact Form */}
@@ -110,47 +110,30 @@ const ContactPage = () => {
               </div>
             </form>
           </div>
-        </div>
-      </section>
 
-      {/* Map and Contact Information Section */}
-      <section className="w-full bg-background py-16">
-        <div className="mx-auto px-4 lg:px-8">
-          <div className="flex flex-col lg:flex-row">
-            {/* Google Map */}
-            <div className="mb-12 lg:mb-0 lg:w-1/2 lg:pr-8">
-              <iframe
-                className="h-80 w-full rounded-lg"
-                src={`https://www.google.com/maps/embed/v1/place?q=Fort+Lauderdale,+FL&key=${process.env.MAPS_API_KEY}`}
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
-            </div>
-
-            {/* Contact Information */}
-            <div className="flex flex-col justify-center lg:w-1/2">
-              <p className="mb-4 text-lg text-gray-600">
-                Email:{" "}
-                <a href="mailto:contact@cadogy.com" className="text-gray-500">
-                  contact@cadogy.com
-                </a>
-              </p>
-              <p className="mb-4 text-lg text-gray-600">
-                Phone:{" "}
-                <a href="tel:+18279108112" className="text-gray-500">
-                  +1 (827) 910-8112
-                </a>
-              </p>
-              <p className="text-lg text-gray-600">
-                <strong>Hours of Operation:</strong>
-                <br />
-                Monday - Friday: 9:00 AM - 6:00 PM
-                <br />
-                Saturday: 10:00 AM - 2:00 PM
-                <br />
-                Sunday: Closed
-              </p>
-            </div>
+          {/* Contact Information */}
+          <div className="absolute bottom-0 flex flex-col">
+            <p className="mb-4 text-lg text-gray-500">
+              Email:{" "}
+              <a href="mailto:contact@cadogy.com" className="text-gray-500">
+                contact@cadogy.com
+              </a>
+            </p>
+            <p className="mb-4 text-lg text-gray-500">
+              Phone:{" "}
+              <a href="tel:+18279108112" className="text-gray-500">
+                +1 (827) 910-8112
+              </a>
+            </p>
+            <p className="text-lg text-gray-500">
+              <strong>Hours of Operation:</strong>
+              <br />
+              Monday - Friday: 9:00 AM - 6:00 PM
+              <br />
+              Saturday: 10:00 AM - 2:00 PM
+              <br />
+              Sunday: Closed
+            </p>
           </div>
         </div>
       </section>
