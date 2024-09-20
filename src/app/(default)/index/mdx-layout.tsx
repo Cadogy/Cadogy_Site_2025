@@ -78,7 +78,7 @@ export default function MDXLayout({
       const articleBottom =
         document.querySelector("article")?.getBoundingClientRect().bottom || 0
       const viewportHeight = window.innerHeight
-      const scrollPosition = window.scrollY + viewportHeight
+      const scrollPosition = window.scrollY
 
       // Show TOC when reaching the first section (smooth transition)
       if (scrollPosition > headerHeight && firstSection < viewportHeight) {
@@ -89,10 +89,9 @@ export default function MDXLayout({
         setShowMobileTOC(false)
       }
 
-      // Ensure mobile TOC remains visible until the bottom of the article is fully out of view
-      if (articleBottom >= scrollPosition) {
-        setShowMobileTOC(true)
-      } else {
+      // Adjust fade-out threshold for mobile TOC
+      // Instead of hiding as soon as the bottom is in view, add a buffer to keep it longer
+      if (articleBottom <= scrollPosition + viewportHeight * 0.3) {
         setShowMobileTOC(false)
       }
     }
