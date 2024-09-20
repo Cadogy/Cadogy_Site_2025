@@ -2,9 +2,9 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="ease-out-cubic mt-40 bg-gray-900/20 transition-[opacity,transform,filter] md:mx-4 md:bg-transparent md:p-0">
+    <footer className="ease-out-cubic mt-40 bg-neutral-900/20 transition-[opacity,transform,filter] md:mx-4 md:bg-transparent md:p-0">
       <div className="mb-20 md:mb-32">
-        <div className="container grid grid-cols-1 gap-20 pt-16 md:grid-cols-2 md:gap-6 md:pt-0 lg:grid-cols-4">
+        <div className="container grid grid-cols-1 gap-6 pt-16 md:grid-cols-2 md:pt-0 lg:grid-cols-4">
           {/* Column 1 */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-2">

@@ -148,7 +148,7 @@ export function NavigationMenu() {
           onClick={closeMenu} // Close the menu on backdrop click
         >
           {/* Close Icon in the Top Right */}
-          <div className="mb-6 flex items-center space-x-1">
+          <div className="mb-6 ml-2 flex items-center space-x-1">
             <svg
               width="20px"
               height="20px"
@@ -165,7 +165,7 @@ export function NavigationMenu() {
           </div>
 
           <ul
-            className="mt-10 space-y-8 text-2xl text-white"
+            className="ml-2 mt-10 space-y-8 text-2xl text-white"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on menu items
           >
             <li>

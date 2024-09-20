@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -170,10 +171,13 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
                   {slide.description}
                 </p>
                 <Link
-                  className="mt-8 inline-block rounded-sm bg-background/70 px-4 py-2 text-white transition-colors md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
+                  className="group mt-8 flex items-center rounded-sm bg-background/70 px-4 py-2 text-white transition duration-500 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
                   href={slide.link}
                 >
-                  Read More
+                  <span className="transition duration-500 group-hover:-translate-x-1">
+                    Read More
+                  </span>
+                  <ArrowRight className="h-5 w-5 transition duration-500 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
