@@ -54,9 +54,9 @@ const ArticlePage: FC = () => {
         <p>
           Piracy has always been a thorn in the side of digital creators, from
           software developers to filmmakers. Throughout my years working on{" "}
-          <strong>anti-piracy systems</strong>, I’ve come to realize that
+          <strong>anti-piracy systems</strong>, I&apos;ve come to realize that
           stopping piracy completely is a complex, multi-layered issue. While
-          building tools for digital rights protection — I've learned that
+          building tools for digital rights protection — I&apos;ve learned that
           real-world challenges go far beyond theory.
         </p>
 
