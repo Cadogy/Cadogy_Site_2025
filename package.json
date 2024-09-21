@@ -44,6 +44,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@t3-oss/env-nextjs": "^0.9.2",
     "@types/mdx": "^2.0.13",
+    "@use-gesture/react": "^10.3.1",
     "axios": "^1.7.7",
     "axois": "^0.0.1-security",
     "bcryptjs": "^2.4.3",
