@@ -10,7 +10,7 @@ import { Icons } from "@/components/icons"
 export default function Home() {
   const slides = [
     {
-      link: "/index/can-piracy-be-stopped",
+      link: "/articles/can-piracy-be-stopped",
       image: "/images/slide_1_bg.jpg",
       altImage: "/images/slide_1_bg_alt.jpg",
       title:
@@ -21,17 +21,7 @@ export default function Home() {
       authorImage: "/images/authors/charles_k_author.jpg",
     },
     {
-      link: "/index/nvidia-ai-gpu-revolution-2024-2025",
-      image: "/images/slide_2_bg.jpg",
-      altImage: "/images/slide_2_bg_alt.jpg",
-      title: "Nvidia's Revolution. GPU Technology Is Changing the Future",
-      description:
-        "Nvidia's latest advancements is setting the stage for a new era in artificial intelligence and machine learning.",
-      authorName: "Dylan",
-      authorImage: "/images/authors/dylan_s_author.jpg",
-    },
-    {
-      link: "/index/how-to-train-your-own-large-language-model-for-business-ai",
+      link: "/articles/how-to-train-your-own-large-language-model-for-business-ai",
       image: "/images/slide_3_bg.jpg",
       altImage: "/images/slide_3_bg_alt_2.jpg",
       title: "Can You Train Your Own Large Language Model?",

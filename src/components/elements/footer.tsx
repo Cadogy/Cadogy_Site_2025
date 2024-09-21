@@ -139,14 +139,14 @@ export function Footer() {
                 The Misc.
               </h3>
               <ul className="flex flex-col items-center gap-2" role="list">
-                {/* <li>
+                <li>
                   <Link
                     href="/articles"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
                     Articles
                   </Link>
-                </li> */}
+                </li>
                 <li>
                   <Link
                     href="/contact-us"

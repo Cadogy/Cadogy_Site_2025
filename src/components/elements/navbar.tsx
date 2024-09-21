@@ -76,11 +76,11 @@ export function NavigationMenu() {
               Who We Are
             </Link>
           </li>
-          {/* <li>
+          <li>
             <Link href="/articles" className="text-sm transition duration-150">
               Articles
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link
               href="/contact-us"
@@ -177,7 +177,7 @@ export function NavigationMenu() {
                 Who We Are
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
                 className="text-slate-200"
                 href="/articles"
@@ -185,7 +185,7 @@ export function NavigationMenu() {
               >
                 Articles
               </Link>
-            </li> */}
+            </li>
             <li>
               <Link
                 className="text-slate-200"

@@ -20,7 +20,7 @@ export function getArticles() {
       date: data.date,
       description: data.description,
       coverImage: `/images/slide_${fileNames.indexOf(fileName) + 1}_bg.jpg`, // Dynamically assign a cover image
-      slug: `/index/${slug}`, // Generate slug link
+      slug: `/articles/${slug}`, // Generate slug link
     }
   })
 
