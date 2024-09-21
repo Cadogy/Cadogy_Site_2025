@@ -23,7 +23,7 @@ export default function SignInPage() {
     setSuccess("")
 
     try {
-      // Use NextAuth's signIn method for credentials
+      // Use NextAuth&apos;s signIn method for credentials
       const res = await signIn("credentials", {
         redirect: false,
         email,

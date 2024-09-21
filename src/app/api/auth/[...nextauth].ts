@@ -1,12 +1,12 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { MongoClient } from "mongodb";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs"
+import { MongoClient } from "mongodb"
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
 // MongoDB connection
-const client = new MongoClient(process.env.MONGODB_URI!);
-const db = client.db("your-database-name");
-const usersCollection = db.collection("users");
+const client = new MongoClient(process.env.MONGODB_URI!)
+const db = client.db("your-database-name")
+const usersCollection = db.collection("users")
 
 export default NextAuth({
   providers: [
@@ -18,17 +18,22 @@ export default NextAuth({
       },
       async authorize(credentials) {
         // Find the user by email
-        const user = await usersCollection.findOne({ email: credentials?.email });
+        const user = await usersCollection.findOne({
+          email: credentials?.email,
+        })
 
         if (!user) {
-          throw new Error("No user found with the email");
+          throw new Error("No user found with the email")
         }
 
         // Check password validity
-        const isValid = await bcrypt.compare(credentials!.password, user.password);
+        const isValid = await bcrypt.compare(
+          credentials!.password,
+          user.password
+        )
 
         if (!isValid) {
-          throw new Error("Invalid password");
+          throw new Error("Invalid password")
         }
 
         // Return the user object if valid
@@ -36,23 +41,23 @@ export default NextAuth({
           id: user._id.toString(),
           name: user.name,
           email: user.email,
-        };
+        }
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.id
       }
-      return token;
+      return token
     },
     async session({ session, token }) {
       // Ensure the session has a user object before assigning the id
       if (session.user) {
-        session.user.id = token.id as string; // Type assertion to ensure it's treated as string
+        session.user.id = token.id as string // Type assertion to ensure it&apos;s treated as string
       }
-      return session;
+      return session
     },
   },
   session: {
@@ -78,4 +83,4 @@ export default NextAuth({
     signOut: "/signout",
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+})

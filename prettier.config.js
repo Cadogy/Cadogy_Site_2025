@@ -1,4 +1,4 @@
-/** @type {import('prettier').Config} */
+/** @type {import(&apos;prettier&apos;).Config} */
 module.exports = {
   endOfLine: "lf",
   semi: false,

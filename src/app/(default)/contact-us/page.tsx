@@ -39,7 +39,7 @@ const ContactPage = () => {
         <div
           className="relative h-1/2 w-full rounded-xl bg-cover bg-center md:h-full md:w-1/2"
           style={{
-            backgroundImage: `url('/images/posts/crowd-people-walking-street.webp')`,
+            backgroundImage: `url(&apos;/images/posts/crowd-people-walking-street.webp&apos;)`,
           }}
         >
           <div className="absolute inset-0 bg-black/50"></div>

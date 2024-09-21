@@ -8,9 +8,9 @@ import { siteConfig } from "@/config/site"
 import ArticleHeader from "@/components/elements/ArticleHeader"
 
 export const metadata: Metadata = {
-  title: `Nvidia’s Revolution: GPU Technology Is Changing the Future`,
+  title: `Nvidia&apos;s Revolution: GPU Technology Is Changing the Future`,
   description:
-    "Nvidia's latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
+    "Nvidia&apos;s latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
   keywords: [
     "Nvidia",
     "AI",
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     "chips",
   ],
   openGraph: {
-    title: `Nvidia’s Revolution: GPU Technology Is Changing the Future`,
+    title: `Nvidia&apos;s Revolution: GPU Technology Is Changing the Future`,
     description:
-      "Nvidia's latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
+      "Nvidia&apos;s latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
     url: `${siteConfig.url.base}/index/nvidia-ai-gpu-revolution-2024-2025`,
     images: [
       {
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Nvidia’s AI Revolution: How GPU Technology Is Changing the Future`,
+    title: `Nvidia&apos;s AI Revolution: How GPU Technology Is Changing the Future`,
     description:
-      "Nvidia's latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
+      "Nvidia&apos;s latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
     images: [siteConfig.ogImage],
   },
 }
@@ -78,7 +78,7 @@ const ArticlePage: FC = () => {
         />
         <p>
           <em>
-            Above: Nvidia's AI-focused GPU technology is paving the way for
+            Above: Nvidia&apos;s AI-focused GPU technology is paving the way for
             faster, smarter computing.
           </em>
         </p>
@@ -109,24 +109,25 @@ const ArticlePage: FC = () => {
 
         <h2 id="ai-chips">The AI Chips That Changed the Game</h2>
         <p>
-          The release of Nvidia's <strong>GH200 Grace Hopper Superchip</strong>{" "}
-          in 2024 marks a significant leap forward in{" "}
-          <strong>AI computing</strong>. With its{" "}
+          The release of Nvidia&apos;s{" "}
+          <strong>GH200 Grace Hopper Superchip</strong> in 2024 marks a
+          significant leap forward in <strong>AI computing</strong>. With its{" "}
           <strong>graceful fusion of CPU and GPU architectures</strong>, this
           chip can handle up to <strong>500 teraflops</strong> of AI
           performance, allowing for unprecedented speed and efficiency in{" "}
           <strong>training deep learning models</strong>.
         </p>
         <p>
-          But it’s not just about raw power. Nvidia’s chips are also pushing the
-          envelope in <strong>energy efficiency</strong>. The GH200’s
-          architecture allows it to <strong>optimize power consumption</strong>,
-          making it a game-changer for data centers that are often limited by
-          energy and cooling constraints.
+          But it&apos;s not just about raw power. Nvidia&apos;s chips are also
+          pushing the envelope in <strong>energy efficiency</strong>. The
+          GH200&apos;s architecture allows it to{" "}
+          <strong>optimize power consumption</strong>, making it a game-changer
+          for data centers that are often limited by energy and cooling
+          constraints.
         </p>
 
         <blockquote>
-          <strong>Fun fact</strong>: Nvidia’s GH200 can train models that
+          <strong>Fun fact</strong>: Nvidia&apos;s GH200 can train models that
           previously took <strong>weeks</strong> to complete in a matter of{" "}
           <strong>days</strong>.
         </blockquote>

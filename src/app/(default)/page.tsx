@@ -26,7 +26,7 @@ export default function Home() {
       altImage: "/images/slide_2_bg_alt.jpg",
       title: "Nvidia’s Revolution. GPU Technology Is Changing the Future",
       description:
-        "Nvidia's latest advancements is setting the stage for a new era in artificial intelligence and machine learning.",
+        "Nvidia&apos;s latest advancements is setting the stage for a new era in artificial intelligence and machine learning.",
       authorName: "Dylan",
       authorImage: "/images/authors/dylan_s_author.jpg",
     },

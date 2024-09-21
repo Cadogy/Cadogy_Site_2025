@@ -9,7 +9,7 @@ import ArticleHeader from "@/components/elements/ArticleHeader"
 
 // Define the article metadata (frontmatter)
 export const metadata: Metadata = {
-  title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
+  title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
   description:
     "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "2024",
   ],
   openGraph: {
-    title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
+    title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
     description:
       "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
     url: `${siteConfig.url.base}/index/how-to-train-your-own-large-language-model-for-business-ai`,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
+    title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
     description:
       "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
     images: [siteConfig.ogImage],
