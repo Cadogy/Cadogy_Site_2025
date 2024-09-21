@@ -2,8 +2,11 @@ import React from "react"
 
 const PrivacyPolicy = () => {
   return (
-    <div className="privacy-policy-container px-4 py-10">
-      <h1 className="mb-6 text-3xl font-bold">Privacy Policy</h1>
+    <div className="privacy-policy-container container px-4 py-10">
+      <div className="mb-[3.5rem] mt-[5rem] flex flex-col items-center">
+        <h2 className="text-[14px] text-muted-foreground">#policies</h2>
+        <h1 className="text-[50px]">Privacy Policy</h1>
+      </div>
       <p>
         Welcome to Cadogy&apos;s Privacy Policy page. Your privacy is critically
         important to us.

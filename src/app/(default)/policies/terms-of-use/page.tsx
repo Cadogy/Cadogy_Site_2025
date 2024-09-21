@@ -2,8 +2,11 @@ import React from "react"
 
 const TermsOfUse = () => {
   return (
-    <div className="terms-of-use-container px-4 py-10">
-      <h1 className="mb-6 text-3xl font-bold">Terms of Use</h1>
+    <div className="terms-of-use-container container px-4 pb-10">
+      <div className="mb-[3.5rem] mt-[5rem] flex flex-col items-center">
+        <h2 className="text-[14px] text-muted-foreground">#policies</h2>
+        <h1 className="text-[50px]">Terms of Use</h1>
+      </div>
       <p>
         Welcome to Cadogy. By accessing or using our website, you agree to
         comply with and be bound by the following terms and conditions.
