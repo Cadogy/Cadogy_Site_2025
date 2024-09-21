@@ -9,7 +9,7 @@ import ArticleHeader from "@/components/elements/ArticleHeader"
 
 // Define the article metadata (frontmatter)
 export const metadata: Metadata = {
-  title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
+  title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
   description:
     "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "2024",
   ],
   openGraph: {
-    title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
+    title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
     description:
       "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
     url: `${siteConfig.url.base}/index/how-to-train-your-own-large-language-model-for-business-ai`,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Can You Train Your Own Large Language Model? It&apos;s Easier Than You Think`,
+    title: `Can You Train Your Own Large Language Model? It's Easier Than You Think`,
     description:
       "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
     images: [siteConfig.ogImage],
@@ -48,6 +48,8 @@ const ArticlePage: FC = () => {
   return (
     <>
       <ArticleHeader
+        authorName="Dylan Safra"
+        authorImage="/images/authors/dylan_s_author.jpg"
         title={metadata.title as string}
         date="September 20th, 2024"
         description={metadata.description as string}
@@ -74,7 +76,7 @@ const ArticlePage: FC = () => {
 
         {/* Main image */}
         <Image
-          src="/images/posts/llm-home-training.jpg"
+          src="/images/posts/img_ix_storage_server_space.png"
           alt="Training a large language model at home"
           width={800}
           height={450}
@@ -171,7 +173,7 @@ const ArticlePage: FC = () => {
           need.
         </p>
         <Image
-          src="/images/posts/ai-training-hardware.jpg"
+          src="/images/posts/jensen_nvidia_ai_processor.jpg"
           alt="AI training on GPUs"
           width={800}
           height={450}
@@ -205,6 +207,8 @@ const ArticlePage: FC = () => {
           automate your workflow in ways that{" "}
           <strong>off-the-shelf models</strong> simply cannot.
         </p>
+
+        <span id="article_end_content"></span>
       </div>
     </>
   )

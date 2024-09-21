@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Footer } from "@/components/elements/footer"
 import { NavigationMenu } from "@/components/elements/navbar"
+import { PageTransition } from "@/components/elements/PageTransition"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -81,7 +82,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <NavigationMenu />
-          <main className="flex flex-col justify-center">{children}</main>
+          <PageTransition>
+            <main className="flex flex-col justify-center">{children}</main>
+          </PageTransition>
           <Footer />
         </ThemeProvider>
       </body>

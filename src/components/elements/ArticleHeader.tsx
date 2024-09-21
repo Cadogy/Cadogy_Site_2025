@@ -31,18 +31,13 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
         <div className="flex flex-col items-center space-y-2 text-center md:flex-row md:items-center md:space-x-2 md:space-y-0 md:text-left">
           {/* Date */}
           <p className="flex items-center text-zinc-300">
-            <CalendarIcon className="mr-1 h-4 w-4" />
             <span className="text-xs text-stone-300">{date}</span>
           </p>
 
           {/* Author Information */}
           <div className="flex items-center">
-            <img
-              src={authorImage}
-              alt={`Profile image of ${authorName}`}
-              className="mr-2 h-8 w-8 rounded-full border border-stone-600"
-            />
-            <span className="text-xs text-gray-400">
+            <span className="hidden md:flex">●</span>
+            <span className="text-xs text-gray-400 md:ml-2">
               Written by <strong className="text-gray-200">{authorName}</strong>
             </span>
           </div>

@@ -6,7 +6,7 @@ import ArticlesHero from "@/components/elements/ArticlesHero"
 
 // Export metadata for the "Articles" page
 export const metadata: Metadata = {
-  title: `Articles - Cadogy`,
+  title: `Articles`,
   description:
     "Explore our collection of articles providing insights and knowledge on various topics including technology, business, and innovation.",
   keywords: [

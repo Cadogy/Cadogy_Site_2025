@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 // Export metadata for the "Contact Us" page
 export const metadata: Metadata = {
-  title: `Contact Us - Cadogy`,
+  title: `Contact Us`,
   description: "Get in touch with us to discuss your project or any inquiries.",
   keywords: ["contact", "support", "inquiries", "business", "project"],
   openGraph: {

@@ -1,4 +1,33 @@
 import React from "react"
+import { Metadata } from "next"
+
+import { siteConfig } from "@/config/site"
+
+export const metadata: Metadata = {
+  title: `Terms of Use`,
+  description:
+    "Welcome to Cadogy's Terms of Use page. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
+  keywords: ["company", "mission", "team", "digital experiences", "innovation"],
+  openGraph: {
+    title: `Terms of Use - Cadogy`,
+    description:
+      "Welcome to Cadogy's Terms of Use page. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
+    url: `${siteConfig.url.base}/who-we-are`,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        alt: `${siteConfig.name} - Terms of Use`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Terms of Use | ${siteConfig.name}`,
+    description:
+      "Welcome to Cadogy's Terms of Use. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
+    images: [siteConfig.ogImage],
+  },
+}
 
 const TermsOfUse = () => {
   return (

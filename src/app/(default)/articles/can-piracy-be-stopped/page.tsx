@@ -141,7 +141,7 @@ const ArticlePage: FC = () => {
         </p>
 
         <Image
-          src="/images/posts/Locked_world_map_representing_geographic_restrictions.webp"
+          src="/images/posts/pexels-pixabay-257904-1-scaled.jpg"
           alt="Geographic restrictions locking digital content"
           width={800}
           height={450}

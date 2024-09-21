@@ -48,6 +48,8 @@ const NvidiaRevolutionArticlePage: FC = () => {
   return (
     <>
       <ArticleHeader
+        authorName="Dylan Safra"
+        authorImage="/images/authors/dylan_s_author.jpg"
         title={metadata.title as string}
         date="October 1st, 2024"
         description={metadata.description as string}
@@ -71,7 +73,7 @@ const NvidiaRevolutionArticlePage: FC = () => {
 
         {/* Main image */}
         <Image
-          src="/images/posts/nvidia-gpu-chips.jpg"
+          src="/images/posts/nvidia_gpu_ai_advancements.jpg"
           alt="Nvidia GPU chips"
           width={800}
           height={450}
@@ -212,7 +214,7 @@ const NvidiaRevolutionArticlePage: FC = () => {
         </p>
 
         <Image
-          src="/images/posts/nvidia-gaming-gpu.jpg"
+          src="/images/posts/rtx-5000-og.jpg"
           alt="Nvidia RTX 5000 series"
           width={800}
           height={450}
@@ -285,6 +287,8 @@ const NvidiaRevolutionArticlePage: FC = () => {
           you see these technologies impacting the future of AI? Let&apos;s
           start a conversation below.
         </p>
+
+        <span id="article_end_content"></span>
       </div>
     </>
   )

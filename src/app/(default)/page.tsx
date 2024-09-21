@@ -3,6 +3,7 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { FullWidthCTA } from "@/components/elements/fullWidthCTA"
 import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import TextSlideEffect from "@/components/elements/TextSlideEffect"
 import { Icons } from "@/components/icons"
@@ -46,6 +47,7 @@ export default function Home() {
     <>
       <HeroCarousel slides={slides} />
       <TextSlideEffect />
+      <FullWidthCTA />
     </>
   )
 }

@@ -1,4 +1,33 @@
 import React from "react"
+import { Metadata } from "next"
+
+import { siteConfig } from "@/config/site"
+
+export const metadata: Metadata = {
+  title: `Privacy Policy`,
+  description:
+    "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
+  keywords: ["company", "mission", "team", "digital experiences", "innovation"],
+  openGraph: {
+    title: `Privacy Policy - Cadogy`,
+    description:
+      "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
+    url: `${siteConfig.url.base}/who-we-are`,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        alt: `${siteConfig.name} - Privacy Policy`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Privacy Policy | ${siteConfig.name}`,
+    description:
+      "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
+    images: [siteConfig.ogImage],
+  },
+}
 
 const PrivacyPolicy = () => {
   return (
