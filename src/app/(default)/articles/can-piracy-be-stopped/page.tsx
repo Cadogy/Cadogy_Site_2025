@@ -57,20 +57,23 @@ const ArticlePage: FC = () => {
       />
       <div className="prose container mx-auto selection:bg-stone-200/10 selection:text-stone-300">
         <p>
-          Piracy has always been a thorn in the side of digital creators, from
-          software developers to filmmakers. Throughout my years working on{" "}
-          <strong> anti-piracy systems</strong>, I&apos;ve come to realize that
-          stopping piracy completely is a complex, multi-layered issue. While
-          building tools for digital rights protection — I&apos;ve learned that
-          real-world challenges go far beyond theory.
+          Over the years, working with clients who host downloadable content for
+          games like <a href="https://www.minecraft.net/">Minecraft</a>,{" "}
+          <a href="https://www.roblox.com/">Roblox</a>,{" "}
+          <a href="https://unity.com/">Unity</a>, and{" "}
+          <a href="https://www.unrealengine.com/en-US">Unreal Engine</a>, I’ve
+          seen piracy from all angles. When you’re developing anti-piracy
+          solutions, it’s easy to get caught up in the technical side of things,
+          but the real-world challenges go so much deeper.
         </p>
-
         <p>
-          But is it possible to stop piracy altogether? And if so, what would be
-          required to achieve it?
+          One of the most common questions I get is: Can piracy ever be stopped
+          completely? The short answer is no. But the long answer is far more
+          interesting. It’s not just about outsmarting pirates with technology,
+          it’s about understanding the core reasons why piracy exists and how we
+          can minimize its impact.
         </p>
 
-        {/* Main image */}
         <Image
           src="/images/posts/crowd-people-walking-street.webp"
           alt="Global wave of piracy affecting digital content"
@@ -80,85 +83,64 @@ const ArticlePage: FC = () => {
         />
         <p>
           <em>
-            Above: The surge of digital piracy feels like an endless game of cat
-            and mouse, but with experience, you learn where to set the traps.
+            Above: Piracy feels like an endless game of cat and mouse. But over
+            time, you start learning where to focus your efforts.
           </em>
         </p>
 
         <hr />
 
-        <p>In my experience, piracy thrives for three primary reasons:</p>
+        <p>
+          In my experience, piracy of digitally downloaded content thrives for
+          one core reason:
+        </p>
         <ul>
           <li>
-            <strong> Cost barriers</strong>: Not everyone can afford the
-            software or media they want or need.
-          </li>
-          <li>
-            <strong> Geographic restrictions</strong>: Access to certain content
-            is blocked in specific regions, leading to frustration.
-          </li>
-          <li>
-            <strong> Delayed access</strong>: Some users pirate simply because
-            content isn&apos;t available when they want it or when they can
-            afford it.
+            <strong>Cost barriers:</strong> Many people simply can’t afford the
+            game assets, tools, or mods they want or need.
           </li>
         </ul>
 
         <h2 id="fingerprinting">Is Fingerprinting Digital Content Enough?</h2>
 
         <p>
-          A few years ago, while working on a project for{" "}
-          <a href="https://xenforo.com/">XenForo</a>, we faced a major issue
-          with
-          <strong> intellectual property violations</strong>. Clients who
-          uploaded resources to the XenForo Resource Manager (XFRM) system
-          wanted a way to protect their digital materials from unauthorized
-          distribution. Traditional methods like
-          <strong> DRM</strong> felt clunky and easily circumventable, so we
-          developed a custom solution—an add-on that fingerprints every download
-          handled by the XFRM.
+          One of the biggest breakthroughs we had was with{" "}
+          <strong>fingerprinting</strong> digital content. Working with a
+          project for <a href="https://xenforo.com/">XenForo</a>, we needed to
+          protect digital uploads in the Resource Manager. Simply marking files
+          with identifiers wasn’t enough, so we built a system that embedded{" "}
+          <strong>unique identifiers</strong> into every download.
         </p>
 
         <p>
-          This fingerprinting wasn&apos;t just about marking the content. We
-          embedded <strong> unique identifiers</strong> into each download,
-          allowing us to track where and how each file was distributed. It
-          wasn&apos;t foolproof, but it provided an additional layer of
-          security. If pirated versions of the content surfaced, we could trace
-          it back to the original user, making piracy more trackable and
-          manageable.
+          But even then, we realized static fingerprinting wasn’t enough. That’s
+          when we moved to <strong>dynamic fingerprinting</strong>. Instead of a
+          fixed identifier, we added context-sensitive markers. These could be
+          subtle changes in metadata or even tiny alterations in file
+          structure—things that don’t affect the end user but give us the
+          ability to trace and track pirated versions.
         </p>
 
-        <hr />
-
-        <h3>Going Beyond Simple Tracking</h3>
+        <h3>Embedding in Audio and Text Files</h3>
 
         <p>
-          While traditional fingerprinting marks a piece of content with a
-          unique identifier, we quickly realized that
-          <strong> dynamic fingerprinting</strong> was a more powerful approach.
-          Instead of using a static identifier, dynamic fingerprinting embeds{" "}
-          <strong> context-sensitive markers</strong> into the content. These
-          could be slight variations in word choice, structure, or
-          metadata—things that don&apos;t alter the user experience but can
-          uniquely identify the content.
+          One particularly interesting technique was embedding identifiers into{" "}
+          <strong>audio files</strong>—MP3s, WAVs, etc. We’d tweak metadata
+          fields, like artist name or track numbers, to hide unique markers. In
+          some cases, we even adjusted frequencies that weren’t perceptible to
+          the human ear, creating a hidden layer of tracking.
         </p>
-
-        <h2 id="lessons-learned">
-          Building Anti-Piracy Tools: Lessons Learned
-        </h2>
 
         <p>
-          Despite these measures, we quickly learned that{" "}
-          <strong> determined pirates</strong> will always find ways to bypass
-          protections. The takeaway?{" "}
-          <strong> Technical solutions can slow piracy</strong>, but they rarely
-          stop it altogether. Instead, they often end up in a{" "}
-          <strong> cat-and-mouse game</strong>, where each side innovates faster
-          than the other.
+          For <strong>text-based content</strong> like YML, XML, HTML, and PHP
+          files, we had even more flexibility. We could change word order, add
+          invisible spaces, or insert custom tags in ways that wouldn’t affect
+          functionality but would leave a unique fingerprint. Every file could
+          be tracked live, and if a pirated version appeared online, we’d match
+          it to the original user through the embedded identifiers in our
+          database.
         </p>
 
-        {/* Secondary image */}
         <Image
           src="/images/posts/Locked_world_map_representing_geographic_restrictions.webp"
           alt="Geographic restrictions locking digital content"
@@ -168,9 +150,22 @@ const ArticlePage: FC = () => {
         />
         <p>
           <em>
-            Above: Geographic restrictions are a common driver of piracy,
-            locking users out of content they&apos;re willing to pay for.
+            Above: Geographic restrictions are another major driver of piracy,
+            locking users out of content they’re willing to pay for.
           </em>
+        </p>
+
+        <h2 id="lessons-learned">
+          Lessons Learned from Building Anti-Piracy Tools
+        </h2>
+
+        <p>
+          What we quickly realized is that{" "}
+          <strong>pirates will always find a way around protections</strong>.
+          It’s a constant back-and-forth between developers and those looking to
+          exploit the system. The real focus shouldn’t just be on locking
+          pirates out, but on{" "}
+          <strong>reducing the reasons they pirate in the first place</strong>.
         </p>
 
         <hr />
@@ -178,87 +173,56 @@ const ArticlePage: FC = () => {
         <h2 id="what-it-takes">What Would It Take to Stop Piracy?</h2>
 
         <p>
-          From my experience, the key to reducing piracy isn&apos;t just
-          creating stronger DRM or taking legal action. It&apos;s about
-          addressing the <strong> root causes</strong>—access and affordability.
-          Here&apos;s what needs to change:
+          After years of working on anti-piracy solutions, I’ve come to realize
+          the key isn’t in more restrictions or harsher legal action. It’s about
+          addressing the <strong>core issues</strong> that lead to piracy:
+          access and affordability.
         </p>
 
         <h3>1. More Flexible Pricing Models</h3>
         <p>
-          I&apos;ve seen firsthand how pricing structures can fuel piracy.
-          During a project with a client offering global software licenses, we
-          explored <strong> tiered pricing</strong>—charging lower rates in
-          regions where purchasing power is limited. By adjusting prices for
-          different markets, we were able to reduce piracy significantly in
-          those regions.
+          In one project, we experimented with <strong>tiered pricing</strong>{" "}
+          based on regional economies. By matching the general incomes from
+          different regions, we saw something interesting: users in lower-income
+          areas were far more likely to purchase content when the price was
+          adjusted to be affordable for them. Instead of sticking to one general
+          price for everyone, we adapted our pricing to fit each region’s
+          purchasing power.
+        </p>
+
+        <p>
+          The result? Piracy dropped significantly in those areas. We realized
+          that for many users, piracy wasn’t always a first choice—they turned
+          to it because the general price of content was simply out of reach. By
+          making the content affordable according to local economic conditions,
+          users preferred to buy the legitimate version rather than resorting to
+          piracy.
         </p>
 
         <blockquote>
-          <strong> Solution:</strong> Price digital content based on{" "}
-          <strong> local economies</strong>, ensuring that software, media, and
-          tools are affordable everywhere.
+          <strong>Solution:</strong> Price digital content based on{" "}
+          <strong>local economies</strong>. When it’s affordable, people are far
+          more likely to pay, reducing the incentive to pirate.
         </blockquote>
-
-        <h3>2. Global Accessibility</h3>
-        <p>
-          A lot of the piracy I&apos;ve encountered stems from{" "}
-          <strong> geographic restrictions</strong>. In one case, we worked with
-          a digital platform that only offered their service in select regions,
-          locking out users in other parts of the world. Naturally, users from
-          those restricted regions turned to piracy, not because they
-          didn&apos;t want to pay, but because they couldn&apos;t legally access
-          the service.
-        </p>
-
-        <blockquote>
-          <strong> Solution:</strong> Break down{" "}
-          <strong> regional locks</strong> and release digital content globally.
-          When legal access is available to everyone, piracy loses its appeal.
-        </blockquote>
-
-        <hr />
-
-        <h2 id="reality">The Reality of Piracy: Can It Be Stopped?</h2>
-
-        <p>
-          From my years of working on anti-piracy solutions, I&apos;ve come to a
-          simple conclusion: <strong> piracy cannot be fully stopped</strong>.
-          As long as there are barriers to access—whether due to cost,
-          geography, or availability—people will find ways to circumvent the
-          system.
-        </p>
-
-        <p>
-          That being said, piracy can be <strong> drastically reduced</strong>{" "}
-          by creating systems that make legal access easier, more affordable,
-          and globally available. In my experience, the best approach isn&apos;t
-          to try and outsmart the pirates, but to create systems that make
-          piracy
-          <strong> unnecessary</strong>.
-        </p>
 
         <h2>Final Thoughts</h2>
 
         <p>
-          Piracy isn&apos;t just a technical issue, it&apos;s a{" "}
-          <strong> social and economic</strong> one. If we want to reduce
-          piracy, we need to build a system that works for{" "}
-          <strong> both creators and consumers</strong>. This means:
+          Piracy isn’t just a technical challenge; it’s a{" "}
+          <strong>social and economic issue</strong>. If we want to reduce it,
+          we need to create a system that works for both{" "}
+          <strong>creators and consumers</strong>.
         </p>
 
         <ul>
-          <li>Affordable pricing models</li>
-          <li>Global content access</li>
-          <li>Direct-to-creator support systems</li>
+          <li>Flexible pricing models that reflect local economies</li>
+          <li>Global access and direct support systems for creators</li>
         </ul>
 
         <p>
-          These steps won&apos;t stop piracy overnight, but they will go a long
-          way in addressing the root causes of the problem. In the end, the best
-          way to combat piracy is to{" "}
-          <strong> build a better digital ecosystem</strong>
-          —one that values both creators and consumers alike.
+          These steps might not end piracy overnight, but they’ll help shift the
+          balance. The real solution lies in building a better, more inclusive
+          digital ecosystem—one that benefits both creators and users.
         </p>
       </div>
     </>

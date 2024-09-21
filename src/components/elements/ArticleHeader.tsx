@@ -28,7 +28,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
           <CalendarIcon className="mr-1 h-4 w-4" />
           Published on <span className="mx-1 text-stone-300">{date}</span>
         </p>
-        <div className="flex flex-col justify-center space-y-2">
+        <div className="hidden flex-col justify-center space-y-2 md:flex">
           {/* Keywords */}
           <div className="mt-2 flex flex-wrap gap-3 pt-2 md:absolute md:bottom-0 md:justify-center md:rounded-t-lg md:bg-background md:px-3">
             {keywords.map((keyword, index) => (

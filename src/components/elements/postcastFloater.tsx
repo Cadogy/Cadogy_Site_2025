@@ -145,14 +145,12 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       {/* Toggle Button for Advanced Controls */}
       <button
         onClick={toggleAdvanced}
-        className={`text-gray-400 hover:text-gray-300 ${
-          isMobile ? "my-2" : "my-2"
-        }`}
+        className={`text-gray-400 hover:text-gray-300 ${isMobile ? "my-2 hidden" : "my-2"}`}
       >
         {showAdvanced ? (
-          <FaChevronDown className="h-4 w-4" />
+          <FaChevronDown className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         ) : (
-          <FaChevronUp className="h-4 w-4" />
+          <FaChevronUp className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         )}
       </button>
 
@@ -185,12 +183,14 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       </div>
 
       {/* Play/Pause and Skip Controls */}
-      <div className="flex w-full items-center justify-between space-x-3 p-3">
+      <div
+        className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "" : "pt-0"}`}
+      >
         <button
           onClick={skipBackward}
           className="text-gray-400 hover:text-gray-300"
         >
-          <FaBackward className="h-6 w-6" />
+          <FaBackward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         </button>
 
         <button
@@ -198,9 +198,9 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
           className="text-gray-400 hover:text-gray-300"
         >
           {isPlaying ? (
-            <FaPause className="h-6 w-6" />
+            <FaPause className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
           ) : (
-            <FaPlay className="h-6 w-6" />
+            <FaPlay className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
           )}
         </button>
 
@@ -208,11 +208,13 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
           onClick={skipForward}
           className="text-gray-400 hover:text-gray-300"
         >
-          <FaForward className="h-6 w-6" />
+          <FaForward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         </button>
 
         <div className="flex items-center space-x-2">
-          <FaVolumeUp className="h-5 w-5 text-gray-400" />
+          <FaVolumeUp
+            className={`${isMobile ? "h-6 w-6" : "h-4 w-4"} text-gray-400`}
+          />
           <input
             type="range"
             min="0"
