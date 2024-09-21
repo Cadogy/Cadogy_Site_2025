@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 }
 
 // Page component
-const ArticlePage: FC = () => {
+const StopPiracyArticlePage: FC = () => {
   return (
     <>
       <ArticleHeader
@@ -257,4 +257,4 @@ const ArticlePage: FC = () => {
   )
 }
 
-export default ArticlePage
+export default StopPiracyArticlePage
