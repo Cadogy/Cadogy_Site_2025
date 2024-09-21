@@ -25,8 +25,11 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
+  const [isMuted, setIsMuted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isPassedEndContent, setIsPassedEndContent] = useState(false) // New state to track passing the article end
 
   const scrubberRef = useRef<HTMLInputElement>(null)
 
@@ -66,6 +69,53 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
     }
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const articleHeight =
+        document.documentElement.scrollHeight - window.innerHeight
+
+      // Show the player after scrolling down a certain percentage of the article
+      if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [isPassedEndContent])
+
+  // New observer for the article end content
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting) {
+          setIsPassedEndContent(true) // When article end is reached, set this to true
+        } else {
+          setIsPassedEndContent(false) // When not reached, set this to false
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the article end content is visible
+    )
+
+    const endContent = document.querySelector("#article_end_content")
+    if (endContent) {
+      observer.observe(endContent)
+    }
+
+    return () => {
+      if (endContent) {
+        observer.unobserve(endContent)
+      }
+    }
+  }, [])
+
   const togglePlayPause = () => {
     if (audio) {
       if (isPlaying) {
@@ -98,10 +148,17 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   }
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (audio) {
-      const newVolume = Number(e.target.value)
-      audio.volume = newVolume
-      setVolume(newVolume)
+    const newVolume = parseFloat(e.target.value)
+    setVolume(newVolume)
+    setIsMuted(newVolume === 0) // If volume is 0, set muted state
+  }
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted)
+    if (!isMuted) {
+      setVolume(0) // Mute by setting volume to 0
+    } else {
+      setVolume(1) // Restore volume to full when unmuted
     }
   }
 
@@ -119,33 +176,19 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
     <div
       className={`fixed z-50 flex select-none flex-col items-center text-sm backdrop-blur-md transition-all duration-300 ${
         isMobile
-          ? "bottom-0 left-0 w-full bg-neutral-800/30 text-white"
-          : "bottom-4 right-4 space-y-2 rounded-md bg-neutral-800/30"
+          ? `bottom-[5px] left-0 right-0 mx-auto w-[96%] overflow-hidden rounded-lg bg-neutral-800/30 text-white ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`
+          : `bottom-4 right-4 space-y-2 rounded-md bg-neutral-800/30 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`
       }`}
+      style={{ transition: "opacity 0.5s ease-in-out" }}
     >
-      {/* Thin scrubber line, visible only when advanced controls are hidden */}
-      {!showAdvanced && (
-        <input
-          type="range"
-          ref={scrubberRef}
-          min="0"
-          max={duration}
-          value={currentTime}
-          onChange={handleScrubberChange}
-          className={`h-1 w-full appearance-none bg-gray-400 transition-opacity duration-300 ease-in-out ${
-            isMobile && !showAdvanced ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            appearance: "none",
-            background: scrubberColor,
-          }}
-        />
-      )}
-
       {/* Toggle Button for Advanced Controls */}
       <button
         onClick={toggleAdvanced}
-        className={`text-gray-400 hover:text-gray-300 ${isMobile ? "my-2 hidden" : "my-2"}`}
+        className={`text-gray-400 hover:text-gray-300 ${isMobile ? "mt-1 hidden" : "mt-1"}`}
       >
         {showAdvanced ? (
           <FaChevronDown className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
@@ -184,18 +227,18 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
 
       {/* Play/Pause and Skip Controls */}
       <div
-        className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "" : "pt-0"}`}
+        className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "p-4" : "pt-0"}`}
       >
         <button
           onClick={skipBackward}
-          className="text-gray-400 hover:text-gray-300"
+          className="text-slate-300 hover:text-slate-300"
         >
           <FaBackward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         </button>
 
         <button
           onClick={togglePlayPause}
-          className="text-gray-400 hover:text-gray-300"
+          className="text-slate-300 hover:text-slate-300"
         >
           {isPlaying ? (
             <FaPause className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
@@ -206,21 +249,24 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
 
         <button
           onClick={skipForward}
-          className="text-gray-400 hover:text-gray-300"
+          className="text-slate-300 hover:text-slate-300"
         >
           <FaForward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
         </button>
 
         <div className="flex items-center space-x-2">
           <FaVolumeUp
-            className={`${isMobile ? "h-6 w-6" : "h-4 w-4"} text-gray-400`}
+            onClick={toggleMute}
+            className={`${isMobile ? "h-6 w-6" : "h-4 w-4"} ${
+              isMuted ? "text-stone-300" : "text-slate-400"
+            } cursor-pointer`}
           />
           <input
             type="range"
             min="0"
             max="1"
             step="0.01"
-            value={volume}
+            value={isMuted ? 0 : volume}
             onChange={handleVolumeChange}
             className="w-20"
           />

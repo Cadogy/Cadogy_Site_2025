@@ -50,6 +50,8 @@ const ArticlePage: FC = () => {
         scrubberColor="hsl(0deg 100%,79.31%,50%)"
       />
       <ArticleHeader
+        authorName="Charles Knapp"
+        authorImage="/images/authors/charles_k_author.jpg"
         title={metadata.title as string}
         date="September 19th, 2024"
         description={metadata.description as string}
@@ -62,16 +64,13 @@ const ArticlePage: FC = () => {
           <a href="https://www.roblox.com/">Roblox</a>,{" "}
           <a href="https://unity.com/">Unity</a>, and{" "}
           <a href="https://www.unrealengine.com/en-US">Unreal Engine</a>, I’ve
-          seen piracy from all angles. When you’re developing anti-piracy
-          solutions, it’s easy to get caught up in the technical side of things,
-          but the real-world challenges go so much deeper.
+          seen piracy from all angles.
         </p>
         <p>
           One of the most common questions I get is: Can piracy ever be stopped
-          completely? The short answer is no. But the long answer is far more
-          interesting. It’s not just about outsmarting pirates with technology,
-          it’s about understanding the core reasons why piracy exists and how we
-          can minimize its impact.
+          completely? The short answer is no. It’s not just about outsmarting
+          pirates with technology, it’s about understanding the core reasons why
+          piracy exists and how we can minimize its impact.
         </p>
 
         <Image
@@ -92,7 +91,7 @@ const ArticlePage: FC = () => {
 
         <p>
           In my experience, piracy of digitally downloaded content thrives for
-          one core reason:
+          one primary reason:
         </p>
         <ul>
           <li>
@@ -107,8 +106,8 @@ const ArticlePage: FC = () => {
           One of the biggest breakthroughs we had was with{" "}
           <strong>fingerprinting</strong> digital content. Working with a
           project for <a href="https://xenforo.com/">XenForo</a>, we needed to
-          protect digital uploads in the Resource Manager. Simply marking files
-          with identifiers wasn’t enough, so we built a system that embedded{" "}
+          protect digital uploads in the Resource Manager. Since XenForo doesn’t
+          offer this type of system inherently, We built a system that embedded{" "}
           <strong>unique identifiers</strong> into every download.
         </p>
 
@@ -127,17 +126,17 @@ const ArticlePage: FC = () => {
           One particularly interesting technique was embedding identifiers into{" "}
           <strong>audio files</strong>—MP3s, WAVs, etc. We’d tweak metadata
           fields, like artist name or track numbers, to hide unique markers. In
-          some cases, we even adjusted frequencies that weren’t perceptible to
-          the human ear, creating a hidden layer of tracking.
+          some cases, we even embedded text data into audio files, creating a
+          unusual hidden layer of tracking.
         </p>
 
         <p>
           For <strong>text-based content</strong> like YML, XML, HTML, and PHP
           files, we had even more flexibility. We could change word order, add
-          invisible spaces, or insert custom tags in ways that wouldn’t affect
-          functionality but would leave a unique fingerprint. Every file could
-          be tracked live, and if a pirated version appeared online, we’d match
-          it to the original user through the embedded identifiers in our
+          invisible spaces, or insert custom tags or code in ways that wouldn’t
+          affect functionality but would leave a unique fingerprint. Every file
+          could be tracked live, and if a pirated version appeared online, we’d
+          match it to the original user through the embedded identifiers in our
           database.
         </p>
 
@@ -150,8 +149,8 @@ const ArticlePage: FC = () => {
         />
         <p>
           <em>
-            Above: Geographic restrictions are another major driver of piracy,
-            locking users out of content they’re willing to pay for.
+            Above: Geographic economic restrictions are another major driver of
+            piracy, locking users out of content they’re willing to pay for.
           </em>
         </p>
 
@@ -179,7 +178,7 @@ const ArticlePage: FC = () => {
           access and affordability.
         </p>
 
-        <h3>1. More Flexible Pricing Models</h3>
+        <h3>More Flexible Pricing Models</h3>
         <p>
           In one project, we experimented with <strong>tiered pricing</strong>{" "}
           based on regional economies. By matching the general incomes from
@@ -224,6 +223,8 @@ const ArticlePage: FC = () => {
           balance. The real solution lies in building a better, more inclusive
           digital ecosystem—one that benefits both creators and users.
         </p>
+
+        <span id="article_end_content"></span>
       </div>
     </>
   )

@@ -38,9 +38,9 @@ export function Footer() {
   }
 
   return (
-    <footer className="ease-out-cubic mt-40 bg-neutral-900/20 transition-[opacity,transform,filter] md:mx-4 md:bg-transparent md:p-0">
+    <footer className="ease-out-cubic mt-36 bg-neutral-900/20 transition-[opacity,transform,filter] md:mx-4 md:mt-40 md:bg-transparent md:p-0">
       <div className="mb-20 md:mb-32">
-        <div className="container grid min-h-[74vh] grid-cols-1 gap-6 pl-0 pr-0 pt-16 md:min-h-fit md:grid-cols-2 md:pt-0 lg:grid-cols-4">
+        <div className="container grid grid-cols-1 gap-6 pl-0 pr-0 pt-16 md:grid-cols-2 md:pt-0 lg:grid-cols-4">
           {/* Column 1 */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-2">
