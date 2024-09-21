@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button"
 
 // Export metadata for the "Contact Us" page
 export const metadata: Metadata = {
-  title: `Contact Us`,
+  title: `Contact Us - Cadogy`,
   description: "Get in touch with us to discuss your project or any inquiries.",
   keywords: ["contact", "support", "inquiries", "business", "project"],
   openGraph: {
-    title: `Contact Us`,
+    title: `Contact Us - Cadogy`,
     description:
       "Reach out to our team for business inquiries, support, or collaborations.",
     url: `${siteConfig.url.base}/contact-us`,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Contact Us`,
+    title: `Contact Us - Cadogy`,
     description:
       "Have questions? Contact us for support, project discussions, or general inquiries.",
     images: [siteConfig.ogImage],

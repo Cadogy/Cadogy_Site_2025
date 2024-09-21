@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button"
 
 // Export metadata for this specific page
 export const metadata: Metadata = {
-  title: `Who We Are`,
+  title: `Who We Are - Cadogy`,
   description:
     "Learn more about our mission, approach, and team at our company.",
   keywords: ["company", "mission", "team", "digital experiences", "innovation"],
   openGraph: {
-    title: `Who We Are`,
+    title: `Who We Are - Cadogy`,
     description:
       "Discover our team of passionate innovators and learn more about how we shape the future of digital experiences.",
     url: `${siteConfig.url.base}/who-we-are`,
