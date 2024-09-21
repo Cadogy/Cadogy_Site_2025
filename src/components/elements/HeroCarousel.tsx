@@ -183,9 +183,9 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
                   href={slide.link}
                 >
                   <span className="transition duration-500 group-hover:-translate-x-1">
-                    Articles Coming Soon
+                    Read More
                   </span>
-                  {/* <ArrowRight className="ml-1 h-4 w-4 text-slate-200 transition duration-500 group-hover:translate-x-1 " /> */}
+                  <ArrowRight className="ml-1 h-4 w-4 text-slate-200 transition duration-500 group-hover:translate-x-1 " />
                 </Link>
               </div>
             </div>

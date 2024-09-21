@@ -12,18 +12,16 @@ export default function SignInPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    // Reset any previous error or success messages
     setError("")
-    setSuccess("")
+    setLoading(true)
 
     try {
-      // Use NextAuth's signIn method for credentials
+      // Sign in via NextAuth's credentials provider
       const res = await signIn("credentials", {
         redirect: false,
         email,
@@ -33,13 +31,12 @@ export default function SignInPage() {
       if (res?.error) {
         setError("Invalid email or password")
       } else {
-        setSuccess("Sign in successful! Redirecting...")
-        setTimeout(() => {
-          router.push("/dashboard") // Redirect to dashboard upon success
-        }, 2000)
+        router.push("/dashboard")
       }
     } catch (err) {
       setError("An unexpected error occurred")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -47,26 +44,18 @@ export default function SignInPage() {
     <div className="mx-auto flex min-h-screen w-full flex-col md:flex-row">
       {/* Left Side */}
       <div className="hidden w-full flex-col justify-between bg-white/10 p-12 text-white backdrop-blur-sm md:flex md:w-1/2">
-        <div>
-          <Link
-            className="rounded-md border border-white/10 px-4 py-2 text-sm text-gray-300"
-            href="/"
-          >
-            Go Back
-          </Link>
-        </div>
-        <div>
-          <p className="text-md">
-            “We are committed to providing public goods that help society. Our
-            primary fiduciary duty is to humanity.”
-          </p>
-        </div>
+        <Link className="rounded-md px-4 py-2 text-sm text-gray-300" href="/">
+          Go Back
+        </Link>
+        <p className="text-md">
+          “We are committed to providing public goods that help society. Our
+          primary fiduciary duty is to humanity.”
+        </p>
       </div>
 
       {/* Right Side */}
       <div className="flex h-full w-full items-center justify-center bg-background p-12 md:h-auto lg:w-1/2">
         <div className="w-full max-w-md">
-          {/* Logo Section with Cipher Effect */}
           <Link href="/" className="mb-6 flex items-center justify-center">
             <svg
               width="48px"
@@ -86,9 +75,6 @@ export default function SignInPage() {
           </h2>
           <form onSubmit={handleSubmit}>
             {error && <p className="mb-4 text-center text-red-500">{error}</p>}
-            {success && (
-              <p className="mb-4 text-center text-green-500">{success}</p>
-            )}
             <Input
               type="email"
               placeholder="Email address"
@@ -105,13 +91,15 @@ export default function SignInPage() {
               className="mb-4"
               required
             />
-
-            <Button type="submit" className="mb-4 w-full active:scale-95">
-              Sign In
+            <Button
+              type="submit"
+              className="mb-4 w-full active:scale-95"
+              disabled={loading}
+            >
+              {loading ? "Signing in..." : "Sign In"}
             </Button>
-
             <p className="text-center text-sm text-gray-400">
-              Dont have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/signup" className="text-blue-500">
                 Create one
               </Link>

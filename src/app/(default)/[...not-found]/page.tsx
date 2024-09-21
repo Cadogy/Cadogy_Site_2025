@@ -1,5 +1,35 @@
 // src/app/404/page.tsx
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "404 - Page Not Found",
+  description:
+    "The page you are looking for does not exist. Return to the homepage.",
+  openGraph: {
+    title: "404 - Page Not Found",
+    description:
+      "Oops! The page you are looking for does not exist. Head back to the homepage.",
+    url: "/404",
+    images: [
+      {
+        url: "/images/404-error-image.png", // Make sure this image exists in your public directory
+        alt: "404 - Page Not Found",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "404 - Page Not Found",
+    description: "This page does not exist. Return to the homepage.",
+    images: [
+      {
+        url: "/images/404-error-image.png", // Same image as OpenGraph or another you prefer for Twitter
+        alt: "404 - Page Not Found",
+      },
+    ],
+  },
+}
 
 export default function Custom404() {
   return (
