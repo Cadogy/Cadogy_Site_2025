@@ -1,15 +1,20 @@
 "use client"
 
-import Link from "next/link"
-
-import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export function FullWidthCTA() {
+  const [showModal, setShowModal] = useState(false)
+
+  const toggleModal = () => {
+    setShowModal((prev) => !prev)
+  }
+
   return (
     <>
+      {/* Main content */}
       <div className="relative overflow-hidden">
         <div className="mx-auto max-w-[85rem] px-4 py-4 sm:px-6 sm:py-24 lg:px-8">
-          <div className="text-center">
+          <div className="mt-3 text-center md:mt-0">
             <h1 className="text-4xl text-gray-800 dark:text-neutral-200 sm:text-6xl">
               Ask Us Anything
             </h1>
@@ -18,10 +23,10 @@ export function FullWidthCTA() {
               Chat with the digital agents of Charles and Dylan.
             </p>
 
-            <div className="relative mx-auto mt-7 max-w-xl sm:mt-12">
+            <div className="relative mx-auto mt-3 max-w-xl sm:mt-12">
               {/* Form */}
               <form>
-                <div className="relative z-10 flex gap-x-3 rounded-lg border bg-white p-3 shadow-lg shadow-gray-100 dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-gray-900/20">
+                <div className="relative z-10 flex gap-x-3 rounded-lg border bg-white p-2 shadow-lg shadow-gray-100 dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-gray-900/20">
                   <div className="w-full">
                     <label
                       htmlFor="hs-search-article-1"
@@ -38,9 +43,10 @@ export function FullWidthCTA() {
                     />
                   </div>
                   <div>
-                    <a
+                    <button
+                      type="button"
+                      onClick={toggleModal}
                       className="inline-flex size-[46px] items-center justify-center gap-x-2 rounded-md border border-transparent bg-white/30 text-sm font-medium text-white hover:bg-white/40 focus:bg-white/50 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-                      href="#"
                     >
                       <svg
                         className="size-5 shrink-0"
@@ -57,7 +63,7 @@ export function FullWidthCTA() {
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.3-4.3" />
                       </svg>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -116,6 +122,28 @@ export function FullWidthCTA() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
+          <div className="relative w-full max-w-2xl rounded-lg bg-white p-8 shadow-lg dark:bg-neutral-900">
+            <h2 className="mb-4 text-3xl font-semibold text-gray-800 dark:text-white">
+              Virtual Chat Coming Soon
+            </h2>
+            <p className="text-md text-gray-600 dark:text-neutral-400">
+              We’re building an exciting new feature where you’ll be able to
+              have live conversations with digital agents representing Charles
+              and Dylan. Stay tuned for more updates on this!
+            </p>
+            <button
+              onClick={toggleModal}
+              className="mt-6 inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }

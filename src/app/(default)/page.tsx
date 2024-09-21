@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
@@ -9,6 +12,8 @@ import TextSlideEffect from "@/components/elements/TextSlideEffect"
 import { Icons } from "@/components/icons"
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false)
+
   const slides = [
     {
       link: "/articles/can-piracy-be-stopped",
@@ -43,10 +48,25 @@ export default function Home() {
     },
   ]
 
+  useEffect(() => {
+    // Check if the device is mobile by setting a breakpoint for screen width
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768) // Mobile breakpoint at 768px
+    }
+
+    handleResize() // Set initial value
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
   return (
     <>
       <HeroCarousel slides={slides} />
-      <TextSlideEffect />
+      {/* Conditionally render TextSlideEffect based on screen size */}
+      {!isMobile && <TextSlideEffect />}
       <FullWidthCTA />
     </>
   )
