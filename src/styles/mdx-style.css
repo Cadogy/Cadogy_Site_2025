@@ -43,13 +43,15 @@ html {
   margin: 1rem 0;
   padding-left: 1.5rem;
   color: #c5cbcf;
+  list-style: disc;
 }
 
 .prose blockquote {
   padding-left: 1rem;
   border-left: 4px solid #ccc;
   font-style: italic;
-  color: #555;
+  color: #c4cfc2;
+  margin: 1rem 0;
 }
 
 .prose hr {
@@ -58,6 +60,7 @@ html {
 
 .prose img {
   border-radius: 7px;
+  width: 100%;
 }
 
 /** HEADER CLONE SECTION **/
