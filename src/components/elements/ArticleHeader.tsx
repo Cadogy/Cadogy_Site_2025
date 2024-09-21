@@ -26,7 +26,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
         {/* Date and Description */}
         <p className="flex items-center !text-xs text-zinc-300">
           <CalendarIcon className="mr-1 h-4 w-4" />
-          Published on <span className="text-stone-300">{date}</span>
+          Published on <span className="mx-1 text-stone-300">{date}</span>
         </p>
         <div className="flex flex-col justify-center space-y-2">
           {/* Keywords */}
