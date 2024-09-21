@@ -45,7 +45,10 @@ export const metadata: Metadata = {
 const ArticlePage: FC = () => {
   return (
     <>
-      <PodcastFloater audioSrc="/article-audio/can-piracy-be-stopped.wav" />
+      <PodcastFloater
+        audioSrc="/article-audio/can-piracy-be-stopped.wav"
+        scrubberColor="hsl(0deg 100%,79.31%,50%)"
+      />
       <ArticleHeader
         title={metadata.title as string}
         date="September 19th, 2024"

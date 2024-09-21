@@ -13,21 +13,24 @@ import {
 
 interface PodcastFloaterProps {
   audioSrc: string
+  scrubberColor: string
 }
 
-const PodcastFloater: React.FC<PodcastFloaterProps> = ({ audioSrc }) => {
+const PodcastFloater: React.FC<PodcastFloaterProps> = ({
+  audioSrc,
+  scrubberColor,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null) // Set initial state to null
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
   const [isMobile, setIsMobile] = useState(false)
-  const [showAdvanced, setShowAdvanced] = useState(false) // Advanced toggle
+  const [showAdvanced, setShowAdvanced] = useState(false)
 
   const scrubberRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    // Create audio element only on the client side
     if (typeof window !== "undefined") {
       const newAudio = new Audio(audioSrc)
       setAudio(newAudio)
@@ -84,13 +87,13 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({ audioSrc }) => {
 
   const skipForward = () => {
     if (audio) {
-      audio.currentTime = Math.min(audio.currentTime + 15, duration) // Skip 15 seconds forward
+      audio.currentTime = Math.min(audio.currentTime + 15, duration)
     }
   }
 
   const skipBackward = () => {
     if (audio) {
-      audio.currentTime = Math.max(audio.currentTime - 15, 0) // Skip 15 seconds backward
+      audio.currentTime = Math.max(audio.currentTime - 15, 0)
     }
   }
 
@@ -114,29 +117,48 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({ audioSrc }) => {
 
   return (
     <div
-      className={`fixed z-50 flex select-none flex-col items-center p-3 text-sm backdrop-blur-md transition-all duration-300 ${
+      className={`fixed z-50 flex select-none flex-col items-center text-sm backdrop-blur-md transition-all duration-300 ${
         isMobile
           ? "bottom-0 left-0 w-full bg-neutral-800/30 text-white"
           : "bottom-4 right-4 space-y-2 rounded-md bg-neutral-800/30"
       }`}
     >
+      {/* Thin scrubber line, visible only when advanced controls are hidden */}
+      {!showAdvanced && (
+        <input
+          type="range"
+          ref={scrubberRef}
+          min="0"
+          max={duration}
+          value={currentTime}
+          onChange={handleScrubberChange}
+          className={`h-1 w-full appearance-none bg-gray-400 transition-opacity duration-300 ease-in-out ${
+            isMobile && !showAdvanced ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            appearance: "none",
+            background: scrubberColor,
+          }}
+        />
+      )}
+
       {/* Toggle Button for Advanced Controls */}
       <button
         onClick={toggleAdvanced}
         className={`text-gray-400 hover:text-gray-300 ${
-          isMobile ? "-mt-1 mb-3" : ""
+          isMobile ? "my-2" : "my-2"
         }`}
       >
         {showAdvanced ? (
-          <FaChevronDown className="h-3 w-3" />
+          <FaChevronDown className="h-4 w-4" />
         ) : (
-          <FaChevronUp className="h-3 w-3" />
+          <FaChevronUp className="h-4 w-4" />
         )}
       </button>
 
-      {/* Smoothly toggle Scrubber and Time (Advanced Controls) */}
+      {/* Advanced Controls */}
       <div
-        className={`flex w-full flex-col items-center justify-center transition-all duration-300 ease-in-out ${
+        className={`flex w-full flex-col items-center justify-center px-3 transition-all duration-300 ease-in-out ${
           showAdvanced
             ? "max-h-40 scale-100 opacity-100"
             : "max-h-0 scale-95 opacity-0"
@@ -144,7 +166,7 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({ audioSrc }) => {
         style={{
           transformOrigin: "top center",
           overflow: "hidden",
-          maxHeight: showAdvanced ? "120px" : "0px", // Limit the maximum height when expanded
+          maxHeight: showAdvanced ? "120px" : "0px",
         }}
       >
         <input
@@ -163,38 +185,44 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({ audioSrc }) => {
       </div>
 
       {/* Play/Pause and Skip Controls */}
-      <div className="flex items-center space-x-3">
+      <div className="flex w-full items-center justify-between space-x-3 p-3">
         <button
           onClick={skipBackward}
           className="text-gray-400 hover:text-gray-300"
         >
-          <FaBackward />
+          <FaBackward className="h-6 w-6" />
         </button>
 
         <button
           onClick={togglePlayPause}
           className="text-gray-400 hover:text-gray-300"
         >
-          {isPlaying ? <FaPause /> : <FaPlay />}
+          {isPlaying ? (
+            <FaPause className="h-6 w-6" />
+          ) : (
+            <FaPlay className="h-6 w-6" />
+          )}
         </button>
 
         <button
           onClick={skipForward}
           className="text-gray-400 hover:text-gray-300"
         >
-          <FaForward />
+          <FaForward className="h-6 w-6" />
         </button>
 
-        <FaVolumeUp className="text-gray-400" />
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          className="w-16"
-        />
+        <div className="flex items-center space-x-2">
+          <FaVolumeUp className="h-5 w-5 text-gray-400" />
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-20"
+          />
+        </div>
       </div>
     </div>
   )
