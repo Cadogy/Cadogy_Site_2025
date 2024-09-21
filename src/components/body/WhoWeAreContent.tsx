@@ -9,17 +9,9 @@ import { Button } from "@/components/ui/button"
 const WhoWeAreContent = () => {
   return (
     <>
-      {/* Header with Motion */}
-      <motion.header
-        className="mb-20 bg-gradient-to-r from-neutral-800 to-stone-800 py-20 text-center"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="mb-6 text-5xl tracking-tight md:text-6xl">
-          Meet the Minds Behind Cadogy
-        </h1>
-      </motion.header>
+      <div className="mb-[3.5rem] mt-[5rem] flex flex-col items-center">
+        <h1 className="text-[50px]">The Minds Behind Cadogy</h1>
+      </div>
 
       {/* Body */}
       <div className="container mx-auto px-4 pb-16 sm:px-6 lg:px-8">
@@ -28,7 +20,7 @@ const WhoWeAreContent = () => {
           className="mb-20"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.1 }}
         >
           <h2 className="mb-6 text-2xl font-semibold">Our Mission</h2>
           <p className="text-md mb-6 text-slate-200">
@@ -56,7 +48,7 @@ const WhoWeAreContent = () => {
           className="mb-20"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.1 }}
         >
           <h2 className="mb-6 text-2xl font-semibold">Charles Knapp</h2>
           <div className="flex flex-col items-center md:flex-row md:items-start">
@@ -66,25 +58,36 @@ const WhoWeAreContent = () => {
               className="mb-6 h-40 w-40 rounded-md md:mb-0 md:mr-6"
             />
             <div>
+              {" "}
               <p className="text-md mb-4 text-slate-300">
-                As a digital innovator and anti-piracy expert, Charles Knapp has
-                spent years developing tools to protect content creators and
-                businesses. His work in anti-piracy stems from a passion for
-                digital rights and ensuring that creators are compensated fairly
-                for their efforts.
-              </p>
+                {" "}
+                Charles Knapp has built a reputation for his deep expertise in
+                security. Growing up as a forum-kid, Charles was actively
+                engaged in communities like HackForums, Se7enSins,
+                AndroidRepublic, and Reddit, where he honed his skills in
+                breaking boundaries—ethically, of course. He thrived in
+                dissecting systems, from DNS DDoS mitigation to anti-piracy
+                control, always pushing the limits of what’s possible.{" "}
+              </p>{" "}
               <p className="text-md mb-4 text-slate-300">
-                Charles’ expertise spans across various technologies, including
-                blockchain, machine learning, and advanced web development. His
-                educational journey has been focused on understanding how
-                emerging technologies can be harnessed to protect and enhance
-                digital experiences.
-              </p>
+                {" "}
+                Charles’ journey into cybersecurity was fueled by his passion
+                for solving complex problems. From protecting content creators
+                against piracy to working on encryption techniques and code
+                ciphers, he’s dedicated to ensuring a secure and scalable
+                digital landscape. His expertise spans a wide range of
+                technologies, including MERN stack (MongoDB, ExpressJS, ReactJS,
+                NodeJS), TailwindCSS, Radix UI, MariaDB, and various cloud
+                services.{" "}
+              </p>{" "}
               <p className="text-md text-slate-300">
-                Today, Charles blends technical know-how with a deep passion for
-                digital protection, helping businesses create secure, scalable,
-                and innovative solutions.
-              </p>
+                {" "}
+                Today, Charles leads the charge in DNS security and advanced
+                anti-piracy measures. His unique blend of technical skills and a
+                hacker’s curiosity continues to shape the future of digital
+                protection, as he helps businesses secure their systems and
+                break free from the ordinary.{" "}
+              </p>{" "}
             </div>
           </div>
         </motion.section>
@@ -94,7 +97,7 @@ const WhoWeAreContent = () => {
           className="mb-20"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.1 }}
         >
           <h2 className="mb-6 text-2xl font-semibold">Dylan Safra</h2>
           <div className="flex flex-col items-center md:flex-row md:items-start">
@@ -155,7 +158,7 @@ const WhoWeAreContent = () => {
           className="rounded-sm bg-stone-800 p-8 text-center"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.1 }}
         >
           <h2 className="mb-6 text-2xl font-semibold">
             Ready to collaborate on the future of digital innovation?
