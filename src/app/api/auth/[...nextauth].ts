@@ -55,7 +55,7 @@ export default NextAuth({
     async session({ session, token }) {
       // Ensure the session has a user object before assigning the id
       if (session.user) {
-        session.user.id = token.id as string // Type assertion to ensure it&apos;s treated as string
+        session.user.id = token.id as string // Type assertion to ensure it's treated as string
       }
       return session
     },

@@ -13,7 +13,7 @@ export function getArticles() {
     const { data } = matter(fileContents) // Parse frontmatter from MDX
 
     // Get the slug (either from the frontmatter or file name)
-    const slug = data.slug || fileName.replace(/\.mdx?$/, "") // Use &apos;slug&apos; frontmatter if available, else file name
+    const slug = data.slug || fileName.replace(/\.mdx?$/, "") // Use 'slug' frontmatter if available, else file name
 
     return {
       title: data.title,

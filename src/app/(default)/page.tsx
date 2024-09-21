@@ -16,7 +16,7 @@ export default function Home() {
       title:
         "Can Piracy Be Stopped? Lessons from Real-World Anti-Piracy Efforts",
       description:
-        "Throughout my years working on anti-piracy systems, I’ve come to realize that stopping piracy completely is a complex, multi-layered issue.",
+        "Throughout my years working on anti-piracy systems, I've come to realize that stopping piracy completely is a complex, multi-layered issue.",
       authorName: "Charles",
       authorImage: "/images/authors/charles_k_author.jpg",
     },
@@ -24,9 +24,9 @@ export default function Home() {
       link: "/index/nvidia-ai-gpu-revolution-2024-2025",
       image: "/images/slide_2_bg.jpg",
       altImage: "/images/slide_2_bg_alt.jpg",
-      title: "Nvidia’s Revolution. GPU Technology Is Changing the Future",
+      title: "Nvidia's Revolution. GPU Technology Is Changing the Future",
       description:
-        "Nvidia&apos;s latest advancements is setting the stage for a new era in artificial intelligence and machine learning.",
+        "Nvidia's latest advancements is setting the stage for a new era in artificial intelligence and machine learning.",
       authorName: "Dylan",
       authorImage: "/images/authors/dylan_s_author.jpg",
     },

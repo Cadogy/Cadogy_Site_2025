@@ -1,6 +1,6 @@
 ## Cadogy Main Site
 
-Uses [shadcn](https://github.com/shadcn)&apos;s Next.js app structure from [shadcn/ui](https://ui.shadcn.com/).
+Uses [shadcn](https://github.com/shadcn)'s Next.js app structure from [shadcn/ui](https://ui.shadcn.com/).
 
 - Next.js 14+ `/app` router
 - TypeScript
