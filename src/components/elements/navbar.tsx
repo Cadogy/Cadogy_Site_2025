@@ -94,7 +94,7 @@ export function NavigationMenu() {
         {/* Right-aligned Sign-in Button & Mode Toggle */}
         <div className="group hidden items-center gap-4 lg:flex">
           <Link
-            href="/signin"
+            href="/login"
             className="duration-350 flex items-center rounded-md border border-white/10 px-4 py-1 text-sm text-gray-200 transition hover:border-white/20 hover:text-gray-100 active:scale-95"
           >
             <KeyIcon className="duration-350 mr-1 h-[14px] w-[14px] text-gray-200 transition active:scale-90 group-hover:rotate-12 group-hover:text-gray-100" />
@@ -198,7 +198,7 @@ export function NavigationMenu() {
             <li>
               <Link
                 className="text-slate-200"
-                href="/signin"
+                href="/login"
                 onClick={closeMenu}
               >
                 For Clients

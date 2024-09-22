@@ -78,7 +78,7 @@ export function Footer() {
               <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
                   <Link
-                    href="/signin"
+                    href="/login"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
                     Overview

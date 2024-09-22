@@ -1,8 +1,5 @@
 import { FC } from "react"
-
-import "@/styles/mdx-style.css"
-
-import { CalendarIcon } from "lucide-react"
+import { FaPause, FaPlay } from "react-icons/fa"
 
 interface ArticleHeaderProps {
   title: string
@@ -11,6 +8,8 @@ interface ArticleHeaderProps {
   keywords: string[]
   authorName: string
   authorImage: string
+  isPlaying: boolean
+  onPlayPause: () => void
 }
 
 const ArticleHeader: FC<ArticleHeaderProps> = ({
@@ -20,6 +19,8 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
   keywords,
   authorName,
   authorImage,
+  isPlaying,
+  onPlayPause,
 }) => {
   return (
     <header className="proseheader relative mb-12 select-none bg-gradient-to-r from-stone-800 to-zinc-800 py-12 md:py-16">
@@ -29,12 +30,10 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
 
         {/* Date and Description */}
         <div className="flex flex-col items-center space-y-2 text-center md:flex-row md:items-center md:space-x-2 md:space-y-0 md:text-left">
-          {/* Date */}
           <p className="flex items-center text-zinc-300">
             <span className="text-xs text-stone-300">{date}</span>
           </p>
 
-          {/* Author Information */}
           <div className="flex items-center">
             <span className="hidden md:flex">●</span>
             <span className="text-xs text-gray-400 md:ml-2">
@@ -43,8 +42,30 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
           </div>
         </div>
 
+        {/* Button to Listen to Podcast */}
+        <div className="mt-4 flex items-center justify-center md:mt-0 md:justify-start">
+          <button
+            onClick={onPlayPause}
+            className="flex items-center space-x-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-gray-300"
+          >
+            {isPlaying ? (
+              <div className="ml-2 flex items-center space-x-1">
+                <div className="audio-bar h-3 w-[2px] bg-muted-foreground" />
+                <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-150" />
+                <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-300" />
+              </div>
+            ) : (
+              <FaPlay />
+            )}
+            <span className="transition-all duration-500 ease-in-out">
+              {isPlaying
+                ? "Listening now..."
+                : "Listen to a podcast-style discussion"}
+            </span>
+          </button>
+        </div>
+
         <div className="hidden flex-col justify-center space-y-2 md:flex">
-          {/* Keywords */}
           <div className="mt-2 flex flex-wrap gap-3 pt-2 md:absolute md:bottom-0 md:justify-center md:rounded-t-lg md:bg-background md:px-3">
             {keywords.map((keyword, index) => (
               <span

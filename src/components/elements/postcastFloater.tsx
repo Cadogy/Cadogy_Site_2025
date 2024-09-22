@@ -14,24 +14,34 @@ import {
 interface PodcastFloaterProps {
   audioSrc: string
   scrubberColor: string
+  isPlaying: boolean
+  onPlayPause: () => void
 }
 
 const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   audioSrc,
   scrubberColor,
+  isPlaying,
+  onPlayPause,
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false)
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
   const [isMuted, setIsMuted] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [position, setPosition] = useState({
+    top: 200,
+    left: window.innerWidth - 120,
+  })
   const [isMobile, setIsMobile] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isPassedEndContent, setIsPassedEndContent] = useState(false)
 
   const scrubberRef = useRef<HTMLInputElement>(null)
+  const widgetRef = useRef<HTMLDivElement | null>(null)
+  const startPos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -46,12 +56,18 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
         setDuration(newAudio.duration)
       }
 
+      const handleError = () => {
+        console.error("Error loading audio file:", newAudio.error?.message)
+      }
+
       newAudio.addEventListener("timeupdate", updateCurrentTime)
       newAudio.addEventListener("loadedmetadata", updateDuration)
+      newAudio.addEventListener("error", handleError)
 
       return () => {
         newAudio.removeEventListener("timeupdate", updateCurrentTime)
         newAudio.removeEventListener("loadedmetadata", updateDuration)
+        newAudio.removeEventListener("error", handleError)
       }
     }
   }, [audioSrc])
@@ -81,7 +97,6 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       const articleHeight =
         document.documentElement.scrollHeight - window.innerHeight
 
-      // Show the player after scrolling down a certain percentage of the article
       if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
         setIsVisible(true)
       } else {
@@ -96,18 +111,17 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
     }
   }, [isPassedEndContent])
 
-  // New observer for the article end content
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
         if (entry.isIntersecting) {
-          setIsPassedEndContent(true) // When article end is reached, set this to true
+          setIsPassedEndContent(true)
         } else {
-          setIsPassedEndContent(false) // When not reached, set this to false
+          setIsPassedEndContent(false)
         }
       },
-      { threshold: 0.1 } // Trigger when 10% of the article end content is visible
+      { threshold: 0.1 }
     )
 
     const endContent = document.querySelector("#article_end_content")
@@ -122,15 +136,46 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
     }
   }, [])
 
-  const togglePlayPause = () => {
+  useEffect(() => {
     if (audio) {
       if (isPlaying) {
-        audio.pause()
-      } else {
         audio.play()
+      } else {
+        audio.pause()
       }
-      setIsPlaying(!isPlaying)
     }
+  }, [isPlaying, audio])
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (widgetRef.current) {
+      startPos.current = { x: e.clientX, y: e.clientY }
+      widgetRef.current.setPointerCapture(e.pointerId)
+      setIsDragging(true)
+    }
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging) return
+    const deltaX = e.clientX - startPos.current.x
+    const deltaY = e.clientY - startPos.current.y
+    startPos.current = { x: e.clientX, y: e.clientY }
+
+    setPosition((prev) => ({
+      left: Math.max(0, Math.min(window.innerWidth - 120, prev.left + deltaX)),
+      top: Math.max(0, Math.min(window.innerHeight - 100, prev.top + deltaY)),
+    }))
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    setIsDragging(false)
+    if (widgetRef.current) {
+      widgetRef.current.releasePointerCapture(e.pointerId)
+    }
+
+    setPosition((prev) => ({
+      left: prev.left < window.innerWidth / 2 ? 10 : window.innerWidth - 130,
+      top: prev.top,
+    }))
   }
 
   const handleScrubberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,9 +210,9 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const toggleMute = () => {
     setIsMuted(!isMuted)
     if (!isMuted) {
-      setVolume(0) // Mute by setting volume to 0
+      setVolume(0)
     } else {
-      setVolume(1) // Restore volume to full when unmuted
+      setVolume(1)
     }
   }
 
@@ -194,7 +239,6 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       }`}
       style={{ transition: "opacity 0.5s ease-in-out" }}
     >
-      {/* Toggle Button for Advanced Controls */}
       <button
         onClick={toggleAdvanced}
         className={`text-gray-400 hover:text-gray-300 ${isMobile ? "mt-1 hidden" : "mt-1"}`}
@@ -206,7 +250,6 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
         )}
       </button>
 
-      {/* Advanced Controls */}
       <div
         className={`flex w-full flex-col items-center justify-center px-3 transition-all duration-300 ease-in-out ${
           showAdvanced
@@ -234,7 +277,6 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
         </div>
       </div>
 
-      {/* Play/Pause and Skip Controls */}
       <div
         className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "p-4" : "pt-0"}`}
       >
@@ -246,7 +288,7 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
         </button>
 
         <button
-          onClick={togglePlayPause}
+          onClick={onPlayPause}
           className="text-slate-300 hover:text-slate-300"
         >
           {isPlaying ? (

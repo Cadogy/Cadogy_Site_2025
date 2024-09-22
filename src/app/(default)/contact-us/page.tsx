@@ -2,7 +2,6 @@ import React from "react"
 import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
 
 // Export metadata for the "Contact Us" page
 export const metadata: Metadata = {
@@ -32,111 +31,42 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      {/* Hero Section with Contact Form, 1/2 1/2 on Desktop */}
-      <section className="relative flex h-screen w-full flex-col md:flex-row">
-        {/* Image Background on the Left */}
-        <div
-          className="relative h-1/2 w-full rounded-xl bg-cover bg-center md:h-full md:w-1/2"
-          style={{
-            backgroundImage: `url('/images/posts/crowd-people-walking-street.webp')`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black/50"></div>
-        </div>
+    <div className="flex flex-col items-center justify-center bg-background p-6">
+      <div className="mb-[3.5rem] mt-[5rem] flex flex-col items-center">
+        <h1 className="text-[32px] md:text-[50px]">Get in Touch</h1>{" "}
+      </div>
+      <div className="flex flex-col items-center text-center text-slate-200 md:text-left">
+        <p className="mb-4">
+          We’re here to help you with any inquiries or projects. Reach out to us
+          through the following channels:
+        </p>
 
-        {/* Contact Form on the Right */}
-        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center bg-background px-6 py-16 md:w-1/2">
-          <h1 className="mb-4 text-center text-4xl font-bold text-white sm:text-5xl">
-            Get In Touch
-          </h1>
-          <p className="text-md mb-8 max-w-xl text-center text-slate-200">
-            Have a question or want to work together? We&apos;d love to hear
-            from you.
-          </p>
-
-          {/* Contact Form */}
-          <div className="w-full max-w-lg rounded-lg bg-background p-6 shadow-lg">
-            <form>
-              <div className="mb-4">
-                <label
-                  className="mb-2 block text-sm font-bold text-gray-700"
-                  htmlFor="name"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Your Name"
-                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  className="mb-2 block text-sm font-bold text-gray-700"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Your Email"
-                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                />
-              </div>
-              <div className="mb-6">
-                <label
-                  className="mb-2 block text-sm font-bold text-gray-700"
-                  htmlFor="message"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  placeholder="Your Message"
-                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <Button
-                  variant="default"
-                  className="focus:shadow-outline rounded px-4 py-2 focus:outline-none"
-                  type="submit"
-                >
-                  Send Message
-                </Button>
-              </div>
-            </form>
+        <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+          {/* LinkedIn */}
+          <div className="flex items-center gap-2">
+            <h3 className="text-xl font-semibold">LinkedIn:</h3>
+            <a
+              href="https://www.linkedin.com/company/cadogy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-300 hover:underline"
+            >
+              Cadogy LinkedIn
+            </a>
           </div>
 
-          {/* Contact Information */}
-          <div className="absolute bottom-0 flex flex-col">
-            <p className="mb-4 text-lg text-gray-500">
-              Email:{" "}
-              <a href="mailto:contact@cadogy.com" className="text-gray-500">
-                contact@cadogy.com
-              </a>
-            </p>
-            <p className="mb-4 text-lg text-gray-500">
-              Phone:{" "}
-              <a href="tel:+18279108112" className="text-gray-500">
-                +1 (827) 910-8112
-              </a>
-            </p>
-            <p className="text-lg text-gray-500">
-              <strong>Hours of Operation:</strong>
-              <br />
-              Monday - Friday: 9:00 AM - 6:00 PM
-              <br />
-              Saturday: 10:00 AM - 2:00 PM
-              <br />
-              Sunday: Closed
-            </p>
+          {/* Email */}
+          <div className="flex items-center gap-2">
+            <h3 className="text-xl font-semibold">Email:</h3>
+            <a
+              href="mailto:contact@cadogy.com"
+              className="text-slate-300 hover:underline"
+            >
+              contact@cadogy.com
+            </a>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   )
 }
