@@ -29,7 +29,7 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const [isMobile, setIsMobile] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [isPassedEndContent, setIsPassedEndContent] = useState(false) // New state to track passing the article end
+  const [isPassedEndContent, setIsPassedEndContent] = useState(false)
 
   const scrubberRef = useRef<HTMLInputElement>(null)
 
@@ -55,6 +55,12 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       }
     }
   }, [audioSrc])
+
+  useEffect(() => {
+    if (audio) {
+      audio.volume = volume
+    }
+  }, [volume, audio])
 
   useEffect(() => {
     const checkMobile = () => {
@@ -150,7 +156,10 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(e.target.value)
     setVolume(newVolume)
-    setIsMuted(newVolume === 0) // If volume is 0, set muted state
+    if (audio) {
+      audio.volume = newVolume
+    }
+    setIsMuted(newVolume === 0)
   }
 
   const toggleMute = () => {

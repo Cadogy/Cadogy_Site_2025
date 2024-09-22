@@ -46,7 +46,7 @@ const ArticlePage: FC = () => {
   return (
     <>
       <PodcastFloater
-        audioSrc="/article-audio/can-piracy-be-stopped.wav"
+        audioSrc="/article-audio/can-piracy-be-stopped_2.wav"
         scrubberColor="hsl(0deg 100%,79.31%,50%)"
       />
       <ArticleHeader
@@ -107,7 +107,7 @@ const ArticlePage: FC = () => {
           <strong>fingerprinting</strong> digital content. Working with a
           project for <a href="https://xenforo.com/">XenForo</a>, we needed to
           protect digital uploads in the Resource Manager. Since XenForo doesn’t
-          offer this type of system inherently, We built a system that embedded{" "}
+          offer this type of system inherently, we built a system that embedded{" "}
           <strong>unique identifiers</strong> into every download.
         </p>
 
@@ -126,7 +126,7 @@ const ArticlePage: FC = () => {
           One particularly interesting technique was embedding identifiers into{" "}
           <strong>audio files</strong>—MP3s, WAVs, etc. We’d tweak metadata
           fields, like artist name or track numbers, to hide unique markers. In
-          some cases, we even embedded text data into audio files, creating a
+          some cases, we even embedded text data into audio files, creating an
           unusual hidden layer of tracking.
         </p>
 

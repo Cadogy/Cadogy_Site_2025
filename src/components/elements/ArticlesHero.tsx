@@ -11,7 +11,7 @@ interface Article {
 }
 
 interface ArticlesHeroProps {
-  articles: Article[] // Define articles as an array of Article objects
+  articles: Article[]
 }
 
 const ArticlesHero: React.FC<ArticlesHeroProps> = ({ articles }) => {
