@@ -10,6 +10,7 @@ interface ArticleHeaderProps {
   authorImage: string
   isPlaying: boolean
   onPlayPause: () => void
+  audioSrc: string
 }
 
 const ArticleHeader: FC<ArticleHeaderProps> = ({
@@ -21,6 +22,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
   authorImage,
   isPlaying,
   onPlayPause,
+  audioSrc,
 }) => {
   return (
     <header className="proseheader relative mb-12 select-none bg-gradient-to-r from-stone-800 to-zinc-800 py-12 md:py-16">
@@ -43,27 +45,29 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
         </div>
 
         {/* Button to Listen to Podcast */}
-        <div className="mt-4 flex items-center justify-center md:mt-0 md:justify-start">
-          <button
-            onClick={onPlayPause}
-            className="flex items-center space-x-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-gray-300"
-          >
-            {isPlaying ? (
-              <div className="ml-2 flex items-center space-x-1">
-                <div className="audio-bar h-3 w-[2px] bg-muted-foreground" />
-                <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-150" />
-                <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-300" />
-              </div>
-            ) : (
-              <FaPlay />
-            )}
-            <span className="transition-all duration-500 ease-in-out">
-              {isPlaying
-                ? "Listening now..."
-                : "Listen to a podcast-style discussion"}
-            </span>
-          </button>
-        </div>
+        {audioSrc && (
+          <div className="mt-4 flex items-center justify-center md:mt-0 md:justify-start">
+            <button
+              onClick={onPlayPause}
+              className="flex items-center space-x-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-gray-300"
+            >
+              {isPlaying ? (
+                <div className="ml-2 flex items-center space-x-1">
+                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground" />
+                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-150" />
+                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-300" />
+                </div>
+              ) : (
+                <FaPlay />
+              )}
+              <span className="transition-all duration-500 ease-in-out">
+                {isPlaying
+                  ? "Listening now..."
+                  : "Listen to a podcast-style discussion"}
+              </span>
+            </button>
+          </div>
+        )}
 
         <div className="hidden flex-col justify-center space-y-2 md:flex">
           <div className="mt-2 flex flex-wrap gap-3 pt-2 md:absolute md:bottom-0 md:justify-center md:rounded-t-lg md:bg-background md:px-3">

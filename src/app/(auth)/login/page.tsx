@@ -35,7 +35,7 @@ const LoginPage = () => {
     <div className="flex min-h-screen w-full">
       {/* Left Column - Login Form */}
       <div className="flex w-full flex-col items-center justify-center p-8 lg:w-2/5">
-        <div className="w-full max-w-md rounded-xl bg-stone-700 p-10 shadow-lg backdrop-blur-md">
+        <div className="w-full max-w-md rounded-xl bg-[#181818] p-10 shadow-lg backdrop-blur-md">
           <div className="flex flex-col items-center">
             <a href="/">
               <svg
@@ -59,9 +59,7 @@ const LoginPage = () => {
                 />
               </svg>
             </a>
-            <h1 className="mb-6 text-center text-xl font-semibold xl:text-2xl">
-              Log in to your account
-            </h1>
+            <h1 className="mb-6 text-center text-xl">Welcome Back</h1>
           </div>
 
           {/* OAuth Buttons */}

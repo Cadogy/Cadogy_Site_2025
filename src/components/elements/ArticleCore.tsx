@@ -47,6 +47,7 @@ const ArticleCore: FC<ArticleCoreProps> = ({
         keywords={keywords}
         isPlaying={isPlaying}
         onPlayPause={handlePlayPause}
+        audioSrc={audioSrc}
       />
     </>
   )
