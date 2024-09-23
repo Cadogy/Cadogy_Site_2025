@@ -29,22 +29,15 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
   const [isMuted, setIsMuted] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
-  const [position, setPosition] = useState({
-    top: 200,
-    left: window.innerWidth - 120,
-  })
   const [isMobile, setIsMobile] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isPassedEndContent, setIsPassedEndContent] = useState(false)
 
   const scrubberRef = useRef<HTMLInputElement>(null)
-  const widgetRef = useRef<HTMLDivElement | null>(null)
-  const startPos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
-    if (typeof window !== "undefined" && audioSrc) {
+    if (typeof window !== "undefined") {
       const newAudio = new Audio(audioSrc)
       setAudio(newAudio)
 
@@ -79,65 +72,59 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   }, [volume, audio])
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const checkMobile = () => {
-        setIsMobile(window.innerWidth <= 768)
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
 
-      window.addEventListener("resize", checkMobile)
-      checkMobile()
+    window.addEventListener("resize", checkMobile)
+    checkMobile()
 
-      return () => {
-        window.removeEventListener("resize", checkMobile)
-      }
+    return () => {
+      window.removeEventListener("resize", checkMobile)
     }
   }, [])
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleScroll = () => {
-        const scrollPosition = window.scrollY
-        const articleHeight =
-          document.documentElement.scrollHeight - window.innerHeight
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const articleHeight =
+        document.documentElement.scrollHeight - window.innerHeight
 
-        if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
-          setIsVisible(true)
-        } else {
-          setIsVisible(false)
-        }
+      if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
       }
+    }
 
-      window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll)
 
-      return () => {
-        window.removeEventListener("scroll", handleScroll)
-      }
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
     }
   }, [isPassedEndContent])
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0]
-          if (entry.isIntersecting) {
-            setIsPassedEndContent(true)
-          } else {
-            setIsPassedEndContent(false)
-          }
-        },
-        { threshold: 0.1 }
-      )
-
-      const endContent = document.querySelector("#article_end_content")
-      if (endContent) {
-        observer.observe(endContent)
-      }
-
-      return () => {
-        if (endContent) {
-          observer.unobserve(endContent)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting) {
+          setIsPassedEndContent(true)
+        } else {
+          setIsPassedEndContent(false)
         }
+      },
+      { threshold: 0.1 }
+    )
+
+    const endContent = document.querySelector("#article_end_content")
+    if (endContent) {
+      observer.observe(endContent)
+    }
+
+    return () => {
+      if (endContent) {
+        observer.unobserve(endContent)
       }
     }
   }, [])
@@ -200,107 +187,105 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
     setShowAdvanced(!showAdvanced)
   }
 
-  if (audioSrc) {
-    return (
+  return (
+    <div
+      className={`fixed z-50 flex select-none flex-col items-center text-sm backdrop-blur-md transition-all duration-300 ${
+        isMobile
+          ? `bottom-[5px] left-0 right-0 mx-auto w-[96%] overflow-hidden rounded-lg bg-neutral-800/30 text-white ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`
+          : `bottom-4 right-4 space-y-2 rounded-md bg-neutral-800/30 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`
+      }`}
+      style={{ transition: "opacity 0.5s ease-in-out" }}
+    >
+      <button
+        onClick={toggleAdvanced}
+        className={`text-gray-400 hover:text-gray-300 ${isMobile ? "mt-1 hidden" : "mt-1"}`}
+      >
+        {showAdvanced ? (
+          <FaChevronDown className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+        ) : (
+          <FaChevronUp className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+        )}
+      </button>
+
       <div
-        className={`fixed z-50 flex select-none flex-col items-center text-sm backdrop-blur-md transition-all duration-300 ${
-          isMobile
-            ? `bottom-[5px] left-0 right-0 mx-auto w-[96%] overflow-hidden rounded-lg bg-neutral-800/30 text-white ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`
-            : `bottom-4 right-4 space-y-2 rounded-md bg-neutral-800/30 ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`
+        className={`flex w-full flex-col items-center justify-center px-3 transition-all duration-300 ease-in-out ${
+          showAdvanced
+            ? "max-h-40 scale-100 opacity-100"
+            : "max-h-0 scale-95 opacity-0"
         }`}
-        style={{ transition: "opacity 0.5s ease-in-out" }}
+        style={{
+          transformOrigin: "top center",
+          overflow: "hidden",
+          maxHeight: showAdvanced ? "120px" : "0px",
+        }}
+      >
+        <input
+          type="range"
+          ref={scrubberRef}
+          min="0"
+          max={duration}
+          value={currentTime}
+          onChange={handleScrubberChange}
+          className={`mt-2 w-full ${isMobile ? "h-2" : ""}`}
+        />
+        <div className="mt-2 flex w-full justify-between text-xs text-gray-400">
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
+      </div>
+
+      <div
+        className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "p-4" : "pt-0"}`}
       >
         <button
-          onClick={toggleAdvanced}
-          className={`text-gray-400 hover:text-gray-300 ${isMobile ? "mt-1 hidden" : "mt-1"}`}
+          onClick={skipBackward}
+          className="text-slate-300 hover:text-slate-300"
         >
-          {showAdvanced ? (
-            <FaChevronDown className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+          <FaBackward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+        </button>
+
+        <button
+          onClick={onPlayPause}
+          className="text-slate-300 hover:text-slate-300"
+        >
+          {isPlaying ? (
+            <FaPause className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
           ) : (
-            <FaChevronUp className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+            <FaPlay className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
           )}
         </button>
 
-        <div
-          className={`flex w-full flex-col items-center justify-center px-3 transition-all duration-300 ease-in-out ${
-            showAdvanced
-              ? "max-h-40 scale-100 opacity-100"
-              : "max-h-0 scale-95 opacity-0"
-          }`}
-          style={{
-            transformOrigin: "top center",
-            overflow: "hidden",
-            maxHeight: showAdvanced ? "120px" : "0px",
-          }}
+        <button
+          onClick={skipForward}
+          className="text-slate-300 hover:text-slate-300"
         >
+          <FaForward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
+        </button>
+
+        <div className="flex items-center space-x-2">
+          <FaVolumeUp
+            onClick={toggleMute}
+            className={`${isMobile ? "h-6 w-6" : "h-4 w-4"} ${
+              isMuted ? "text-stone-300" : "text-slate-400"
+            } cursor-pointer`}
+          />
           <input
             type="range"
-            ref={scrubberRef}
             min="0"
-            max={duration}
-            value={currentTime}
-            onChange={handleScrubberChange}
-            className={`mt-2 w-full ${isMobile ? "h-2" : ""}`}
+            max="1"
+            step="0.01"
+            value={isMuted ? 0 : volume}
+            onChange={handleVolumeChange}
+            className="w-20"
           />
-          <div className="mt-2 flex w-full justify-between text-xs text-gray-400">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
-          </div>
-        </div>
-
-        <div
-          className={`flex w-full items-center justify-between space-x-3 p-3 ${isMobile ? "p-4" : "pt-0"}`}
-        >
-          <button
-            onClick={skipBackward}
-            className="text-slate-300 hover:text-slate-300"
-          >
-            <FaBackward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
-          </button>
-
-          <button
-            onClick={onPlayPause}
-            className="text-slate-300 hover:text-slate-300"
-          >
-            {isPlaying ? (
-              <FaPause className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
-            ) : (
-              <FaPlay className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
-            )}
-          </button>
-
-          <button
-            onClick={skipForward}
-            className="text-slate-300 hover:text-slate-300"
-          >
-            <FaForward className={`${isMobile ? "h-6 w-6" : "h-4 w-4"}`} />
-          </button>
-
-          <div className="flex items-center space-x-2">
-            <FaVolumeUp
-              onClick={toggleMute}
-              className={`${isMobile ? "h-6 w-6" : "h-4 w-4"} ${
-                isMuted ? "text-stone-300" : "text-slate-400"
-              } cursor-pointer`}
-            />
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={isMuted ? 0 : volume}
-              onChange={handleVolumeChange}
-              className="w-20"
-            />
-          </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default PodcastFloater
