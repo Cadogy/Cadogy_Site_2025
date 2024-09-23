@@ -79,15 +79,17 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   }, [volume, audio])
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
+    if (typeof window !== "undefined") {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth <= 768)
+      }
 
-    window.addEventListener("resize", checkMobile)
-    checkMobile()
+      window.addEventListener("resize", checkMobile)
+      checkMobile()
 
-    return () => {
-      window.removeEventListener("resize", checkMobile)
+      return () => {
+        window.removeEventListener("resize", checkMobile)
+      }
     }
   }, [])
 
@@ -149,40 +151,6 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       }
     }
   }, [isPlaying, audio])
-
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (widgetRef.current) {
-      startPos.current = { x: e.clientX, y: e.clientY }
-      widgetRef.current.setPointerCapture(e.pointerId)
-      setIsDragging(true)
-    }
-  }
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging || typeof window === "undefined") return
-    const deltaX = e.clientX - startPos.current.x
-    const deltaY = e.clientY - startPos.current.y
-    startPos.current = { x: e.clientX, y: e.clientY }
-
-    setPosition((prev) => ({
-      left: Math.max(0, Math.min(window.innerWidth - 120, prev.left + deltaX)),
-      top: Math.max(0, Math.min(window.innerHeight - 100, prev.top + deltaY)),
-    }))
-  }
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    setIsDragging(false)
-    if (widgetRef.current) {
-      widgetRef.current.releasePointerCapture(e.pointerId)
-    }
-
-    if (typeof window !== "undefined") {
-      setPosition((prev) => ({
-        left: prev.left < window.innerWidth / 2 ? 10 : window.innerWidth - 130,
-        top: prev.top,
-      }))
-    }
-  }
 
   const handleScrubberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (audio) {
