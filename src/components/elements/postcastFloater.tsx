@@ -44,7 +44,7 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   const startPos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && audioSrc) {
       const newAudio = new Audio(audioSrc)
       setAudio(newAudio)
 
@@ -92,46 +92,50 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   }, [])
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const articleHeight =
-        document.documentElement.scrollHeight - window.innerHeight
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        const scrollPosition = window.scrollY
+        const articleHeight =
+          document.documentElement.scrollHeight - window.innerHeight
 
-      if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
+        if (scrollPosition > articleHeight * 0.05 && !isPassedEndContent) {
+          setIsVisible(true)
+        } else {
+          setIsVisible(false)
+        }
       }
-    }
 
-    window.addEventListener("scroll", handleScroll)
+      window.addEventListener("scroll", handleScroll)
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
+      return () => {
+        window.removeEventListener("scroll", handleScroll)
+      }
     }
   }, [isPassedEndContent])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0]
-        if (entry.isIntersecting) {
-          setIsPassedEndContent(true)
-        } else {
-          setIsPassedEndContent(false)
-        }
-      },
-      { threshold: 0.1 }
-    )
+    if (typeof window !== "undefined") {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0]
+          if (entry.isIntersecting) {
+            setIsPassedEndContent(true)
+          } else {
+            setIsPassedEndContent(false)
+          }
+        },
+        { threshold: 0.1 }
+      )
 
-    const endContent = document.querySelector("#article_end_content")
-    if (endContent) {
-      observer.observe(endContent)
-    }
-
-    return () => {
+      const endContent = document.querySelector("#article_end_content")
       if (endContent) {
-        observer.unobserve(endContent)
+        observer.observe(endContent)
+      }
+
+      return () => {
+        if (endContent) {
+          observer.unobserve(endContent)
+        }
       }
     }
   }, [])
@@ -155,7 +159,7 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
   }
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging) return
+    if (!isDragging || typeof window === "undefined") return
     const deltaX = e.clientX - startPos.current.x
     const deltaY = e.clientY - startPos.current.y
     startPos.current = { x: e.clientX, y: e.clientY }
@@ -172,10 +176,12 @@ const PodcastFloater: React.FC<PodcastFloaterProps> = ({
       widgetRef.current.releasePointerCapture(e.pointerId)
     }
 
-    setPosition((prev) => ({
-      left: prev.left < window.innerWidth / 2 ? 10 : window.innerWidth - 130,
-      top: prev.top,
-    }))
+    if (typeof window !== "undefined") {
+      setPosition((prev) => ({
+        left: prev.left < window.innerWidth / 2 ? 10 : window.innerWidth - 130,
+        top: prev.top,
+      }))
+    }
   }
 
   const handleScrubberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
