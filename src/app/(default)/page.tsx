@@ -64,8 +64,8 @@ export default function Home() {
   return (
     <>
       <HeroCarousel slides={slides} />
-      {/* Conditionally render TextSlideEffect based on screen size */}
-      {!isMobile && <TextSlideEffect />}
+      {/* {!isMobile && <TextSlideEffect />} */}
+      <TextSlideEffect />
     </>
   )
 }

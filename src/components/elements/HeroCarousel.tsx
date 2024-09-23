@@ -135,7 +135,10 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative w-full overflow-hidden md:h-auto"
+    >
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{
@@ -153,7 +156,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             <div
               key={index}
               className={cn(
-                "relative h-[520px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
+                "relative h-[620px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
                 isNextSlide || isPrevSlide
                   ? "cursor-pointer transition duration-700 hover:brightness-125"
                   : ""
