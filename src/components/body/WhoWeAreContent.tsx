@@ -107,36 +107,33 @@ const WhoWeAreContent = () => {
               className="mb-6 h-40 w-40 rounded-md md:mb-0 md:mr-6"
             />
             <div>
-              {" "}
               <p className="text-md mb-4 text-slate-300">
-                {" "}
-                Charles Knapp has built a reputation for his deep expertise in
-                security. Growing up as a forum-kid, Charles was actively
-                engaged in communities like HackForums, Se7enSins,
-                AndroidRepublic, and Reddit, where he honed his skills in
-                breaking boundaries—ethically, of course. He thrived in
-                dissecting systems, from DNS DDoS mitigation to anti-piracy
-                control, always pushing the limits of what’s possible.{" "}
-              </p>{" "}
+                Charles Knapp is recognized for his extensive expertise in
+                cybersecurity. From an early age, he immersed himself in online
+                communities, where he developed and refined his skills in system
+                analysis and boundary testing—always with an ethical approach.
+                His work has encompassed a range of technical challenges,
+                including DNS DDoS mitigation and advanced anti-piracy controls,
+                consistently pushing the limits of what is technically possible.
+              </p>
               <p className="text-md mb-4 text-slate-300">
-                {" "}
-                Charles’ journey into cybersecurity was fueled by his passion
-                for solving complex problems. From protecting content creators
-                against piracy to working on encryption techniques and code
-                ciphers, he’s dedicated to ensuring a secure and scalable
-                digital landscape. His expertise spans a wide range of
-                technologies, including MERN stack (MongoDB, ExpressJS, ReactJS,
-                NodeJS), TailwindCSS, Radix UI, MariaDB, and various cloud
-                services.{" "}
-              </p>{" "}
+                Charles’ passion for solving complex problems has been the
+                driving force behind his career in cybersecurity. His efforts
+                include safeguarding content creators against piracy, advancing
+                encryption methodologies, and working with code ciphers to build
+                secure and scalable digital solutions. His technical expertise
+                spans a broad spectrum of technologies, including the MERN stack
+                (MongoDB, ExpressJS, ReactJS, NodeJS), TailwindCSS, Radix UI,
+                MariaDB, and various cloud services.
+              </p>
               <p className="text-md text-slate-300">
-                {" "}
-                Today, Charles leads the charge in DNS security and advanced
-                anti-piracy measures. His unique blend of technical skills and a
-                hacker’s curiosity continues to shape the future of digital
-                protection, as he helps businesses secure their systems and
-                break free from the ordinary.{" "}
-              </p>{" "}
+                Today, Charles specializes in DNS security and cutting-edge
+                anti-piracy strategies. With a unique combination of technical
+                proficiency and an innate curiosity, he continues to pioneer
+                innovative solutions in digital security, empowering businesses
+                to protect their systems and achieve unparalleled resilience in
+                an increasingly complex digital landscape.
+              </p>
             </div>
           </div>
         </motion.section>
