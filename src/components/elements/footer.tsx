@@ -136,7 +136,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-2">
               <h3 className="items-center text-sm font-medium text-gray-100">
-                The Misc.
+                The Info.
               </h3>
               <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
