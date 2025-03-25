@@ -174,7 +174,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               // Clicks for both mobile and desktop
               onClick={() => handleCardClick(index)}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[6px] bg-black/30 p-4 text-white">
+              <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[6px] bg-black/50 p-4 text-white">
                 <h2 className="mb-4 text-center text-3xl text-slate-100">
                   {slide.title}
                 </h2>

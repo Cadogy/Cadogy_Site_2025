@@ -72,19 +72,19 @@ const WhoWeAreContent = () => {
           transition={{ duration: 0.1 }}
         >
           <h2 className="mb-6 text-2xl font-semibold">Our Mission</h2>
-          <p className="text-md mb-6 text-slate-300">
+          <p className="mb-6 text-sm text-slate-200">
             At Cadogy, we see ourselves not just as a business, but as two
             people on a shared journey of growth, learning, and transformation.
             Our mission is to empower creators, businesses, and innovators with
             tools that not only solve problems but spark change.
           </p>
-          <p className="text-md mb-6 text-slate-300">
+          <p className="mb-6 text-sm text-slate-200">
             For us, Cadogy is as much about our own journey as it is about the
             people we help along the way. Every challenge we’ve tackled—from our
             early anti-piracy systems to exploring AI, machine learning, and
             beyond—has shaped who we are and what we aim to achieve.
           </p>
-          <p className="text-md mb-6 text-slate-300">
+          <p className="mb-6 text-sm text-slate-200">
             This isn’t just business for us; it’s personal. We’re committed to
             staying at the forefront of technology, learning every step of the
             way, and sharing that knowledge to create a better, more connected
@@ -107,7 +107,7 @@ const WhoWeAreContent = () => {
               className="mb-6 h-40 w-40 rounded-md md:mb-0 md:mr-6"
             />
             <div>
-              <p className="text-md mb-4 text-slate-300">
+              <p className="mb-4 text-sm text-slate-200">
                 Charles Knapp is recognized for his extensive expertise in
                 cybersecurity. From an early age, he immersed himself in online
                 communities, where he developed and refined his skills in system
@@ -116,7 +116,7 @@ const WhoWeAreContent = () => {
                 including DNS DDoS mitigation and advanced anti-piracy controls,
                 consistently pushing the limits of what is technically possible.
               </p>
-              <p className="text-md mb-4 text-slate-300">
+              <p className="mb-4 text-sm text-slate-200">
                 Charles’ passion for solving complex problems has been the
                 driving force behind his career in cybersecurity. His efforts
                 include safeguarding content creators against piracy, advancing
@@ -126,7 +126,7 @@ const WhoWeAreContent = () => {
                 (MongoDB, ExpressJS, ReactJS, NodeJS), TailwindCSS, Radix UI,
                 MariaDB, and various cloud services.
               </p>
-              <p className="text-md text-slate-300">
+              <p className="text-sm text-slate-200">
                 Today, Charles specializes in DNS security and cutting-edge
                 anti-piracy strategies. With a unique combination of technical
                 proficiency and an innate curiosity, he continues to pioneer
@@ -153,12 +153,12 @@ const WhoWeAreContent = () => {
               className="mb-6 h-40 w-40 rounded-md md:mb-0 md:mr-6"
             />
             <div>
-              <p className="text-md mb-4 text-slate-300">
+              <p className="mb-4 text-sm text-slate-200">
                 Dylan has a strong foundation in the MERN stack (MongoDB,
                 ExpressJS, ReactJS, NodeJS), but he extends his expertise into
                 the realm of data-driven decision-making and digital campaigns.
               </p>
-              <p className="text-md mb-4 text-slate-300">
+              <p className="mb-4 text-sm text-slate-200">
                 Dylan’s passion for understanding user behavior and optimizing
                 digital experiences drives his work in the areas of automation,
                 SEO, and digital rights management. Whether he’s developing
@@ -166,7 +166,7 @@ const WhoWeAreContent = () => {
                 involved in both the technical and strategic aspects, ensuring
                 that every solution is efficient, scalable, and impactful.
               </p>
-              <p className="text-md text-slate-300">
+              <p className="text-sm text-slate-200">
                 Today, Dylan works to empower businesses with data-driven
                 strategies while staying at the forefront of cloud technology
                 and AI advancements. His comprehensive approach ensures that
@@ -191,7 +191,7 @@ const WhoWeAreContent = () => {
             <h2 className="mb-6 text-2xl font-semibold">
               Our Primary Tech Stack
             </h2>
-            <p className="text-md mb-6 max-w-2xl text-center text-slate-300">
+            <p className="mb-6 max-w-2xl text-center text-sm text-slate-200">
               Charles and Dylan are proficient in a broad range of technologies
               that we regularly work with customers on, especially the MERN
               stack and modern frontend frameworks. We also have expertise in

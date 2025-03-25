@@ -51,7 +51,6 @@ export function Footer() {
                 <li>
                   <Link
                     href="/who-we-are"
-                    target="_blank"
                     className="text-sm text-gray-400 transition hover:text-gray-300"
                   >
                     Who We Are
@@ -136,7 +135,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-2">
               <h3 className="items-center text-sm font-medium text-gray-100">
-                The Info.
+                The Information
               </h3>
               <ul className="flex flex-col items-center gap-2" role="list">
                 <li>
@@ -168,7 +167,7 @@ export function Footer() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {hoveredText} © 2019–2024
+            {hoveredText} © 2019–2025
           </span>
         </div>
         <div className="flex gap-4">

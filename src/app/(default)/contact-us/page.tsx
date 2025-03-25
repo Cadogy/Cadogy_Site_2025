@@ -1,7 +1,8 @@
-import React from "react"
 import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
+
+import ContactForm from "./ContactForm"
 
 // Export metadata for the "Contact Us" page
 export const metadata: Metadata = {
@@ -29,46 +30,6 @@ export const metadata: Metadata = {
   },
 }
 
-const ContactPage = () => {
-  return (
-    <div className="flex flex-col items-center justify-center bg-background p-6">
-      <div className="mb-[3.5rem] mt-[5rem] flex flex-col items-center">
-        <h1 className="text-[32px] md:text-[50px]">Get in Touch</h1>{" "}
-      </div>
-      <div className="flex flex-col items-center text-center text-slate-200 md:text-left">
-        <p className="mb-4">
-          We’re here to help you with any inquiries or projects. Reach out to us
-          through the following channels:
-        </p>
-
-        <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
-          {/* LinkedIn */}
-          <div className="flex items-center gap-2">
-            <h3 className="text-xl font-semibold">LinkedIn:</h3>
-            <a
-              href="https://www.linkedin.com/company/cadogy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-300 hover:underline"
-            >
-              Cadogy LinkedIn
-            </a>
-          </div>
-
-          {/* Email */}
-          <div className="flex items-center gap-2">
-            <h3 className="text-xl font-semibold">Email:</h3>
-            <a
-              href="mailto:contact@cadogy.com"
-              className="text-slate-300 hover:underline"
-            >
-              contact@cadogy.com
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+export default function ContactPage() {
+  return <ContactForm />
 }
-
-export default ContactPage
