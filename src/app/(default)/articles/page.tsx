@@ -11,6 +11,7 @@ import {
   getTags,
   PLACEHOLDER_IMAGE,
 } from "@/lib/wordpress-api"
+import ArticleFilterMenu from "@/components/elements/ArticleFilterMenu"
 import ArticleListView from "@/components/elements/ArticleListView"
 import ArticlePagination from "@/components/elements/ArticlePagination"
 import ArticleSearch from "@/components/elements/ArticleSearch"
@@ -141,14 +142,10 @@ export default async function Articles({
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Main Content Area with Sidebar */}
       <div className="flex flex-col gap-8 lg:flex-row">
-        {/* Sidebar */}
-        <div className="w-full lg:w-1/4">
+        {/* Sidebar - Hidden on mobile, visible on lg screens and up */}
+        <div className="hidden w-full lg:block lg:w-1/4">
           <div className="lg:sticky lg:top-24">
             <div className="rounded-lg bg-neutral-900/50 p-6">
-              <h3 className="mb-4 text-xl font-bold text-slate-100">
-                Browse Articles
-              </h3>
-
               {/* Search - now functional */}
               <ArticleSearch />
 
@@ -230,7 +227,7 @@ export default async function Articles({
 
         {/* All Articles */}
         <div className="w-full lg:w-3/4">
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col">
               <h2 className="text-2xl font-bold text-slate-100">
                 {resultsTitle}
@@ -242,8 +239,22 @@ export default async function Articles({
               )}
             </div>
 
-            {/* View Toggle - now functional */}
-            <ArticleViewToggle />
+            <div className="flex w-full items-center justify-between sm:w-auto sm:gap-2">
+              {/* Filter Button - Only show on mobile/tablet */}
+              <div className="lg:hidden">
+                <ArticleFilterMenu
+                  categories={filteredCategories}
+                  tags={tags}
+                  currentCategoryId={categoryId}
+                  currentTagId={tagId}
+                  totalPosts={totalPosts}
+                  hasActiveFilters={!!(search || categoryId || tagId)}
+                />
+              </div>
+
+              {/* View Toggle - now functional */}
+              <ArticleViewToggle />
+            </div>
           </div>
 
           {/* Articles in either Grid or List view */}
