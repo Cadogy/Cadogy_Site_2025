@@ -1,4 +1,6 @@
 import { FC } from "react"
+import Image from "next/image"
+import Link from "next/link"
 import { FaPause, FaPlay } from "react-icons/fa"
 
 interface ArticleHeaderProps {
@@ -6,11 +8,13 @@ interface ArticleHeaderProps {
   date: string
   description: string
   keywords: string[]
+  keywordIds?: number[]
   authorName: string
   authorImage: string
   isPlaying: boolean
   onPlayPause: () => void
   audioSrc: string
+  featuredImage?: string
 }
 
 const ArticleHeader: FC<ArticleHeaderProps> = ({
@@ -18,68 +22,102 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
   date,
   description,
   keywords,
+  keywordIds = [],
   authorName,
   authorImage,
   isPlaying,
   onPlayPause,
   audioSrc,
+  featuredImage,
 }) => {
   return (
-    <header className="proseheader relative mb-12 select-none bg-gradient-to-r from-stone-800 to-zinc-800 py-12 md:py-16">
-      <div className="container mx-auto text-center md:text-left">
-        {/* Title */}
-        <h1 className="mb-4 text-gray-200">{title}</h1>
+    <header className="relative mb-12 select-none overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 h-full w-full">
+        {featuredImage && (
+          <Image
+            src={featuredImage}
+            alt={title}
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-neutral-900/70 to-background"></div>
+      </div>
 
-        {/* Date and Description */}
-        <div className="flex flex-col items-center space-y-2 text-center md:flex-row md:items-center md:space-x-2 md:space-y-0 md:text-left">
-          <p className="flex items-center text-zinc-300">
-            <span className="text-xs text-stone-300">{date}</span>
+      {/* Content */}
+      <div className="container relative mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-4xl">
+          {/* Meta Info */}
+          <div className="mb-5 flex flex-wrap items-center gap-3 text-slate-300">
+            <div className="flex items-center">
+              {authorImage && (
+                <Image
+                  src={authorImage}
+                  alt={authorName}
+                  width={24}
+                  height={24}
+                  className="mr-2 rounded-full"
+                />
+              )}
+              <span className="text-sm font-medium">{authorName}</span>
+            </div>
+            <span className="text-xs">•</span>
+            <span className="text-sm">{date}</span>
+
+            {/* Podcast Button */}
+            {audioSrc && (
+              <>
+                <span className="text-xs">•</span>
+                <button
+                  onClick={onPlayPause}
+                  className="flex items-center space-x-2 rounded-full bg-background/20 px-3 py-1 text-sm font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-background/30"
+                >
+                  {isPlaying ? (
+                    <div className="mr-1 flex items-center space-x-1">
+                      <div className="audio-bar h-3 w-[2px] animate-pulse bg-slate-200" />
+                      <div className="audio-bar h-4 w-[2px] animate-pulse bg-slate-200 transition delay-150" />
+                      <div className="audio-bar h-3 w-[2px] animate-pulse bg-slate-200 transition delay-300" />
+                    </div>
+                  ) : (
+                    <FaPlay className="mr-1 h-3 w-3" />
+                  )}
+                  <span className="transition-all duration-500 ease-in-out">
+                    {isPlaying ? "Listening..." : "Listen"}
+                  </span>
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Title */}
+          <h1 className="mb-5 text-center text-3xl font-bold leading-tight text-white sm:text-4xl md:text-left md:text-5xl">
+            {title}
+          </h1>
+
+          {/* Description */}
+          <p className="mb-8 text-center text-lg text-slate-300 md:text-left">
+            {description}
           </p>
 
-          <div className="flex items-center">
-            <span className="hidden md:flex">●</span>
-            <span className="text-xs text-gray-400 md:ml-2">
-              Written by <strong className="text-gray-200">{authorName}</strong>
-            </span>
-          </div>
-        </div>
-
-        {/* Button to Listen to Podcast */}
-        {audioSrc && (
-          <div className="mt-4 flex items-center justify-center md:mt-0 md:justify-start">
-            <button
-              onClick={onPlayPause}
-              className="flex items-center space-x-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-gray-300"
-            >
-              {isPlaying ? (
-                <div className="ml-2 flex items-center space-x-1">
-                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground" />
-                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-150" />
-                  <div className="audio-bar h-3 w-[2px] bg-muted-foreground transition delay-300" />
-                </div>
-              ) : (
-                <FaPlay />
-              )}
-              <span className="transition-all duration-500 ease-in-out">
-                {isPlaying
-                  ? "Listening now..."
-                  : "Listen to a podcast-style discussion"}
-              </span>
-            </button>
-          </div>
-        )}
-
-        <div className="hidden flex-col justify-center space-y-2 md:flex">
-          <div className="mt-2 flex flex-wrap gap-3 pt-2 md:absolute md:bottom-0 md:justify-center md:rounded-t-lg md:bg-background md:px-3">
-            {keywords.map((keyword, index) => (
-              <span
-                key={index}
-                className="inline-block rounded-sm bg-stone-600/30 px-3 py-1 text-xs text-white backdrop-blur-sm transition duration-500 hover:bg-stone-500/30"
-              >
-                {keyword}
-              </span>
-            ))}
-          </div>
+          {/* Keywords/Tags */}
+          {keywords.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {keywords.map((keyword, index) => {
+                const tagId = keywordIds[index]
+                return (
+                  <Link
+                    key={index}
+                    href={`/articles?tag=${tagId}&page=1`}
+                    className="inline-block rounded-full bg-background/20 px-3 py-1 text-xs text-white backdrop-blur-sm transition duration-300 hover:bg-background/30"
+                  >
+                    #{keyword}
+                  </Link>
+                )
+              })}
+            </div>
+          )}
         </div>
       </div>
     </header>

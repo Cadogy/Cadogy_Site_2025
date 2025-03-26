@@ -13,6 +13,8 @@ interface ArticleCoreProps {
   authorName: string
   authorImage: string
   keywords: string[]
+  keywordIds?: number[]
+  featuredImage?: string
 }
 
 const ArticleCore: FC<ArticleCoreProps> = ({
@@ -23,6 +25,8 @@ const ArticleCore: FC<ArticleCoreProps> = ({
   authorName,
   authorImage,
   keywords,
+  keywordIds,
+  featuredImage,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -45,9 +49,11 @@ const ArticleCore: FC<ArticleCoreProps> = ({
         date={date}
         description={description}
         keywords={keywords}
+        keywordIds={keywordIds}
         isPlaying={isPlaying}
         onPlayPause={handlePlayPause}
         audioSrc={audioSrc}
+        featuredImage={featuredImage}
       />
     </>
   )
