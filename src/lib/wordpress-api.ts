@@ -90,7 +90,10 @@ export async function getPosts({
 export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
   const response = await fetch(
     `${API_URL}/posts?_embed&slug=${slug}&status=publish`,
-    { next: { revalidate: 3600 } } // Cache for 1 hour
+    {
+      cache: "no-store", // Disable caching to always fetch fresh data
+      next: { revalidate: 0 }, // Force revalidation on every request
+    }
   )
 
   if (!response.ok) {
