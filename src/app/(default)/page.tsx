@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import {
   ArrowRight,
   BarChart3,
   Code,
+  ExternalLink,
   Gauge,
   Lock,
   Users,
@@ -19,8 +21,8 @@ import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import TextSlideEffect from "@/components/elements/TextSlideEffect"
 import { Icons } from "@/components/icons"
 
-// New components
-const FeaturedService = ({
+// Modern service card component with subtle animations
+const ServiceCard = ({
   icon: Icon,
   title,
   description,
@@ -29,100 +31,73 @@ const FeaturedService = ({
   title: string
   description: string
 }) => (
-  <div className="group flex flex-col rounded-lg bg-neutral-900/50 p-6 transition-all duration-300">
-    <div className="mb-4 rounded-full bg-neutral-800 p-3 text-blue-400">
-      <Icon className="h-6 w-6" />
-    </div>
-    <h3 className="mb-2 text-xl font-medium text-slate-100">{title}</h3>
+  <motion.div
+    className="group relative flex h-full cursor-default flex-col overflow-hidden rounded-2xl bg-neutral-900/40 p-6 sm:p-8"
+    whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.6)" }}
+    transition={{ duration: 0.3, ease: "easeInOut" }}
+  >
+    <motion.div
+      className="mb-4 rounded-full bg-neutral-800/70 p-3 text-slate-200 sm:mb-5"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+    </motion.div>
+    <h3 className="mb-2 text-lg font-medium text-slate-100 sm:mb-3">{title}</h3>
     <p className="text-sm text-slate-200">{description}</p>
-  </div>
+  </motion.div>
 )
 
-const testimonials = [
-  {
-    quote:
-      "Cadogy's cybersecurity solutions completely transformed how we approach data protection. Their expertise in anti-piracy technology saved us countless hours and resources.",
-    author: "Samantha R.",
-    position: "CTO, TechVision Solutions",
-    image: "/images/testimonials/testimonial-1.jpg",
-  },
-  {
-    quote:
-      "Working with Charles and Dylan on our digital rights management system was eye-opening. Their technical knowledge combined with strategic thinking delivered exceptional results.",
-    author: "Michael T.",
-    position: "Director of Content, MediaStream",
-    image: "/images/testimonials/testimonial-2.jpg",
-  },
-  {
-    quote:
-      "Their MERN stack expertise helped us completely revamp our platform with modern technologies while maintaining the highest security standards.",
-    author: "Alex K.",
-    position: "Lead Developer, InnovateTech",
-    image: "/images/testimonials/testimonial-3.jpg",
-  },
-]
-
-// Remove the hardcoded article content since we'll use real MDX content
-// Featured articles for the sticky articles section
-const realArticles = [
-  {
-    title:
-      "Protecting Companies IP. Lessons from Real-World Anti-Piracy Efforts",
-    description:
-      "Based on practical experiences in anti-piracy, we explore the realistic steps and technology required to combat digital piracy.",
-    date: "September 19th, 2024",
-    slug: "/articles/can-piracy-be-stopped",
-    coverImage: "/images/posts/crowd-people-walking-street.webp",
-  },
-  {
-    title: "Nvidia's AI Revolution: How GPU Technology Is Changing the Future",
-    description:
-      "Nvidia's latest advancements in AI chips and GPU technology are setting the stage for a new era in artificial intelligence and machine learning.",
-    date: "October 1st, 2024",
-    slug: "/articles/nvidia-ai-gpu-revolution-2024-2025",
-    coverImage: "/images/posts/jensen_nvidia_ai_processor.jpg",
-  },
-  {
-    title:
-      "Can You Train Your Own Large Language Model? It's Easier Than You Think",
-    description:
-      "Training your own LLM locally is not only feasible but essential for the future of small businesses.",
-    date: "September 20th, 2024",
-    slug: "/articles/how-to-train-your-own-large-language-model-for-business-ai",
-    coverImage: "/images/posts/nvidia-grace-hopper-superchip.jpg",
-  },
-]
-
-// Remove technical articles since we'll use real articles data
-
-const TechStackItem = ({
-  title,
-  description,
-}: {
-  title: string
-  description: string
-}) => (
-  <div className="mb-6">
-    <h4 className="mb-2 text-lg font-medium text-slate-100">{title}</h4>
-    <p className="text-sm text-slate-200">{description}</p>
-  </div>
+// Simplified tech stack component with subtle animations
+const TechItem = ({ icon, title }: { icon: string; title: string }) => (
+  <motion.div
+    className="flex flex-col items-center gap-3 rounded-2xl bg-neutral-900/40 p-4 text-center sm:p-5"
+    whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.6)" }}
+    transition={{ duration: 0.3 }}
+  >
+    <motion.img
+      src={icon}
+      alt={title}
+      className="h-10 w-10 sm:h-12 sm:w-12"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.2 }}
+    />
+    <h4 className="text-sm font-medium text-slate-200">{title}</h4>
+  </motion.div>
 )
+
+// Animation variants for staggered animations
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+}
+
+// Add fadeInUp variants for the CTA section
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+}
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false)
-
-  // Use realArticles data for the carousel slides
-  const slides = realArticles.map((article) => ({
-    link: article.slug,
-    image: article.coverImage,
-    altImage: article.coverImage, // Same image as primary for now
-    title: article.title,
-    description: article.description,
-    authorName: article.slug.includes("dylan") ? "Dylan" : "Charles", // Basic author assignment
-    authorImage: article.slug.includes("dylan")
-      ? "/images/authors/dylan_s_author.jpg"
-      : "/images/authors/charles_k_author.jpg",
-  }))
 
   useEffect(() => {
     // Check if the device is mobile by setting a breakpoint for screen width
@@ -142,7 +117,7 @@ export default function Home() {
     <>
       {/* Hero Section - Full Width */}
       <section className="w-full">
-        <HeroCarousel slides={slides} />
+        <HeroCarousel />
       </section>
 
       {/* Text Slide - Full Width */}
@@ -150,308 +125,435 @@ export default function Home() {
         <TextSlideEffect />
       </section>
 
-      {/* Featured Services Section - Boxed */}
-      <section className="mx-auto my-24 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-blue-400">
-            What We Offer
-          </h2>
-          <h3 className="text-3xl font-bold text-slate-100">Our Services</h3>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-200">
-            We provide cutting-edge solutions in cybersecurity, web development,
-            and digital rights management, helping businesses achieve their
-            technological goals securely and efficiently.
-          </p>
-        </div>
+      {/* Services Section - Modern, Flat Design */}
+      <section className="container mx-auto px-4 py-16 sm:py-20 md:py-24">
+        <motion.div
+          className="mb-12 sm:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex flex-col items-center text-center">
+            <h2 className="mb-4 text-2xl font-bold leading-tight text-slate-100 sm:text-3xl md:text-4xl">
+              Our Services
+            </h2>
+            <p className="mx-auto max-w-2xl text-sm text-slate-200">
+              We provide cutting-edge solutions in cybersecurity, web
+              development, and digital rights management, helping businesses
+              achieve their technological goals securely and efficiently.
+            </p>
+          </div>
+        </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <FeaturedService
-            icon={Lock}
-            title="Advanced Cybersecurity"
-            description="Comprehensive security solutions including DNS security, encryption methodologies, and system protection against emerging threats."
-          />
-          <FeaturedService
-            icon={Code}
-            title="Modern Web Development"
-            description="Full-stack development with the MERN stack (MongoDB, Express, React, Node.js) and modern frontend frameworks like Next.js and TailwindCSS."
-          />
-          <FeaturedService
-            icon={Gauge}
-            title="Performance Optimization"
-            description="Streamlining digital solutions for maximum efficiency, from backend database structures to frontend user experiences."
-          />
-          <FeaturedService
-            icon={Zap}
-            title="Anti-Piracy Solutions"
-            description="Cutting-edge content protection strategies for digital assets, ensuring your intellectual property remains secure in the digital landscape."
-          />
-          <FeaturedService
-            icon={BarChart3}
-            title="Data-Driven Analytics"
-            description="Strategic insights through advanced data analysis, helping your business make informed decisions for growth and optimization."
-          />
-          <FeaturedService
-            icon={Users}
-            title="Digital Rights Management"
-            description="Comprehensive systems for managing digital rights and permissions, protecting creators while enabling authorized access."
-          />
-        </div>
+        {/* Service cards with staggered animations */}
+        <motion.div
+          className="mx-auto max-w-6xl"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={Lock}
+                title="Advanced Cybersecurity"
+                description="Comprehensive security solutions including DNS security, encryption methodologies, and system protection against emerging threats."
+              />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={Code}
+                title="Modern Web Development"
+                description="Full-stack development with the MERN stack (MongoDB, Express, React, Node.js) and modern frontend frameworks like Next.js and TailwindCSS."
+              />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={Gauge}
+                title="Performance Optimization"
+                description="Streamlining digital solutions for maximum efficiency, from backend database structures to frontend user experiences."
+              />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={Zap}
+                title="Anti-Piracy Solutions"
+                description="Cutting-edge content protection strategies for digital assets, ensuring your intellectual property remains secure in the digital landscape."
+              />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={BarChart3}
+                title="Data-Driven Analytics"
+                description="Strategic insights through advanced data analysis, helping your business make informed decisions for growth and optimization."
+              />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <ServiceCard
+                icon={Users}
+                title="Digital Rights Management"
+                description="Comprehensive systems for managing digital rights and permissions, protecting creators while enabling authorized access."
+              />
+            </motion.div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Expertise Showcase Section - Full Width with Inner Box */}
-      <section className="w-full bg-neutral-900/30 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div className="flex flex-col justify-center">
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-blue-400">
-                Our Expertise
+      {/* Technical Expertise Section - Innovative Layout */}
+      <section className="relative w-full overflow-hidden py-16 sm:py-20 md:py-24">
+        <div className="absolute inset-0 bg-neutral-900/30"></div>
+        <div className="container relative mx-auto px-4">
+          <motion.div
+            className="mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex flex-col items-center text-center">
+              <h2 className="mb-4 text-2xl font-bold leading-tight text-slate-100 sm:text-3xl md:text-4xl">
+                Technical Expertise
               </h2>
-              <h3 className="mb-6 text-3xl font-bold text-slate-100">
-                Technical Proficiency
-              </h3>
-              <p className="mb-8 text-sm text-slate-200">
+              <p className="mx-auto max-w-2xl text-sm text-slate-200">
                 Our team brings extensive experience across a wide range of
-                technologies, with particular expertise in cybersecurity, MERN
-                stack development, and cutting-edge innovations in AI and
-                machine learning integration.
+                technologies, with particular expertise in cybersecurity, modern
+                web development, and cutting-edge innovations.
               </p>
-
-              <div className="mt-4 space-y-6">
-                <TechStackItem
-                  title="Cybersecurity & Anti-Piracy"
-                  description="Expertise in implementing advanced DNS security layers, encryption protocols, and custom anti-piracy solutions that protect digital assets while maintaining optimal performance."
-                />
-                <TechStackItem
-                  title="MERN Stack Development"
-                  description="Deep knowledge of MongoDB, Express.js, React.js, and Node.js, allowing us to build scalable, maintainable full-stack applications with modern architecture patterns."
-                />
-                <TechStackItem
-                  title="AI & Machine Learning"
-                  description="Implementation of AI solutions for enhanced security monitoring, content protection, and business analytics that transform raw data into actionable intelligence."
-                />
-                <TechStackItem
-                  title="Cloud Infrastructure"
-                  description="Experience with AWS, Google Cloud Platform, and other cloud providers to create resilient, scalable architectures that meet enterprise-level performance needs."
-                />
-              </div>
-
-              <div className="mt-8">
-                <Link
-                  href="/who-we-are"
-                  className="group flex items-center text-sm font-semibold text-blue-400"
-                >
-                  <span className="mr-1">Learn more about our team</span>
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
             </div>
+          </motion.div>
 
-            <div className="relative hidden lg:block">
-              <div className="aspect-square overflow-hidden rounded-lg bg-neutral-900">
-                <img
-                  src="/images/posts/nvidia-dgx-spark-and-nvidia-dgx-station.jpg"
-                  alt="Technology expertise visualization"
-                  className="h-full w-full object-cover opacity-90"
-                />
-              </div>
-
-              {/* Tech stack logos - reduced to 4 well-placed icons */}
-              <div className="absolute -right-4 -top-4 rounded-full border border-neutral-800 bg-neutral-900 p-3">
-                <img
-                  src="/images/assets/stack-logos/nextjs-icon.svg"
-                  alt="NextJS"
-                  className="h-10 w-10"
-                />
-              </div>
-
-              <div className="absolute bottom-8 left-16 rounded-full border border-neutral-800 bg-neutral-900 p-3">
-                <img
-                  src="/images/assets/stack-logos/reactjs-icon.svg"
-                  alt="ReactJS"
-                  className="h-10 w-10"
-                />
-              </div>
-
-              <div className="absolute -left-4 top-1/3 rounded-full border border-neutral-800 bg-neutral-900 p-3">
-                <img
-                  src="/images/assets/stack-logos/mongodb-icon.svg"
-                  alt="MongoDB"
-                  className="h-10 w-10"
-                />
-              </div>
-
-              <div className="absolute -right-4 bottom-1/3 rounded-full border border-neutral-800 bg-neutral-900 p-3">
-                <img
-                  src="/images/assets/stack-logos/tailwindcss-icon.svg"
-                  alt="TailwindCSS"
-                  className="h-10 w-10"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Articles Section - with Sticky Sidebar */}
-      <section className="mx-auto my-24 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-blue-400">
-            Knowledge Center
-          </h2>
-          <h3 className="text-3xl font-bold text-slate-100">
-            Featured Articles
-          </h3>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-200">
-            Explore our latest insights on cybersecurity, web development, and
-            technological innovation.
-          </p>
-        </div>
-
-        <div className="relative flex flex-col gap-10 lg:flex-row">
-          {/* Main feature content - Left side */}
-          <div className="w-full lg:w-7/12">
-            {realArticles.length > 0 ? (
-              realArticles.slice(0, 2).map((article, index) => (
-                <div
-                  key={index}
-                  className="mb-16 overflow-hidden rounded-lg bg-neutral-900/50"
-                >
-                  <Link href={article.slug} className="group block">
-                    <div className="aspect-video w-full overflow-hidden">
-                      <div
-                        className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                        style={{
-                          backgroundImage: `url(${article.coverImage})`,
-                        }}
-                      />
-                    </div>
-                    <div className="p-6">
-                      <p className="mb-2 text-sm text-slate-400">
-                        {article.date}
-                      </p>
-                      <h4 className="mb-3 text-2xl font-medium text-slate-100">
-                        {article.title}
-                      </h4>
-                      <p className="text-sm text-slate-200">
-                        {article.description}
-                      </p>
-                      <div className="mt-4 flex items-center text-blue-400">
-                        <span className="text-sm font-medium">Read more</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-                    </div>
-                  </Link>
+          {/* Expertise Cards - More Visual Approach with Sophisticated Animations */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Left Column - Cybersecurity & Web Dev */}
+            <div className="space-y-6">
+              <motion.div
+                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
+              >
+                <div className="flex items-center">
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Lock className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
+                  </motion.div>
+                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
+                    Cybersecurity
+                  </h3>
                 </div>
-              ))
-            ) : (
-              // Placeholder when no articles are available
-              <div className="flex h-64 items-center justify-center rounded-lg bg-neutral-900/50">
-                <p className="text-center text-slate-400">
-                  New articles coming soon. Stay tuned!
-                </p>
-              </div>
-            )}
-          </div>
+                <div className="ml-16 mt-4">
+                  <p className="mb-3 text-sm text-slate-200">
+                    Advanced DNS security, encryption protocols, and intrusion
+                    prevention systems that safeguard digital assets.
+                  </p>
+                  <motion.div
+                    className="flex flex-wrap gap-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Advanced Threat Detection
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Zero-trust Architecture
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Penetration Testing
+                    </span>
+                  </motion.div>
+                </div>
+              </motion.div>
 
-          {/* Sticky sidebar - Right side */}
-          <div className="relative lg:w-5/12">
-            <div className="lg:sticky lg:top-24 lg:pb-24">
-              <h4 className="mb-6 text-lg font-medium text-slate-100">
-                More Articles
-              </h4>
-              <div className="space-y-6">
-                {realArticles.length > 0 ? (
-                  realArticles.map((article, index) => (
-                    <div
-                      key={index}
-                      className="group relative overflow-hidden rounded-lg bg-neutral-900/50"
-                    >
-                      <Link href={article.slug} className="block">
-                        <div className="flex flex-col md:flex-row">
-                          {/* Fix the image layout for the sidebar */}
-                          <div className="md:w-28 md:flex-shrink-0 md:self-stretch">
-                            <div
-                              className="relative h-full w-full"
-                              style={{ aspectRatio: "1/1" }}
-                            >
-                              <img
-                                src={article.coverImage}
-                                alt={article.title}
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-1 flex-col justify-center p-4">
-                            <p className="mb-1 text-xs text-slate-400">
-                              {article.date}
-                            </p>
-                            <h5 className="line-clamp-2 font-medium text-slate-100">
-                              {article.title}
-                            </h5>
-                            <div className="mt-2 hidden text-xs text-slate-200 md:line-clamp-2">
-                              {article.description}
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))
-                ) : (
-                  // Placeholder for sidebar
-                  <div className="rounded-lg bg-neutral-900/50 p-6">
-                    <p className="text-center text-slate-400">
-                      More articles coming soon
-                    </p>
-                  </div>
-                )}
-              </div>
-              <div className="mt-8">
-                <Link
-                  href="/articles"
-                  className="group flex items-center text-sm font-semibold text-blue-400"
-                >
-                  <span className="mr-1">View all articles</span>
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
+              <motion.div
+                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
+              >
+                <div className="flex items-center">
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Code className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
+                  </motion.div>
+                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
+                    Web Development
+                  </h3>
+                </div>
+                <div className="ml-16 mt-4">
+                  <p className="mb-3 text-sm text-slate-200">
+                    Full-stack development using modern frameworks and libraries
+                    for fast, scalable applications.
+                  </p>
+                  <motion.div
+                    className="flex flex-wrap gap-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      React/Next.js
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Node.js Microservices
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Serverless Architecture
+                    </span>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column - Data & AI */}
+            <div className="space-y-6">
+              <motion.div
+                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
+              >
+                <div className="flex items-center">
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <BarChart3 className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
+                  </motion.div>
+                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
+                    Data & Analytics
+                  </h3>
+                </div>
+                <div className="ml-16 mt-4">
+                  <p className="mb-3 text-sm text-slate-200">
+                    Transforming raw data into actionable insights through
+                    advanced analytics and visualization.
+                  </p>
+                  <motion.div
+                    className="flex flex-wrap gap-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Business Intelligence
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Predictive Modeling
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Real-time Dashboards
+                    </span>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
+              >
+                <div className="flex items-center">
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Zap className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
+                  </motion.div>
+                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
+                    AI Integration
+                  </h3>
+                </div>
+                <div className="ml-16 mt-4">
+                  <p className="mb-3 text-sm text-slate-200">
+                    Implementing AI solutions to enhance security, automate
+                    processes, and provide deeper insights.
+                  </p>
+                  <motion.div
+                    className="flex flex-wrap gap-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Machine Learning
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Natural Language Processing
+                    </span>
+                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
+                      Computer Vision
+                    </span>
+                  </motion.div>
+                </div>
+              </motion.div>
             </div>
           </div>
+
+          {/* Tech Stack - With Enhanced Animations */}
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="mb-8 text-center text-xl font-medium text-slate-100 sm:text-2xl">
+              Technologies We Use
+            </h3>
+            <motion.div
+              className="flex flex-wrap justify-center gap-4 sm:gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/nextjs-icon.svg"
+                  title="Next.js"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/reactjs-icon.svg"
+                  title="React"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/mongodb-icon.svg"
+                  title="MongoDB"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/tailwindcss-icon.svg"
+                  title="Tailwind"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/typescript-icon.svg"
+                  title="TypeScript"
+                />
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <TechItem
+                  icon="/images/assets/stack-logos/nodejs-icon.svg"
+                  title="Node.js"
+                />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            className="mt-12 flex justify-center sm:mt-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link
+                href="/who-we-are"
+                className="group flex items-center rounded-full bg-neutral-800/70 px-6 py-3 text-sm font-medium text-slate-200 transition-all duration-300"
+              >
+                <span>Learn more about our team</span>
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    duration: 1.5,
+                  }}
+                >
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA Section - Full Width */}
-      <section className="w-full bg-neutral-900/30 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-6 text-3xl font-bold text-slate-100 md:text-4xl">
+      {/* CTA Section - Full Width with Fixed Background */}
+      <section className="relative w-full py-16 sm:py-20 md:py-24">
+        <div className="absolute inset-0 bg-neutral-900"></div>
+        <div className="container relative mx-auto px-4">
+          <motion.div
+            className="mx-auto max-w-3xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="mb-4 text-2xl font-bold text-slate-100 sm:mb-6 sm:text-3xl md:text-4xl">
               Ready to Transform Your Digital Presence?
             </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-sm text-slate-200 md:text-base">
+            <p className="mx-auto mb-8 max-w-2xl text-sm text-slate-200 sm:mb-10">
               Partner with us to leverage our technical expertise and transform
               your ideas into secure, scalable, and innovative digital
               solutions.
             </p>
-            <div className="flex flex-row items-center justify-center space-x-4 space-y-0 sm:space-x-6">
-              <Link
-                className="group flex w-auto items-center justify-center rounded-sm bg-background/70 px-5 py-3 text-slate-200 transition duration-500 md:bg-background/20 md:hover:bg-background/30 md:hover:backdrop-blur-sm"
-                href="/contact-us"
-              >
-                <span className="text-base font-medium transition duration-500 group-hover:-translate-x-1 sm:text-sm">
-                  Get Started
-                </span>
-                <ArrowRight className="ml-2 h-5 w-5 text-slate-200 transition duration-500 group-hover:translate-x-1 sm:h-4 sm:w-4" />
-              </Link>
-              <Link
-                className="group flex w-auto items-center justify-center rounded-sm border border-neutral-800 bg-transparent px-5 py-3 text-slate-200 transition duration-500 md:hover:bg-background/10 md:hover:backdrop-blur-sm"
-                href="/our-charter"
-              >
-                <span className="text-base font-medium transition duration-500 group-hover:-translate-x-1 sm:text-sm">
-                  Learn More
-                </span>
-                <ArrowRight className="ml-2 h-5 w-5 text-slate-200 transition duration-500 group-hover:translate-x-1 sm:h-4 sm:w-4" />
-              </Link>
+            <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-center sm:space-x-6 sm:space-y-0">
+              <motion.div variants={fadeInUp}>
+                <Button
+                  variant="hero"
+                  size="hero"
+                  className="group flex items-center justify-center rounded-full bg-neutral-800 px-8 py-3 text-sm font-medium text-slate-100 transition-all duration-300"
+                  asChild
+                >
+                  <Link href="/contact-us" className="inline-flex items-center">
+                    Request a demo
+                    <ArrowRight className="ml-1 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </motion.div>
+
+              <motion.div variants={fadeInUp}>
+                <Button
+                  variant="hero"
+                  size="hero"
+                  className="group flex items-center justify-center rounded-full bg-neutral-800/20 px-8 py-3 text-sm font-medium text-slate-200 transition-all duration-300"
+                  asChild
+                >
+                  <Link
+                    href="/our-charter"
+                    className="inline-flex items-center"
+                  >
+                    Explore the API
+                    <ArrowRight className="ml-1 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

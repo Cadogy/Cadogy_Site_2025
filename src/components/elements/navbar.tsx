@@ -5,6 +5,7 @@ import Link from "next/link"
 import { KeyIcon } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
+import { Button } from "@/components/ui/button"
 
 export function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -67,39 +68,33 @@ export function NavigationMenu() {
         </Link>
 
         {/* Centered Navigation Menu (for Desktop) */}
-        <ul className="hidden lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:transform lg:items-center lg:gap-12">
-          <li>
+        <div className="hidden flex-1 items-center justify-end md:flex">
+          <nav className="flex items-center gap-6 text-sm">
             <Link
               href="/who-we-are"
               className="text-sm transition duration-150"
             >
               Who We Are
             </Link>
-          </li>
-          <li>
             <Link href="/articles" className="text-sm transition duration-150">
               Articles
             </Link>
-          </li>
-          <li>
             <Link
               href="/contact-us"
               className="text-sm transition duration-150"
             >
-              Contact Us
+              Contact
             </Link>
-          </li>
-        </ul>
+          </nav>
 
-        {/* Right-aligned Sign-in Button & Mode Toggle */}
-        <div className="group hidden items-center gap-4 lg:flex">
-          <Link
-            href="/login"
-            className="duration-350 flex items-center rounded-md border border-white/10 px-4 py-1 text-sm text-gray-200 transition hover:border-white/20 hover:text-gray-100 active:scale-95"
-          >
-            <KeyIcon className="duration-350 mr-1 h-[14px] w-[14px] text-gray-200 transition active:scale-90 group-hover:rotate-12 group-hover:text-gray-100" />
-            Clients
-          </Link>
+          <div className="ml-6">
+            <Button variant="hero" size="sm" asChild>
+              <Link href="/login" className="group inline-flex items-center">
+                API Key
+                <KeyIcon className="ml-1 h-[14px] w-[14px]" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -164,47 +159,59 @@ export function NavigationMenu() {
             <span className="text-sm">{siteConfig.name}</span>
           </div>
 
-          <ul
-            className="ml-2 mt-10 space-y-8 text-2xl text-white"
+          <div
+            className="ml-2 mt-10 flex w-full flex-col space-y-4"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on menu items
           >
-            <li>
-              <Link
-                className="text-slate-200"
-                href="/who-we-are"
-                onClick={closeMenu}
-              >
+            <Button
+              variant="ghost"
+              size="lg"
+              className="justify-start text-xl text-slate-200"
+              asChild
+            >
+              <Link href="/who-we-are" onClick={closeMenu}>
                 Who We Are
               </Link>
-            </li>
-            <li>
-              <Link
-                className="text-slate-200"
-                href="/articles"
-                onClick={closeMenu}
-              >
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="lg"
+              className="justify-start text-xl text-slate-200"
+              asChild
+            >
+              <Link href="/articles" onClick={closeMenu}>
                 Articles
               </Link>
-            </li>
-            <li>
-              <Link
-                className="text-slate-200"
-                href="/contact-us"
-                onClick={closeMenu}
-              >
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="lg"
+              className="justify-start text-xl text-slate-200"
+              asChild
+            >
+              <Link href="/contact-us" onClick={closeMenu}>
                 Contact Us
               </Link>
-            </li>
-            <li>
+            </Button>
+
+            <Button
+              variant="hero"
+              size="lg"
+              className="mt-4 justify-start text-xl"
+              asChild
+            >
               <Link
-                className="text-slate-200"
                 href="/login"
                 onClick={closeMenu}
+                className="inline-flex items-center"
               >
                 For Clients
+                <KeyIcon className="ml-1 h-5 w-5" />
               </Link>
-            </li>
-          </ul>
+            </Button>
+          </div>
         </div>
       </div>
     </nav>
