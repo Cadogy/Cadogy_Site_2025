@@ -90,7 +90,7 @@ export function NavigationMenu() {
           <div className="ml-6">
             <Button variant="hero" size="sm" asChild>
               <Link href="/login" className="group inline-flex items-center">
-                API Key
+                For Clients
                 <KeyIcon className="ml-1 h-[14px] w-[14px]" />
               </Link>
             </Button>
@@ -197,7 +197,7 @@ export function NavigationMenu() {
             </Button>
 
             <Button
-              variant="hero"
+              variant="ghost"
               size="lg"
               className="mt-4 justify-start text-xl"
               asChild

@@ -129,7 +129,7 @@ export default function ArticleFilterMenu({
 
       <SheetContent
         side="bottom"
-        className="h-[90vh] rounded-t-2xl border-t-2 border-neutral-700 p-0"
+        className="h-[90vh] rounded-t-2xl border-t-0 border-neutral-700 p-0"
       >
         <div
           className="group cursor-pointer px-6 pb-0 pt-6 transition-colors active:bg-neutral-800/30"
