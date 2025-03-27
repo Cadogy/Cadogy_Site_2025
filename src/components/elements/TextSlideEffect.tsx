@@ -138,7 +138,7 @@ const TextSlideEffect = () => {
 
   return (
     <div
-      className="relative mx-auto max-w-[94%] overflow-hidden py-3 pt-6"
+      className="relative mx-auto max-w-[94%] overflow-hidden py-3 pt-6 md:pt-0"
       ref={containerRef}
     >
       {/* Left and Right gradient overlays for the blurry darkness effect */}

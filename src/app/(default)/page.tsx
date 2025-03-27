@@ -1,11 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   ArrowRight,
   BarChart3,
+  Brain,
+  Cloud,
   Code,
   Gauge,
   Lock,
@@ -50,6 +52,29 @@ const gradients = {
     "bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-indigo-500 via-purple-500 to-pink-500",
   digitalRights:
     "bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-blue-600 via-purple-600 to-orange-500",
+  cloudSolutions: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600",
+  aiMl: "bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-fuchsia-500 via-purple-600 to-blue-700",
+}
+
+// Simplified technology item component without tooltips
+interface TechItemProps {
+  src: string
+  alt: string
+  description?: string
+}
+
+function TechItem({ src, alt }: TechItemProps) {
+  return (
+    <div className="group relative flex flex-col items-center justify-center overflow-hidden rounded-lg bg-neutral-900/40 p-4 text-center transition-all duration-300">
+      <div className="relative z-10 flex flex-col items-center">
+        <img src={src} alt={alt} className="mb-3 h-12 w-12" />
+        <span className="text-sm text-slate-300">{alt}</span>
+      </div>
+
+      {/* Hover indicator - subtle highlight effect */}
+      <div className="absolute inset-0 z-0 bg-blue-500/0 transition-colors duration-300"></div>
+    </div>
+  )
 }
 
 export default function Home() {
@@ -90,7 +115,7 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center py-6 text-center">
             <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
               Our Services
             </h2>
@@ -104,7 +129,7 @@ export default function Home() {
 
         {/* Service Cards Grid - Using Gradient Cards */}
         <motion.div
-          className="grid grid-cols-2 gap-4 gap-y-6 sm:gap-6 lg:grid-cols-3"
+          className="grid grid-cols-2 gap-4 gap-y-6 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -113,7 +138,7 @@ export default function Home() {
           {/* Card 1 - Cybersecurity */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cybersecurity} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cybersecurity} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -137,7 +162,7 @@ export default function Home() {
           {/* Card 2 - Web Development */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.webDev} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.webDev} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -161,7 +186,7 @@ export default function Home() {
           {/* Card 3 - Performance */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.performance} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.performance} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -174,7 +199,8 @@ export default function Home() {
                     Performance Optimization
                   </h4>
                   <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Streamlining digital solutions for maximum efficiency.
+                    Streamlining digital information and solutions for maximum
+                    efficiency and performance.
                   </p>
                 </div>
               </div>
@@ -184,7 +210,7 @@ export default function Home() {
           {/* Card 4 - Anti-Piracy */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.piracy} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.piracy} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -194,10 +220,11 @@ export default function Home() {
                 />
                 <div className="mt-auto">
                   <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Anti-Piracy & Security Solutions
+                    Security Solutions
                   </h4>
                   <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Cutting-edge content protection for digital assets.
+                    Cutting-edge content and information protection for digital
+                    assets and your website.
                   </p>
                 </div>
               </div>
@@ -207,7 +234,7 @@ export default function Home() {
           {/* Card 5 - Data Analytics */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.dataAnalytics} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.dataAnalytics} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -217,7 +244,7 @@ export default function Home() {
                 />
                 <div className="mt-auto">
                   <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Data-Driven Analytic Work
+                    Data-Driven Analytics
                   </h4>
                   <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
                     Strategic insights through advanced data analysis and
@@ -231,7 +258,7 @@ export default function Home() {
           {/* Card 6 - Digital Rights */}
           <motion.div variants={itemVariants}>
             <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.digitalRights} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.digitalRights} p-4 transition-all duration-300 sm:p-6`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
               <div className="relative z-10 flex h-full flex-col">
@@ -244,7 +271,56 @@ export default function Home() {
                     Digital Rights Management
                   </h4>
                   <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Systems for managing digital rights and permissions.
+                    Systems for managing digital rights and permissions for
+                    end-users and administration.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 7 - Cloud Solutions */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cloudSolutions} p-4 transition-all duration-300 sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Cloud
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Cloud Infrastructure
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Scalable and secure cloud server solutions for businesses of
+                    all sizes and industries.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 8 - AI & Machine Learning */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.aiMl} p-4 transition-all duration-300 sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Brain
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    AI & Machine Learning
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Custom AI solutions and machine learning models for advanced
+                    data processing.
                   </p>
                 </div>
               </div>
@@ -260,14 +336,14 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-left md:text-center">
+            <div className="py-6 text-center">
               <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
                 Technical Expertise
               </h2>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-400 md:mx-auto">
                 Our team brings extensive experience across a wide range of
-                technologies, with particular expertise in cybersecurity, modern
-                web development, and cutting-edge innovations.
+                technologies, with particular expertise in cybersecurity and
+                modern web development
               </p>
             </div>
           </motion.div>
@@ -275,7 +351,7 @@ export default function Home() {
           {/* Main Expertise Section with Image */}
           <div className="relative">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-              <div className="relative z-10">
+              <div className="relative z-10 text-center md:text-left">
                 <h3 className="text-2xl font-medium text-slate-100">
                   Our approach to technology
                 </h3>
@@ -286,14 +362,11 @@ export default function Home() {
                   development and digital rights management.
                 </p>
                 <p className="mt-4 text-slate-400">
-                  Computer vision represents one of our core areas of
-                  innovation. As visual data becomes increasingly critical in
-                  today&apos;s digital landscape, we&apos;re developing
-                  sophisticated systems capable of analyzing and understanding
-                  visual information with unprecedented accuracy. From
-                  transportation detection to security applications, our
-                  computer vision solutions transform raw visual data into
-                  actionable insights.
+                  We&apos;re developing sophisticated systems capable of
+                  analyzing and understanding visual information with
+                  unprecedented accuracy. From asset generation to security
+                  applications, our solutions transform raw visual data into
+                  actionable insights and products.
                 </p>
                 <p className="mt-4 text-slate-400">
                   Our development process prioritizes security, performance, and
@@ -307,12 +380,10 @@ export default function Home() {
                   innovation. We&apos;re actively exploring the development of
                   more powerful AI models that combine multiple data modalities,
                   enabling systems that can understand context in ways similar
-                  to human perception. This commitment to advancement ensures
-                  our clients always have access to the most sophisticated
-                  technological solutions available.
+                  to human perception.
                 </p>
               </div>
-              <div className="relative hidden aspect-square overflow-hidden rounded-lg transition-all duration-500 hover:scale-[1.02] md:block">
+              <div className="relative hidden aspect-square overflow-hidden rounded-lg transition-all duration-500 md:block">
                 {/* Image instead of gradient */}
                 <img
                   src="/images/cadogy_training_computer_vision_ddetecting_transportation.jpg"
@@ -326,66 +397,65 @@ export default function Home() {
 
           {/* Technologies We Use */}
           <div className="mt-24">
-            <h3 className="mb-8 text-left text-xl font-medium text-slate-100 md:text-center">
+            <h3 className="my-8 text-center text-xl font-medium text-slate-100">
               Technologies We Use
             </h3>
-            <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/nextjs-icon.svg"
-                  alt="Next.js"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">Next.js</span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/reactjs-icon.svg"
-                  alt="React"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">React</span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/mongodb-icon.svg"
-                  alt="MongoDB"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">MongoDB</span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/tailwindcss-icon.svg"
-                  alt="Tailwind"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">Tailwind</span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/typescript-icon.svg"
-                  alt="TypeScript"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">TypeScript</span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
-                <img
-                  src="/images/assets/stack-logos/nodejs-icon.svg"
-                  alt="Node.js"
-                  className="mb-3 h-12 w-12"
-                />
-                <span className="text-sm text-slate-300">Node.js</span>
-              </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              <TechItem
+                src="/images/assets/stack-logos/nextjs-icon.svg"
+                alt="Next.js"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/reactjs-icon.svg"
+                alt="React"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/mongodb-icon.svg"
+                alt="MongoDB"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/tailwindcss-icon.svg"
+                alt="Tailwind"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/typescript-icon.svg"
+                alt="TypeScript"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/nodejs-icon.svg"
+                alt="Node.js"
+              />
+
+              {/* Additional technologies - Row 2 */}
+              <TechItem
+                src="/images/assets/stack-logos/python-icon.svg"
+                alt="Python"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/nvidia-icon.svg"
+                alt="Nvidia"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/openai-icon.svg"
+                alt="OpenAI"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/anthropic-icon.svg"
+                alt="Anthropic"
+              />
+              <TechItem
+                src="/images/assets/stack-logos/aws-icon.svg"
+                alt="AWS"
+              />
+              <TechItem src="/images/assets/logos/github.svg" alt="GitHub" />
             </div>
           </div>
 
           {/* Learn More Link */}
-          <div className="flex justify-start py-8 md:justify-center">
+          <div className="flex justify-center py-8">
             <Link
               href="/who-we-are"
-              className="group flex items-center space-x-1 rounded-full border border-slate-700 bg-neutral-900/40 px-6 py-3 text-sm font-medium text-slate-200 transition-all hover:bg-neutral-800/60"
+              className="group flex items-center space-x-1 rounded-sm border border-neutral-700 bg-neutral-900/40 px-6 py-3 text-sm font-medium text-slate-200 transition-all hover:bg-neutral-800/60"
             >
               <span>Learn more about our team</span>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { AnimatePresence, motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
 import { WP_Post } from "@/types/wordpress"
@@ -229,10 +230,10 @@ export function HeroCarousel({
             {/* Content overlay - centered exactly like the actual content */}
             <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-black/50 p-4">
               {/* Author skeleton */}
-              <div className="mb-2 flex items-center justify-center">
+              {/* <div className="mb-2 flex items-center justify-center">
                 <div className="mr-2 h-5 w-5 animate-pulse rounded-full bg-neutral-800/80 sm:h-6 sm:w-6"></div>
                 <div className="h-3 w-20 animate-pulse rounded bg-neutral-800/80"></div>
-              </div>
+              </div> */}
 
               {/* Title skeleton */}
               <div className="mb-4 h-7 w-3/4 animate-pulse rounded-md bg-neutral-800/80 text-center sm:h-8 md:h-10"></div>
@@ -335,7 +336,7 @@ export function HeroCarousel({
               <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-black/50 p-4 text-center">
                 <div className="flex w-full max-w-3xl flex-col items-center px-3 sm:px-6 md:px-8">
                   {/* Author section with fixed height */}
-                  <div className="mb-2 flex h-6 items-center justify-center md:mb-3">
+                  {/* <div className="mb-2 flex h-6 items-center justify-center md:mb-3">
                     {slide.authorName && (
                       <>
                         {slide.authorImage && (
@@ -350,13 +351,18 @@ export function HeroCarousel({
                         </span>
                       </>
                     )}
-                  </div>
+                  </div> */}
 
-                  {/* Title with fixed height based on screen size */}
+                  {/* Title with fixed height based on screen size - now clickable */}
                   <div className="mb-3 min-h-[2.5rem] sm:mb-2 sm:min-h-[3rem] md:min-h-[3.5rem] lg:min-h-[4rem]">
-                    <h2 className="line-clamp-2 text-base font-bold leading-tight text-white sm:text-xl md:text-2xl lg:text-3xl">
-                      {slide.title}
-                    </h2>
+                    <Link
+                      href={slide.link}
+                      className="group/title inline-block"
+                    >
+                      <h2 className="line-clamp-2 text-base font-bold leading-tight text-white transition-colors sm:text-xl md:text-2xl lg:text-3xl">
+                        {slide.title}
+                      </h2>
+                    </Link>
                   </div>
 
                   {/* Description with fixed height - now visible on mobile */}
@@ -388,18 +394,35 @@ export function HeroCarousel({
       {/* Rectangle Navigation */}
       <div className="absolute bottom-2 left-0 right-0 flex justify-center sm:bottom-4">
         <div className="flex space-x-1 rounded-full bg-black/20 px-2 py-1 backdrop-blur-sm sm:space-x-2 sm:px-3 sm:py-1.5">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              className={`h-1.5 rounded-full transition-all sm:h-2 ${
-                i === currentSlide
-                  ? "w-4 bg-white sm:w-6"
-                  : "w-1.5 bg-white/60 hover:bg-white/80 sm:w-2"
-              }`}
-              onClick={() => setCurrentSlide(i)}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+          <div className="relative flex space-x-1 sm:space-x-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                className="relative h-1.5 sm:h-2"
+                style={{
+                  width: i === currentSlide ? "1.5rem" : "0.375rem",
+                  transition: "width 0.3s ease",
+                }}
+                onClick={() => setCurrentSlide(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              >
+                {/* Background dot (always visible) */}
+                <motion.div className="absolute inset-0 rounded-full bg-white/60 hover:bg-white/80" />
+
+                {/* Animated active dot with layoutId for morphing effect */}
+                {i === currentSlide && (
+                  <motion.div
+                    layoutId="activeDot"
+                    className="absolute inset-0 rounded-full bg-white"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { KeyIcon } from "lucide-react"
 
@@ -10,6 +10,16 @@ import { Button } from "@/components/ui/button"
 export function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredText, setHoveredText] = useState(siteConfig.name)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const alphabet =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
@@ -43,7 +53,13 @@ export function NavigationMenu() {
   const closeMenu = () => setIsMenuOpen(false)
 
   return (
-    <nav className="w-full bg-background">
+    <nav
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "border-slate-800/50 bg-background/90 shadow-md backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+          : "bg-background"
+      }`}
+    >
       <div className="container mx-auto flex items-center justify-between py-4 md:px-0">
         {/* Logo Section with Cipher Effect */}
         <Link
@@ -76,10 +92,7 @@ export function NavigationMenu() {
             >
               Who We Are
             </Link>
-            <Link
-              href="/the-api/features"
-              className="text-sm transition duration-150"
-            >
+            <Link href="/the-api" className="text-sm transition duration-150">
               The API
             </Link>
             <Link href="/articles" className="text-sm transition duration-150">
@@ -143,7 +156,7 @@ export function NavigationMenu() {
 
         {/* Full-Screen Mobile Menu */}
         <div
-          className={`fixed inset-0 z-50 flex flex-col items-start bg-black/50 p-5 backdrop-blur-xl transition-all duration-700 ease-in-out ${
+          className={`fixed inset-0 z-[100] flex flex-col items-start bg-black/50 p-5 backdrop-blur-xl transition-all duration-700 ease-in-out ${
             isMenuOpen ? "visible opacity-100" : "invisible opacity-0"
           }`}
           onClick={closeMenu} // Close the menu on backdrop click
@@ -186,7 +199,7 @@ export function NavigationMenu() {
               className="justify-start text-xl text-slate-200"
               asChild
             >
-              <Link href="/the-api/features" onClick={closeMenu}>
+              <Link href="/the-api" onClick={closeMenu}>
                 The API
               </Link>
             </Button>

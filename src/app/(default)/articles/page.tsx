@@ -43,7 +43,7 @@ export async function generateMetadata(
 
   // Merge with parent metadata where appropriate
   return {
-    title: `Articles - ${siteConfig.name}`,
+    title: `Articles`,
     description,
     keywords: ["articles", ...topTags, "insights", "knowledge"],
     openGraph: {

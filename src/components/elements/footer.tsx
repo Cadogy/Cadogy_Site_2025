@@ -174,7 +174,7 @@ export function Footer() {
             <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
-                  href="/login"
+                  href="/the-api"
                   className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
                 >
                   <span>Overview</span>

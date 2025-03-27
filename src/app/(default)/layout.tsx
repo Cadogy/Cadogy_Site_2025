@@ -162,7 +162,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <NavigationMenu />
           <PageTransition>
-            <main className="flex flex-col justify-center">{children}</main>
+            <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">
+              {children}
+            </main>
           </PageTransition>
           <Footer />
         </ThemeProvider>
