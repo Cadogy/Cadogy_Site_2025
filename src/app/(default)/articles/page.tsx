@@ -139,7 +139,7 @@ export default async function Articles({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-[94%] px-4 py-16 sm:px-6 md:max-w-[90%] lg:px-8">
       {/* Main Content Area with Sidebar */}
       <div className="flex flex-col gap-8 lg:flex-row">
         {/* Sidebar - Hidden on mobile, visible on lg screens and up */}

@@ -86,14 +86,14 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
 
       <motion.div
-        className="container relative mx-auto px-4 py-12 md:px-6 md:py-20"
+        className="relative mx-auto max-w-[86%] px-4 py-12 md:max-w-[90%] md:px-6 md:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
       >
         {/* Logo and Description */}
-        <div className="mb-12 flex flex-col items-center justify-center space-y-4 md:mb-20 md:flex-row md:justify-between md:space-y-0">
+        <div className="mb-12 flex flex-col items-start justify-center space-y-4 md:mb-20 md:flex-row md:items-center md:justify-between md:space-y-0">
           <motion.div variants={itemVariants} className="flex items-center">
             <div className="relative h-8 w-8 md:h-8 md:w-8">
               <Image
@@ -113,7 +113,7 @@ export function Footer() {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            className="max-w-md text-center text-sm text-slate-300 md:text-left"
+            className="max-w-md text-left text-sm text-slate-300"
           >
             Providing cutting-edge solutions in cybersecurity, web development,
             and digital rights management, helping businesses achieve their

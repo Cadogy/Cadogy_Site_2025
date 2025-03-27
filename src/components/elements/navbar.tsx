@@ -60,7 +60,7 @@ export function NavigationMenu() {
           : "bg-background"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-4 md:px-0">
+      <div className="mx-auto flex max-w-[86%] items-center justify-between py-4 sm:px-6 md:max-w-[90%] lg:px-8">
         {/* Logo Section with Cipher Effect */}
         <Link
           href="/"
@@ -84,7 +84,7 @@ export function NavigationMenu() {
         </Link>
 
         {/* Centered Navigation Menu (for Desktop) */}
-        <div className="hidden flex-1 items-center justify-end md:flex">
+        <div className="hidden flex-1 items-center justify-end lg:flex">
           <nav className="flex items-center gap-6 text-sm">
             <Link
               href="/who-we-are"
