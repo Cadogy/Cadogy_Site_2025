@@ -96,8 +96,7 @@ export default function ApiOverviewPage() {
                 The API
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90 sm:mt-8 sm:text-xl">
-                The API by Cadogy makes creating, researching, and exploring the
-                everchanging world of AI quicker and easier.
+                Create, research, and explore quicker than ever before.
               </p>
             </div>
           </div>
