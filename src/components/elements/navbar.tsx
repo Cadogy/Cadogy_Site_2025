@@ -76,6 +76,12 @@ export function NavigationMenu() {
             >
               Who We Are
             </Link>
+            <Link
+              href="/the-api/features"
+              className="text-sm transition duration-150"
+            >
+              The API
+            </Link>
             <Link href="/articles" className="text-sm transition duration-150">
               Articles
             </Link>
@@ -171,6 +177,17 @@ export function NavigationMenu() {
             >
               <Link href="/who-we-are" onClick={closeMenu}>
                 Who We Are
+              </Link>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="lg"
+              className="justify-start text-xl text-slate-200"
+              asChild
+            >
+              <Link href="/the-api/features" onClick={closeMenu}>
+                The API
               </Link>
             </Button>
 

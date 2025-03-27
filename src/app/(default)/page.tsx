@@ -7,7 +7,6 @@ import {
   ArrowRight,
   BarChart3,
   Code,
-  ExternalLink,
   Gauge,
   Lock,
   Users,
@@ -16,55 +15,9 @@ import {
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import TextSlideEffect from "@/components/elements/TextSlideEffect"
 import { Icons } from "@/components/icons"
-
-// Modern service card component with subtle animations
-const ServiceCard = ({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ComponentType<{ className?: string }>
-  title: string
-  description: string
-}) => (
-  <motion.div
-    className="group relative flex h-full cursor-default flex-col overflow-hidden rounded-2xl bg-neutral-900/40 p-6 sm:p-8"
-    whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.6)" }}
-    transition={{ duration: 0.3, ease: "easeInOut" }}
-  >
-    <motion.div
-      className="mb-4 rounded-full bg-neutral-800/70 p-3 text-slate-200 sm:mb-5"
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.2 }}
-    >
-      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-    </motion.div>
-    <h3 className="mb-2 text-lg font-medium text-slate-100 sm:mb-3">{title}</h3>
-    <p className="text-sm text-slate-200">{description}</p>
-  </motion.div>
-)
-
-// Simplified tech stack component with subtle animations
-const TechItem = ({ icon, title }: { icon: string; title: string }) => (
-  <motion.div
-    className="flex flex-col items-center gap-3 rounded-2xl bg-neutral-900/40 p-4 text-center sm:p-5"
-    whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.6)" }}
-    transition={{ duration: 0.3 }}
-  >
-    <motion.img
-      src={icon}
-      alt={title}
-      className="h-10 w-10 sm:h-12 sm:w-12"
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.2 }}
-    />
-    <h4 className="text-sm font-medium text-slate-200">{title}</h4>
-  </motion.div>
-)
 
 // Animation variants for staggered animations
 const containerVariants = {
@@ -86,14 +39,17 @@ const itemVariants = {
   },
 }
 
-// Add fadeInUp variants for the CTA section
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
+// Define gradients for cards
+const gradients = {
+  cybersecurity: "bg-gradient-to-r from-blue-600 via-blue-400 to-indigo-400",
+  webDev:
+    "bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-500 via-purple-500 to-red-500",
+  performance: "bg-gradient-to-bl from-green-400 via-emerald-400 to-teal-400",
+  piracy: "bg-gradient-to-tl from-orange-500 via-amber-500 to-yellow-400",
+  dataAnalytics:
+    "bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-indigo-500 via-purple-500 to-pink-500",
+  digitalRights:
+    "bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-blue-600 via-purple-600 to-orange-500",
 }
 
 export default function Home() {
@@ -114,31 +70,31 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-      {/* Hero Section - Full Width */}
+    <div className="bg-background">
+      {/* Hero Section - Not Modified */}
       <section className="w-full">
         <HeroCarousel />
       </section>
 
-      {/* Text Slide - Full Width */}
+      {/* Text Slide - Not Modified */}
       <section className="w-full bg-background">
         <TextSlideEffect />
       </section>
 
-      {/* Services Section - Modern, Flat Design */}
-      <section className="container mx-auto px-4 py-16 sm:py-20 md:py-24">
+      {/* Services Section - Redesigned with Gradients */}
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <motion.div
-          className="mb-12 sm:mb-16"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
           <div className="flex flex-col items-center text-center">
-            <h2 className="mb-4 text-2xl font-bold leading-tight text-slate-100 sm:text-3xl md:text-4xl">
+            <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
               Our Services
             </h2>
-            <p className="mx-auto max-w-2xl text-sm text-slate-200">
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
               We provide cutting-edge solutions in cybersecurity, web
               development, and digital rights management, helping businesses
               achieve their technological goals securely and efficiently.
@@ -146,77 +102,169 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Service cards with staggered animations */}
+        {/* Service Cards Grid - Using Gradient Cards */}
         <motion.div
-          className="mx-auto max-w-6xl"
+          className="grid grid-cols-2 gap-4 gap-y-6 sm:gap-6 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={Lock}
-                title="Advanced Cybersecurity"
-                description="Comprehensive security solutions including DNS security, encryption methodologies, and system protection against emerging threats."
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={Code}
-                title="Modern Web Development"
-                description="Full-stack development with the MERN stack (MongoDB, Express, React, Node.js) and modern frontend frameworks like Next.js and TailwindCSS."
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={Gauge}
-                title="Performance Optimization"
-                description="Streamlining digital solutions for maximum efficiency, from backend database structures to frontend user experiences."
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={Zap}
-                title="Anti-Piracy Solutions"
-                description="Cutting-edge content protection strategies for digital assets, ensuring your intellectual property remains secure in the digital landscape."
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={BarChart3}
-                title="Data-Driven Analytics"
-                description="Strategic insights through advanced data analysis, helping your business make informed decisions for growth and optimization."
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <ServiceCard
-                icon={Users}
-                title="Digital Rights Management"
-                description="Comprehensive systems for managing digital rights and permissions, protecting creators while enabling authorized access."
-              />
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
+          {/* Card 1 - Cybersecurity */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cybersecurity} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Lock
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Advanced Cybersecurity
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Comprehensive security solutions including DNS security,
+                    encryption and system protection.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-      {/* Technical Expertise Section - Innovative Layout */}
-      <section className="relative w-full overflow-hidden py-16 sm:py-20 md:py-24">
-        <div className="absolute inset-0 bg-neutral-900/30"></div>
-        <div className="container relative mx-auto px-4">
+          {/* Card 2 - Web Development */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.webDev} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Code
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Modern Web Development
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Full-stack development with modern frameworks like Next.js
+                    and TailwindCSS.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 3 - Performance */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.performance} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Gauge
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Performance Optimization
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Streamlining digital solutions for maximum efficiency.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 4 - Anti-Piracy */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.piracy} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Zap
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Anti-Piracy & Security Solutions
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Cutting-edge content protection for digital assets.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 5 - Data Analytics */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.dataAnalytics} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <BarChart3
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Data-Driven Analytic Work
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Strategic insights through advanced data analysis and
+                    artificial intelligence.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 6 - Digital Rights */}
+          <motion.div variants={itemVariants}>
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.digitalRights} p-4 transition-all duration-300 hover:scale-[1.02] sm:p-6`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
+              <div className="relative z-10 flex h-full flex-col">
+                <Users
+                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                />
+                <div className="mt-auto">
+                  <h4 className="text-sm font-medium text-white sm:text-lg">
+                    Digital Rights Management
+                  </h4>
+                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
+                    Systems for managing digital rights and permissions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Technical Expertise Section */}
+        <div className="mt-32 space-y-16">
           <motion.div
-            className="mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex flex-col items-center text-center">
-              <h2 className="mb-4 text-2xl font-bold leading-tight text-slate-100 sm:text-3xl md:text-4xl">
+            <div className="text-left md:text-center">
+              <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
                 Technical Expertise
               </h2>
-              <p className="mx-auto max-w-2xl text-sm text-slate-200">
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-400 md:mx-auto">
                 Our team brings extensive experience across a wide range of
                 technologies, with particular expertise in cybersecurity, modern
                 web development, and cutting-edge innovations.
@@ -224,338 +272,127 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Expertise Cards - More Visual Approach with Sophisticated Animations */}
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Left Column - Cybersecurity & Web Dev */}
-            <div className="space-y-6">
-              <motion.div
-                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
-              >
-                <div className="flex items-center">
-                  <motion.div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Lock className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
-                  </motion.div>
-                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
-                    Cybersecurity
-                  </h3>
-                </div>
-                <div className="ml-16 mt-4">
-                  <p className="mb-3 text-sm text-slate-200">
-                    Advanced DNS security, encryption protocols, and intrusion
-                    prevention systems that safeguard digital assets.
-                  </p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                  >
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Advanced Threat Detection
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Zero-trust Architecture
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Penetration Testing
-                    </span>
-                  </motion.div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
-              >
-                <div className="flex items-center">
-                  <motion.div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Code className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
-                  </motion.div>
-                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
-                    Web Development
-                  </h3>
-                </div>
-                <div className="ml-16 mt-4">
-                  <p className="mb-3 text-sm text-slate-200">
-                    Full-stack development using modern frameworks and libraries
-                    for fast, scalable applications.
-                  </p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  >
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      React/Next.js
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Node.js Microservices
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Serverless Architecture
-                    </span>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Right Column - Data & AI */}
-            <div className="space-y-6">
-              <motion.div
-                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
-              >
-                <div className="flex items-center">
-                  <motion.div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <BarChart3 className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
-                  </motion.div>
-                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
-                    Data & Analytics
-                  </h3>
-                </div>
-                <div className="ml-16 mt-4">
-                  <p className="mb-3 text-sm text-slate-200">
-                    Transforming raw data into actionable insights through
-                    advanced analytics and visualization.
-                  </p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                  >
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Business Intelligence
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Predictive Modeling
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Real-time Dashboards
-                    </span>
-                  </motion.div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="rounded-2xl bg-neutral-900/50 p-6 backdrop-blur-sm sm:p-8"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                whileHover={{ backgroundColor: "rgba(23, 23, 23, 0.7)" }}
-              >
-                <div className="flex items-center">
-                  <motion.div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-800/70 sm:h-14 sm:w-14"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Zap className="h-6 w-6 text-slate-200 sm:h-7 sm:w-7" />
-                  </motion.div>
-                  <h3 className="ml-4 text-lg font-medium text-slate-100 sm:text-xl">
-                    AI Integration
-                  </h3>
-                </div>
-                <div className="ml-16 mt-4">
-                  <p className="mb-3 text-sm text-slate-200">
-                    Implementing AI solutions to enhance security, automate
-                    processes, and provide deeper insights.
-                  </p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  >
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Machine Learning
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Natural Language Processing
-                    </span>
-                    <span className="inline-flex rounded-full bg-neutral-800/70 px-3 py-1 text-xs text-slate-200">
-                      Computer Vision
-                    </span>
-                  </motion.div>
-                </div>
-              </motion.div>
+          {/* Main Expertise Section with Image */}
+          <div className="relative">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+              <div className="relative z-10">
+                <h3 className="text-2xl font-medium text-slate-100">
+                  Our approach to technology
+                </h3>
+                <p className="mt-4 text-slate-400">
+                  We focus on delivering solutions that combine cutting-edge
+                  technology with practical business value. Our expertise spans
+                  from advanced cybersecurity and data analytics to modern web
+                  development and digital rights management.
+                </p>
+                <p className="mt-4 text-slate-400">
+                  Computer vision represents one of our core areas of
+                  innovation. As visual data becomes increasingly critical in
+                  today&apos;s digital landscape, we&apos;re developing
+                  sophisticated systems capable of analyzing and understanding
+                  visual information with unprecedented accuracy. From
+                  transportation detection to security applications, our
+                  computer vision solutions transform raw visual data into
+                  actionable insights.
+                </p>
+                <p className="mt-4 text-slate-400">
+                  Our development process prioritizes security, performance, and
+                  scalability. We build robust systems that protect your data
+                  while delivering exceptional user experiences through
+                  intuitive interfaces and responsive design.
+                </p>
+                <p className="mt-4 text-slate-400">
+                  Looking ahead, we&apos;re dedicated to pushing the boundaries
+                  of what&apos;s possible through continuous learning and
+                  innovation. We&apos;re actively exploring the development of
+                  more powerful AI models that combine multiple data modalities,
+                  enabling systems that can understand context in ways similar
+                  to human perception. This commitment to advancement ensures
+                  our clients always have access to the most sophisticated
+                  technological solutions available.
+                </p>
+              </div>
+              <div className="relative hidden aspect-square overflow-hidden rounded-lg transition-all duration-500 hover:scale-[1.02] md:block">
+                {/* Image instead of gradient */}
+                <img
+                  src="/images/cadogy_training_computer_vision_ddetecting_transportation.jpg"
+                  alt="Technology expertise"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/20 to-background/40" />
+              </div>
             </div>
           </div>
 
-          {/* Tech Stack - With Enhanced Animations */}
-          <motion.div
-            className="mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="mb-8 text-center text-xl font-medium text-slate-100 sm:text-2xl">
+          {/* Technologies We Use */}
+          <div className="mt-24">
+            <h3 className="mb-8 text-left text-xl font-medium text-slate-100 md:text-center">
               Technologies We Use
             </h3>
-            <motion.div
-              className="flex flex-wrap justify-center gap-4 sm:gap-6"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/nextjs-icon.svg"
-                  title="Next.js"
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/nextjs-icon.svg"
+                  alt="Next.js"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/reactjs-icon.svg"
-                  title="React"
+                <span className="text-sm text-slate-300">Next.js</span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/reactjs-icon.svg"
+                  alt="React"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/mongodb-icon.svg"
-                  title="MongoDB"
+                <span className="text-sm text-slate-300">React</span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/mongodb-icon.svg"
+                  alt="MongoDB"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/tailwindcss-icon.svg"
-                  title="Tailwind"
+                <span className="text-sm text-slate-300">MongoDB</span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/tailwindcss-icon.svg"
+                  alt="Tailwind"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/typescript-icon.svg"
-                  title="TypeScript"
+                <span className="text-sm text-slate-300">Tailwind</span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/typescript-icon.svg"
+                  alt="TypeScript"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <TechItem
-                  icon="/images/assets/stack-logos/nodejs-icon.svg"
-                  title="Node.js"
+                <span className="text-sm text-slate-300">TypeScript</span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-neutral-900/40 p-4 text-center">
+                <img
+                  src="/images/assets/stack-logos/nodejs-icon.svg"
+                  alt="Node.js"
+                  className="mb-3 h-12 w-12"
                 />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="mt-12 flex justify-center sm:mt-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link
-                href="/who-we-are"
-                className="group flex items-center rounded-full bg-neutral-800/70 px-6 py-3 text-sm font-medium text-slate-200 transition-all duration-300"
-              >
-                <span>Learn more about our team</span>
-                <motion.div
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 1.5,
-                  }}
-                >
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </motion.div>
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section - Full Width with Fixed Background */}
-      <section className="relative w-full py-16 sm:py-20 md:py-24">
-        <div className="absolute inset-0 bg-neutral-900"></div>
-        <div className="container relative mx-auto px-4">
-          <motion.div
-            className="mx-auto max-w-3xl text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="mb-4 text-2xl font-bold text-slate-100 sm:mb-6 sm:text-3xl md:text-4xl">
-              Ready to Transform Your Digital Presence?
-            </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-sm text-slate-200 sm:mb-10">
-              Partner with us to leverage our technical expertise and transform
-              your ideas into secure, scalable, and innovative digital
-              solutions.
-            </p>
-            <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-center sm:space-x-6 sm:space-y-0">
-              <motion.div variants={fadeInUp}>
-                <Button
-                  variant="hero"
-                  size="hero"
-                  className="group flex items-center justify-center rounded-full bg-neutral-800 px-8 py-3 text-sm font-medium text-slate-100 transition-all duration-300"
-                  asChild
-                >
-                  <Link href="/contact-us" className="inline-flex items-center">
-                    Request a demo
-                    <ArrowRight className="ml-1 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Link>
-                </Button>
-              </motion.div>
-
-              <motion.div variants={fadeInUp}>
-                <Button
-                  variant="hero"
-                  size="hero"
-                  className="group flex items-center justify-center rounded-full bg-neutral-800/20 px-8 py-3 text-sm font-medium text-slate-200 transition-all duration-300"
-                  asChild
-                >
-                  <Link
-                    href="/our-charter"
-                    className="inline-flex items-center"
-                  >
-                    Explore the API
-                    <ArrowRight className="ml-1 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Link>
-                </Button>
-              </motion.div>
+                <span className="text-sm text-slate-300">Node.js</span>
+              </div>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Learn More Link */}
+          <div className="flex justify-start py-8 md:justify-center">
+            <Link
+              href="/who-we-are"
+              className="group flex items-center space-x-1 rounded-full border border-slate-700 bg-neutral-900/40 px-6 py-3 text-sm font-medium text-slate-200 transition-all hover:bg-neutral-800/60"
+            >
+              <span>Learn more about our team</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   )
 }

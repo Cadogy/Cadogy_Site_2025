@@ -82,20 +82,20 @@ export function Footer() {
 
   return (
     <footer className="relative w-full bg-neutral-900/40 backdrop-blur-sm">
+      {/* Gradient blend at top */}
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
+
       <motion.div
-        className="container mx-auto px-4 py-16 md:px-6 md:py-20"
+        className="container relative mx-auto px-4 py-12 md:px-6 md:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
       >
         {/* Logo and Description */}
-        <div className="mb-16 flex flex-col items-center justify-center md:mb-20 md:flex-row md:justify-between">
-          <motion.div
-            variants={itemVariants}
-            className="mb-8 flex items-center md:mb-0"
-          >
-            <div className="relative h-12 w-12 md:h-14 md:w-14">
+        <div className="mb-12 flex flex-col items-center justify-center space-y-4 md:mb-20 md:flex-row md:justify-between md:space-y-0">
+          <motion.div variants={itemVariants} className="flex items-center">
+            <div className="relative h-8 w-8 md:h-8 md:w-8">
               <Image
                 src="/images/assets/logos/cadogy-shield.svg"
                 alt="Cadogy Logo"
@@ -104,7 +104,7 @@ export function Footer() {
               />
             </div>
             <h2
-              className="ml-3 text-2xl font-bold text-slate-100 md:text-3xl"
+              className="ml-3 text-sm font-bold text-slate-100 md:text-sm"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -122,14 +122,14 @@ export function Footer() {
         </div>
 
         {/* Navigation Grid */}
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-6 lg:gap-12">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-8 md:grid-cols-4 md:gap-6 lg:gap-12">
           {/* Column 1 - Company */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col space-y-4"
           >
             <h3 className="text-sm font-medium text-slate-100">Company</h3>
-            <ul className="flex flex-col space-y-2">
+            <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/who-we-are"
@@ -171,7 +171,7 @@ export function Footer() {
             className="flex flex-col space-y-4"
           >
             <h3 className="text-sm font-medium text-slate-100">API</h3>
-            <ul className="flex flex-col space-y-2">
+            <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/login"
@@ -213,7 +213,7 @@ export function Footer() {
             className="flex flex-col space-y-4"
           >
             <h3 className="text-sm font-medium text-slate-100">Resources</h3>
-            <ul className="flex flex-col space-y-2">
+            <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/articles"
@@ -255,7 +255,7 @@ export function Footer() {
             className="flex flex-col space-y-4"
           >
             <h3 className="text-sm font-medium text-slate-100">Policies</h3>
-            <ul className="flex flex-col space-y-2">
+            <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/policies/terms-of-use"
@@ -293,8 +293,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-neutral-800 pt-8 md:flex-row">
-          <p className="text-center text-sm text-slate-400 md:text-left">
+        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-neutral-800 pt-8 md:mt-16 md:flex-row">
+          <p className="text-center text-xs text-slate-400 md:text-left md:text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights
             reserved.
           </p>
