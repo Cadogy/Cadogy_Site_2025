@@ -40,13 +40,13 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-[94%] px-4 py-16 sm:px-6 md:max-w-[90%] lg:px-8">
       {/* Page Header */}
       <div className="mb-16 max-w-3xl">
-        <h1 className="mb-4 text-4xl font-bold text-slate-100 md:text-5xl">
+        <h1 className="mb-4 text-4xl font-bold text-foreground md:text-5xl">
           Get in Touch
         </h1>
-        <p className="text-sm text-slate-200">
+        <p className="text-sm text-muted-foreground">
           Have questions about our services or want to discuss your project?
           We&apos;re here to help. Reach out using the form below or connect
           with us directly.
@@ -57,7 +57,7 @@ const ContactForm = () => {
         {/* Contact Information */}
         <div className="lg:col-span-1">
           <div className="mb-8">
-            <h2 className="mb-6 text-2xl font-bold text-slate-100">
+            <h2 className="mb-6 text-2xl font-bold text-foreground">
               Contact Information
             </h2>
 
@@ -65,10 +65,10 @@ const ContactForm = () => {
               <div className="flex items-start">
                 <Mail className="mr-4 h-6 w-6 text-blue-400" />
                 <div>
-                  <h3 className="mb-1 font-medium text-slate-100">Email</h3>
+                  <h3 className="mb-1 font-medium text-foreground">Email</h3>
                   <a
                     href="mailto:contact@cadogy.com"
-                    className="text-sm text-slate-200 hover:text-blue-400 hover:underline"
+                    className="text-sm text-muted-foreground hover:text-blue-400 hover:underline"
                   >
                     contact@cadogy.com
                   </a>
@@ -78,12 +78,12 @@ const ContactForm = () => {
               <div className="flex items-start">
                 <Linkedin className="mr-4 h-6 w-6 text-blue-400" />
                 <div>
-                  <h3 className="mb-1 font-medium text-slate-100">LinkedIn</h3>
+                  <h3 className="mb-1 font-medium text-foreground">LinkedIn</h3>
                   <a
                     href="https://www.linkedin.com/company/cadogy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-slate-200 hover:text-blue-400 hover:underline"
+                    className="text-sm text-muted-foreground hover:text-blue-400 hover:underline"
                   >
                     Cadogy LinkedIn
                   </a>
@@ -93,18 +93,18 @@ const ContactForm = () => {
               <div className="flex items-start">
                 <MapPin className="mr-4 h-6 w-6 text-blue-400" />
                 <div>
-                  <h3 className="mb-1 font-medium text-slate-100">Location</h3>
-                  <p className="text-sm text-slate-200">United States</p>
+                  <h3 className="mb-1 font-medium text-foreground">Location</h3>
+                  <p className="text-sm text-muted-foreground">United States</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-neutral-800 pt-8">
-            <h2 className="mb-4 text-xl font-bold text-slate-100">
+          <div className="border-t border-border pt-8">
+            <h2 className="mb-4 text-xl font-bold text-foreground">
               Learn More
             </h2>
-            <p className="mb-4 text-sm text-slate-200">
+            <p className="mb-4 text-sm text-muted-foreground">
               Interested in learning more about our approach and expertise?
             </p>
             <Link
@@ -119,8 +119,8 @@ const ContactForm = () => {
 
         {/* Contact Form */}
         <div className="lg:col-span-2">
-          <div className="rounded-lg bg-neutral-900/50 p-8">
-            <h2 className="mb-6 text-2xl font-bold text-slate-100">
+          <div className="rounded-lg bg-card p-8">
+            <h2 className="mb-6 text-2xl font-bold text-foreground">
               Send Us a Message
             </h2>
 
@@ -131,10 +131,10 @@ const ContactForm = () => {
                     <Send className="h-6 w-6 text-blue-400" />
                   </div>
                 </div>
-                <h3 className="mb-2 text-xl font-medium text-slate-100">
+                <h3 className="mb-2 text-xl font-medium text-foreground">
                   Message Sent!
                 </h3>
-                <p className="mb-6 text-sm text-slate-200">
+                <p className="mb-6 text-sm text-muted-foreground">
                   Thank you for reaching out. We&apos;ll get back to you as soon
                   as possible.
                 </p>
@@ -146,7 +146,7 @@ const ContactForm = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-sm text-slate-100">
+                    <Label htmlFor="name" className="text-sm text-foreground">
                       Name
                     </Label>
                     <Input
@@ -156,12 +156,12 @@ const ContactForm = () => {
                       onChange={handleChange}
                       placeholder="Your name"
                       required
-                      className="bg-neutral-800 text-sm text-slate-100"
+                      className="bg-input text-sm text-foreground"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm text-slate-100">
+                    <Label htmlFor="email" className="text-sm text-foreground">
                       Email
                     </Label>
                     <Input
@@ -172,13 +172,13 @@ const ContactForm = () => {
                       onChange={handleChange}
                       placeholder="Your email address"
                       required
-                      className="bg-neutral-800 text-sm text-slate-100"
+                      className="bg-input text-sm text-foreground"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-sm text-slate-100">
+                  <Label htmlFor="subject" className="text-sm text-foreground">
                     Subject
                   </Label>
                   <Input
@@ -188,12 +188,12 @@ const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="What's this regarding?"
                     required
-                    className="bg-neutral-800 text-sm text-slate-100"
+                    className="bg-input text-sm text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-sm text-slate-100">
+                  <Label htmlFor="message" className="text-sm text-foreground">
                     Message
                   </Label>
                   <Textarea
@@ -204,7 +204,7 @@ const ContactForm = () => {
                     rows={6}
                     placeholder="Tell us about your project or inquiry..."
                     required
-                    className="bg-neutral-800 text-sm text-slate-100"
+                    className="bg-input text-sm text-foreground"
                   />
                 </div>
 

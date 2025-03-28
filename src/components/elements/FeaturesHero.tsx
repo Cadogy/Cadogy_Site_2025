@@ -15,7 +15,7 @@ export function FeaturesHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-bold tracking-tight text-slate-100 sm:text-6xl"
+            className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl"
           >
             The API by Cadogy
           </motion.h1>
@@ -24,7 +24,7 @@ export function FeaturesHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 text-lg leading-8 text-slate-300"
+            className="mt-6 text-lg leading-8 text-muted-foreground"
           >
             Making creating, researching, and exploring the everchanging world
             of AI quicker and easier.
@@ -45,7 +45,7 @@ export function FeaturesHero() {
             </a>
             <a
               href="/the-api/overview"
-              className="text-sm font-semibold leading-6 text-slate-300 hover:text-slate-100"
+              className="text-sm font-semibold leading-6 text-muted-foreground hover:text-foreground"
             >
               Learn more <span aria-hidden="true">→</span>
             </a>
@@ -102,10 +102,10 @@ export function FeaturesHero() {
               className="group relative rounded-2xl bg-neutral-900/50 p-6 transition-all hover:bg-neutral-900/80"
             >
               <div className="mb-4 text-3xl">{feature.icon}</div>
-              <h3 className="text-lg font-semibold text-slate-100">
+              <h3 className="text-lg font-semibold text-foreground">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-muted-foreground">
                 {feature.description}
               </p>
             </div>

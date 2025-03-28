@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { Github, Youtube, Linkedin } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 
@@ -81,7 +82,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="relative w-full bg-neutral-900/40 backdrop-blur-sm">
+    <footer className="relative w-full bg-neutral-900/10 dark:bg-neutral-900/40 backdrop-blur-sm">
       {/* Gradient blend at top */}
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
 
@@ -104,7 +105,7 @@ export function Footer() {
               />
             </div>
             <h2
-              className="ml-3 text-sm font-bold text-slate-100 md:text-sm"
+              className="ml-3 text-sm font-bold text-foreground md:text-sm"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -113,7 +114,7 @@ export function Footer() {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            className="max-w-md text-left text-sm text-slate-300"
+            className="max-w-md text-left text-sm text-muted-foreground"
           >
             Providing cutting-edge solutions in cybersecurity, web development,
             and digital rights management, helping businesses achieve their
@@ -128,12 +129,12 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-4"
           >
-            <h3 className="text-sm font-medium text-slate-100">Company</h3>
+            <h3 className="text-sm font-medium text-foreground">Company</h3>
             <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/who-we-are"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Who We Are</span>
                   <motion.span
@@ -149,7 +150,7 @@ export function Footer() {
               <motion.li variants={itemVariants}>
                 <Link
                   href="/our-charter"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Our Charter</span>
                   <motion.span
@@ -170,12 +171,12 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-4"
           >
-            <h3 className="text-sm font-medium text-slate-100">API</h3>
+            <h3 className="text-sm font-medium text-foreground">API</h3>
             <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/the-api"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Overview</span>
                   <motion.span
@@ -191,7 +192,7 @@ export function Footer() {
               <motion.li variants={itemVariants}>
                 <Link
                   href="/the-api/features"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Features</span>
                   <motion.span
@@ -212,12 +213,12 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-4"
           >
-            <h3 className="text-sm font-medium text-slate-100">Resources</h3>
+            <h3 className="text-sm font-medium text-foreground">Resources</h3>
             <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/articles"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Articles</span>
                   <motion.span
@@ -233,7 +234,7 @@ export function Footer() {
               <motion.li variants={itemVariants}>
                 <Link
                   href="/contact-us"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Contact Us</span>
                   <motion.span
@@ -254,12 +255,12 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-4"
           >
-            <h3 className="text-sm font-medium text-slate-100">Policies</h3>
+            <h3 className="text-sm font-medium text-foreground">Policies</h3>
             <ul className="flex flex-col space-y-3">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/policies/terms-of-use"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Terms of Use</span>
                   <motion.span
@@ -275,7 +276,7 @@ export function Footer() {
               <motion.li variants={itemVariants}>
                 <Link
                   href="/policies/privacy-policy"
-                  className="flex items-center text-sm text-slate-300 transition-colors hover:text-slate-100"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Privacy Policy</span>
                   <motion.span
@@ -293,19 +294,19 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-neutral-800 pt-8 md:mt-16 md:flex-row">
-          <p className="text-center text-xs text-slate-400 md:text-left md:text-sm">
+        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 md:mt-16 md:flex-row">
+          <p className="text-center text-xs text-muted-foreground md:text-left md:text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights
             reserved.
           </p>
 
-          {/* Social Links */}
-          <div className="flex gap-6">
+          {/* Social Icons */}
+          <div className="flex items-center space-x-6">
             <motion.a
               href="https://x.com/Cadogy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 transition hover:text-slate-100"
+              className="text-muted-foreground transition hover:text-foreground"
               aria-label="X (Twitter)"
               variants={socialIconVariants}
               whileHover="hover"
@@ -326,7 +327,7 @@ export function Footer() {
               href="https://www.youtube.com/Cadogy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 transition hover:text-slate-100"
+              className="text-muted-foreground transition hover:text-foreground"
               aria-label="YouTube"
               variants={socialIconVariants}
               whileHover="hover"
@@ -347,7 +348,7 @@ export function Footer() {
               href="https://www.linkedin.com/company/Cadogy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 transition hover:text-slate-100"
+              className="text-muted-foreground transition hover:text-foreground"
               aria-label="LinkedIn"
               variants={socialIconVariants}
               whileHover="hover"

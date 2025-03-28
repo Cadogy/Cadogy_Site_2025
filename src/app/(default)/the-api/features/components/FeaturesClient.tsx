@@ -456,7 +456,7 @@ export default function FeaturesClient() {
                   <div className="flex items-start">
                     <CheckCircle className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
                     <span className="text-neutral-300">
-                      Single authentication system for all features
+                      Single authentication system for all
                     </span>
                   </div>
                   <div className="flex items-start">
@@ -520,7 +520,7 @@ export default function FeaturesClient() {
                 </div>
 
                 <div className={index % 2 === 1 ? "order-2 lg:order-1" : ""}>
-                  <div className="relative h-full min-h-[300px] overflow-hidden rounded-lg border border-neutral-700 bg-neutral-800/20">
+                  <div className="relative h-full min-h-[300px] overflow-hidden rounded-lg border-neutral-700 bg-neutral-800/20">
                     <div className={`absolute inset-0 ${gradients.features[index]} opacity-20`} />
                     <div className="absolute inset-0 flex items-center justify-center p-6">
                       <feature.icon className="h-20 w-20 text-white/30" strokeWidth={1} />
@@ -528,18 +528,18 @@ export default function FeaturesClient() {
                     <div className="relative z-10 p-6">
                       <h3 className="text-xl font-medium text-white">How it works</h3>
                       <div className="mt-4 space-y-4">
-                        <div className="rounded-lg bg-neutral-900/50 p-4">
+                        <div className="rounded-lg bg-neutral-900/50 md:bg-transparent p-4">
                           <p className="text-sm text-neutral-300">
                             The {feature.title} API accepts parameters like content type, style preferences, and constraints through a standard JSON request. Our specialized models process your request and return the results in a consistent format.
                           </p>
                         </div>
                         <div className="flex justify-end">
-                          <a 
+                          {/* <a 
                             href={`/docs/features/${feature.title.toLowerCase().replace(/\s+/g, "-")}`}
                             className="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300"
                           >
                             View documentation <ArrowRight className="ml-1 h-4 w-4" />
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                     </div>
@@ -622,13 +622,13 @@ export default function FeaturesClient() {
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
                 <a
                   href="/login"
-                  className="inline-block rounded-md bg-white px-8 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-neutral-200"
+                  className="inline-block w-full rounded-md bg-white px-8 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-neutral-200"
                 >
                   Get Started
                 </a>
                 <a
-                  href="/docs"
-                  className="inline-block rounded-md border border-white/30 bg-transparent px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                  href="/"
+                  className="inline-block w-full rounded-md border border-white/30 bg-transparent px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                 >
                   View Documentation
                 </a>

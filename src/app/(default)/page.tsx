@@ -9,70 +9,57 @@ import {
   Brain,
   Cloud,
   Code,
+  Check,
+  FileText,
   Gauge,
+  Image,
   Lock,
+  Shield,
+  TestTube2,
   Users,
   Zap,
+  Server,
 } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import TextSlideEffect from "@/components/elements/TextSlideEffect"
-import { Icons } from "@/components/icons"
-
-// Animation variants for staggered animations
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-}
-
-// Define gradients for cards
-const gradients = {
-  cybersecurity: "bg-gradient-to-r from-blue-600 via-blue-400 to-indigo-400",
-  webDev:
-    "bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-500 via-purple-500 to-red-500",
-  performance: "bg-gradient-to-bl from-green-400 via-emerald-400 to-teal-400",
-  piracy: "bg-gradient-to-tl from-orange-500 via-amber-500 to-yellow-400",
-  dataAnalytics:
-    "bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-indigo-500 via-purple-500 to-pink-500",
-  digitalRights:
-    "bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-blue-600 via-purple-600 to-orange-500",
-  cloudSolutions: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600",
-  aiMl: "bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-fuchsia-500 via-purple-600 to-blue-700",
-}
 
 // Simplified technology item component without tooltips
 interface TechItemProps {
   src: string
   alt: string
   description?: string
+  index?: number
 }
 
-function TechItem({ src, alt }: TechItemProps) {
+function TechItem({ src, alt, index = 0 }: TechItemProps) {
+  // Map index to specific gradient classes
+  const getGradientClass = () => {
+    switch (index % 12) {
+      case 0: return "bg-gradient-to-r from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-800/30";
+      case 1: return "bg-gradient-to-r from-purple-50 to-pink-100 dark:from-purple-900/30 dark:to-pink-800/30";
+      case 2: return "bg-gradient-to-r from-green-50 to-emerald-100 dark:from-green-900/30 dark:to-emerald-800/30";
+      case 3: return "bg-gradient-to-r from-orange-50 to-amber-100 dark:from-orange-900/30 dark:to-amber-800/30";
+      case 4: return "bg-gradient-to-r from-sky-50 to-blue-100 dark:from-sky-900/30 dark:to-blue-800/30";
+      case 5: return "bg-gradient-to-r from-rose-50 to-red-100 dark:from-rose-900/30 dark:to-red-800/30";
+      case 6: return "bg-gradient-to-r from-yellow-50 to-lime-100 dark:from-yellow-900/30 dark:to-lime-800/30";
+      case 7: return "bg-gradient-to-r from-fuchsia-50 to-purple-100 dark:from-fuchsia-900/30 dark:to-purple-800/30";
+      case 8: return "bg-gradient-to-r from-cyan-50 to-teal-100 dark:from-cyan-900/30 dark:to-teal-800/30";
+      case 9: return "bg-gradient-to-r from-pink-50 to-rose-100 dark:from-pink-900/30 dark:to-rose-800/30";
+      case 10: return "bg-gradient-to-r from-indigo-50 to-violet-100 dark:from-indigo-900/30 dark:to-violet-800/30";
+      case 11: return "bg-gradient-to-r from-emerald-50 to-green-100 dark:from-emerald-900/30 dark:to-green-800/30";
+      default: return "bg-gradient-to-r from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-800/30";
+    }
+  };
+  
   return (
-    <div className="group relative flex flex-col items-center justify-center overflow-hidden rounded-lg bg-neutral-900/40 p-4 text-center transition-all duration-300">
+    <div className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-lg ${getGradientClass()} p-4 text-center transition-all duration-300 hover:shadow-md dark:border-neutral-800 dark:hover:border-neutral-700`}>
       <div className="relative z-10 flex flex-col items-center">
-        <img src={src} alt={alt} className="mb-3 h-12 w-12" />
-        <span className="text-sm text-slate-300">{alt}</span>
+        <img src={src} alt={alt} className="mb-3 h-12 w-12 dark:invert-[0.85] transition-all" />
+        <span className="text-sm text-muted-foreground">{alt}</span>
       </div>
-
-      {/* Hover indicator - subtle highlight effect */}
-      <div className="absolute inset-0 z-0 bg-blue-500/0 transition-colors duration-300"></div>
     </div>
   )
 }
@@ -108,225 +95,477 @@ export default function Home() {
 
       {/* Services Section - Redesigned with Gradients */}
       <div className="mx-auto max-w-[94%] px-4 pt-16 sm:px-6 md:max-w-[90%] lg:px-8">
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex flex-col items-center py-6 text-center">
-            <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
-              Our Services
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
-              We provide cutting-edge solutions in cybersecurity, web
-              development, and digital rights management, helping businesses
-              achieve their technological goals securely and efficiently.
-            </p>
+
+        {/* API Platform Section - New */}
+        <div className="mt-3 md:mt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex flex-col items-center py-6 text-center">
+              <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                Our API Platform
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                Access cutting-edge AI capabilities through our unified API, enabling your applications with powerful tools for media generation, content creation, code generation, and research.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* API Features Cards */}
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Media Generation */}
+            <motion.div 
+              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="h-48 overflow-hidden">
+                <div className="h-full w-full bg-gradient-to-r from-blue-600 via-blue-400 to-indigo-400 p-6 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <Image className="h-12 w-12 text-white" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-medium text-foreground">Media Generation</h3>
+                <p className="mt-2 text-muted-foreground">Create stunning visuals, videos, and audio content with AI technology.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">High-quality image generation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Custom video creation</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Link href="/the-api/features" className="text-sm font-medium text-primary hover:underline">
+                    Learn more
+                    <ArrowRight className="ml-1 inline-block h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Content Creation */}
+            <motion.div 
+              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="h-48 overflow-hidden">
+                <div className="h-full w-full bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-500 via-purple-500 to-red-500 p-6 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <FileText className="h-12 w-12 text-white" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-medium text-foreground">Content Creation</h3>
+                <p className="mt-2 text-muted-foreground">Generate engaging content for blogs, marketing, and more.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Optimized articles and copy</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Multi-language translation</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Link href="/the-api/features" className="text-sm font-medium text-primary hover:underline">
+                    Learn more
+                    <ArrowRight className="ml-1 inline-block h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Code Generation */}
+            <motion.div 
+              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="h-48 overflow-hidden">
+                <div className="h-full w-full bg-gradient-to-bl from-green-400 via-emerald-400 to-teal-400 p-6 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <Code className="h-12 w-12 text-white" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-medium text-foreground">Code Generation</h3>
+                <p className="mt-2 text-muted-foreground">Transform natural language into working code across multiple languages.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Multiple language support</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Debugging and refactoring</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Link href="/the-api/features" className="text-sm font-medium text-primary hover:underline">
+                    Learn more
+                    <ArrowRight className="ml-1 inline-block h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Research Tools */}
+            <motion.div 
+              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="h-48 overflow-hidden">
+                <div className="h-full w-full bg-gradient-to-tl from-orange-500 via-amber-500 to-yellow-400 p-6 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <TestTube2 className="h-12 w-12 text-white" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-medium text-foreground">Research Tools</h3>
+                <p className="mt-2 text-muted-foreground">Extract insights from data and conduct comprehensive research.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Advanced data analytics</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="mr-2 mt-1 h-4 w-4 text-green-400" />
+                    <span className="text-sm text-muted-foreground">Research summarization</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Link href="/the-api/features" className="text-sm font-medium text-primary hover:underline">
+                    Learn more
+                    <ArrowRight className="ml-1 inline-block h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
 
-        {/* Service Cards Grid - Using Gradient Cards */}
-        <motion.div
-          className="grid grid-cols-2 gap-4 gap-y-6 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          {/* Card 1 - Cybersecurity */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cybersecurity} p-4 transition-all duration-300 sm:p-6`}
+          <div className="mt-12 flex justify-center">
+            <Link
+              href="/the-api"
+              className="group inline-flex items-center space-x-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Lock
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
+              <span>Explore our API platform</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Web Infrastructure & SEO Expertise - Replacing Client Success Stories */}
+        <div className="mt-32 mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex flex-col items-center py-6 text-center">
+              <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                Web Infrastructure & SEO Expertise
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                We build high-performance, secure websites optimized for search engines, leveraging enterprise-grade infrastructure and advanced optimization techniques
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="mt-12 grid gap-8 grid-cols-1 lg:grid-cols-2">
+            {/* Cloudflare Integration */}
+            <motion.div 
+              className="bg-card overflow-hidden border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="h-48 overflow-hidden bg-gradient-to-r from-[#F6821F] via-[#F9A838] to-[#FEDB01] flex items-center justify-center">
+                <img 
+                  src="/images/assets/stack-logos/cloudflare-icon.svg" 
+                  alt="Cloudflare" 
+                  className="h-24 w-24"
                 />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Advanced Cybersecurity
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Comprehensive security solutions including DNS security,
-                    encryption and system protection.
-                  </p>
+              </div>
+              <div className="p-6">
+                <h3 className="mb-3 text-xl font-medium text-foreground">Enterprise-Grade Infrastructure</h3>
+                <p className="mb-4 text-muted-foreground">
+                  We integrate Cloudflare&apos;s advanced security and performance features into every project, providing enterprise-level protection against DDoS attacks, malicious bots, and other threats.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                      <Shield className="h-3 w-3 text-orange-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">DDoS protection</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                      <Zap className="h-3 w-3 text-orange-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Global CDN</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                      <Lock className="h-3 w-3 text-orange-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">SSL encryption</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                      <Gauge className="h-3 w-3 text-orange-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Edge optimization</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* SEO Optimization */}
+            <motion.div 
+              className="rounded-lg bg-card overflow-hidden border border-border rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="h-48 overflow-hidden bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 flex items-center justify-center">
+                <div className="relative h-24 w-24 rounded-full bg-white/20 flex items-center justify-center">
+                  <BarChart3 className="h-12 w-12 text-white" strokeWidth={1.5} />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="mb-3 text-xl font-medium text-foreground">Advanced SEO Optimization</h3>
+                <p className="mb-4 text-muted-foreground">
+                  Our comprehensive SEO approach combines technical excellence with content strategy, helping your site rank higher in search results and drive qualified organic traffic.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <Code className="h-3 w-3 text-blue-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Technical SEO</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <FileText className="h-3 w-3 text-blue-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Content strategy</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <ArrowRight className="h-3 w-3 text-blue-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Conversion optimization</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <BarChart3 className="h-3 w-3 text-blue-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Analytics & reporting</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Case Highlight */}
+          <motion.div 
+            className="mt-12 rounded-xl bg-card p-0 border border-border overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="p-6 md:p-8">
+                <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
+                  Our Approach
+                </div>
+                <h3 className="text-xl font-medium text-foreground mb-4">E-Commerce SEO Transformation</h3>
+                
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                      <span className="text-xs font-bold text-indigo-500">1</span>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground">Comprehensive Technical Analysis</h4>
+                      <p className="text-xs text-muted-foreground mt-1">We identify critical performance issues including load times, mobile responsiveness, content structure, and schema implementation.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                      <span className="text-xs font-bold text-indigo-500">2</span>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground">Infrastructure Optimization</h4>
+                      <p className="text-xs text-muted-foreground mt-1">We deploy enterprise-grade CDNs, optimize assets, implement modern loading techniques, and refine database performance.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                      <span className="text-xs font-bold text-indigo-500">3</span>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground">Strategic Content Enhancement</h4>
+                      <p className="text-xs text-muted-foreground mt-1">We restructure page hierarchies with enhanced schema markup, develop targeted content strategies, and implement advanced internal linking.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="mr-3 mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                      <span className="text-xs font-bold text-indigo-500">4</span>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground">Measurable Performance Gains</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Our proven methodology consistently achieves first-page rankings for competitive keywords, significant organic traffic growth, and substantial conversion improvements.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center pt-4 border-t border-border">
+                  <div className="flex items-center">
+                    <Shield className="h-5 w-5 text-primary mr-2" />
+                    <span className="text-sm font-medium text-foreground">Enterprise-Grade Solutions</span>
+                  </div>
+                  <div className="ml-auto">
+                    <Link href="/" className="text-xs font-medium text-primary hover:underline flex items-center">
+                      Explore Our SEO Services
+                      <ArrowRight className="ml-1 h-3 w-3" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 p-6 md:p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-56 h-56 bg-indigo-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                
+                <div className="relative z-10 space-y-6">
+                  <div className="flex items-end justify-between mb-2">
+                    <h4 className="text-sm font-medium text-white/90">Typical Client Results</h4>
+                    <div className="flex items-center">
+                      <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-1.5"></span>
+                      <span className="text-xs text-white/70">After</span>
+                      <span className="inline-block w-3 h-3 rounded-full bg-white/30 ml-3 mr-1.5"></span>
+                      <span className="text-xs text-white/70">Before</span>
+                    </div>
+                  </div>
+                  
+                  {/* Responsive Chart - Height adjusts based on screen size */}
+                  <div className="h-36 sm:h-40 md:h-44 w-full rounded-md bg-white/5 p-3 flex items-end">
+                    <div className="flex-1 flex items-end justify-around h-full">
+                      {/* Simplified mobile view with fewer bars on small screens */}
+                      {[10, 8, 6, 4, 2, 1].map((position) => (
+                        <div key={position} className="relative h-full flex flex-col justify-end items-center sm:hidden">
+                          {/* Before bar */}
+                          <div 
+                            className={`w-4 bg-white/30 mx-0.5 ${position === 10 ? 'h-[10%]' : 'h-[2%]'}`}
+                          ></div>
+                          {/* After bar */}
+                          <div 
+                            className={`w-4 bg-green-500 mx-0.5 ${position === 1 ? 'h-[90%]' : position < 3 ? 'h-[70%]' : 'h-[5%]'}`}
+                          ></div>
+                          <span className="text-[10px] text-white/60 mt-1">{position}</span>
+                        </div>
+                      ))}
+                      
+                      {/* Full chart for larger screens */}
+                      {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((position) => (
+                        <div key={`lg-${position}`} className="relative h-full flex-col justify-end items-center hidden sm:flex">
+                          {/* Before bar */}
+                          <div 
+                            className={`w-3 bg-white/30 mx-0.5 ${position === 10 ? 'h-[10%]' : 'h-[2%]'}`}
+                          ></div>
+                          {/* After bar */}
+                          <div 
+                            className={`w-3 bg-green-500 mx-0.5 ${position === 1 ? 'h-[90%]' : position < 3 ? 'h-[70%]' : 'h-[5%]'}`}
+                          ></div>
+                          <span className="text-[10px] text-white/60 mt-1">{position}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Responsive metrics grid - stack on mobile, side by side on larger screens */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Load Time Metric */}
+                    <div className="bg-white/5 rounded-md p-3">
+                      <p className="text-xs text-white/60 mb-1">Average Page Load Time</p>
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-white/90">Before</p>
+                          <p className="text-xl font-bold text-white">4.2s</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-medium text-white/90">After</p>
+                          <p className="text-xl font-bold text-green-400">0.8s</p>
+                        </div>
+                        <div className="h-16 w-px bg-white/20 mx-2"></div>
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-green-400">-81%</p>
+                          <p className="text-xs text-white/60">Reduction</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Traffic Growth Metric */}
+                    <div className="bg-white/5 rounded-md p-3">
+                      <p className="text-xs text-white/60 mb-1">Organic Traffic Growth</p>
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <p className="text-xl font-bold text-white">14K</p>
+                          <p className="text-sm font-medium text-white/90">Before</p>
+                        </div>
+                        <div className="h-16 w-px bg-white/20 mx-2"></div>
+                        <div className="text-right">
+                          <p className="text-xl font-bold text-green-400">44K</p>
+                          <p className="text-sm font-medium text-white/90">After</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Card 2 - Web Development */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.webDev} p-4 transition-all duration-300 sm:p-6`}
+          <div className="mt-12 flex justify-center">
+            <Link
+              href="/"
+              className="group inline-flex items-center rounded-md bg-card border border-border px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-muted"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Code
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Modern Web Development
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Full-stack development with modern frameworks like Next.js
-                    and TailwindCSS.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 3 - Performance */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.performance} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Gauge
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Performance Optimization
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Streamlining digital information and solutions for maximum
-                    efficiency and performance.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 4 - Anti-Piracy */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.piracy} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Zap
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Security Solutions
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Cutting-edge content and information protection for digital
-                    assets and your website.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 5 - Data Analytics */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.dataAnalytics} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <BarChart3
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Data-Driven Analytics
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Strategic insights through advanced data analysis and
-                    artificial intelligence.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 6 - Digital Rights */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.digitalRights} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Users
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Digital Rights Management
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Systems for managing digital rights and permissions for
-                    end-users and administration.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 7 - Cloud Solutions */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.cloudSolutions} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Cloud
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    Cloud Infrastructure
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Scalable and secure cloud server solutions for businesses of
-                    all sizes and industries.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 8 - AI & Machine Learning */}
-          <motion.div variants={itemVariants}>
-            <div
-              className={`group relative aspect-square overflow-hidden rounded-lg ${gradients.aiMl} p-4 transition-all duration-300 sm:p-6`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/5 to-background/20" />
-              <div className="relative z-10 flex h-full flex-col">
-                <Brain
-                  className="mb-2 h-5 w-5 text-white/90 sm:mb-0 sm:h-8 sm:w-8"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-auto">
-                  <h4 className="text-sm font-medium text-white sm:text-lg">
-                    AI & Machine Learning
-                  </h4>
-                  <p className="mt-1 line-clamp-3 text-xs text-white/80 sm:mt-2 sm:line-clamp-none sm:text-sm">
-                    Custom AI solutions and machine learning models for advanced
-                    data processing.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+              <span>Explore our web services</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
 
         {/* Technical Expertise Section */}
         <div className="mt-32 space-y-16">
@@ -337,125 +576,200 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <div className="py-6 text-center">
-              <h2 className="mb-4 text-3xl font-medium tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
+              <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                 Technical Expertise
               </h2>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-400 md:mx-auto">
-                Our team brings extensive experience across a wide range of
-                technologies, with particular expertise in cybersecurity and
-                modern web development
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground md:mx-auto">
+                Our comprehensive technical knowledge spans cutting-edge frameworks, infrastructure optimization, and AI development
               </p>
             </div>
           </motion.div>
 
-          {/* Main Expertise Section with Image */}
-          <div className="relative">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-              <div className="relative z-10 text-center md:text-left">
-                <h3 className="text-2xl font-medium text-slate-100">
-                  Our approach to technology
-                </h3>
-                <p className="mt-4 text-slate-400">
-                  We focus on delivering solutions that combine cutting-edge
-                  technology with practical business value. Our expertise spans
-                  from advanced cybersecurity and data analytics to modern web
-                  development and digital rights management.
-                </p>
-                <p className="mt-4 text-slate-400">
-                  We&apos;re developing sophisticated systems capable of
-                  analyzing and understanding visual information with
-                  unprecedented accuracy. From asset generation to security
-                  applications, our solutions transform raw visual data into
-                  actionable insights and products.
-                </p>
-                <p className="mt-4 text-slate-400">
-                  Our development process prioritizes security, performance, and
-                  scalability. We build robust systems that protect your data
-                  while delivering exceptional user experiences through
-                  intuitive interfaces and responsive design.
-                </p>
-                <p className="mt-4 text-slate-400">
-                  Looking ahead, we&apos;re dedicated to pushing the boundaries
-                  of what&apos;s possible through continuous learning and
-                  innovation. We&apos;re actively exploring the development of
-                  more powerful AI models that combine multiple data modalities,
-                  enabling systems that can understand context in ways similar
-                  to human perception.
-                </p>
+          {/* Expertise Showcase */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Expertise Card 1 - Frontend */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 p-3 flex items-center justify-center">
+                <Code className="h-6 w-6 text-white" strokeWidth={1.5} />
               </div>
-              <div className="relative hidden aspect-square overflow-hidden rounded-lg transition-all duration-500 md:block">
-                {/* Image instead of gradient */}
-                <img
-                  src="/images/cadogy_training_computer_vision_ddetecting_transportation.jpg"
-                  alt="Technology expertise"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/20 to-background/40" />
+              <h3 className="mb-3 text-xl font-medium text-foreground">Modern Frontend</h3>
+              <p className="mb-4 text-muted-foreground">
+                We deliver exceptional user experiences using React, Next.js, and TypeScript, with modern styling through TailwindCSS and Radix UI.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Server and client components</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Type-safe development</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Responsive design systems</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 2 - Backend */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 p-3 flex items-center justify-center">
+                <Server className="h-6 w-6 text-white" strokeWidth={1.5} />
               </div>
-            </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Robust Backend</h3>
+              <p className="mb-4 text-muted-foreground">
+                We architect scalable backend systems using Node.js, Express, and modern database solutions like MongoDB and MariaDB.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">RESTful API design</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Advanced data modeling</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Real-time data processing</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 3 - Security */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 p-3 flex items-center justify-center">
+                <Shield className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Security Expertise</h3>
+              <p className="mb-4 text-muted-foreground">
+                We implement industry-leading security practices, from encryption protocols to advanced DNS protection and access control systems.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">DDoS mitigation</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Anti-piracy solutions</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Zero-trust architecture</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 4 - AI/ML */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 p-3 flex items-center justify-center">
+                <Brain className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">AI & Machine Learning</h3>
+              <p className="mb-4 text-muted-foreground">
+                We develop custom AI models for computer vision, natural language processing, and predictive analytics using Python and specialized frameworks.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Custom model training</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Computer vision systems</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Multi-modal AI development</span>
+                </li>
+              </ul>
+            </motion.div>
           </div>
 
-          {/* Technologies We Use */}
-          <div className="mt-24">
-            <h3 className="my-8 text-center text-xl font-medium text-slate-100">
-              Technologies We Use
-            </h3>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              <TechItem
-                src="/images/assets/stack-logos/nextjs-icon.svg"
-                alt="Next.js"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/reactjs-icon.svg"
-                alt="React"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/mongodb-icon.svg"
-                alt="MongoDB"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/tailwindcss-icon.svg"
-                alt="Tailwind"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/typescript-icon.svg"
-                alt="TypeScript"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/nodejs-icon.svg"
-                alt="Node.js"
-              />
-
-              {/* Additional technologies - Row 2 */}
-              <TechItem
-                src="/images/assets/stack-logos/python-icon.svg"
-                alt="Python"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/nvidia-icon.svg"
-                alt="Nvidia"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/openai-icon.svg"
-                alt="OpenAI"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/anthropic-icon.svg"
-                alt="Anthropic"
-              />
-              <TechItem
-                src="/images/assets/stack-logos/aws-icon.svg"
-                alt="AWS"
-              />
-              <TechItem src="/images/assets/logos/github.svg" alt="GitHub" />
+          {/* Dedicated Projects Section */}
+          <motion.div
+            className="mt-16 rounded-xl bg-card/40 p-8 border border-border"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div>
+                <div className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                  Featured Project
+                </div>
+                <h3 className="mb-4 text-2xl font-medium text-foreground">PlayerBay</h3>
+                <p className="mb-6 text-muted-foreground">
+                  We&apos;re developing PlayerBay, an innovative online marketplace for Fortnite accounts, in-game currencies, and digital assets. Our platform will connect gamers and studios through an easy-to-use SDK API that unifies asset engines to work cross-game, revolutionizing how in-game items are traded.
+                </p>
+                <div className="mb-6">
+                  <div className="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-400">
+                    <Zap className="mr-1 h-3 w-3" />
+                    <span>Under Development</span>
+                  </div>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    This groundbreaking platform will feature a secure marketplace, cross-game asset integration, and enterprise-grade infrastructure built on our proven technology stack.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">React</span>
+                  <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">Node.js</span>
+                  <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">MongoDB</span>
+                  <span className="rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">AWS</span>
+                  <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/30 dark:text-red-400">GraphQL</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="relative h-64 w-full max-w-md overflow-hidden rounded-lg sm:h-72 md:h-80">
+                  <img
+                    src="/images/playerbay_demo.png" 
+                    alt="PlayerBay gaming marketplace"
+                    className="h-full w-full object-cover bg-black/20 dark:bg-white/5 p-2"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/5 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse" />
+                      <span className="text-xs font-medium text-white/90">Coming Soon</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Learn More Link */}
           <div className="flex justify-center py-8">
             <Link
               href="/who-we-are"
-              className="group flex items-center space-x-1 rounded-sm border border-neutral-700 bg-neutral-900/40 px-6 py-3 text-sm font-medium text-slate-200 transition-all hover:bg-neutral-800/60"
+              className="group flex items-center space-x-1 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90"
             >
               <span>Learn more about our team</span>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

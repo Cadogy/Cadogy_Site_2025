@@ -66,13 +66,13 @@ const features = [
 
 function RotatingTitle() {
   const titles = [
-    "Creator",
-    "Scientist",
-    "Screenwriter",
-    "Developer",
-    "Researcher",
-    "Coder",
-    "Explorer",
+    "OpenAI",
+    "Anthropic",
+    "Nvidia",
+    "Sora",
+    "Gemini",
+    "RapidAPI",
+    "IP.IO",
   ]
   const [currentTitle, setCurrentTitle] = useState(titles[0])
   const [fadeState, setFadeState] = useState("visible") // "visible", "fading", "hidden"
@@ -98,7 +98,7 @@ function RotatingTitle() {
   return (
     <div className="flex flex-col items-center">
       <h1 className="bg-gradient-to-b from-white to-white/70 bg-clip-text text-5xl font-medium tracking-tight text-transparent sm:text-6xl lg:text-7xl">
-        Become a
+        Access 
       </h1>
       <div className="mt-2 h-[1.2em] text-5xl font-medium tracking-tight sm:text-6xl lg:text-7xl">
         <span
@@ -490,7 +490,7 @@ export default function ApiOverviewClient() {
           <div className="mx-auto -mt-8 max-w-3xl sm:mt-0">
             <RotatingTitle />
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90 sm:mt-8 sm:text-xl">
-              One unified API for all your AI needs
+              Access the best AI capabilities through a single, intuitive API.
             </p>
           </div>
         </div>
@@ -696,16 +696,16 @@ export default function ApiOverviewClient() {
               <h2 className="text-2xl font-medium text-white sm:text-3xl">
                 Reimagine what&apos;s possible with AI
               </h2>
-              <div className="mt-8 flex flex-row items-center gap-4 sm:justify-center">
+              <div className="mt-8 flex flex-col md:flex-row items-center gap-4 sm:justify-center">
                 <a
                   href="/login"
-                  className="inline-block rounded-md bg-white px-8 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-neutral-200"
+                  className="inline-block rounded-md bg-white px-8 py-3.5 w-full text-sm font-semibold text-background transition-colors hover:bg-neutral-200"
                 >
                   Get Started
                 </a>
                 <a
-                  href="/pricing"
-                  className="inline-block rounded-md border border-white/30 bg-transparent px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                  href="/"
+                  className="inline-block rounded-md border border-white/30 bg-transparent px-8 py-3.5 w-full text-sm font-semibold text-white transition-colors hover:bg-white/10"
                 >
                   View Pricing
                 </a>
