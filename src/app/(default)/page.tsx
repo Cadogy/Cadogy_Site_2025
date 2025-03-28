@@ -118,7 +118,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Media Generation */}
             <motion.div 
-              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              className="overflow-hidden bg-card border border-border rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -155,7 +155,7 @@ export default function Home() {
 
             {/* Content Creation */}
             <motion.div 
-              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              className="overflow-hidden bg-card border border-border rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -192,7 +192,7 @@ export default function Home() {
 
             {/* Code Generation */}
             <motion.div 
-              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              className="overflow-hidden bg-card border border-border rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -229,7 +229,7 @@ export default function Home() {
 
             {/* Research Tools */}
             <motion.div 
-              className="overflow-hidden rounded-lg bg-card border border-border rounded-xl"
+              className="overflow-hidden bg-card border border-border rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -346,7 +346,7 @@ export default function Home() {
 
             {/* SEO Optimization */}
             <motion.div 
-              className="rounded-lg bg-card overflow-hidden border border-border rounded-xl"
+              className="bg-card overflow-hidden border border-border rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
