@@ -102,7 +102,7 @@ export function NavigationMenu() {
                 Articles
               </Link>
               <Link
-                href="/contact-us"
+                href="/contact"
                 className="text-sm transition duration-150"
               >
                 Contact
@@ -231,7 +231,7 @@ export function NavigationMenu() {
               className="justify-start text-xl text-foreground"
               asChild
             >
-              <Link href="/contact-us" onClick={closeMenu}>
+              <Link href="/contact" onClick={closeMenu}>
                 Contact Us
               </Link>
             </Button>

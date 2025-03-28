@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: `Contact Us - Cadogy`,
     description:
       "Reach out to our team for business inquiries, support, or collaborations.",
-    url: `${siteConfig.url.base}/contact-us`,
+    url: `${siteConfig.url.base}/contact`,
     images: [
       {
         url: siteConfig.ogImage,

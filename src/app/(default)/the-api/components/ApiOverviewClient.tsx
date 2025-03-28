@@ -448,7 +448,7 @@ function FAQ() {
 
       <div className="mt-10 flex justify-center">
         <a
-          href="/contact-us"
+          href="/contact"
           className="inline-flex items-center rounded-md bg-blue-600/20 px-6 py-3 text-sm font-semibold text-blue-400 transition-colors hover:bg-blue-600/30"
         >
           <Server className="mr-2 h-4 w-4" />

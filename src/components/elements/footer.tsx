@@ -233,7 +233,7 @@ export function Footer() {
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
-                  href="/contact-us"
+                  href="/contact"
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>Contact Us</span>
