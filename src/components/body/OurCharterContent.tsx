@@ -2,13 +2,22 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { ArrowRight, Brain, Code, Globe, Lock, Server, Shield, Zap } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 const OurCharterContent = () => {
+  // Add a unique key to force component re-rendering and prevent stale cache issues
+  const [mountKey, setMountKey] = useState<string>("")
+  
+  useEffect(() => {
+    // Generate a unique key on component mount
+    setMountKey(`our-charter-${Date.now()}`)
+  }, [])
+
   return (
-    <div className="bg-background">
+    <div className="bg-background" key={mountKey}>
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/5 bg-[size:100px_100px] opacity-25" />

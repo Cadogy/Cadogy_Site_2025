@@ -4,8 +4,10 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Brain, Code, Globe, Lock, Server, Shield, Zap } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
+import { addCacheBuster } from "@/lib/utils"
 
 const technologies = [
   {
@@ -92,7 +94,7 @@ const TechItem = ({ tech, index }: { tech: typeof technologies[0], index: number
       className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-lg ${getGradientClass()} p-4 text-center transition-all duration-300 hover:shadow-md dark:border-neutral-800 dark:hover:border-neutral-700`}
     >
       <div className="relative z-10 flex flex-col items-center">
-        <img src={tech.logo} alt={tech.name} className="mb-3 h-12 w-12 dark:invert-[0.85] transition-all" />
+        <img src={addCacheBuster(tech.logo)} alt={tech.name} className="mb-3 h-12 w-12 dark:invert-[0.85] transition-all" />
         <span className="text-sm text-muted-foreground">{tech.name}</span>
       </div>
     </motion.div>
@@ -140,8 +142,16 @@ const TimelineEvent = ({
 };
 
 const WhoWeAreContent = () => {
+  // Add a unique key to force component re-rendering and prevent stale cache issues
+  const [mountKey, setMountKey] = useState<string>("")
+  
+  useEffect(() => {
+    // Generate a unique key on component mount
+    setMountKey(`who-we-are-${Date.now()}`)
+  }, [])
+
   return (
-    <div className="bg-background">
+    <div className="bg-background" key={mountKey}>
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/5 bg-[size:100px_100px] opacity-25" />
@@ -331,11 +341,11 @@ const WhoWeAreContent = () => {
                   
                   <div className="relative z-10">
                     <div className="h-56 w-56 overflow-hidden rounded-lg shadow-lg">
-                  <img
-                    src="/images/authors/charles_k_author.jpg"
-                    alt="Charles Knapp"
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+                      <img
+                        src={addCacheBuster("/images/authors/charles_k_author.jpg")}
+                        alt="Charles Knapp"
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
                     </div>
                     <div className="mt-4 text-center">
                       <h3 className="text-xl font-medium text-white">Charles Knapp</h3>
@@ -395,11 +405,11 @@ const WhoWeAreContent = () => {
                   
                   <div className="relative z-10">
                     <div className="h-56 w-56 overflow-hidden rounded-lg shadow-lg">
-                  <img
-                    src="/images/authors/dylan_s_author.jpg"
-                    alt="Dylan Safra"
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+                      <img
+                        src={addCacheBuster("/images/authors/dylan_s_author.jpg")}
+                        alt="Dylan Safra"
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
                     </div>
                     <div className="mt-4 text-center">
                       <h3 className="text-xl font-medium text-white">Dylan Safra</h3>
