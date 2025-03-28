@@ -177,14 +177,14 @@ const WhoWeAreContent = () => {
         <div className="mx-auto max-w-[94%] px-4 pt-16 pb-16 sm:px-6 md:max-w-[90%] md:py-24 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-          >
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
             <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-                Our Mission
-              </h2>
+            Our Mission
+          </h2>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
                 We see ourselves not just as a business, but as passionate individuals on a shared journey of growth, learning, and transformation. Our mission is to empower creators, businesses, and innovators with tools that not only solve problems but spark change.
               </p>
@@ -297,7 +297,7 @@ const WhoWeAreContent = () => {
         </div>
       </section>
 
-      {/* Team Members Section */}
+        {/* Team Members Section */}
       <section className="bg-background">
         <div className="mx-auto max-w-[94%] px-4 pt-16 pb-16 sm:px-6 md:max-w-[90%] md:py-24 lg:px-8">
           <motion.div
@@ -331,11 +331,11 @@ const WhoWeAreContent = () => {
                   
                   <div className="relative z-10">
                     <div className="h-56 w-56 overflow-hidden rounded-lg shadow-lg">
-                      <img
-                        src="/images/authors/charles_k_author.jpg"
-                        alt="Charles Knapp"
-                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
+                  <img
+                    src="/images/authors/charles_k_author.jpg"
+                    alt="Charles Knapp"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
                     </div>
                     <div className="mt-4 text-center">
                       <h3 className="text-xl font-medium text-white">Charles Knapp</h3>
@@ -347,7 +347,7 @@ const WhoWeAreContent = () => {
                 <div className="md:col-span-2 p-6 md:p-8">
                   <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
                     Co-Founder
-                  </div>
+              </div>
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
                       Charles Knapp is a distinguished expert in cybersecurity and digital infrastructure with a proven track record of delivering enterprise-grade solutions. His methodical approach to system architecture and security implementation has helped numerous organizations establish robust digital frameworks that withstand modern cybersecurity challenges.
@@ -384,10 +384,10 @@ const WhoWeAreContent = () => {
             <motion.div 
               className="overflow-hidden rounded-xl bg-card border border-border"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-            >
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
               <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="md:col-span-1 bg-gradient-to-br from-green-900/30 to-emerald-900/30 p-6 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-56 h-56 bg-green-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -395,11 +395,11 @@ const WhoWeAreContent = () => {
                   
                   <div className="relative z-10">
                     <div className="h-56 w-56 overflow-hidden rounded-lg shadow-lg">
-                      <img
-                        src="/images/authors/dylan_s_author.jpg"
-                        alt="Dylan Safra"
-                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
+                  <img
+                    src="/images/authors/dylan_s_author.jpg"
+                    alt="Dylan Safra"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
                     </div>
                     <div className="mt-4 text-center">
                       <h3 className="text-xl font-medium text-white">Dylan Safra</h3>
@@ -411,7 +411,7 @@ const WhoWeAreContent = () => {
                 <div className="md:col-span-2 p-6 md:p-8">
                   <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
                     Co-Founder
-                  </div>
+              </div>
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
                       Dylan Safra is an accomplished digital strategist with extensive experience in data-driven business transformation and growth optimization. Combining technical proficiency with strategic vision, he has successfully led numerous enterprise clients through digital transformations that deliver measurable business outcomes and competitive advantages.
@@ -443,20 +443,20 @@ const WhoWeAreContent = () => {
                 </div>
               </div>
             </motion.div>
-          </div>
+            </div>
         </div>
       </section>
 
-      {/* Tech Stack Section */}
+        {/* Tech Stack Section */}
       <section className="bg-neutral-900/30 border-border">
         <div className="mx-auto max-w-[94%] px-4 pt-16 pb-16 sm:px-6 md:max-w-[90%] md:py-24 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
             className="text-center"
-          >
+        >
             <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
               Our Tech Stack
             </h2>
@@ -476,7 +476,7 @@ const WhoWeAreContent = () => {
       {/* CTA Section */}
       <section className="bg-background">
         <div className="mx-auto max-w-[94%] px-4 pt-16 pb-16 sm:px-6 md:max-w-[90%] md:py-24 lg:px-8">
-          <motion.div
+            <motion.div
             className="rounded-xl border-border overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -505,11 +505,11 @@ const WhoWeAreContent = () => {
                   <span>Explore Our Services</span>
                 </Link>
               </div>
-            </div>
-          </motion.div>
-        </div>
+                  </div>
+            </motion.div>
+          </div>
       </section>
-    </div>
+      </div>
   )
 }
 

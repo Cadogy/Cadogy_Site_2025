@@ -276,6 +276,205 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Technical Expertise Section */}
+        <div className="mt-32 space-y-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="py-6 text-center">
+              <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                Technical Expertise
+              </h2>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground md:mx-auto">
+                Our comprehensive technical knowledge spans cutting-edge frameworks, infrastructure optimization, and AI development
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Expertise Showcase */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Expertise Card 1 - Frontend */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 p-3 flex items-center justify-center">
+                <Code className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Modern Frontend</h3>
+              <p className="mb-4 text-muted-foreground">
+                We deliver exceptional user experiences using React, Next.js, and TypeScript, with modern styling through TailwindCSS and Radix UI.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Server and client components</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Type-safe development</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Responsive design systems</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 2 - Backend */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 p-3 flex items-center justify-center">
+                <Server className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Robust Backend</h3>
+              <p className="mb-4 text-muted-foreground">
+                We architect scalable backend systems using Node.js, Express, and modern database solutions like MongoDB and MariaDB.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">RESTful API design</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Advanced data modeling</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Real-time data processing</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 3 - Security */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 p-3 flex items-center justify-center">
+                <Shield className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">Security Expertise</h3>
+              <p className="mb-4 text-muted-foreground">
+                We implement industry-leading security practices, from encryption protocols to advanced DNS protection and access control systems.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">DDoS mitigation</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Anti-piracy solutions</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Zero-trust architecture</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Expertise Card 4 - AI/ML */}
+            <motion.div
+              className="rounded-lg bg-card p-6 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 p-3 flex items-center justify-center">
+                <Brain className="h-6 w-6 text-white" strokeWidth={1.5} />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground">AI & Machine Learning</h3>
+              <p className="mb-4 text-muted-foreground">
+                We develop custom AI models for computer vision, natural language processing, and predictive analytics using Python and specialized frameworks.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Custom model training</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Computer vision systems</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
+                  <span className="text-sm text-muted-foreground">Multi-modal AI development</span>
+                </li>
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* Dedicated Projects Section */}
+          <motion.div
+            className="mt-16 rounded-xl bg-card/40 p-8 border border-border"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div>
+                <div className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                  Featured Project
+                </div>
+                <h3 className="mb-4 text-2xl font-medium text-foreground">PlayerBay</h3>
+                <p className="mb-6 text-muted-foreground">
+                  We&apos;re developing PlayerBay, an innovative online marketplace for Fortnite accounts, in-game currencies, and digital assets. Our platform will connect gamers and studios through an easy-to-use SDK API that unifies asset engines to work cross-game, revolutionizing how in-game items are traded.
+                </p>
+                <div className="mb-6">
+                  <div className="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-400">
+                    <Zap className="mr-1 h-3 w-3" />
+                    <span>Under Development</span>
+                  </div>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    This groundbreaking platform will feature a secure marketplace, cross-game asset integration, and enterprise-grade infrastructure built on our proven technology stack.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">React</span>
+                  <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">Node.js</span>
+                  <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">MongoDB</span>
+                  <span className="rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">AWS</span>
+                  <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/30 dark:text-red-400">GraphQL</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="relative h-64 w-full max-w-md overflow-hidden rounded-lg sm:h-72 md:h-80">
+                  <img
+                    src="/images/playerbay_demo.png" 
+                    alt="PlayerBay gaming marketplace"
+                    className="h-full w-full object-cover bg-black/20 dark:bg-white/5 p-2"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/5 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse" />
+                      <span className="text-xs font-medium text-white/90">Coming Soon</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
         {/* Web Infrastructure & SEO Expertise - Replacing Client Success Stories */}
         <div className="mt-32 mb-16">
           <motion.div
@@ -519,7 +718,7 @@ export default function Home() {
                     <div className="bg-white/5 rounded-md p-3">
                       <p className="text-xs text-white/60 mb-1">Average Page Load Time</p>
                       <div className="flex items-end justify-between">
-                        <div>
+          <div>
                           <p className="text-sm font-medium text-white/90">Before</p>
                           <p className="text-xl font-bold text-white">4.2s</p>
                         </div>
@@ -556,7 +755,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="mt-12 flex justify-center">
+          {/* <div className="mt-12 flex justify-center">
             <Link
               href="/"
               className="group inline-flex items-center rounded-md bg-card border border-border px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-muted"
@@ -564,206 +763,8 @@ export default function Home() {
               <span>Explore our web services</span>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
+          </div> */}
           </div>
-        </div>
-
-        {/* Technical Expertise Section */}
-        <div className="mt-32 space-y-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="py-6 text-center">
-              <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-                Technical Expertise
-              </h2>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground md:mx-auto">
-                Our comprehensive technical knowledge spans cutting-edge frameworks, infrastructure optimization, and AI development
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Expertise Showcase */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* Expertise Card 1 - Frontend */}
-            <motion.div
-              className="rounded-lg bg-card p-6 border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 p-3 flex items-center justify-center">
-                <Code className="h-6 w-6 text-white" strokeWidth={1.5} />
-              </div>
-              <h3 className="mb-3 text-xl font-medium text-foreground">Modern Frontend</h3>
-              <p className="mb-4 text-muted-foreground">
-                We deliver exceptional user experiences using React, Next.js, and TypeScript, with modern styling through TailwindCSS and Radix UI.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Server and client components</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Type-safe development</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Responsive design systems</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Expertise Card 2 - Backend */}
-            <motion.div
-              className="rounded-lg bg-card p-6 border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 p-3 flex items-center justify-center">
-                <Server className="h-6 w-6 text-white" strokeWidth={1.5} />
-              </div>
-              <h3 className="mb-3 text-xl font-medium text-foreground">Robust Backend</h3>
-              <p className="mb-4 text-muted-foreground">
-                We architect scalable backend systems using Node.js, Express, and modern database solutions like MongoDB and MariaDB.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">RESTful API design</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Advanced data modeling</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Real-time data processing</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Expertise Card 3 - Security */}
-            <motion.div
-              className="rounded-lg bg-card p-6 border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 p-3 flex items-center justify-center">
-                <Shield className="h-6 w-6 text-white" strokeWidth={1.5} />
-              </div>
-              <h3 className="mb-3 text-xl font-medium text-foreground">Security Expertise</h3>
-              <p className="mb-4 text-muted-foreground">
-                We implement industry-leading security practices, from encryption protocols to advanced DNS protection and access control systems.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">DDoS mitigation</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Anti-piracy solutions</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Zero-trust architecture</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Expertise Card 4 - AI/ML */}
-            <motion.div
-              className="rounded-lg bg-card p-6 border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <div className="mb-4 h-12 w-12 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 p-3 flex items-center justify-center">
-                <Brain className="h-6 w-6 text-white" strokeWidth={1.5} />
-              </div>
-              <h3 className="mb-3 text-xl font-medium text-foreground">AI & Machine Learning</h3>
-              <p className="mb-4 text-muted-foreground">
-                We develop custom AI models for computer vision, natural language processing, and predictive analytics using Python and specialized frameworks.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Custom model training</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Computer vision systems</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="mr-2 mt-1 h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">Multi-modal AI development</span>
-                </li>
-              </ul>
-            </motion.div>
-          </div>
-
-          {/* Dedicated Projects Section */}
-          <motion.div
-            className="mt-16 rounded-xl bg-card/40 p-8 border border-border"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-              <div>
-                <div className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                  Featured Project
-                </div>
-                <h3 className="mb-4 text-2xl font-medium text-foreground">PlayerBay</h3>
-                <p className="mb-6 text-muted-foreground">
-                  We&apos;re developing PlayerBay, an innovative online marketplace for Fortnite accounts, in-game currencies, and digital assets. Our platform will connect gamers and studios through an easy-to-use SDK API that unifies asset engines to work cross-game, revolutionizing how in-game items are traded.
-                </p>
-                <div className="mb-6">
-                  <div className="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-400">
-                    <Zap className="mr-1 h-3 w-3" />
-                    <span>Under Development</span>
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    This groundbreaking platform will feature a secure marketplace, cross-game asset integration, and enterprise-grade infrastructure built on our proven technology stack.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">React</span>
-                  <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">Node.js</span>
-                  <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">MongoDB</span>
-                  <span className="rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">AWS</span>
-                  <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/30 dark:text-red-400">GraphQL</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="relative h-64 w-full max-w-md overflow-hidden rounded-lg sm:h-72 md:h-80">
-                  <img
-                    src="/images/playerbay_demo.png" 
-                    alt="PlayerBay gaming marketplace"
-                    className="h-full w-full object-cover bg-black/20 dark:bg-white/5 p-2"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/5 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex items-center gap-2">
-                      <div className="h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse" />
-                      <span className="text-xs font-medium text-white/90">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
 
           {/* Learn More Link */}
           <div className="flex justify-center py-8">
@@ -775,7 +776,7 @@ export default function Home() {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
-        </div>
+
       </div>
     </div>
   )
