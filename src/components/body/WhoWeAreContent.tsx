@@ -508,12 +508,12 @@ const WhoWeAreContent = () => {
                   <span>Contact Us</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-                <Link
-                  href="/services"
+                {/* <Link
+                  href="/"
                   className="group inline-flex items-center rounded-md bg-card border border-border px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-muted"
                 >
                   <span>Explore Our Services</span>
-                </Link>
+                </Link> */}
               </div>
                   </div>
             </motion.div>
