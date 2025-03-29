@@ -87,16 +87,16 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
 
       <motion.div
-        className="relative mx-auto max-w-[86%] px-4 py-12 md:max-w-[90%] md:px-6 md:py-20"
+        className="relative mx-auto w-full px-6 py-12 sm:px-8 md:max-w-[90%] md:px-10 md:py-16 lg:px-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
       >
         {/* Logo and Description */}
-        <div className="mb-12 flex flex-col items-start justify-center space-y-4 md:mb-20 md:flex-row md:items-center md:justify-between md:space-y-0">
+        <div className="mb-10 flex flex-col items-start justify-center space-y-4 md:mb-16 md:flex-row md:items-center md:justify-between md:space-y-0">
           <motion.div variants={itemVariants} className="flex items-center">
-            <div className="relative h-8 w-8 md:h-8 md:w-8">
+            <div className="relative h-8 w-8 md:h-10 md:w-10">
               <Image
                 src="/images/assets/logos/cadogy-shield.svg"
                 alt="Cadogy Logo"
@@ -105,7 +105,7 @@ export function Footer() {
               />
             </div>
             <h2
-              className="ml-3 text-sm font-bold text-foreground md:text-sm"
+              className="ml-3 text-lg font-bold text-foreground md:text-xl"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -114,7 +114,7 @@ export function Footer() {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            className="max-w-md text-left text-sm text-muted-foreground"
+            className="max-w-md text-left text-sm text-muted-foreground md:text-base md:text-right"
           >
             Providing cutting-edge solutions in cybersecurity, web development,
             and digital rights management, helping businesses achieve their
@@ -123,18 +123,21 @@ export function Footer() {
         </div>
 
         {/* Navigation Grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-8 md:grid-cols-4 md:gap-6 lg:gap-12">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-4 md:gap-x-8 md:gap-y-0 lg:gap-x-16">
           {/* Column 1 - Company */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground">Company</h3>
-            <ul className="flex flex-col space-y-3">
+            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Company</h3>
+            <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/who-we-are"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Who We Are"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Who We Are</span>
                   <motion.span
@@ -143,14 +146,17 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
                   href="/our-charter"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Our Charter"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Our Charter</span>
                   <motion.span
@@ -159,7 +165,7 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
@@ -169,14 +175,17 @@ export function Footer() {
           {/* Column 2 - API */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground">API</h3>
-            <ul className="flex flex-col space-y-3">
+            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">API</h3>
+            <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/the-api"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="API Overview"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Overview</span>
                   <motion.span
@@ -185,14 +194,17 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
                   href="/the-api/features"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="API Features"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Features</span>
                   <motion.span
@@ -201,7 +213,7 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
@@ -211,14 +223,17 @@ export function Footer() {
           {/* Column 3 - Resources */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground">Resources</h3>
-            <ul className="flex flex-col space-y-3">
+            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Resources</h3>
+            <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/articles"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Articles"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Articles</span>
                   <motion.span
@@ -227,14 +242,17 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
                   href="/contact"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Contact Us"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Contact Us</span>
                   <motion.span
@@ -243,7 +261,7 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
@@ -253,14 +271,17 @@ export function Footer() {
           {/* Column 4 - Policies */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground">Policies</h3>
-            <ul className="flex flex-col space-y-3">
+            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Policies</h3>
+            <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
                   href="/policies/terms-of-use"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Terms of Use"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Terms of Use</span>
                   <motion.span
@@ -269,14 +290,17 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
                   href="/policies/privacy-policy"
-                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
+                  tabIndex={0}
+                  aria-label="Privacy Policy"
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
                 >
                   <span>Privacy Policy</span>
                   <motion.span
@@ -285,7 +309,7 @@ export function Footer() {
                     whileHover={{ x: 2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                   </motion.span>
                 </Link>
               </motion.li>
@@ -294,7 +318,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 md:mt-16 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-6 border-t border-border pt-6 md:mt-16 md:flex-row md:pt-10">
           <p className="text-center text-xs text-muted-foreground md:text-left md:text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights
             reserved.
@@ -308,6 +332,8 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-muted-foreground transition hover:text-foreground"
               aria-label="X (Twitter)"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
               variants={socialIconVariants}
               whileHover="hover"
             >
@@ -316,6 +342,7 @@ export function Footer() {
                 width="17"
                 viewBox="0 0 17 17"
                 fill="none"
+                className="h-5 w-5 md:h-6 md:w-6"
               >
                 <path
                   fill="currentColor"
@@ -329,6 +356,8 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-muted-foreground transition hover:text-foreground"
               aria-label="YouTube"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
               variants={socialIconVariants}
               whileHover="hover"
             >
@@ -337,6 +366,7 @@ export function Footer() {
                 width="17"
                 viewBox="0 0 17 17"
                 fill="none"
+                className="h-5 w-5 md:h-6 md:w-6"
               >
                 <path
                   fill="currentColor"
@@ -350,6 +380,8 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-muted-foreground transition hover:text-foreground"
               aria-label="LinkedIn"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
               variants={socialIconVariants}
               whileHover="hover"
             >
@@ -358,6 +390,7 @@ export function Footer() {
                 width="17"
                 viewBox="0 0 17 17"
                 fill="none"
+                className="h-5 w-5 md:h-6 md:w-6"
               >
                 <path
                   fill="currentColor"
