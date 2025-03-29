@@ -9,6 +9,7 @@ import {
   getAllPosts,
   getPostBySlug,
   PLACEHOLDER_IMAGE,
+  preventImageCaching,
 } from "@/lib/wordpress-api"
 import ArticleCore from "@/components/elements/ArticleCore"
 
@@ -32,6 +33,11 @@ export async function generateMetadata({
     post.excerpt.rendered.replace(/<[^>]+>/g, "").slice(0, 160)
   )
 
+  // Get featured image with cache busting
+  const featuredImage = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url
+    ? preventImageCaching(post._embedded?.["wp:featuredmedia"]?.[0]?.source_url)
+    : siteConfig.ogImage
+
   return {
     title,
     description,
@@ -40,17 +46,13 @@ export async function generateMetadata({
       title,
       description,
       url: `${siteConfig.url.base}/articles/${params.slug}`,
-      images: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url
-        ? [{ url: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url }]
-        : [{ url: siteConfig.ogImage }],
+      images: [{ url: featuredImage }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url
-        ? [post._embedded?.["wp:featuredmedia"]?.[0]?.source_url]
-        : [siteConfig.ogImage],
+      images: [featuredImage],
     },
   }
 }
@@ -85,9 +87,12 @@ export default async function ArticlePage({
   const categories = post._embedded?.["wp:term"]?.[0] || []
   const tags = post._embedded?.["wp:term"]?.[1] || []
 
-  // Featured image
-  const featuredImage =
+  // Featured image with cache busting
+  let featuredImage =
     post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || PLACEHOLDER_IMAGE
+  
+  // Apply cache busting to the featured image
+  featuredImage = preventImageCaching(featuredImage)
 
   // Decode title and content
   const title = decodeHtml(post.title.rendered)
@@ -96,6 +101,15 @@ export default async function ArticlePage({
     /(<[^>]+>|&#8217;|&#8216;|&#8211;|&#8212;|&hellip;|&#8230;)/g,
     (match) => {
       return match.startsWith("<") ? match : decodeHtml(match)
+    }
+  )
+
+  // Process content to add cache busting to image src attributes
+  const processedContent = content.replace(
+    /<img[^>]+src="([^"]+)"/g,
+    (match, src) => {
+      const processedSrc = preventImageCaching(src)
+      return match.replace(src, processedSrc)
     }
   )
 
@@ -162,7 +176,7 @@ export default async function ArticlePage({
             prose-blockquote:border-blue-800 prose-blockquote:pl-6
             prose-blockquote:py-2 prose-blockquote:italic prose-blockquote:text-slate-300
             prose-blockquote:bg-neutral-900/50 prose-blockquote:my-8
-            prose-blockquote:rounded-r-md /*
+            prose-blockquote:rounded-md /*
             
             Images and media */ prose-img:rounded-md
             prose-img:my-10 prose-img:mx-auto prose-img:shadow-lg
@@ -180,7 +194,7 @@ export default async function ArticlePage({
             prose-figure:mx-auto prose-figcaption:text-center
             prose-figcaption:text-sm prose-figcaption:italic 
             prose-figcaption:text-slate-400 prose-figcaption:mt-3 max-w-none"
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: processedContent }}
         />
       </div>
     </>

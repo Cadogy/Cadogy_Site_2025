@@ -12,6 +12,7 @@ import {
   extractExcerpt,
   getAllPosts,
   PLACEHOLDER_IMAGE,
+  preventImageCaching,
 } from "@/lib/wordpress-api"
 import { Button } from "@/components/ui/button"
 
@@ -42,6 +43,7 @@ export function HeroCarousel({
   // WordPress posts state
   const [posts, setPosts] = useState<WP_Post[]>([])
   const [loading, setLoading] = useState(true)
+  const [isRefreshing, setIsRefreshing] = useState(false) // Track refresh state separately
   const [error, setError] = useState<string | null>(null)
 
   // Swipe states for mobile only
@@ -61,6 +63,10 @@ export function HeroCarousel({
 
     async function fetchPosts() {
       try {
+        // Clear any cached posts first
+        setPosts([])
+        setLoading(true)
+        
         const fetchedPosts = await getAllPosts()
         setPosts(fetchedPosts)
         setError(null)
@@ -73,6 +79,31 @@ export function HeroCarousel({
     }
 
     fetchPosts()
+
+    // Create event listener for refreshing carousel from navbar logo click
+    const handleRefreshCarousel = () => {
+      console.log('Refreshing hero carousel slides...')
+      setCurrentSlide(0) // Reset to first slide
+      
+      // Set refreshing state to true for animation
+      setIsRefreshing(true)
+      
+      // Fetch new posts
+      fetchPosts()
+      
+      // Reset refreshing state after a short delay to show animation
+      setTimeout(() => {
+        setIsRefreshing(false)
+      }, 1000)
+    }
+
+    // Add event listener
+    window.addEventListener('refreshHeroCarousel', handleRefreshCarousel)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('refreshHeroCarousel', handleRefreshCarousel)
+    }
   }, [customSlides])
 
   useEffect(() => {
@@ -311,6 +342,11 @@ export function HeroCarousel({
           const isPrevSlide =
             index === (currentSlide - 1 + slides.length) % slides.length
 
+          // Ensure the image URL has cache busting
+          const slideImage = slide.image.includes('wp.cadogy.com') 
+            ? preventImageCaching(slide.image)
+            : slide.image
+
           return (
             <div
               key={index}
@@ -322,7 +358,7 @@ export function HeroCarousel({
               )}
               style={{
                 width: `${settings.mainCardWidth}%`, // Dynamic width for the main card based on screen size
-                backgroundImage: `url(${slide.image})`,
+                backgroundImage: `url(${slideImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "0.5rem",

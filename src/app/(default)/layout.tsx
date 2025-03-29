@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
+import NextTopLoader from "nextjs-toploader"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -159,6 +160,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
           defaultTheme="dark"
           disableTransitionOnChange
         >
+          <NextTopLoader 
+            color="#60a5fa"
+            initialPosition={0.08}
+            height={2}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+          />
           <NavigationMenu />
           <PageTransition>
             <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">

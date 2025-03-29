@@ -5,6 +5,23 @@ const API_URL = "https://wp.cadogy.com/wp-json/wp/v2"
 export const PLACEHOLDER_IMAGE = "/images/placeholder/article-placeholder.svg"
 
 /**
+ * Add a cache-busting parameter to WordPress image URLs
+ */
+export function preventImageCaching(url: string): string {
+  if (!url || url === PLACEHOLDER_IMAGE || !url.includes('wp.cadogy.com')) {
+    return url
+  }
+  
+  // Use a daily cache breaker instead of per-request timestamp
+  // This prevents images from flashing during carousel transitions
+  // while still refreshing images daily
+  const today = new Date()
+  const cacheKey = `${today.getFullYear()}${today.getMonth()}${today.getDate()}`
+  
+  return url.includes('?') ? `${url}&v=${cacheKey}` : `${url}?v=${cacheKey}`
+}
+
+/**
  * Decode HTML entities in a string
  */
 export function decodeHtmlEntities(text: string): string {
@@ -61,7 +78,8 @@ export async function getPosts({
   if (tagId) queryParams.append("tags", tagId.toString())
 
   const response = await fetch(`${API_URL}/posts?${queryParams.toString()}`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    cache: "no-store", // Disable caching completely
+    next: { revalidate: 0 }, // Force revalidation on every request
   })
 
   if (!response.ok) {
@@ -76,6 +94,15 @@ export async function getPosts({
   const totalPosts = parseInt(response.headers.get("X-WP-Total") || "0", 10)
 
   const posts = await response.json()
+  
+  // Process featured media URLs to prevent caching
+  posts.forEach((post: WP_Post) => {
+    if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+      post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+        post._embedded["wp:featuredmedia"][0].source_url
+      )
+    }
+  })
 
   return {
     posts,
@@ -101,6 +128,14 @@ export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
   }
 
   const posts = await response.json()
+  
+  // Process featured media URL to prevent caching
+  if (posts.length > 0 && posts[0]._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+    posts[0]._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+      posts[0]._embedded["wp:featuredmedia"][0].source_url
+    )
+  }
+  
   return posts.length > 0 ? posts[0] : null
 }
 
@@ -109,14 +144,22 @@ export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
  */
 export async function getMedia(id: number): Promise<WP_Media> {
   const response = await fetch(`${API_URL}/media/${id}`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    cache: "no-store", // Disable caching completely
+    next: { revalidate: 0 }, // Force revalidation on every request
   })
 
   if (!response.ok) {
     throw new Error(`Failed to fetch media: ${response.status}`)
   }
 
-  return response.json()
+  const media = await response.json()
+  
+  // Apply cache busting to source_url
+  if (media.source_url) {
+    media.source_url = preventImageCaching(media.source_url)
+  }
+  
+  return media
 }
 
 /**
@@ -124,7 +167,8 @@ export async function getMedia(id: number): Promise<WP_Media> {
  */
 export async function getCategories(): Promise<WP_Term[]> {
   const response = await fetch(`${API_URL}/categories?per_page=100`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    cache: "no-store", // Disable caching completely
+    next: { revalidate: 0 }, // Force revalidation on every request
   })
 
   if (!response.ok) {
@@ -139,7 +183,8 @@ export async function getCategories(): Promise<WP_Term[]> {
  */
 export async function getTags(): Promise<WP_Term[]> {
   const response = await fetch(`${API_URL}/tags?per_page=100`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    cache: "no-store", // Disable caching completely
+    next: { revalidate: 0 }, // Force revalidation on every request
   })
 
   if (!response.ok) {
@@ -157,14 +202,28 @@ export async function getPostsByCategory(
 ): Promise<WP_Post[]> {
   const response = await fetch(
     `${API_URL}/posts?_embed&categories=${categoryId}&status=publish&per_page=100`,
-    { next: { revalidate: 3600 } } // Cache for 1 hour
+    { 
+      cache: "no-store", // Disable caching completely
+      next: { revalidate: 0 }, // Force revalidation on every request
+    }
   )
 
   if (!response.ok) {
     throw new Error(`Failed to fetch posts by category: ${response.status}`)
   }
 
-  return response.json()
+  const posts = await response.json()
+  
+  // Process featured media URLs to prevent caching
+  posts.forEach((post: WP_Post) => {
+    if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+      post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+        post._embedded["wp:featuredmedia"][0].source_url
+      )
+    }
+  })
+  
+  return posts
 }
 
 /**
@@ -206,8 +265,11 @@ export function postsToCarouselSlides(
 ): CarouselSlide[] {
   return posts.slice(0, limit).map((post) => {
     // Get the featured image URL or use a placeholder
-    const image =
+    let image =
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || PLACEHOLDER_IMAGE
+    
+    // Apply cache busting to the image URL
+    image = preventImageCaching(image)
 
     // Get the author information
     const author = post._embedded?.author?.[0] || null
@@ -231,7 +293,10 @@ export function postsToCarouselSlides(
 export async function getAllPosts(): Promise<WP_Post[]> {
   const response = await fetch(
     `${API_URL}/posts?_embed&status=publish&per_page=100`,
-    { next: { revalidate: 3600 } } // Cache for 1 hour
+    { 
+      cache: "no-store", // Disable caching completely
+      next: { revalidate: 0 }, // Force revalidation on every request
+    }
   )
 
   if (!response.ok) {
@@ -239,5 +304,15 @@ export async function getAllPosts(): Promise<WP_Post[]> {
   }
 
   const posts = await response.json()
+  
+  // Process featured media URLs to prevent caching
+  posts.forEach((post: WP_Post) => {
+    if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+      post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+        post._embedded["wp:featuredmedia"][0].source_url
+      )
+    }
+  })
+  
   return posts
 }
