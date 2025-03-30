@@ -1,8 +1,8 @@
 import { WP_Media, WP_Post, WP_Term } from "@/types/wordpress"
 import { CarouselSlide } from "@/components/elements/HeroCarousel"
 
-const API_URL = "https://wp.cadogy.com/wp-json/wp/v2"
-export const PLACEHOLDER_IMAGE = "/images/placeholder/article-placeholder.svg"
+const API_URL = process.env.NEXT_PUBLIC_WP_API_URL || "https://wp.cadogy.com/wp-json/wp/v2"
+export const PLACEHOLDER_IMAGE = process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE || "/images/placeholder/article-placeholder.svg"
 
 /**
  * Add a cache-busting parameter to WordPress image URLs
