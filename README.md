@@ -1,6 +1,9 @@
 # Cadogy Agency - NextJS Fullstack Application
-
 A modern, responsive, and feature-rich web application for Cadogy Agency built with Next.js 14+, TypeScript, and a headless WordPress CMS integration.
+
+<img src="https://i.gyazo.com/c1ebd3d5aef83ff18c3d1d5b7572d826.jpg" width="600px" height="auto" />
+<img src="https://i.gyazo.com/14b2f3d6a721678596d0bfa3fb0b53d0.jpg" width="600px" height="auto" />
+<img src="https://i.gyazo.com/e0e329302760e8d91425b54bd8a7e923.jpg" width="600px" height="auto" />
 
 ## 🚀 Features
 
