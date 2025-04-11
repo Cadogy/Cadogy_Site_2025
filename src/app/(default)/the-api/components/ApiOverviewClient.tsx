@@ -376,8 +376,8 @@ function FAQ() {
 
   return (
     <div className="relative overflow-hidden rounded-xl p-6 px-0 md:px-6 lg:p-8">
-      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-      <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-md bg-blue-500/10 blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-md bg-purple-500/10 blur-3xl" />
 
       <h2 className="relative mb-8 mt-8 text-center text-3xl font-medium text-white md:mt-0 md:text-4xl">
         Frequently Asked Questions
@@ -521,8 +521,8 @@ export default function ApiOverviewClient() {
         <div className="space-y-20 py-16 md:space-y-24">
           {/* Vision Section */}
           <div className="relative overflow-hidden rounded-xl md:p-6 lg:p-8">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-md bg-blue-500/10 blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-md bg-purple-500/10 blur-3xl" />
 
             <h2 className="relative mb-8 mt-8 text-center text-3xl font-medium text-white md:mt-0 md:text-4xl">
               One API to replace hundreds
@@ -532,7 +532,7 @@ export default function ApiOverviewClient() {
               <div className="order-2 flex flex-col space-y-6 lg:order-1">
                 <div className="rounded-lg bg-neutral-800/30 p-5">
                   <div className="mb-3 flex items-center">
-                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-600/20">
+                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-md bg-blue-600/20">
                       <Link className="h-5 w-5 text-blue-400" />
                     </div>
                     <h3 className="text-lg font-medium text-white">
@@ -549,7 +549,7 @@ export default function ApiOverviewClient() {
 
                 <div className="rounded-lg bg-neutral-800/30 p-5">
                   <div className="mb-3 flex items-center">
-                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-purple-600/20">
+                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-md bg-purple-600/20">
                       <Server className="h-5 w-5 text-purple-400" />
                     </div>
                     <h3 className="text-lg font-medium text-white">
@@ -566,7 +566,7 @@ export default function ApiOverviewClient() {
 
                 <div className="rounded-lg bg-neutral-800/30 p-5">
                   <div className="mb-3 flex items-center">
-                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-green-600/20">
+                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-md bg-green-600/20">
                       <ShieldCheck className="h-5 w-5 text-green-400" />
                     </div>
                     <h3 className="text-lg font-medium text-white">
@@ -582,7 +582,7 @@ export default function ApiOverviewClient() {
 
                 <div className="rounded-lg bg-neutral-800/30 p-5">
                   <div className="mb-3 flex items-center">
-                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-600/20">
+                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-md bg-orange-600/20">
                       <Clock className="h-5 w-5 text-orange-400" />
                     </div>
                     <h3 className="text-lg font-medium text-white">
@@ -598,7 +598,7 @@ export default function ApiOverviewClient() {
               </div>
 
               <div className="relative order-1 flex items-center justify-center lg:order-2">
-                <div className="absolute -left-20 bottom-10 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl" />
+                <div className="absolute -left-20 bottom-10 h-64 w-64 rounded-md bg-blue-500/5 blur-3xl" />
                 <div className="overflow-hidden rounded-xl shadow-2xl shadow-blue-900/20">
                   <img
                     src="/images/cadogy-ai-vision-future.webp"

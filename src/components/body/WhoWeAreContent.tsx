@@ -306,7 +306,7 @@ const TimelineEvent = ({
       
       {/* Content */}
       <div className="pb-10">
-        <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-2">
+        <div className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-2">
           {year}
         </div>
         <h3 className="mt-1 text-xl font-medium text-foreground">{title}</h3>
@@ -334,10 +334,10 @@ const WhoWeAreContent = () => {
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-grid-white/5 bg-[size:100px_100px] opacity-25" />
         <div className="absolute top-0 right-0 -mt-96 -mr-96 opacity-40">
-          <div className="aspect-square h-[800px] rounded-full bg-gradient-to-br from-primary/40 to-indigo-500/30 blur-[200px]" />
+          <div className="aspect-square h-[800px] rounded-md bg-gradient-to-br from-primary/40 to-indigo-500/30 blur-[200px]" />
         </div>
         <div className="absolute bottom-0 left-0 -mb-96 -ml-96 opacity-40">
-          <div className="aspect-square h-[800px] rounded-full bg-gradient-to-tr from-blue-500/30 to-purple-500/20 blur-[200px]" />
+          <div className="aspect-square h-[800px] rounded-md bg-gradient-to-tr from-blue-500/30 to-purple-500/20 blur-[200px]" />
         </div>
         <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-[120px] mix-blend-multiply"></div>
 
@@ -348,8 +348,8 @@ const WhoWeAreContent = () => {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <div className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
-              About Cadogy
+            <div className="inline-flex items-center rounded-md bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
+              We Love Technology
             </div>
             <h1 className="font-bold tracking-tight text-foreground text-4xl sm:text-5xl lg:text-6xl">
               <span className="block">Transforming ideas into</span>
@@ -508,7 +508,7 @@ const WhoWeAreContent = () => {
                 </div>
                 
                 <div className="md:col-span-2 p-6 md:p-8">
-                  <div className="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500 dark:text-blue-400 mb-4">
+                  <div className="inline-flex items-center rounded-md bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500 dark:text-blue-400 mb-4">
                     Co-Founder
                   </div>
                   <div className="space-y-4">
@@ -523,18 +523,18 @@ const WhoWeAreContent = () => {
                       <div className="rounded-lg bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-800/20 p-4">
                         <h4 className="text-sm font-medium text-foreground mb-2">Core Expertise</h4>
                         <div className="flex flex-wrap gap-2">
-                          <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Enterprise Security</span>
-                          <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400">Infrastructure Design</span>
-                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">DDoS Protection</span>
-                          <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">System Architecture</span>
+                          <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Enterprise Security</span>
+                          <span className="rounded-md bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400">Infrastructure Design</span>
+                          <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">DDoS Protection</span>
+                          <span className="rounded-md bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">System Architecture</span>
                         </div>
                       </div>
                       <div className="rounded-lg bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100/50 dark:border-indigo-800/20 p-4">
                         <h4 className="text-sm font-medium text-foreground mb-2">Technical Leadership</h4>
                         <div className="flex flex-wrap gap-2">
-                          <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Application Security</span>
-                          <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900/30 dark:text-teal-400">Cloud Infrastructure</span>
-                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">IP Protection</span>
+                          <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Application Security</span>
+                          <span className="rounded-md bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900/30 dark:text-teal-400">Cloud Infrastructure</span>
+                          <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">IP Protection</span>
                         </div>
                       </div>
                     </div>
@@ -579,7 +579,7 @@ const WhoWeAreContent = () => {
                 </div>
                 
                 <div className="md:col-span-2 p-6 md:p-8">
-                  <div className="inline-flex items-center rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500 dark:text-green-400 mb-4">
+                  <div className="inline-flex items-center rounded-md bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500 dark:text-green-400 mb-4">
                     Co-Founder
                   </div>
                   <div className="space-y-4">
@@ -594,18 +594,18 @@ const WhoWeAreContent = () => {
                       <div className="rounded-lg bg-green-50/50 dark:bg-green-900/10 border border-green-100/50 dark:border-green-800/20 p-4">
                         <h4 className="text-sm font-medium text-foreground mb-2">Core Expertise</h4>
                         <div className="flex flex-wrap gap-2">
-                          <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Digital Strategy</span>
-                          <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">Search Optimization</span>
-                          <span className="rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900/30 dark:text-rose-400">Process Automation</span>
-                          <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">Growth Engineering</span>
+                          <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Digital Strategy</span>
+                          <span className="rounded-md bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">Search Optimization</span>
+                          <span className="rounded-md bg-rose-100 px-2.5 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900/30 dark:text-rose-400">Process Automation</span>
+                          <span className="rounded-md bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">Growth Engineering</span>
                         </div>
                       </div>
                       <div className="rounded-lg bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100/50 dark:border-emerald-800/20 p-4">
                         <h4 className="text-sm font-medium text-foreground mb-2">Strategic Leadership</h4>
                         <div className="flex flex-wrap gap-2">
-                          <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Data Analysis</span>
-                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">Market Positioning</span>
-                          <span className="rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">Client Solutions</span>
+                          <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Data Analysis</span>
+                          <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">Market Positioning</span>
+                          <span className="rounded-md bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">Client Solutions</span>
                         </div>
                       </div>
                     </div>
@@ -661,7 +661,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-blue-50/40 dark:bg-blue-900/20 border border-blue-200/50 dark:border-blue-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-blue-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-blue-500/70"></div>
                   <h3 className="text-sm font-medium text-blue-700 dark:text-blue-400">Frontend</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Modern UI frameworks and libraries for building responsive, interactive user interfaces and web applications.</p>
@@ -675,7 +675,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-green-50/40 dark:bg-green-900/20 border border-green-200/50 dark:border-green-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-green-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-green-500/70"></div>
                   <h3 className="text-sm font-medium text-green-700 dark:text-green-400">Backend</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Server-side frameworks and technologies that power our applications, APIs, and business logic implementations.</p>
@@ -689,7 +689,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-purple-50/40 dark:bg-purple-900/20 border border-purple-200/50 dark:border-purple-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-purple-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-purple-500/70"></div>
                   <h3 className="text-sm font-medium text-purple-700 dark:text-purple-400">Database</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Data storage solutions, both SQL and NoSQL, to efficiently manage, query, and scale your application data.</p>
@@ -703,7 +703,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-amber-50/40 dark:bg-amber-900/20 border border-amber-200/50 dark:border-amber-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-amber-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-amber-500/70"></div>
                   <h3 className="text-sm font-medium text-amber-700 dark:text-amber-400">Infrastructure</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Cloud platforms, containerization, and DevOps tools to ensure reliable, scalable, and secure deployment environments.</p>
@@ -717,7 +717,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-sky-50/40 dark:bg-sky-900/20 border border-sky-200/50 dark:border-sky-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-sky-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-sky-500/70"></div>
                   <h3 className="text-sm font-medium text-sky-700 dark:text-sky-400">Languages</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Programming languages we leverage to develop everything from interactive frontends to high-performance backends.</p>
@@ -731,7 +731,7 @@ const WhoWeAreContent = () => {
                 className="col-span-1 md:col-span-3 lg:col-span-2 rounded-xl bg-rose-50/40 dark:bg-rose-900/20 border border-rose-200/50 dark:border-rose-800/30 p-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 w-4 rounded-full bg-rose-500/70"></div>
+                  <div className="h-4 w-4 rounded-md bg-rose-500/70"></div>
                   <h3 className="text-sm font-medium text-rose-700 dark:text-rose-400">Tools & Platforms</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">Development tools, CMS platforms, and e-commerce solutions that extend our capabilities for specialized use cases.</p>
@@ -767,7 +767,7 @@ const WhoWeAreContent = () => {
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-[60px] opacity-50"></div>
               
               <div className="relative z-10 p-8 md:p-12 lg:p-16 text-center">
-                <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-4">
+                <div className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-4">
                   Let&apos;s Collaborate
                 </div>
                 <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">

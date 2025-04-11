@@ -72,7 +72,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
                 <span className="text-xs">•</span>
                 <button
                   onClick={onPlayPause}
-                  className="flex items-center space-x-2 rounded-full bg-background/20 px-3 py-1 text-sm font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-background/30"
+                  className="flex items-center space-x-2 rounded-md bg-background/20 px-3 py-1 text-sm font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-background/30"
                 >
                   {isPlaying ? (
                     <div className="mr-1 flex items-center space-x-1">
@@ -110,7 +110,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
                   <Link
                     key={index}
                     href={`/articles?tag=${tagId}&page=1`}
-                    className="inline-block rounded-full bg-background/20 px-3 py-1 text-xs text-white backdrop-blur-sm transition duration-300 hover:bg-background/30"
+                    className="inline-block rounded-md bg-background/20 px-3 py-1 text-xs text-white backdrop-blur-sm transition duration-300 hover:bg-background/30"
                   >
                     #{keyword}
                   </Link>

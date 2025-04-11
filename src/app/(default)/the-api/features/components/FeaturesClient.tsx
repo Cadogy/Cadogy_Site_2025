@@ -266,8 +266,8 @@ function FAQ() {
 
   return (
     <div className="relative overflow-hidden rounded-xl p-6 px-0 md:px-6 lg:p-8">
-      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-      <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-md bg-blue-500/10 blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-md bg-purple-500/10 blur-3xl" />
 
       <h2 className="relative mb-8 mt-8 text-center text-3xl font-medium text-white md:mt-0 md:text-4xl">
         Frequently Asked Questions
@@ -406,8 +406,8 @@ export default function FeaturesClient() {
         <div className="space-y-20 py-16 md:space-y-24">
           {/* Features Overview Section - Similar to ApiOverviewClient */}
           <div className="relative overflow-hidden rounded-xl md:p-6 lg:p-8">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-md bg-blue-500/10 blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-md bg-purple-500/10 blur-3xl" />
 
             <h2 className="relative mb-8 mt-8 text-center text-3xl font-medium text-white md:mt-0 md:text-4xl">
               Comprehensive Feature Suite
@@ -487,8 +487,8 @@ export default function FeaturesClient() {
           {/* Feature Details Section */}
           {features.map((feature, index) => (
             <div key={feature.title} className="relative overflow-hidden rounded-xl md:p-6 lg:p-8">
-              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
-              <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-md bg-blue-500/10 blur-3xl" />
+              <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-md bg-purple-500/10 blur-3xl" />
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
                 <div className={index % 2 === 1 ? "order-1 lg:order-2" : ""}>

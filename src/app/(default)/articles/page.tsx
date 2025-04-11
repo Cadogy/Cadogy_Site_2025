@@ -166,7 +166,7 @@ export default async function Articles({
                         }`}
                       >
                         <span>{category.name}</span>
-                        <span className="rounded-full bg-neutral-800 px-2 py-0.5 text-xs text-slate-400">
+                        <span className="rounded-md bg-neutral-800 px-2 py-0.5 text-xs text-slate-400">
                           {category.count}
                         </span>
                       </Link>

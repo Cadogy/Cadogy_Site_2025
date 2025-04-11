@@ -116,7 +116,7 @@ export default async function TagPage({
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
-        <span className="mb-4 inline-block rounded-full bg-blue-500/20 px-3 py-1 text-sm text-blue-400">
+        <span className="mb-4 inline-block rounded-md bg-blue-500/20 px-3 py-1 text-sm text-blue-400">
           #{tag.name}
         </span>
         <h1 className="mb-2 text-4xl font-bold text-slate-100">

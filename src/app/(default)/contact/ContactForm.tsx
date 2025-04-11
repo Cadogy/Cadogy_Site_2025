@@ -108,7 +108,7 @@ const ContactForm = () => {
 
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 dark:bg-blue-900/30">
                       <Mail className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
@@ -125,7 +125,7 @@ const ContactForm = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/30">
+                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 dark:bg-indigo-900/30">
                       <Linkedin className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <div>
@@ -144,7 +144,7 @@ const ContactForm = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/30">
+                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-md bg-amber-100 dark:bg-amber-900/30">
                       <MapPin className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                     </div>
                     <div>
@@ -154,7 +154,7 @@ const ContactForm = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                    <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-md bg-green-100 dark:bg-green-900/30">
                       <Clock className="h-5 w-5 text-green-600 dark:text-green-400" />
                     </div>
                     <div>
@@ -170,7 +170,7 @@ const ContactForm = () => {
                 <div className="h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
                 <div className="p-6 md:p-8">
                   <h2 className="mb-5 text-xl font-medium text-foreground flex items-center">
-                    <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary/10 mr-2">
+                    <span className="inline-flex items-center justify-center h-6 w-6 rounded-md bg-primary/10 mr-2">
                       <Check className="h-3.5 w-3.5 text-primary" />
                     </span>
                     Why Choose Cadogy
@@ -181,7 +181,7 @@ const ContactForm = () => {
                     </div>
                     
                     <div className="flex items-start">
-                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-full bg-gradient-to-br from-purple-400/80 to-purple-600/80 dark:from-purple-500/20 dark:to-purple-700/20 flex items-center justify-center shadow-sm">
+                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-md bg-gradient-to-br from-purple-400/80 to-purple-600/80 dark:from-purple-500/20 dark:to-purple-700/20 flex items-center justify-center shadow-sm">
                         <Clock className="h-3.5 w-3.5 text-white dark:text-purple-400" />
                       </div>
                       <div>
@@ -191,7 +191,7 @@ const ContactForm = () => {
                     </div>
                     
                     <div className="flex items-start">
-                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-full bg-gradient-to-br from-green-400/80 to-green-600/80 dark:from-green-500/20 dark:to-green-700/20 flex items-center justify-center shadow-sm">
+                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-md bg-gradient-to-br from-green-400/80 to-green-600/80 dark:from-green-500/20 dark:to-green-700/20 flex items-center justify-center shadow-sm">
                         <Brain className="h-3.5 w-3.5 text-white dark:text-green-400" />
                       </div>
                       <div>
@@ -201,7 +201,7 @@ const ContactForm = () => {
                     </div>
                     
                     <div className="flex items-start">
-                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-full bg-gradient-to-br from-amber-400/80 to-amber-600/80 dark:from-amber-500/20 dark:to-amber-700/20 flex items-center justify-center shadow-sm">
+                      <div className="mr-3 mt-0.5 h-7 w-7 flex-shrink-0 rounded-md bg-gradient-to-br from-amber-400/80 to-amber-600/80 dark:from-amber-500/20 dark:to-amber-700/20 flex items-center justify-center shadow-sm">
                         <Shield className="h-3.5 w-3.5 text-white dark:text-amber-400" />
                       </div>
                       <div>
@@ -213,7 +213,7 @@ const ContactForm = () => {
 
                   <div className="mt-6 pt-5 border-t border-border flex items-center justify-between">
                     <div className="flex items-center">
-                      <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse mr-2"></span>
+                      <span className="flex h-2 w-2 rounded-md bg-green-500 animate-pulse mr-2"></span>
                       <span className="text-xs text-muted-foreground">Currently available for new projects</span>
                     </div>
                     <Link
@@ -243,7 +243,7 @@ const ContactForm = () => {
 
               <div className="relative z-10 p-6 md:p-8">
                 <div className="flex items-center mb-6">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 mr-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 mr-4">
                     <MessageSquare className="h-5 w-5 text-primary" />
                   </div>
                   <h2 className="text-2xl font-medium text-foreground">
@@ -259,7 +259,7 @@ const ContactForm = () => {
                     className="rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10 p-8 text-center"
                   >
                     <div className="mb-6 flex justify-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500/20">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-md bg-blue-500/20">
                         <Send className="h-7 w-7 text-blue-500" />
                       </div>
                     </div>

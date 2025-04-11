@@ -262,7 +262,7 @@ export function HeroCarousel({
             <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-black/50 p-4">
               {/* Author skeleton */}
               {/* <div className="mb-2 flex items-center justify-center">
-                <div className="mr-2 h-5 w-5 animate-pulse rounded-full bg-neutral-800/80 sm:h-6 sm:w-6"></div>
+                <div className="mr-2 h-5 w-5 animate-pulse rounded-md bg-neutral-800/80 sm:h-6 sm:w-6"></div>
                 <div className="h-3 w-20 animate-pulse rounded bg-neutral-800/80"></div>
               </div> */}
 
@@ -295,7 +295,7 @@ export function HeroCarousel({
 
         {/* Skeleton pagination indicators - match actual indicator styles */}
         <div className="absolute bottom-2 left-0 right-0 flex justify-center sm:bottom-4">
-          <div className="flex space-x-1 rounded-full bg-black/20 px-2 py-1 backdrop-blur-sm sm:space-x-2 sm:px-3 sm:py-1.5">
+          <div className="flex space-x-1 rounded-md bg-black/20 px-2 py-1 backdrop-blur-sm sm:space-x-2 sm:px-3 sm:py-1.5">
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
@@ -351,9 +351,9 @@ export function HeroCarousel({
             <div
               key={index}
               className={cn(
-                "relative h-[620px] flex-shrink-0 select-none transition-transform duration-700 md:h-[735px]",
+                "relative h-[620px] flex-shrink-0 select-none transition-transform duration-300 md:h-[735px]",
                 isNextSlide || isPrevSlide
-                  ? "cursor-pointer transition duration-700 hover:brightness-125"
+                  ? "cursor-pointer transition duration-300 hover:brightness-125"
                   : ""
               )}
               style={{
@@ -429,7 +429,7 @@ export function HeroCarousel({
 
       {/* Rectangle Navigation */}
       <div className="absolute bottom-2 left-0 right-0 flex justify-center sm:bottom-4">
-        <div className="flex space-x-1 rounded-full bg-black/20 px-2 py-1 backdrop-blur-sm sm:space-x-2 sm:px-3 sm:py-1.5">
+        <div className="flex space-x-1 rounded-md bg-black/20 px-2 py-1 backdrop-blur-sm sm:space-x-2 sm:px-3 sm:py-1.5">
           <div className="relative flex space-x-1 sm:space-x-2">
             {slides.map((_, i) => (
               <button
@@ -443,13 +443,13 @@ export function HeroCarousel({
                 aria-label={`Go to slide ${i + 1}`}
               >
                 {/* Background dot (always visible) */}
-                <motion.div className="absolute inset-0 rounded-full bg-white/60 hover:bg-white/80" />
+                <motion.div className="absolute inset-0 rounded-md bg-white/60 hover:bg-white/80" />
 
                 {/* Animated active dot with layoutId for morphing effect */}
                 {i === currentSlide && (
                   <motion.div
                     layoutId="activeDot"
-                    className="absolute inset-0 rounded-full bg-white"
+                    className="absolute inset-0 rounded-md bg-white"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

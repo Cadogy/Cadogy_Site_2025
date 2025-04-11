@@ -135,7 +135,7 @@ export default async function ArticlePage({
               <Link
                 key={category.id}
                 href={`/articles?category=${category.id}&page=1`}
-                className="rounded-full bg-blue-500/20 px-3 py-1 text-sm text-blue-300 transition hover:bg-blue-500/30"
+                className="rounded-md bg-blue-500/20 px-3 py-1 text-sm text-blue-300 transition hover:bg-blue-500/30"
               >
                 {category.name}
               </Link>

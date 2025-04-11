@@ -22,10 +22,10 @@ const OurCharterContent = () => {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/5 bg-[size:100px_100px] opacity-25" />
         <div className="absolute top-0 right-0 -mt-96 -mr-96 opacity-50">
-          <div className="aspect-square h-[800px] rounded-full bg-primary/30 blur-[200px]" />
+          <div className="aspect-square h-[800px] rounded-md bg-primary/30 blur-[200px]" />
         </div>
         <div className="absolute bottom-0 left-0 -mb-96 -ml-96 opacity-50">
-          <div className="aspect-square h-[800px] rounded-full bg-blue-500/30 blur-[200px]" />
+          <div className="aspect-square h-[800px] rounded-md bg-blue-500/30 blur-[200px]" />
         </div>
 
         <div className="relative mx-auto max-w-[94%] px-4 pt-16 pb-16 sm:px-6 md:max-w-[90%] lg:px-8">
@@ -183,7 +183,7 @@ const OurCharterContent = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.1 }}
                 >
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary">
                     <span className="text-lg font-semibold">1</span>
                   </div>
                   <div>
@@ -201,7 +201,7 @@ const OurCharterContent = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.2 }}
                 >
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary">
                     <span className="text-lg font-semibold">2</span>
                   </div>
                   <div>
@@ -219,7 +219,7 @@ const OurCharterContent = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary">
                     <span className="text-lg font-semibold">3</span>
                   </div>
                   <div>
@@ -297,7 +297,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-blue-500/10">
                 <Shield className="h-5 w-5 text-blue-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">Advanced Security Solutions</h3>
@@ -313,7 +313,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-green-500/10">
                 <Code className="h-5 w-5 text-green-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">API Development</h3>
@@ -329,7 +329,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-purple-500/10">
                 <Brain className="h-5 w-5 text-purple-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">AI & Machine Learning</h3>
@@ -345,7 +345,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-orange-500/10">
                 <Lock className="h-5 w-5 text-orange-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">Digital Rights Management</h3>
@@ -361,7 +361,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-red-500/10">
                 <Server className="h-5 w-5 text-red-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">Enterprise Infrastructure</h3>
@@ -377,7 +377,7 @@ const OurCharterContent = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-cyan-500/10">
                 <Globe className="h-5 w-5 text-cyan-500" />
               </div>
               <h3 className="mb-3 text-xl font-medium text-foreground">Global Accessibility</h3>

@@ -78,7 +78,6 @@ export async function getPosts({
   if (tagId) queryParams.append("tags", tagId.toString())
 
   const response = await fetch(`${API_URL}/posts?${queryParams.toString()}`, {
-    cache: "no-store", // Disable caching completely
     next: { revalidate: 0 }, // Force revalidation on every request
   })
 
@@ -118,7 +117,6 @@ export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
   const response = await fetch(
     `${API_URL}/posts?_embed&slug=${slug}&status=publish`,
     {
-      cache: "no-store", // Disable caching to always fetch fresh data
       next: { revalidate: 0 }, // Force revalidation on every request
     }
   )
@@ -144,7 +142,6 @@ export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
  */
 export async function getMedia(id: number): Promise<WP_Media> {
   const response = await fetch(`${API_URL}/media/${id}`, {
-    cache: "no-store", // Disable caching completely
     next: { revalidate: 0 }, // Force revalidation on every request
   })
 
@@ -167,7 +164,6 @@ export async function getMedia(id: number): Promise<WP_Media> {
  */
 export async function getCategories(): Promise<WP_Term[]> {
   const response = await fetch(`${API_URL}/categories?per_page=100`, {
-    cache: "no-store", // Disable caching completely
     next: { revalidate: 0 }, // Force revalidation on every request
   })
 
@@ -183,7 +179,6 @@ export async function getCategories(): Promise<WP_Term[]> {
  */
 export async function getTags(): Promise<WP_Term[]> {
   const response = await fetch(`${API_URL}/tags?per_page=100`, {
-    cache: "no-store", // Disable caching completely
     next: { revalidate: 0 }, // Force revalidation on every request
   })
 
@@ -203,7 +198,6 @@ export async function getPostsByCategory(
   const response = await fetch(
     `${API_URL}/posts?_embed&categories=${categoryId}&status=publish&per_page=100`,
     { 
-      cache: "no-store", // Disable caching completely
       next: { revalidate: 0 }, // Force revalidation on every request
     }
   )
@@ -294,7 +288,6 @@ export async function getAllPosts(): Promise<WP_Post[]> {
   const response = await fetch(
     `${API_URL}/posts?_embed&status=publish&per_page=100`,
     { 
-      cache: "no-store", // Disable caching completely
       next: { revalidate: 0 }, // Force revalidation on every request
     }
   )

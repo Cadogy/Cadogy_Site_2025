@@ -122,7 +122,7 @@ export default function ArticleFilterMenu({
           <Filter className="h-4 w-4" />
           <span>Filter</span>
           {hasActiveFilters && (
-            <span className="flex h-2 w-2 rounded-full bg-blue-400"></span>
+            <span className="flex h-2 w-2 rounded-md bg-blue-400"></span>
           )}
         </Button>
       </SheetTrigger>
@@ -138,7 +138,7 @@ export default function ArticleFilterMenu({
         >
           <SheetHeader>
             <div className="mb-2 flex items-center justify-center">
-              <div className="h-1.5 w-12 rounded-full bg-neutral-700 transition-colors group-hover:bg-neutral-500" />
+              <div className="h-1.5 w-12 rounded-md bg-neutral-700 transition-colors group-hover:bg-neutral-500" />
             </div>
             <SheetTitle className="text-center text-xl font-bold transition-colors group-hover:text-slate-300">
               Filter Articles
@@ -174,7 +174,7 @@ export default function ArticleFilterMenu({
                       className="flex w-full items-center justify-between text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       <span>{category.name}</span>
-                      <span className="rounded-full bg-neutral-800 px-2 py-0.5 text-xs text-slate-400">
+                      <span className="rounded-md bg-neutral-800 px-2 py-0.5 text-xs text-slate-400">
                         {category.count}
                       </span>
                     </label>
