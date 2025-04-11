@@ -85,39 +85,38 @@ export default function Home() {
 
   return (
     <div className="bg-background">
-      {/* Hero Section - Not Modified */}
+      {/* Hero Section */}
       <section className="w-full">
         <HeroCarousel />
       </section>
 
-      {/* Text Slide - Not Modified */}
-      <section className="w-full bg-background">
+      {/* Text Slide */}
+      <section className="w-full bg-background mb-24">
         <TextSlideEffect />
       </section>
 
-      {/* Services Section - Redesigned with Gradients */}
-      <div className="mx-auto max-w-[94%] px-4 pt-16 sm:px-6 md:max-w-[90%] lg:px-8">
-
-        {/* API Platform Section - Redesigned */}
-        {/* <ApiSection /> */}
-
+      {/* Main Content Sections - Added consistent padding and spacing */}
+      <div className="mx-auto max-w-[94%] px-4 md:max-w-[90%] lg:px-8 pb-24">
         {/* Technical Expertise Section */}
-        <TechnicalExpert />
+        <section className="mb-32">
+          <TechnicalExpert />
+        </section>
 
-        {/* Web Infrastructure & SEO Expertise - Replacing Client Success Stories */}
-        <WebInfastructure />
+        {/* Web Infrastructure & SEO Expertise Section */}
+        <section className="mb-16">
+          <WebInfastructure />
+        </section>
 
-          {/* Learn More Link */}
-          <div className="flex justify-center py-8">
-            <Link
-              href="/who-we-are"
-              className="group flex items-center space-x-1 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90"
-            >
-              <span>Learn more about our team</span>
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-
+        {/* Learn More Link */}
+        <div className="flex justify-center pt-8">
+          <Link
+            href="/who-we-are"
+            className="group flex items-center space-x-1 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90"
+          >
+            <span>Learn more about our team</span>
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </div>
   )

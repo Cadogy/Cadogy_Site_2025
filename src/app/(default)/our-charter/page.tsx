@@ -5,7 +5,7 @@ import OurCharterContent from "@/components/body/OurCharterContent"
 import WhoWeAreContent from "@/components/body/WhoWeAreContent"
 
 export const metadata: Metadata = {
-  title: `Our Charter`,
+  title: `Our Charter - ${siteConfig.name}`,
   description: "Cadogy's guiding principles and strategic vision for creating innovative technology solutions, focusing on security, API development, and ethical innovation.",
   keywords: [
     "technology",

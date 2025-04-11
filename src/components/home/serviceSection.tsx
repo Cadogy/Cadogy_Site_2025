@@ -57,7 +57,6 @@ const serviceSection = () => {
   return (
     <>
         <motion.div
-          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}

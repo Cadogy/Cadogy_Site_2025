@@ -59,7 +59,7 @@ export async function generateMetadata({
   )
 
   return {
-    title: `${category.name} Articles (${category.count})`,
+    title: `${category.name} Articles (${category.count}) - ${siteConfig.name}`,
     description: enhancedDescription,
     keywords: uniqueKeywords,
     openGraph: {

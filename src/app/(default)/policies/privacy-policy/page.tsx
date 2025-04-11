@@ -4,12 +4,12 @@ import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 
 export const metadata: Metadata = {
-  title: `Privacy Policy`,
+  title: `Privacy Policy - ${siteConfig.name}`,
   description:
     "Learn about how Cadogy collects, uses, and protects your personal information. Our comprehensive privacy policy outlines our commitment to data security.",
   keywords: ["privacy policy", "data protection", "personal information", "privacy rights", "data security", "Cadogy privacy"],
   openGraph: {
-    title: `Privacy Policy - Cadogy`,
+    title: `Privacy Policy - ${siteConfig.name}`,
     description:
       "Learn about how Cadogy collects, uses, and protects your personal information. Our comprehensive privacy policy outlines our commitment to data security.",
     url: `${siteConfig.url.base}/policies/privacy-policy`,

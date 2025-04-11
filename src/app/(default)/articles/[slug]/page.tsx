@@ -28,7 +28,7 @@ export async function generateMetadata({
     }
   }
 
-  const title = decodeHtml(post.title.rendered)
+  const title = decodeHtml(post.title.rendered) + " - " + siteConfig.name
   const description = decodeHtml(
     post.excerpt.rendered.replace(/<[^>]+>/g, "").slice(0, 160)
   )

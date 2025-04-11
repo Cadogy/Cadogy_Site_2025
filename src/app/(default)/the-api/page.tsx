@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site"
 import ApiOverviewClient from "./components/ApiOverviewClient"
 
 export const metadata: Metadata = {
-  title: `The API`,
+  title: `The API - ${siteConfig.name}`,
   description:
     "Access Cadogy's unified API for all your AI and web development needs. Our powerful API platform offers content generation, research tools, and custom development solutions for businesses.",
   keywords: [

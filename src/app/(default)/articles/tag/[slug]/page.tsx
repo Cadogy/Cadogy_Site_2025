@@ -54,7 +54,7 @@ export async function generateMetadata({
     .map((t) => t.name)
 
   return {
-    title: `Articles Tagged "${tag.name}" (${tag.count})`,
+    title: `Articles Tagged "${tag.name}" (${tag.count}) - ${siteConfig.name}`,
     description: enhancedDescription,
     keywords: [tag.name, ...relatedTags],
     openGraph: {

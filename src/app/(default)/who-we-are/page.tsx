@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site"
 import WhoWeAreContent from "@/components/whoweare/WhoWeAreContent"
 
 export const metadata: Metadata = {
-  title: `Experienced Web Developers in Pompano Beach - Who We Are`,
+  title: `Who We Are - ${siteConfig.name}`,
   description:
     "Meet the Cadogy team led by Charles Knapp and Dylan Safra, expert web developers in Pompano Beach, FL. Our passionate professionals deliver cutting-edge websites and secure digital solutions for businesses across South Florida.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "professional web team",
   ],
   openGraph: {
-    title: `Pompano Beach Web Development Experts | Who We Are - Cadogy`,
+    title: `Who We Are - Cadogy`,
     description:
       "Meet the skilled web development team at Cadogy, led by Charles Knapp and Dylan Safra. Our Pompano Beach, FL professionals build custom websites and secure digital solutions that help Florida businesses thrive online.",
     url: `${siteConfig.url.base}/who-we-are`,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Pompano Beach Web Development Team | Who We Are - ${siteConfig.name}`,
+    title: `Who We Are - ${siteConfig.name}`,
     description:
       "Meet Charles Knapp and Dylan Safra, leading Cadogy's expert web development team in Pompano Beach, FL. We create custom digital solutions that elevate your business online.",
     images: [siteConfig.ogImage],

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useTransform } from "framer-motion"
 import Link from "next/link"
 import { useState, useRef, useEffect, useCallback } from "react"
 // @ts-ignore - Importing Tippy without type checking for now
@@ -153,73 +153,35 @@ const TechTag = ({ tech, color, name }: { tech: TechKey; color: string; name: st
 
 // Custom scrollable image component
 const ScrollableImage = ({ src, alt }: { src: string; alt: string }) => {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [imageHeight, setImageHeight] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
+  const imageRef = useRef<HTMLImageElement>(null);
+  
+  // Set up scroll detection using Motion's useScroll hook
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Map scroll position to image position
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, -1 * Math.max(0, imageHeight - containerHeight)]
+  );
+  
+  // Track scroll state for UI feedback
   const [reachedBottom, setReachedBottom] = useState(false);
   const [reachedTop, setReachedTop] = useState(true);
-  const imageRef = useRef<HTMLImageElement>(null);
-
-  // Calculate max scroll based on image and container heights
-  const maxScroll = Math.max(0, imageHeight - containerHeight);
-
-  // Handle scroll position change - memoized with useCallback
-  const handleScroll = useCallback((deltaY: number) => {
-    if (!imageRef.current || !containerRef.current) return false;
-    
-    // Recalculate actual dimensions to ensure we have the most up-to-date values
-    const actualImageHeight = imageRef.current.offsetHeight;
-    const actualContainerHeight = containerRef.current.offsetHeight;
-    const actualMaxScroll = Math.max(0, actualImageHeight - actualContainerHeight);
-    
-    // Top threshold (5px from top)
-    const topThreshold = 5;
-    
-    // If at top and trying to scroll up more, allow page to scroll
-    if (scrollPosition <= topThreshold && deltaY < 0) {
-      setReachedTop(true);
-      return false; // Don't prevent default
-    }
-    
-    // If at bottom and trying to scroll down more, allow page to scroll
-    // Use a smaller threshold to prevent scrolling too far
-    const bottomThreshold = 10;
-    if (scrollPosition >= actualMaxScroll - bottomThreshold && deltaY > 0) {
-      setReachedBottom(true);
-      // Set position to exactly max scroll to prevent overscrolling
-      setScrollPosition(actualMaxScroll);
-      return false; // Don't prevent default
-    }
-    
-    // Otherwise handle scrolling within the image
-    setReachedBottom(false);
-    setReachedTop(scrollPosition <= topThreshold);
-    
-    // Calculate new position with easing
-    const delta = deltaY * 0.5; // Adjust scrolling speed
-    const newPosition = Math.min(Math.max(0, scrollPosition + delta), actualMaxScroll);
-    setScrollPosition(newPosition);
-    
-    return true; // Prevent default page scroll
-  }, [scrollPosition]);
-
-  // Manual scroll function - can be used with buttons if needed
-  const scroll = useCallback((amount: number) => {
-    if (!imageRef.current || !containerRef.current) return;
-    
-    // Recalculate actual dimensions
-    const actualImageHeight = imageRef.current.offsetHeight;
-    const actualContainerHeight = containerRef.current.offsetHeight;
-    const actualMaxScroll = Math.max(0, actualImageHeight - actualContainerHeight);
-    
-    setScrollPosition(prevPos => {
-      const newPosition = Math.min(Math.max(0, prevPos + amount), actualMaxScroll);
-      return newPosition;
-    });
-  }, []);
-
+  
+  // Update state based on scroll position
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setReachedTop(latest <= 0.05);
+    setReachedBottom(latest >= 0.95);
+  });
+  
   // Update measurements when image loads
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
@@ -228,64 +190,14 @@ const ScrollableImage = ({ src, alt }: { src: string; alt: string }) => {
     if (containerRef.current) {
       setContainerHeight(containerRef.current.offsetHeight);
     }
-    
-    // Reset scroll position when image loads
-    setScrollPosition(0);
-    setReachedTop(true);
-    setReachedBottom(false);
   };
 
-  // Direct wheel event handler for the container
-  const handleWheel = (e: React.WheelEvent) => {
-    if (!isHovering) return;
-    
-    // Only prevent default if we're not at boundaries
-    const shouldPreventDefault = handleScroll(e.deltaY);
-    
-    if (shouldPreventDefault) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-
-  // Set up non-passive wheel event listener to prevent page scrolling
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const wheelHandler = (e: WheelEvent) => {
-      if (!isHovering) return;
-      
-      // Only prevent default if we're not at boundaries
-      const shouldPreventDefault = handleScroll(e.deltaY);
-      
-      if (shouldPreventDefault) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    // Add wheel event with passive: false to allow preventDefault
-    container.addEventListener('wheel', wheelHandler, { passive: false });
-    
-    return () => {
-      container.removeEventListener('wheel', wheelHandler);
-    };
-  }, [isHovering, handleScroll]);
-
-  // Update container height on resize
+  // Update dimensions on resize
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current && imageRef.current) {
         setContainerHeight(containerRef.current.offsetHeight);
         setImageHeight(imageRef.current.offsetHeight);
-        
-        // After resizing, make sure scroll position is still valid
-        const actualImageHeight = imageRef.current.offsetHeight;
-        const actualContainerHeight = containerRef.current.offsetHeight;
-        const actualMaxScroll = Math.max(0, actualImageHeight - actualContainerHeight);
-        
-        setScrollPosition(prev => Math.min(prev, actualMaxScroll));
       }
     };
 
@@ -298,21 +210,14 @@ const ScrollableImage = ({ src, alt }: { src: string; alt: string }) => {
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 cursor-ns-resize overflow-hidden"
+      className="absolute inset-0 overflow-hidden"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      onWheel={handleWheel}
     >
       <motion.div 
         className="w-full"
-        animate={{ 
-          y: -scrollPosition,
-        }}
-        transition={{ 
-          type: "spring", 
-          stiffness: 300, 
-          damping: 30,
-          mass: 0.5
+        style={{ 
+          y: imageY 
         }}
       >
         <img
@@ -328,12 +233,12 @@ const ScrollableImage = ({ src, alt }: { src: string; alt: string }) => {
       
       {/* Scroll indicators */}
       <motion.div 
-        className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/40 to-transparent pointer-events-none"
-        animate={{ opacity: scrollPosition > 10 ? 0.7 : 0 }}
+        className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/40 to-transparent pointer-events-none"
+        animate={{ opacity: reachedTop ? 0 : 0.7 }}
       />
       <motion.div 
-        className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"
-        animate={{ opacity: !reachedBottom ? 0.7 : 0 }}
+        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"
+        animate={{ opacity: reachedBottom ? 0 : 0.7 }}
       />
       
       {/* Scroll hint - shows more prominently when hovering */}
@@ -365,30 +270,6 @@ const ScrollableImage = ({ src, alt }: { src: string; alt: string }) => {
           <span>Continue scrolling page</span>
         </div>
       </motion.div>
-      
-      {/* Optional scroll controls for testing */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute bottom-2 left-2 flex space-x-2 bg-black/50 backdrop-blur-sm rounded-full p-1">
-          <button 
-            className="text-white p-1" 
-            onClick={() => scroll(-50)}
-            aria-label="Scroll up"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 19V5M5 12l7-7 7 7"/>
-            </svg>
-          </button>
-          <button 
-            className="text-white p-1" 
-            onClick={() => scroll(50)}
-            aria-label="Scroll down"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-          </button>
-        </div>
-      )}
     </div>
   );
 };
@@ -414,7 +295,7 @@ const TechnicalExpert = () => {
     {/* Add the global styles */}
     <style jsx global>{globalStyles}</style>
     
-<div className="mt-32 space-y-16">
+<div className="space-y-16">
 <motion.div
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -1014,15 +895,34 @@ const TechnicalExpert = () => {
       <div className="max-w-md mx-auto">
         <h4 className="text-lg font-medium text-foreground mb-2">More Projects Coming Soon</h4>
         <p className="text-sm text-muted-foreground mb-4">
-          We&apos;re constantly working on new and exciting projects. Check back soon to see what else we&apos;re building.
+          Like this site? It&apos;s open-sourced! Check out our GitHub for this project and other cool stuff we&apos;re building.
         </p>
-        <Link
-          href="/contact"
-          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-8 px-3 py-1"
-        >
-          <span>Get in touch</span>
-          <ArrowRight className="ml-2 h-3.5 w-3.5" />
-        </Link>
+        <div className="flex justify-center gap-3">
+          <Link
+            href="https://github.com/Cadogy/Cadogy_Site_2025"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 h-4 w-4">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
+            <span>Site Code</span>
+          </Link>
+          <Link
+            href="https://github.com/Cadogy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 h-4 w-4">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
+            <span>Cadogy GitHub</span>
+          </Link>
+        </div>
       </div>
     </div>
   </div>

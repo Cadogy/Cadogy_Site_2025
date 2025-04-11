@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site"
 import FeaturesClient from "./components/FeaturesClient"
 
 export const metadata: Metadata = {
-  title: `API Features | ${siteConfig.name}`,
+  title: `API Features - ${siteConfig.name}`,
   description:
     "Discover the complete feature set of Cadogy's API platform. From content generation to data analysis, our API offers powerful tools to enhance your business applications and workflows.",
   keywords: [

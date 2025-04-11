@@ -4,12 +4,12 @@ import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 
 export const metadata: Metadata = {
-  title: `Terms of Use`,
+  title: `Terms of Use - ${siteConfig.name}`,
   description:
     "Review Cadogy's Terms of Use outlining the rules and guidelines for using our website and services. Learn about user responsibilities, intellectual property rights, and more.",
   keywords: ["terms of use", "terms and conditions", "website terms", "user agreement", "legal terms", "service terms", "website rules"],
   openGraph: {
-    title: `Terms of Use - Cadogy`,
+    title: `Terms of Use - ${siteConfig.name}`,
     description:
       "Review Cadogy's Terms of Use outlining the rules and guidelines for using our website and services. Learn about user responsibilities, intellectual property rights, and more.",
     url: `${siteConfig.url.base}/policies/terms-of-use`,

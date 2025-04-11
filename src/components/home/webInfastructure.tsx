@@ -59,7 +59,7 @@ const WebInfastructure = () => {
   return (
   <>
 
-<div className="mt-32 mb-16">
+<div>
 <motion.div
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ const WebInfastructure = () => {
 </motion.div>
 
 {/* Responsive cards layout - scrollable on mobile, 2x on md, 3x on lg */}
-<div className="mt-12 relative">
+<div className="mt-16 relative">
   {/* Mobile scroll indicator shadows */}
   <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none md:hidden"></div>
   <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none md:hidden"></div>
