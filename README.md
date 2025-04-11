@@ -1,7 +1,15 @@
-# Cadogy Agency - NextJS Fullstack Application
+# Cadogy Agency
+
+<div align="center">
+  <img src="/public/images/cadogy_agency_github_demo.jpg" alt="Cadogy Agency Demo" />
+  <p>Developed by <a href="https://www.cadogy.com">Cadogy</a></p>
+</div>
+
+## About Cadogy Agency
+
 A modern, responsive, and feature-rich web application for Cadogy Agency built with Next.js 14+, TypeScript, and a headless WordPress CMS integration.
 
-## 🚀 Features
+## Features
 
 - **Modern Frontend Stack**: Next.js 14+ with App Router, React 18, TypeScript, and TailwindCSS
 - **UI Components**: Rich component library using shadcn/ui (built on Radix UI primitives)
@@ -14,7 +22,7 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 - **Accessibility**: ARIA compliant components with keyboard navigation support
 - **Three.js Integration**: 3D rendering capabilities with React Three Fiber
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: Next.js 14+ (App Router)
 - **Language**: TypeScript
@@ -29,7 +37,7 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 - **3D Rendering**: Three.js with React Three Fiber
 - **API Integration**: Axios
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 ├── src/
@@ -52,7 +60,7 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 └── content/               # MDX content files
 ```
 
-## 🚦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -90,7 +98,7 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-## 🧪 Development
+## Development
 
 ### Available Scripts
 
@@ -110,10 +118,30 @@ The application integrates with a headless WordPress instance for content manage
 - Content formatting and HTML entity decoding
 - Cache-busting for WordPress images
 
-## 🚀 Deployment
+## Deployment
 
 This application is designed to be deployed on Vercel or any Next.js-compatible hosting service.
 
-## 📝 License
+## License
 
-This software is licensed to Cadogy, LLC. All rights reserved.
+MIT License
+
+Copyright (c) 2025 Cadogy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
