@@ -422,11 +422,11 @@ const TechnicalExpert = () => {
   transition={{ duration: 0.6 }}
 >
   <div className="py-6 text-center">
-          <h2 className="mb-4 font-medium tracking-tight text-foreground sm:text-4xl text-4xl lg:text-5xl">
+          <h2 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
             What We&apos;re Good At
     </h2>
           <p className="mt-4 max-w-2xl lg:text-lg leading-relaxed text-muted-foreground md:mx-auto">
-            We geek out on cutting-edge tech – from modern frameworks to infrastructure tweaks and AI tinkering – all to build stuff that actually works
+            We geek out on cutting-edge tech – from modern frameworks to infrastructure tweaks and AI tinkering – all to build stuff that works
     </p>
   </div>
 </motion.div>
@@ -776,388 +776,253 @@ const TechnicalExpert = () => {
 
 {/* Dedicated Projects Section */}
 <motion.div
-        className="mt-16 rounded-xl bg-card/40 p-0 lg:p-8 lg:border border-border"
+  className="mt-16 pt-8 sm:pt-12"
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, margin: "-50px" }}
   transition={{ duration: 0.6 }}
 >
-        <div className="grid grid-cols-1 gap-6 lg:gap-8 lg:grid-cols-2">
+  <div className="text-center mb-8 py-6">
+    <h3 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
+      Projects We&apos;re Excited About
+    </h3>
+    <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
+      Innovative solutions built with modern tech stacks
+    </p>
+  </div>
+
+  {/* Project Card - PlayerBay */}
+  <div className="mx-auto">
+    <div className="bg-card border border-border rounded-xl overflow-hidden">
+      {/* Mobile View: Stacked with Image on Top */}
+      <div className="block md:hidden">
+        {/* Mobile Image Container */}
+        <div className="relative h-52 sm:h-64 w-full overflow-hidden bg-gradient-to-br from-slate-900/30 to-slate-800/30">
+          {/* Custom scrollable image */}
+          <ScrollableImage 
+            src="/images/playerbay_demo.png" 
+            alt="PlayerBay gaming marketplace"
+          />
+          
+          {/* Status Badge - Mobile */}
+          <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1.5">
+            <div className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></div>
+            <span className="text-xs font-medium text-white">Coming Soon</span>
+          </div>
+        </div>
+
+        {/* Mobile Content */}
+        <div className="p-4 sm:p-6">
+          <h4 className="text-xl font-medium text-foreground mb-3">PlayerBay</h4>
+          <p className="text-sm text-muted-foreground mb-4">
+            A marketplace where gamers can buy and sell accounts and in-game items. Our SDK lets game studios integrate with our platform for seamless in-game transactions.
+          </p>
+
+          {/* Mobile Tech Stack Accordion */}
+          <div className="mb-3">
+            <button 
+              onClick={() => toggleCard(4)} 
+              className="flex items-center justify-between w-full rounded-md bg-muted/50 p-3 text-left"
+            >
+              <h4 className="text-sm font-medium text-foreground">Tech Stack</h4>
+              <motion.div
+                animate={{ rotate: openCard === 4 ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {openCard === 4 && (
+                <motion.div 
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4 px-1 space-y-4">
+                    {/* Frontend */}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <div className="h-2 w-2 bg-blue-400 rounded-full mr-2"></div>
+                        <span className="text-xs font-medium text-foreground">Frontend</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="rounded-md bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 cursor-help">Next.js</span>
+                        <span className="rounded-md bg-cyan-100 px-2 py-0.5 text-xs font-medium text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 cursor-help">React</span>
+                        <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-900/30 dark:text-slate-400 cursor-help">TypeScript</span>
+                        <span className="rounded-md bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-800 dark:bg-pink-900/30 dark:text-pink-400 cursor-help">Tailwind</span>
+                      </div>
+                    </div>
+                    
+                    {/* Backend */}
     <div>
-            <div className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
-              Professional Projects
+                      <div className="flex items-center mb-2">
+                        <div className="h-2 w-2 bg-green-400 rounded-full mr-2"></div>
+                        <span className="text-xs font-medium text-foreground">Backend</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="rounded-md bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 cursor-help">MongoDB</span>
+                        <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400 cursor-help">NextAuth</span>
+                        <span className="rounded-md bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400 cursor-help">Socket.io</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Key Features - Mobile */}
+          <div className="space-y-2 mb-3">
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Cross-game inventory system</span>
+            </div>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Game studio SDK integration</span>
+            </div>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Secure payment processing</span>
+            </div>
+          </div>
+        </div>
       </div>
-            <h3 className="mb-2 sm:mb-4 text-xl sm:text-2xl font-medium text-foreground">PlayerBay</h3>
-            <p className="mb-4 sm:mb-6 text-sm sm:text-base text-muted-foreground">
-              We&apos;re cooking up PlayerBay — a marketplace where everyone from Fortnite pros to Diablo loot fiends can buy and sell accounts and in-game goodies. The best part? Our easy-to-use SDK lets any game studio start selling their items, right in-game or on our platform. A marketplace for every game.
-            </p>
-            <div className="mb-4 sm:mb-6">
-        <div className="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-400">
+
+      {/* Desktop View: Side-by-Side */}
+      <div className="hidden md:grid md:grid-cols-5 lg:grid-cols-2">
+        {/* Content Side */}
+        <div className="md:col-span-2 lg:col-span-1 p-6 lg:p-8">
+          <h4 className="text-2xl font-medium text-foreground mb-3">PlayerBay</h4>
+          <p className="text-base text-muted-foreground mb-6">
+            We&apos;re building PlayerBay — a marketplace where everyone from Fortnite pros to Diablo loot fiends can buy and sell accounts and in-game items. Our easy-to-use SDK lets any game studio integrate with our platform for seamless transactions.
+          </p>
+
+          {/* Status Badge - Desktop */}
+          <div className="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-400 mb-4">
           <Zap className="mr-1 h-3 w-3" />
           <span>Under Development</span>
         </div>
-              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-muted-foreground">
-                This game-changer will have all the good stuff: rock-solid security, items that work across games, and infrastructure that won&apos;t fall over when things get busy.
-        </p>
-      </div>
-            
-            {/* Mobile-optimized collapsible tech stack */}
-            <div className="space-y-3">
-              <button 
-                onClick={() => toggleCard(4)} 
-                className="flex items-center justify-between w-full text-left mb-2 sm:hidden"
-              >
-                <h4 className="text-xs font-medium text-muted-foreground">View tech stack</h4>
-                <motion.div
-                  animate={{ rotate: openCard === 4 ? 180 : 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                </motion.div>
-              </button>
 
-              {/* Always visible on sm+ screens, collapsible on xs screens */}
-              <AnimatePresence initial={false}>
-                {(openCard === 4 || (isMounted && typeof window !== 'undefined' && window.innerWidth >= 640)) && (
-                  <motion.div 
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden sm:!h-auto sm:!opacity-100"
-                  >
-                    {/* Frontend */}
-                    <div className="mb-3">
-                      <div className="flex items-center mb-1.5">
-                        <span className="inline-block w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
-                        <span className="text-xs font-medium text-muted-foreground">Frontend:</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.nextjs.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.nextjs.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-blue-100/90 !text-blue-800 dark:!bg-blue-900/50 dark:!text-blue-400"
-                        >
-                          <span className="rounded-md bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 cursor-help">Next.js</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.react.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.react.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-cyan-100/90 !text-cyan-800 dark:!bg-cyan-900/50 dark:!text-cyan-400"
-                        >
-                          <span className="rounded-md bg-cyan-100 px-2 py-0.5 text-xs font-medium text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 cursor-help">React</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.typescript.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.typescript.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-slate-100/90 !text-slate-800 dark:!bg-slate-900/50 dark:!text-slate-400"
-                        >
-                          <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-900/30 dark:text-slate-400 cursor-help">TypeScript</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.tailwind.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.tailwind.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-pink-100/90 !text-pink-800 dark:!bg-pink-900/50 dark:!text-pink-400"
-                        >
-                          <span className="rounded-md bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-800 dark:bg-pink-900/30 dark:text-pink-400 cursor-help">Tailwind</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.radix.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.radix.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-rose-100/90 !text-rose-800 dark:!bg-rose-900/50 dark:!text-rose-400"
-                        >
-                          <span className="rounded-md bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900/30 dark:text-rose-400 cursor-help">Radix UI</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.framerMotion.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.framerMotion.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-emerald-100/90 !text-emerald-800 dark:!bg-emerald-900/50 dark:!text-emerald-400"
-                        >
-                          <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 cursor-help">Framer Motion</span>
-                        </Tippy>
-                      </div>
-                    </div>
-                    
-                    {/* Backend & Data */}
-                    <div className="mb-3">
-                      <div className="flex items-center mb-1.5">
-                        <span className="inline-block w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                        <span className="text-xs font-medium text-muted-foreground">Backend & Data:</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.mongodb.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.mongodb.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-purple-100/90 !text-purple-800 dark:!bg-purple-900/50 dark:!text-purple-400"
-                        >
-                          <span className="rounded-md bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 cursor-help">MongoDB</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.mongoose.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.mongoose.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-amber-100/90 !text-amber-800 dark:!bg-amber-900/50 dark:!text-amber-400"
-                        >
-                          <span className="rounded-md bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 cursor-help">Mongoose</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.nextAuth.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.nextAuth.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-indigo-100 !text-indigo-800 dark:!bg-indigo-900/30 dark:!text-indigo-400"
-                        >
-                          <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400 cursor-help">NextAuth</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.socketio.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.socketio.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-green-100 !text-green-800 dark:!bg-green-900/30 dark:!text-green-400"
-                        >
-                          <span className="rounded-md bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400 cursor-help">Socket.io</span>
-                        </Tippy>
-                      </div>
-                    </div>
-                    
-                    {/* Utilities */}
-                    <div>
-                      <div className="flex items-center mb-1.5">
-                        <span className="inline-block w-2 h-2 bg-orange-400 rounded-full mr-2"></span>
-                        <span className="text-xs font-medium text-muted-foreground">Utilities:</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.zustand.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.zustand.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-blue-100 !text-blue-800 dark:!bg-blue-900/30 dark:!text-blue-400"
-                        >
-                          <span className="rounded-md bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 cursor-help">Zustand</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.reactQuery.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.reactQuery.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-orange-100 !text-orange-800 dark:!bg-orange-900/30 dark:!text-orange-400"
-                        >
-                          <span className="rounded-md bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900/30 dark:text-orange-400 cursor-help">React Query</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.reactHookForm.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.reactHookForm.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-teal-100 !text-teal-800 dark:!bg-teal-900/30 dark:!text-teal-400"
-                        >
-                          <span className="rounded-md bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900/30 dark:text-teal-400 cursor-help">React Hook Form</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.axios.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.axios.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-red-100 !text-red-800 dark:!bg-red-900/30 dark:!text-red-400"
-                        >
-                          <span className="rounded-md bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/30 dark:text-red-400 cursor-help">Axios</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.zod.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.zod.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-violet-100 !text-violet-800 dark:!bg-violet-900/30 dark:!text-violet-400"
-                        >
-                          <span className="rounded-md bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-800 dark:bg-violet-900/30 dark:text-violet-400 cursor-help">Zod</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.uploadthing.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.uploadthing.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-fuchsia-100 !text-fuchsia-800 dark:!bg-fuchsia-900/30 dark:!text-fuchsia-400"
-                        >
-                          <span className="rounded-md bg-fuchsia-100 px-2 py-0.5 text-xs font-medium text-fuchsia-800 dark:bg-fuchsia-900/30 dark:text-fuchsia-400 cursor-help">UploadThing</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.resend.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.resend.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-sky-100 !text-sky-800 dark:!bg-sky-900/30 dark:!text-sky-400"
-                        >
-                          <span className="rounded-md bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-800 dark:bg-sky-900/30 dark:text-sky-400 cursor-help">Resend</span>
-                        </Tippy>
-                        
-                        <Tippy 
-                          content={
-                            <div className="py-1 px-2">
-                              <p className="font-medium text-xs mb-1">{techInfo.swr.name}</p>
-                              <p className="text-xs opacity-90">{techInfo.swr.description}</p>
-                            </div>
-                          } 
-                          arrow={true} 
-                          placement="top"
-                          theme="custom"
-                          className="!bg-lime-100 !text-lime-800 dark:!bg-lime-900/30 dark:!text-lime-400"
-                        >
-                          <span className="rounded-md bg-lime-100 px-2 py-0.5 text-xs font-medium text-lime-800 dark:bg-lime-900/30 dark:text-lime-400 cursor-help">SWR</span>
-                        </Tippy>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-      </div>
-    </div>
-          {/* Redesigned project image - better on large screens */}
-          <div className="px-4 sm:px-6 pt-6 pb-8 lg:p-0 lg:flex lg:items-center lg:justify-center">
-            <div className="relative h-56 sm:h-64 md:h-72 lg:h-full lg:aspect-[4/3] w-full overflow-hidden rounded-lg lg:rounded-xl shadow-md lg:shadow-xl bg-gradient-to-br from-slate-900/30 to-slate-800/30">
-              {/* Custom scrollable image implementation */}
-              <ScrollableImage 
-          src="/images/playerbay_demo.png" 
-          alt="PlayerBay gaming marketplace"
-              />
-              
-              {/* Enhanced gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent opacity-80 pointer-events-none"></div>
-              
-              {/* Content overlay */}
-              <div className="absolute inset-x-0 bottom-0 p-4 lg:p-6 pointer-events-none">
-                <div className="space-y-2">
-          <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 rounded-md bg-amber-500 animate-pulse"></div>
-                    <span className="text-xs font-medium text-white/95">Coming Soon</span>
-                  </div>
-                  
-                  <div className="hidden sm:block">
-                    <p className="text-xs text-white/75 max-w-sm">
-                      A secure, scalable marketplace for gamers to trade digital assets with our powerful SDK for game studios.
-                    </p>
+          {/* Key Features - Desktop */}
+          <div className="space-y-2 mb-6">
+            <h5 className="text-sm font-medium text-foreground mb-2">Key Features</h5>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Cross-game inventory system with unified wallet</span>
+            </div>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Simple SDK for game studio integration</span>
+            </div>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Secure payment processing and escrow system</span>
+            </div>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Check className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+              <span>Anti-fraud protection with transaction history</span>
+            </div>
           </div>
-        </div>
+
+          {/* Tech Stack Desktop */}
+          <div>
+            <h5 className="text-sm font-medium text-foreground mb-3">Built With</h5>
+            <div className="space-y-3">
+              {/* Frontend */}
+              <div>
+                <div className="flex items-center mb-2">
+                  <div className="h-2 w-2 bg-blue-400 rounded-full mr-2"></div>
+                  <span className="text-xs font-medium text-muted-foreground">Frontend</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="rounded-md bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 cursor-help">Next.js</span>
+                  <span className="rounded-md bg-cyan-100 px-2 py-0.5 text-xs font-medium text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 cursor-help">React</span>
+                  <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-900/30 dark:text-slate-400 cursor-help">TypeScript</span>
+                  <span className="rounded-md bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-800 dark:bg-pink-900/30 dark:text-pink-400 cursor-help">Tailwind</span>
+                </div>
               </div>
               
-              {/* Decorative elements */}
-              <div className="absolute top-4 right-4 h-24 w-24 rounded-md bg-amber-500/10 filter blur-2xl pointer-events-none"></div>
-              <div className="absolute bottom-12 left-4 h-16 w-16 rounded-md bg-blue-500/10 filter blur-xl pointer-events-none"></div>
+              {/* Backend */}
+              <div>
+                <div className="flex items-center mb-2">
+                  <div className="h-2 w-2 bg-green-400 rounded-full mr-2"></div>
+                  <span className="text-xs font-medium text-muted-foreground">Backend</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="rounded-md bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 cursor-help">MongoDB</span>
+                  <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400 cursor-help">NextAuth</span>
+                  <span className="rounded-md bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400 cursor-help">Socket.io</span>
+                </div>
+              </div>
+              
+              {/* Utilities */}
+              <div>
+                <div className="flex items-center mb-2">
+                  <div className="h-2 w-2 bg-amber-400 rounded-full mr-2"></div>
+                  <span className="text-xs font-medium text-muted-foreground">Utilities</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="rounded-md bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900/30 dark:text-orange-400 cursor-help">React Query</span>
+                  <span className="rounded-md bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900/30 dark:text-teal-400 cursor-help">React Hook Form</span>
+                  <span className="rounded-md bg-lime-100 px-2 py-0.5 text-xs font-medium text-lime-800 dark:bg-lime-900/30 dark:text-lime-400 cursor-help">SWR</span>
+                </div>
+              </div>
+      </div>
+      </div>
+    </div>
+        
+        {/* Image Side */}
+        <div className="md:col-span-3 lg:col-span-1 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-slate-800/50">
+            {/* Custom scrollable image implementation */}
+            <ScrollableImage 
+          src="/images/playerbay_demo.png" 
+          alt="PlayerBay gaming marketplace"
+            />
+            
+            {/* Enhanced gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent opacity-70 pointer-events-none"></div>
+            
+            {/* Status Badge - Desktop Image */}
+            <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1.5">
+              <div className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></div>
+              <span className="text-xs font-medium text-white">Coming Soon</span>
+            </div>
+            
+            {/* Bottom Caption */}
+            <div className="absolute inset-x-0 bottom-0 p-6 pointer-events-none">
+              <p className="text-xs text-white/90 max-w-sm">
+                A marketplace for gamers powered by next-gen tech - the secure way to trade digital assets across games.
+              </p>
+            </div>
+            
+            {/* Decorative elements */}
+            <div className="absolute top-1/4 right-1/4 h-24 w-24 rounded-full bg-amber-500/10 filter blur-2xl pointer-events-none"></div>
+            <div className="absolute bottom-1/3 left-1/4 h-20 w-20 rounded-full bg-blue-500/10 filter blur-xl pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Future Project Teaser Card */}
+    <div className="mt-6 p-6 rounded-xl border border-dashed border-border bg-card/50 text-center">
+      <div className="max-w-md mx-auto">
+        <h4 className="text-lg font-medium text-foreground mb-2">More Projects Coming Soon</h4>
+        <p className="text-sm text-muted-foreground mb-4">
+          We&apos;re constantly working on new and exciting projects. Check back soon to see what else we&apos;re building.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-8 px-3 py-1"
+        >
+          <span>Get in touch</span>
+          <ArrowRight className="ml-2 h-3.5 w-3.5" />
+        </Link>
       </div>
     </div>
   </div>

@@ -80,7 +80,7 @@ const ContactForm = () => {
           className="mb-16"
         >
           <div className="flex flex-col items-center text-center">
-            <h1 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            <h1 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
               Get in Touch
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">

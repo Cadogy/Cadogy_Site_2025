@@ -6,13 +6,13 @@ import { siteConfig } from "@/config/site"
 export const metadata: Metadata = {
   title: `Privacy Policy`,
   description:
-    "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
-  keywords: ["company", "mission", "team", "digital experiences", "innovation"],
+    "Learn about how Cadogy collects, uses, and protects your personal information. Our comprehensive privacy policy outlines our commitment to data security.",
+  keywords: ["privacy policy", "data protection", "personal information", "privacy rights", "data security", "Cadogy privacy"],
   openGraph: {
     title: `Privacy Policy - Cadogy`,
     description:
-      "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
-    url: `${siteConfig.url.base}/who-we-are`,
+      "Learn about how Cadogy collects, uses, and protects your personal information. Our comprehensive privacy policy outlines our commitment to data security.",
+    url: `${siteConfig.url.base}/policies/privacy-policy`,
     images: [
       {
         url: siteConfig.ogImage,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Privacy Policy | ${siteConfig.name}`,
     description:
-      "Welcome to Cadogy's Privacy Policy page. Your privacy is critically important to us.",
+      "Learn about how Cadogy collects, uses, and protects your personal information. Our comprehensive privacy policy outlines our commitment to data security.",
     images: [siteConfig.ogImage],
   },
 }

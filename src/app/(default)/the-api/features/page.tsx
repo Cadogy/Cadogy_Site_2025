@@ -7,14 +7,25 @@ import FeaturesClient from "./components/FeaturesClient"
 export const metadata: Metadata = {
   title: `API Features | ${siteConfig.name}`,
   description:
-    "Explore the powerful features of The API by Cadogy - your gateway to AI-powered content generation, research, and development.",
+    "Discover the complete feature set of Cadogy's API platform. From content generation to data analysis, our API offers powerful tools to enhance your business applications and workflows.",
+  keywords: [
+    "API features", 
+    "API capabilities", 
+    "content generation", 
+    "data analysis API", 
+    "AI features", 
+    "development tools", 
+    "API documentation",
+    "web services",
+    "Cadogy API features"
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: `${siteConfig.url.base}/the-api/features`,
     title: `API Features | ${siteConfig.name}`,
     description:
-      "Explore the powerful features of The API by Cadogy - your gateway to AI-powered content generation, research, and development.",
+      "Discover the complete feature set of Cadogy's API platform. From content generation to data analysis, our API offers powerful tools to enhance your business applications and workflows.",
     siteName: siteConfig.name,
     images: [
       {
@@ -29,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `API Features | ${siteConfig.name}`,
     description:
-      "Explore the powerful features of The API by Cadogy - your gateway to AI-powered content generation, research, and development.",
+      "Discover the complete feature set of Cadogy's API platform. From content generation to data analysis, our API offers powerful tools to enhance your business applications and workflows.",
     images: [siteConfig.ogImage],
   },
 }

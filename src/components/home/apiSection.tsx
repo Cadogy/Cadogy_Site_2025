@@ -29,7 +29,7 @@ const apiSection = () => {
       transition={{ duration: 0.6 }}
     >
       <div className="flex flex-col items-center py-6 text-center">
-        <h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <h2 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
           Our API Platform
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">

@@ -116,9 +116,8 @@ export function Footer() {
             variants={itemVariants}
             className="max-w-md text-left text-sm text-muted-foreground md:text-base md:text-right"
           >
-            Providing cutting-edge solutions in cybersecurity, web development,
-            and digital rights management, helping businesses achieve their
-            technological goals securely and efficiently.
+            Cadogy is a web development agency in Pompano Beach, FL, crafting custom websites, fullstack apps, 
+            and secure infrastructure that help businesses grow online.
           </motion.div>
         </div>
 
@@ -129,7 +128,7 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Company</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">Company</h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -177,7 +176,7 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">API</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">API</h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -225,7 +224,7 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Resources</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">Resources</h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -273,7 +272,7 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-base md:text-lg">Policies</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">Policies</h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link

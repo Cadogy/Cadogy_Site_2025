@@ -1,0 +1,16 @@
+# Cadogy.com robots.txt
+User-agent: *
+Allow: /
+
+# Disallow WordPress admin pages if they exist
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+
+# Disallow any temporary or development URLs
+Disallow: /temp/
+Disallow: /test/
+Disallow: /dev/
+
+# Sitemaps
+Sitemap: https://cadogy.com/sitemap.xml
+Sitemap: https://cadogy.com/articles-sitemap.xml 

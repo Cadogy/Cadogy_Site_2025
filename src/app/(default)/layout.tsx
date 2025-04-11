@@ -22,6 +22,9 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export async function generateMetadata({
@@ -39,7 +42,7 @@ export async function generateMetadata({
     metadataBase: new URL(siteConfig.url.base),
     title: {
       default: `${siteConfig.name} - ${siteConfig.slogan}`,
-      template: `%s | ${siteConfig.name}`,
+      template: `%s`,
     },
     description: siteConfig.description,
     keywords: siteConfig.keywords,
@@ -50,11 +53,17 @@ export async function generateMetadata({
       },
     ],
     creator: siteConfig.author,
+    publisher: siteConfig.name,
+    formatDetection: {
+      telephone: true,
+      email: true,
+      address: true,
+    },
     openGraph: {
       type: "website",
       locale: "en_US",
       url: siteConfig.url.base,
-      title: siteConfig.name,
+      title: `${siteConfig.name} - ${siteConfig.slogan}`,
       description: siteConfig.description,
       siteName: siteConfig.name,
       images: [
@@ -68,13 +77,31 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: siteConfig.name,
+      title: `${siteConfig.name} - ${siteConfig.slogan}`,
       description: siteConfig.description,
       images: [siteConfig.ogImage],
       creator: "@_rdev7",
     },
     icons: {
       icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/favicon.ico",
+    },
+    alternates: {
+      canonical: siteConfig.url.base,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    verification: {
+      google: "verification_token",
     },
   }
 

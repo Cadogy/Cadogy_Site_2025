@@ -7,14 +7,25 @@ import ApiOverviewClient from "./components/ApiOverviewClient"
 export const metadata: Metadata = {
   title: `The API`,
   description:
-    "One unified API for all your AI needs. Access state-of-the-art artificial intelligence tools through a single, intuitive API.",
+    "Access Cadogy's unified API for all your AI and web development needs. Our powerful API platform offers content generation, research tools, and custom development solutions for businesses.",
+  keywords: [
+    "unified API", 
+    "AI API", 
+    "content generation API", 
+    "development API", 
+    "web services API", 
+    "Cadogy API platform", 
+    "API integration",
+    "AI tools",
+    "developer resources"
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: `${siteConfig.url.base}/the-api`,
     title: `The API | ${siteConfig.name}`,
     description:
-      "One unified API for all your AI needs. Access state-of-the-art artificial intelligence tools through a single, intuitive API.",
+      "Access Cadogy's unified API for all your AI and web development needs. Our powerful API platform offers content generation, research tools, and custom development solutions for businesses.",
     siteName: siteConfig.name,
     images: [
       {
@@ -29,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `The API | ${siteConfig.name}`,
     description:
-      "One unified API for all your AI needs. Access state-of-the-art artificial intelligence tools through a single, intuitive API.",
+      "Access Cadogy's unified API for all your AI and web development needs. Our powerful API platform offers content generation, research tools, and custom development solutions for businesses.",
     images: [siteConfig.ogImage],
   },
 }

@@ -6,11 +6,11 @@ import ContactForm from "./ContactForm"
 
 // Export metadata for the "Contact Us" page
 export const metadata: Metadata = {
-  title: `Contact Us`,
+  title: `Contact Us - ${siteConfig.name}`,
   description: "Get in touch with us to discuss your project or any inquiries.",
   keywords: ["contact", "support", "inquiries", "business", "project"],
   openGraph: {
-    title: `Contact Us - Cadogy`,
+    title: `Contact Us - ${siteConfig.name}`,
     description:
       "Reach out to our team for business inquiries, support, or collaborations.",
     url: `${siteConfig.url.base}/contact`,

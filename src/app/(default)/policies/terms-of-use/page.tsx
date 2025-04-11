@@ -6,13 +6,13 @@ import { siteConfig } from "@/config/site"
 export const metadata: Metadata = {
   title: `Terms of Use`,
   description:
-    "Welcome to Cadogy's Terms of Use page. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
-  keywords: ["company", "mission", "team", "digital experiences", "innovation"],
+    "Review Cadogy's Terms of Use outlining the rules and guidelines for using our website and services. Learn about user responsibilities, intellectual property rights, and more.",
+  keywords: ["terms of use", "terms and conditions", "website terms", "user agreement", "legal terms", "service terms", "website rules"],
   openGraph: {
     title: `Terms of Use - Cadogy`,
     description:
-      "Welcome to Cadogy's Terms of Use page. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
-    url: `${siteConfig.url.base}/who-we-are`,
+      "Review Cadogy's Terms of Use outlining the rules and guidelines for using our website and services. Learn about user responsibilities, intellectual property rights, and more.",
+    url: `${siteConfig.url.base}/policies/terms-of-use`,
     images: [
       {
         url: siteConfig.ogImage,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Terms of Use | ${siteConfig.name}`,
     description:
-      "Welcome to Cadogy's Terms of Use. By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.",
+      "Review Cadogy's Terms of Use outlining the rules and guidelines for using our website and services. Learn about user responsibilities, intellectual property rights, and more.",
     images: [siteConfig.ogImage],
   },
 }

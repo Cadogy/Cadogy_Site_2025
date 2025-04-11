@@ -1,23 +1,28 @@
 import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
-import WhoWeAreContent from "@/components/body/WhoWeAreContent"
+import WhoWeAreContent from "@/components/whoweare/WhoWeAreContent"
 
 export const metadata: Metadata = {
-  title: `Who We Are`,
+  title: `Experienced Web Developers in Pompano Beach - Who We Are`,
   description:
-    "Learn more about the founders Charles Knapp and Dylan Safra, their journey through technology, and how they push boundaries in digital innovation.",
+    "Meet the Cadogy team led by Charles Knapp and Dylan Safra, expert web developers in Pompano Beach, FL. Our passionate professionals deliver cutting-edge websites and secure digital solutions for businesses across South Florida.",
   keywords: [
-    "technology",
-    "anti-piracy",
-    "innovation",
-    "digital experiences",
-    "team",
+    "Pompano Beach web developers",
+    "South Florida web development team",
+    "Charles Knapp developer",
+    "Dylan Safra developer",
+    "expert web development team",
+    "Florida tech company",
+    "Pompano Beach technology experts",
+    "custom website developers Florida",
+    "digital innovation",
+    "professional web team",
   ],
   openGraph: {
-    title: `Who We Are - Cadogy`,
+    title: `Pompano Beach Web Development Experts | Who We Are - Cadogy`,
     description:
-      "Get to know Charles Knapp and Dylan Safra, the minds behind Cadogy, their journey in digital innovation, and how they shape the future of technology.",
+      "Meet the skilled web development team at Cadogy, led by Charles Knapp and Dylan Safra. Our Pompano Beach, FL professionals build custom websites and secure digital solutions that help Florida businesses thrive online.",
     url: `${siteConfig.url.base}/who-we-are`,
     images: [
       {
@@ -28,17 +33,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Who We Are | ${siteConfig.name}`,
+    title: `Pompano Beach Web Development Team | Who We Are - ${siteConfig.name}`,
     description:
-      "Meet Charles Knapp and Dylan Safra, the team driving innovation in digital experiences and anti-piracy.",
+      "Meet Charles Knapp and Dylan Safra, leading Cadogy's expert web development team in Pompano Beach, FL. We create custom digital solutions that elevate your business online.",
     images: [siteConfig.ogImage],
   },
 }
 
 export default function WhoWeAre() {
-  return (
-    <>
-      <WhoWeAreContent />
-    </>
-  )
+  return <WhoWeAreContent />
 }

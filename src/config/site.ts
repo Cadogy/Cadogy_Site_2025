@@ -4,16 +4,21 @@ import { env } from "@/env.mjs"
 
 export const siteConfig: SiteConfig = {
   name: "Cadogy",
-  slogan: "Pioneering Smarter Software",
+  slogan: "Web Development & Design Experts in Pompano Beach, FL",
   author: "charlesknapp",
   description:
-    "A web development company that cares about your goals. We solve business challenges through a smart, data-driven approach to the web development and search engine optimization process.",
+    "Cadogy is a web development agency in Pompano Beach, FL, crafting custom websites, fullstack apps, and secure infrastructure that help businesses grow online.",
   keywords: [
-    "Web development fort lauderdale",
-    "fullstack web development",
-    "nextjs developers",
-    "fort lauderdale react developers",
-    "florida fullstack developers for hire",
+    "Web development Pompano Beach",
+    "Florida web design",
+    "Custom website development",
+    "Fullstack app development",
+    "Secure web infrastructure",
+    "Business website solutions",
+    "Web development agency",
+    "React developers Florida",
+    "NextJS agency",
+    "SEO optimization South Florida",
   ],
   url: {
     base: env.NEXT_PUBLIC_APP_URL,
