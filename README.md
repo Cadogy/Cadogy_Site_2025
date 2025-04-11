@@ -116,4 +116,4 @@ This application is designed to be deployed on Vercel or any Next.js-compatible 
 
 ## 📝 License
 
-This software is proprietary and confidential. It is licensed exclusively to Cadogy, LLC. All rights reserved. Unauthorized use, reproduction, or distribution is strictly prohibited. See the [LICENSE](LICENSE) file for more information.
+This software is licensed to Cadogy, LLC. All rights reserved.
