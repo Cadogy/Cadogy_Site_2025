@@ -5,7 +5,9 @@ import { env } from "@/env.mjs"
 const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://cadogy.com'
 
 export default function sitemapIndex(): MetadataRoute.Sitemap {
-  return [
+  console.log('📚 Generating sitemap index...')
+  
+  const sitemaps = [
     {
       url: `${baseUrl}/sitemap.xml`,
       lastModified: new Date(),
@@ -15,4 +17,7 @@ export default function sitemapIndex(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
   ]
+  
+  console.log(`✅ Sitemap index generated with ${sitemaps.length} sitemaps: ${sitemaps.map(s => s.url).join(', ')}`)
+  return sitemaps
 } 

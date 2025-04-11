@@ -7,6 +7,8 @@ const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://cadogy.com'
 
 // Main sitemap for all static pages
 export default function sitemap(): MetadataRoute.Sitemap {
+  console.log('🗺️ Generating main sitemap...')
+  
   const currentDate = new Date().toISOString()
   
   // Define all the static routes
@@ -67,5 +69,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
+  console.log(`✅ Main sitemap generated with ${staticRoutes.length} static URLs`)
   return staticRoutes
 } 

@@ -8,12 +8,18 @@ const baseUrl = env.NEXT_PUBLIC_APP_URL || 'https://cadogy.com'
 
 // Articles sitemap for WordPress content
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  console.log('🗺️ Generating articles sitemap...')
+  
   // Get all posts, categories, and tags
   const [posts, categories, tags] = await Promise.all([
     getAllPosts(),
     getCategories(),
     getTags()
   ])
+
+  console.log(`📝 Found ${posts.length} posts to include in sitemap`)
+  console.log(`🏷️ Found ${categories.filter(c => c.count > 0 && c.name.toLowerCase() !== 'uncategorized').length} categories to include in sitemap`)
+  console.log(`🔖 Found ${tags.filter(t => t.count > 0).length} tags to include in sitemap`)
 
   const currentDate = new Date().toISOString()
 
@@ -46,5 +52,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
   // Combine all entries
-  return [...articlesEntries, ...categoryEntries, ...tagEntries]
+  const allEntries = [...articlesEntries, ...categoryEntries, ...tagEntries]
+  console.log(`✅ Articles sitemap generated with ${allEntries.length} total URLs`)
+  
+  return allEntries
 } 

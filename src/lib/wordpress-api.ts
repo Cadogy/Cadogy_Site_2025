@@ -283,29 +283,46 @@ export function postsToCarouselSlides(
   })
 }
 
-// Keep getAllPosts for backward compatibility
+// Updated to handle pagination for sites with more than 100 posts
 export async function getAllPosts(): Promise<WP_Post[]> {
-  const response = await fetch(
-    `${API_URL}/posts?_embed&status=publish&per_page=100`,
-    { 
-      next: { revalidate: 0 }, // Force revalidation on every request
-    }
-  )
+  let page = 1
+  let allPosts: WP_Post[] = []
+  let hasMorePosts = true
+  const perPage = 100 // Maximum allowed by WordPress API
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch posts: ${response.status}`)
+  while (hasMorePosts) {
+    const response = await fetch(
+      `${API_URL}/posts?_embed&status=publish&per_page=${perPage}&page=${page}`,
+      { 
+        next: { revalidate: 0 }, // Force revalidation on every request
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch posts: ${response.status}`)
+    }
+
+    const posts = await response.json()
+    
+    // Process featured media URLs to prevent caching
+    posts.forEach((post: WP_Post) => {
+      if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+        post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+          post._embedded["wp:featuredmedia"][0].source_url
+        )
+      }
+    })
+    
+    allPosts = [...allPosts, ...posts]
+    
+    // Check if we've received fewer posts than requested per page
+    // This means we've reached the last page
+    if (posts.length < perPage) {
+      hasMorePosts = false
+    } else {
+      page++
+    }
   }
-
-  const posts = await response.json()
   
-  // Process featured media URLs to prevent caching
-  posts.forEach((post: WP_Post) => {
-    if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
-      post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
-        post._embedded["wp:featuredmedia"][0].source_url
-      )
-    }
-  })
-  
-  return posts
+  return allPosts
 }
