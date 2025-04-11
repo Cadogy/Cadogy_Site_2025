@@ -12,5 +12,5 @@ Disallow: /test/
 Disallow: /dev/
 
 # Sitemaps
-Sitemap: https://cadogy.com/sitemap.xml
-Sitemap: https://cadogy.com/articles-sitemap.xml 
+Sitemap: https://www.cadogy.com/sitemap.xml
+Sitemap: https://www.cadogy.com/articles-sitemap.xml 
