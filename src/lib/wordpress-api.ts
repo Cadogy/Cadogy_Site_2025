@@ -4,6 +4,34 @@ import { CarouselSlide } from "@/components/elements/HeroCarousel"
 const API_URL = process.env.NEXT_PUBLIC_WP_API_URL || "https://wp.cadogy.com/wp-json/wp/v2"
 export const PLACEHOLDER_IMAGE = process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE || "/images/placeholder/article-placeholder.svg"
 
+// Simple in-memory request cache to prevent duplicate fetches during build
+const requestCache = new Map<string, any>()
+
+/**
+ * Cached fetch function to prevent duplicate requests
+ */
+async function cachedFetch<T>(url: string): Promise<T> {
+  // Add timestamp to prevent caching by Next.js or the browser
+  const timestampedUrl = `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}`
+  
+  if (requestCache.has(url)) {
+    console.log(`🔄 Using cached response for ${url}`)
+    return requestCache.get(url)
+  }
+  
+  const response = await fetch(timestampedUrl, {
+    cache: 'no-store' // Use only one caching strategy
+  })
+  
+  if (!response.ok) {
+    throw new Error(`Failed fetch for ${url}: ${response.status}`)
+  }
+  
+  const data = await response.json()
+  requestCache.set(url, data)
+  return data
+}
+
 /**
  * Add a cache-busting parameter to WordPress image URLs
  */
@@ -77,8 +105,14 @@ export async function getPosts({
   if (categoryId) queryParams.append("categories", categoryId.toString())
   if (tagId) queryParams.append("tags", tagId.toString())
 
-  const response = await fetch(`${API_URL}/posts?${queryParams.toString()}`, {
-    next: { revalidate: 0 }, // Force revalidation on every request
+  const url = `${API_URL}/posts?${queryParams.toString()}`
+  
+  // Need special handling for this method as we need headers
+  const timestampedUrl = `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}`
+  
+  // Special case - don't use cache for this request as we need headers
+  const response = await fetch(timestampedUrl, {
+    cache: 'no-store' // Use only one caching strategy
   })
 
   if (!response.ok) {
@@ -114,18 +148,9 @@ export async function getPosts({
  * Fetch a single post by slug
  */
 export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
-  const response = await fetch(
-    `${API_URL}/posts?_embed&slug=${slug}&status=publish`,
-    {
-      next: { revalidate: 0 }, // Force revalidation on every request
-    }
+  const posts = await cachedFetch<WP_Post[]>(
+    `${API_URL}/posts?_embed&slug=${slug}&status=publish`
   )
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch post: ${response.status}`)
-  }
-
-  const posts = await response.json()
   
   // Process featured media URL to prevent caching
   if (posts.length > 0 && posts[0]._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
@@ -141,15 +166,7 @@ export async function getPostBySlug(slug: string): Promise<WP_Post | null> {
  * Fetch featured media (image) for a post
  */
 export async function getMedia(id: number): Promise<WP_Media> {
-  const response = await fetch(`${API_URL}/media/${id}`, {
-    next: { revalidate: 0 }, // Force revalidation on every request
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch media: ${response.status}`)
-  }
-
-  const media = await response.json()
+  const media = await cachedFetch<WP_Media>(`${API_URL}/media/${id}`)
   
   // Apply cache busting to source_url
   if (media.source_url) {
@@ -163,30 +180,14 @@ export async function getMedia(id: number): Promise<WP_Media> {
  * Fetch all categories
  */
 export async function getCategories(): Promise<WP_Term[]> {
-  const response = await fetch(`${API_URL}/categories?per_page=100`, {
-    next: { revalidate: 0 }, // Force revalidation on every request
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch categories: ${response.status}`)
-  }
-
-  return response.json()
+  return cachedFetch<WP_Term[]>(`${API_URL}/categories?per_page=100`)
 }
 
 /**
  * Fetch all tags
  */
 export async function getTags(): Promise<WP_Term[]> {
-  const response = await fetch(`${API_URL}/tags?per_page=100`, {
-    next: { revalidate: 0 }, // Force revalidation on every request
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch tags: ${response.status}`)
-  }
-
-  return response.json()
+  return cachedFetch<WP_Term[]>(`${API_URL}/tags?per_page=100`)
 }
 
 /**
@@ -195,18 +196,9 @@ export async function getTags(): Promise<WP_Term[]> {
 export async function getPostsByCategory(
   categoryId: number
 ): Promise<WP_Post[]> {
-  const response = await fetch(
-    `${API_URL}/posts?_embed&categories=${categoryId}&status=publish&per_page=100`,
-    { 
-      next: { revalidate: 0 }, // Force revalidation on every request
-    }
+  const posts = await cachedFetch<WP_Post[]>(
+    `${API_URL}/posts?_embed&categories=${categoryId}&status=publish&per_page=100`
   )
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch posts by category: ${response.status}`)
-  }
-
-  const posts = await response.json()
   
   // Process featured media URLs to prevent caching
   posts.forEach((post: WP_Post) => {
@@ -283,46 +275,75 @@ export function postsToCarouselSlides(
   })
 }
 
-// Updated to handle pagination for sites with more than 100 posts
+// Updated to handle pagination with in-memory caching
 export async function getAllPosts(): Promise<WP_Post[]> {
+  // Check if we already have all posts cached
+  const cacheKey = 'all-posts'
+  if (requestCache.has(cacheKey)) {
+    console.log(`🔄 Using cached all posts`)
+    return requestCache.get(cacheKey)
+  }
+
+  console.log(`📚 Fetching all posts with pagination...`)
   let page = 1
   let allPosts: WP_Post[] = []
   let hasMorePosts = true
   const perPage = 100 // Maximum allowed by WordPress API
 
-  while (hasMorePosts) {
-    const response = await fetch(
-      `${API_URL}/posts?_embed&status=publish&per_page=${perPage}&page=${page}`,
-      { 
-        next: { revalidate: 0 }, // Force revalidation on every request
-      }
-    )
+  try {
+    while (hasMorePosts) {
+      console.log(`📚 Fetching WordPress posts page ${page}...`)
+      
+      // Construct the URL with page number
+      const url = `${API_URL}/posts?_embed&status=publish&per_page=${perPage}&page=${page}`
+      const timestampedUrl = `${url}&_=${Date.now()}`
+      
+      const response = await fetch(timestampedUrl, { 
+        cache: 'no-store' // Use only one caching strategy
+      })
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.status}`)
-    }
-
-    const posts = await response.json()
-    
-    // Process featured media URLs to prevent caching
-    posts.forEach((post: WP_Post) => {
-      if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
-        post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
-          post._embedded["wp:featuredmedia"][0].source_url
-        )
+      if (!response.ok) {
+        throw new Error(`Failed to fetch posts: ${response.status}`)
       }
-    })
-    
-    allPosts = [...allPosts, ...posts]
-    
-    // Check if we've received fewer posts than requested per page
-    // This means we've reached the last page
-    if (posts.length < perPage) {
-      hasMorePosts = false
-    } else {
-      page++
+
+      const posts = await response.json()
+      
+      // Process featured media URLs to prevent caching
+      posts.forEach((post: WP_Post) => {
+        if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+          post._embedded["wp:featuredmedia"][0].source_url = preventImageCaching(
+            post._embedded["wp:featuredmedia"][0].source_url
+          )
+        }
+      })
+      
+      // If we got any posts, add them to our collection
+      if (posts.length > 0) {
+        allPosts = [...allPosts, ...posts]
+        console.log(`📚 Added ${posts.length} posts from page ${page}, total: ${allPosts.length}`)
+      }
+      
+      // Check if we've received fewer posts than requested per page
+      // This means we've reached the last page
+      if (posts.length < perPage) {
+        hasMorePosts = false
+        console.log(`📚 Reached end of posts at page ${page}`)
+      } else {
+        page++
+      }
+      
+      // Add a small delay between requests to avoid overloading the WordPress API
+      if (hasMorePosts) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+      }
     }
+    
+    // Cache the result
+    requestCache.set(cacheKey, allPosts)
+    return allPosts
+  } catch (error) {
+    console.error("Error fetching all posts:", error)
+    // Return any posts we've already fetched rather than failing completely
+    return allPosts
   }
-  
-  return allPosts
 }
