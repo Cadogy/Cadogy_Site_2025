@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { KeyIcon } from "lucide-react"
 
@@ -26,19 +26,19 @@ export function NavigationMenu() {
   const refreshCarousel = () => {
     const now = Date.now()
     const timeSinceLastRefresh = now - lastRefreshTime.current
-    
+
     if (timeSinceLastRefresh > 3000) {
-      console.log('Triggering carousel refresh...')
+      console.log("Triggering carousel refresh...")
       lastRefreshTime.current = now
-      window.dispatchEvent(new CustomEvent('refreshHeroCarousel'))
-      
+      window.dispatchEvent(new CustomEvent("refreshHeroCarousel"))
+
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       })
       return true
     } else {
-      console.log('Refresh blocked - too frequent')
+      console.log("Refresh blocked - too frequent")
       return false
     }
   }
@@ -86,12 +86,17 @@ export function NavigationMenu() {
         {/* Logo Section with Cipher Effect */}
         <Link
           href="/"
-          className="flex items-center min-w-[120px]"
+          className="flex min-w-[120px] items-center"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          data-cursor="link"
+          data-cursor-label="HOME"
           onClick={(e) => {
             // Check if we're already on the homepage
-            if (typeof window !== 'undefined' && window.location.pathname === '/') {
+            if (
+              typeof window !== "undefined" &&
+              window.location.pathname === "/"
+            ) {
               e.preventDefault()
               refreshCarousel()
             }
@@ -109,13 +114,15 @@ export function NavigationMenu() {
             <path d="M16 11.5117C13.52 11.5117 11.5 13.5317 11.5 16.0117C11.5 18.4917 13.52 20.5117 16 20.5117C18.48 20.5117 20.5 18.4917 20.5 16.0117C20.5 13.5217 18.48 11.5117 16 11.5117Z" />
             <path d="M21 22.0009C20.73 22.0009 20.48 21.8909 20.29 21.7109C20.25 21.6609 20.2 21.6109 20.17 21.5509C20.13 21.5009 20.1 21.4409 20.08 21.3809C20.05 21.3209 20.03 21.2609 20.02 21.2009C20.01 21.1309 20 21.0709 20 21.0009C20 20.8709 20.03 20.7409 20.08 20.6209C20.13 20.4909 20.2 20.3909 20.29 20.2909C20.52 20.0609 20.87 19.9509 21.19 20.0209C21.26 20.0309 21.32 20.0509 21.38 20.0809C21.44 20.1009 21.5 20.1309 21.55 20.1709C21.61 20.2009 21.66 20.2509 21.71 20.2909C21.8 20.3909 21.87 20.4909 21.92 20.6209C21.97 20.7409 22 20.8709 22 21.0009C22 21.2609 21.89 21.5209 21.71 21.7109C21.66 21.7509 21.61 21.7909 21.55 21.8309C21.5 21.8709 21.44 21.9009 21.38 21.9209C21.32 21.9509 21.26 21.9709 21.19 21.9809C21.13 21.9909 21.06 22.0009 21 22.0009Z" />
           </svg>
-          <span className="ml-1 text-sm w-[80px] inline-block">{hoveredText}</span>
+          <span className="ml-1 inline-block w-[80px] text-sm">
+            {hoveredText}
+          </span>
         </Link>
 
         {/* Desktop Navigation Layout - Logo | Nav Menu | Login Button */}
         <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
           {/* Centered Navigation Menu */}
-          <div className="flex justify-center flex-1">
+          <div className="flex flex-1 justify-center">
             <nav className="flex items-center gap-6 text-sm">
               <Link
                 href="/who-we-are"
@@ -126,13 +133,13 @@ export function NavigationMenu() {
               <Link href="/the-api" className="text-sm transition duration-150">
                 The API
               </Link>
-              <Link href="/articles" className="text-sm transition duration-150">
-                Articles
-              </Link>
               <Link
-                href="/contact"
+                href="/articles"
                 className="text-sm transition duration-150"
               >
+                Articles
+              </Link>
+              <Link href="/contact" className="text-sm transition duration-150">
                 Contact
               </Link>
             </nav>
@@ -141,9 +148,16 @@ export function NavigationMenu() {
           {/* Right-aligned Client Login Button */}
           <div className="flex items-center space-x-4">
             {/* <ModeToggle /> */}
-            
+
             <Button variant="hero" size="sm" asChild>
-              <Link href="/login" className="group inline-flex items-center">
+              <Link
+                data-cursor="link"
+                data-cursor-label="LOGIN"
+                data-cursor-bg="rgba(255, 255, 255, 1)"
+                data-cursor-text-color="rgba(0, 0, 0, 1)"
+                href="/login"
+                className="group inline-flex items-center"
+              >
                 For Clients
                 <KeyIcon className="ml-1 h-[14px] w-[14px]" />
               </Link>
@@ -155,6 +169,8 @@ export function NavigationMenu() {
         <button
           className="block text-muted-foreground hover:text-foreground focus:outline-none md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          data-cursor="link"
+          data-cursor-label="MENU"
         >
           {isMenuOpen ? (
             <svg
@@ -197,13 +213,16 @@ export function NavigationMenu() {
           onClick={closeMenu} // Close the menu on backdrop click
         >
           {/* Close Icon in the Top Right */}
-          <div className="mb-6 ml-2 flex items-center justify-between w-full">
+          <div className="mb-6 ml-2 flex w-full items-center justify-between">
             <div className="flex items-center space-x-1">
-              <Link 
+              <Link
                 href="/"
                 onClick={(e) => {
                   // Check if we're already on the homepage
-                  if (typeof window !== 'undefined' && window.location.pathname === '/') {
+                  if (
+                    typeof window !== "undefined" &&
+                    window.location.pathname === "/"
+                  ) {
                     e.preventDefault()
                     // Close the mobile menu
                     closeMenu()
@@ -211,6 +230,10 @@ export function NavigationMenu() {
                   }
                 }}
                 className="flex items-center"
+                data-cursor="link"
+                data-cursor-label="HOME"
+                data-cursor-bg="rgba(255, 0, 255, 1)"
+                data-cursor-text-color="#ffffff"
               >
                 <svg
                   width="20px"
@@ -224,7 +247,9 @@ export function NavigationMenu() {
                   <path d="M16 11.5117C13.52 11.5117 11.5 13.5317 11.5 16.0117C11.5 18.4917 13.52 20.5117 16 20.5117C18.48 20.5117 20.5 18.4917 20.5 16.0117C20.5 13.5217 18.48 11.5117 16 11.5117Z" />
                   <path d="M21 22.0009C20.73 22.0009 20.48 21.8909 20.29 21.7109C20.25 21.6609 20.2 21.6109 20.17 21.5509C20.13 21.5009 20.1 21.4409 20.08 21.3809C20.05 21.3209 20.03 21.2609 20.02 21.2009C20.01 21.1309 20 21.0709 20 21.0009C20 20.8709 20.03 20.7409 20.08 20.6209C20.13 20.4909 20.2 20.3909 20.29 20.2909C20.52 20.0609 20.87 19.9509 21.19 20.0209C21.26 20.0309 21.32 20.0509 21.38 20.0809C21.44 20.1009 21.5 20.1309 21.55 20.1709C21.61 20.2009 21.66 20.2509 21.71 20.2909C21.8 20.3909 21.87 20.4909 21.92 20.6209C21.97 20.7409 22 20.8709 22 21.0009C22 21.2609 21.89 21.5209 21.71 21.7109C21.66 21.7509 21.61 21.7909 21.55 21.8309C21.5 21.8709 21.44 21.9009 21.38 21.9209C21.32 21.9509 21.26 21.9709 21.19 21.9809C21.13 21.9909 21.06 22.0009 21 22.0009Z" />
                 </svg>
-                <span className="ml-1 text-sm text-foreground">{hoveredText}</span>
+                <span className="ml-1 text-sm text-foreground">
+                  {hoveredText}
+                </span>
               </Link>
             </div>
             {/* <ModeToggle /> */}
@@ -240,7 +265,12 @@ export function NavigationMenu() {
               className="justify-start text-xl text-foreground"
               asChild
             >
-              <Link href="/who-we-are" onClick={closeMenu}>
+              <Link
+                href="/who-we-are"
+                onClick={closeMenu}
+                data-cursor="link"
+                data-cursor-label="ABOUT US"
+              >
                 Who We Are
               </Link>
             </Button>
@@ -285,6 +315,9 @@ export function NavigationMenu() {
               asChild
             >
               <Link
+                data-cursor="link"
+                data-cursor-label="LOGIN"
+                data-cursor-bg="rgba(255, 0, 255, 1)"
                 href="/login"
                 onClick={closeMenu}
                 className="inline-flex items-center"

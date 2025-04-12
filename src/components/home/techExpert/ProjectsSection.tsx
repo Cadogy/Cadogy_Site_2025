@@ -472,6 +472,8 @@ const ProjectsSection = () => {
             </p>
             <div className="flex justify-center gap-3">
               <Link
+                data-cursor="secondary"
+                data-cursor-label="SRC"
                 href="https://github.com/Cadogy/Cadogy_Site_2025"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -493,6 +495,7 @@ const ProjectsSection = () => {
                 <span>Site Code</span>
               </Link>
               <Link
+                data-cursor-label="GITHUB"
                 href="https://github.com/Cadogy"
                 target="_blank"
                 rel="noopener noreferrer"

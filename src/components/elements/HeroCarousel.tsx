@@ -66,7 +66,7 @@ export function HeroCarousel({
         // Clear any cached posts first
         setPosts([])
         setLoading(true)
-        
+
         const fetchedPosts = await getAllPosts()
         setPosts(fetchedPosts)
         setError(null)
@@ -82,15 +82,15 @@ export function HeroCarousel({
 
     // Create event listener for refreshing carousel from navbar logo click
     const handleRefreshCarousel = () => {
-      console.log('Refreshing hero carousel slides...')
+      console.log("Refreshing hero carousel slides...")
       setCurrentSlide(0) // Reset to first slide
-      
+
       // Set refreshing state to true for animation
       setIsRefreshing(true)
-      
+
       // Fetch new posts
       fetchPosts()
-      
+
       // Reset refreshing state after a short delay to show animation
       setTimeout(() => {
         setIsRefreshing(false)
@@ -98,11 +98,11 @@ export function HeroCarousel({
     }
 
     // Add event listener
-    window.addEventListener('refreshHeroCarousel', handleRefreshCarousel)
+    window.addEventListener("refreshHeroCarousel", handleRefreshCarousel)
 
     // Cleanup
     return () => {
-      window.removeEventListener('refreshHeroCarousel', handleRefreshCarousel)
+      window.removeEventListener("refreshHeroCarousel", handleRefreshCarousel)
     }
   }, [customSlides])
 
@@ -154,10 +154,12 @@ export function HeroCarousel({
   const settings = isMobile ? mobileSettings : desktopSettings
 
   const goToNextSlide = () => {
+    console.log("Going to next slide")
     setCurrentSlide((prev) => (prev + 1) % slides.length)
   }
 
   const goToPrevSlide = () => {
+    console.log("Going to previous slide")
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
   }
 
@@ -338,12 +340,48 @@ export function HeroCarousel({
         }}
       >
         {slides.map((slide, index) => {
-          const isNextSlide = index === (currentSlide + 1) % slides.length
-          const isPrevSlide =
+          // Calculate if this slide is next or previous
+          // When on slide 0: slide 1 is next, last slide is prev
+          // When on slide 1: slide 2 is next, slide 0 is prev
+          // When on last slide: slide 0 is next, second-to-last is prev
+
+          // For a circular carousel with n slides (0 to n-1)
+          // Next is (current + 1) % n
+          // Previous is (current - 1 + n) % n
+
+          // Fix the edge case where modulo calculations mark slide 0 as both next and previous
+          let isNextSlide = false
+          let isPrevSlide = false
+
+          // Calculate next slide - next is the one after current
+          isNextSlide = index === (currentSlide + 1) % slides.length
+
+          // Calculate previous slide - previous is the one before current
+          isPrevSlide =
             index === (currentSlide - 1 + slides.length) % slides.length
 
+          // Handle circular edge cases - prevent a slide from being both next and previous
+          if (isNextSlide && isPrevSlide) {
+            // In a 3-slide carousel, when on slide 1, slide 0 should only be previous
+            if (currentSlide === 1 && index === 0) {
+              isNextSlide = false
+              isPrevSlide = true
+            }
+            // In other cases, prioritize next over previous
+            else {
+              isPrevSlide = false
+            }
+          }
+
+          // Log slide states for debugging
+          if (index === 0) {
+            console.log(
+              `Slide 0: currentSlide=${currentSlide}, isNext=${isNextSlide}, isPrev=${isPrevSlide}`
+            )
+          }
+
           // Ensure the image URL has cache busting
-          const slideImage = slide.image.includes('wp.cadogy.com') 
+          const slideImage = slide.image.includes("wp.cadogy.com")
             ? preventImageCaching(slide.image)
             : slide.image
 
@@ -356,8 +394,14 @@ export function HeroCarousel({
                   ? "cursor-pointer transition duration-300 hover:brightness-125"
                   : ""
               )}
+              data-cursor={
+                isNextSlide ? "next" : isPrevSlide ? "prev" : "default"
+              }
+              data-cursor-label={
+                isNextSlide ? "NEXT" : isPrevSlide ? "BACK" : ""
+              }
               style={{
-                width: `${settings.mainCardWidth}%`, // Dynamic width for the main card based on screen size
+                width: `${settings.mainCardWidth}%`,
                 backgroundImage: `url(${slideImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -366,8 +410,14 @@ export function HeroCarousel({
               onTouchStart={(e) => handleSwipeStart(e.targetTouches[0].clientX)}
               onTouchMove={(e) => handleSwipeMove(e.targetTouches[0].clientX)}
               onTouchEnd={handleSwipeEnd}
-              // Clicks for both mobile and desktop
               onClick={() => handleCardClick(index)}
+              aria-label={
+                isNextSlide
+                  ? "Next slide"
+                  : isPrevSlide
+                    ? "Previous slide"
+                    : "Current slide"
+              }
             >
               <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-black/50 p-4 text-center">
                 <div className="flex w-full max-w-3xl flex-col items-center px-3 sm:px-6 md:px-8">
@@ -392,6 +442,8 @@ export function HeroCarousel({
                   {/* Title with fixed height based on screen size - now clickable */}
                   <div className="mb-3 min-h-[2.5rem] sm:mb-2 sm:min-h-[3rem] md:min-h-[3.5rem] lg:min-h-[4rem]">
                     <Link
+                      data-cursor="link"
+                      data-cursor-label="READ"
                       href={slide.link}
                       className="group/title inline-block"
                     >
@@ -412,6 +464,8 @@ export function HeroCarousel({
                   <div className="h-10">
                     <Button variant="hero" size="hero" asChild>
                       <Link
+                        data-cursor="link"
+                        data-cursor-label="READ"
                         href={slide.link}
                         className="inline-flex items-center"
                       >
@@ -435,6 +489,7 @@ export function HeroCarousel({
               <button
                 key={i}
                 className="relative h-1.5 sm:h-2"
+                data-cursor-default="true"
                 style={{
                   width: i === currentSlide ? "1.5rem" : "0.375rem",
                   transition: "width 0.3s ease",

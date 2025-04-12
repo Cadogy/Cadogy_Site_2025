@@ -6,6 +6,7 @@ import NextTopLoader from "nextjs-toploader"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import { CustomCursor } from "@/components/elements/CustomCursor"
 import { Footer } from "@/components/elements/footer"
 import { NavigationMenu } from "@/components/elements/navbar"
 import { PageTransition } from "@/components/elements/PageTransition"
@@ -96,8 +97,8 @@ export async function generateMetadata({
       googleBot: {
         index: true,
         follow: true,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
     verification: {
@@ -178,7 +179,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
+          "min-h-screen cursor-none bg-background antialiased",
           inter.className
         )}
       >
@@ -187,7 +188,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <NextTopLoader 
+          <CustomCursor />
+          <NextTopLoader
             color="#60a5fa"
             initialPosition={0.08}
             height={2}
