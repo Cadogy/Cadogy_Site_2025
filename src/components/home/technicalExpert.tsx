@@ -294,23 +294,18 @@ const TechnicalExpert = () => {
   <>
     {/* Add the global styles */}
     <style jsx global>{globalStyles}</style>
-    
+    {/* We good at Section */}
 <div className="space-y-16">
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.6 }}
->
-  <div className="py-6 text-center">
-          <h2 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
-            What We&apos;re Good At
-    </h2>
-          <p className="mt-4 max-w-2xl lg:text-lg leading-relaxed text-muted-foreground md:mx-auto">
-            We geek out on cutting-edge tech – from modern frameworks to infrastructure tweaks and AI tinkering – all to build stuff that works
-    </p>
+  <div>
+    <div className="py-6 text-center">
+      <h2 className="mb-4 font-medium tracking-tight text-foreground text-5xl">
+        What We&apos;re Good At
+      </h2>
+      <p className="mt-4 max-w-2xl lg:text-lg leading-relaxed text-muted-foreground md:mx-auto">
+        We geek out on cutting-edge tech – from modern frameworks to infrastructure tweaks and AI tinkering – all to build stuff that works
+      </p>
+    </div>
   </div>
-</motion.div>
 
       {/* Mobile-Only Accordion Cards */}
       <div className="block md:hidden space-y-3">

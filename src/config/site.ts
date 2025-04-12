@@ -4,7 +4,7 @@ import { env } from "@/env.mjs"
 
 export const siteConfig: SiteConfig = {
   name: "Cadogy",
-  slogan: "Web Development & Design Experts in Pompano Beach, FL",
+  slogan: "Web Development Experts in Pompano Beach, FL",
   author: "charlesknapp",
   description:
     "Cadogy is a web development agency in Pompano Beach, FL, crafting custom websites, fullstack apps, and secure infrastructure that help businesses grow online.",
