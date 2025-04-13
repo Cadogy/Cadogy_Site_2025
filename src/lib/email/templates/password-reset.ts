@@ -19,13 +19,13 @@ const PasswordResetEmailTemplate = ({ resetUrl }: PasswordResetEmailProps) => {
         </a>
       </div>
       <p style="${emailBaseStyles.text}">
-        If you did not request a password reset, you can safely ignore this email. Your 
-        account is secure.
-      </p>
-      <p style="${emailBaseStyles.text}">
         If the button above doesn't work, copy and paste this link into your browser:
         <br />
         <a href="${resetUrl}" style="${emailBaseStyles.link}">${resetUrl}</a>
+      </p>
+      <p style="${emailBaseStyles.textemph}">
+        If you did not request a password reset, you can safely ignore this email. Your 
+        account is secure.
       </p>
     `,
   })

@@ -19,6 +19,8 @@ export const emailBaseStyles = {
   heading:
     "color: #ffffff; font-size: 24px; font-weight: 600; text-align: center; margin: 0 0 24px 0;",
   text: "color: #e0e0e0; font-size: 16px; line-height: 24px; margin: 0 0 24px 0;",
+  textemph:
+    "color: #757575; font-size: 13px; font-style: italic; text-align: center; margin: 0px auto;",
   button:
     "display: inline-block; background-color: #3b82f6; color: #ffffff; font-size: 16px; font-weight: 500; padding: 12px 28px; border-radius: 4px; text-decoration: none; text-align: center;",
   buttonContainer: "padding: 8px 0 16px; text-align: center;",

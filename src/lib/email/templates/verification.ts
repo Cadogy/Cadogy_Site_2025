@@ -20,12 +20,12 @@ const VerificationEmailTemplate = ({ confirmUrl }: VerificationEmailProps) => {
         </a>
       </div>
       <p style="${emailBaseStyles.text}">
-        If you did not create an account with Cadogy, you can safely ignore this email.
-      </p>
-      <p style="${emailBaseStyles.text}">
         If the button above doesn't work, copy and paste this link into your browser:
         <br />
         <a href="${confirmUrl}" style="${emailBaseStyles.link}">${confirmUrl}</a>
+      </p>
+      <p style="${emailBaseStyles.textemph}">
+        If you did not create an account with Cadogy, you can safely ignore this email.
       </p>
     `,
   })
