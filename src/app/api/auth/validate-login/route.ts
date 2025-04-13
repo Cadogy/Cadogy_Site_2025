@@ -9,7 +9,31 @@ import { connectToDatabase } from "@/lib/mongodb"
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   password: z.string().min(1, { message: "Password is required" }),
+  turnstileToken: z.string().min(1, { message: "Security check is required" }),
 })
+
+// Verify Cloudflare Turnstile token
+async function verifyTurnstileToken(token: string): Promise<boolean> {
+  try {
+    const formData = new FormData()
+    formData.append("secret", process.env.TURNSTILE_SECRET_KEY!)
+    formData.append("response", token)
+
+    const result = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+
+    const outcome = await result.json()
+    return outcome.success
+  } catch (error) {
+    console.error("Error verifying Turnstile token:", error)
+    return false
+  }
+}
 
 /**
  * API route for validating login credentials and checking email verification
@@ -29,10 +53,19 @@ export async function POST(request: Request) {
       )
     }
 
+    const { email, password, turnstileToken } = result.data
+
+    // Verify Turnstile token
+    const isValidToken = await verifyTurnstileToken(turnstileToken)
+    if (!isValidToken) {
+      return NextResponse.json(
+        { message: "Security check failed. Please try again." },
+        { status: 400 }
+      )
+    }
+
     // Connect to database
     await connectToDatabase()
-
-    const { email, password } = result.data
 
     // Find user by email
     const user = await User.findOne({ email })

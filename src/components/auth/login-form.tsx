@@ -1,9 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import Image from "next/image"
+import React, { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
+import { AtSign, Eye, EyeOff, KeyRound, Loader2 } from "lucide-react"
 import { signIn, useSession } from "next-auth/react"
+import { Turnstile } from "next-turnstile"
+import { v4 as uuidv4 } from "uuid"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,28 +25,24 @@ export default function LoginForm() {
   const [verificationStatus, setVerificationStatus] = useState<string | null>(
     null
   )
+  const [showPassword, setShowPassword] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileId] = useState(uuidv4())
 
-  // Log session status changes
+  // Handle session changes
   useEffect(() => {
-    // console.log("[Session] Current auth status:", status)
-    // console.log("[Session] Session data:", session)
-
     if (status === "authenticated" && session) {
-      // console.log("[Session] User is authenticated, session exists")
-      // Check if we need to redirect
       const callbackUrl = searchParams.get("callbackUrl")
       if (callbackUrl) {
-        // console.log("[Session] Redirecting to callback URL:", callbackUrl)
         router.push(callbackUrl)
       } else if (window.location.pathname === "/login") {
-        // console.log("[Session] Redirecting authenticated user to dashboard")
         router.push("/dashboard")
       }
     }
   }, [status, session, router, searchParams])
 
+  // Check URL params for verification status
   useEffect(() => {
-    // Check if there are verification status params
     const verified = searchParams.get("verified") === "true"
     const registered = searchParams.get("registered") === "true"
     const errorParam = searchParams.get("error")
@@ -62,7 +61,6 @@ export default function LoginForm() {
     // Handle NextAuth error parameter in URL
     if (errorParam) {
       if (errorParam === "CredentialsSignin") {
-        // Generic credentials error, could be unverified email or wrong password
         setError("Invalid email or password.")
       } else if (
         errorParam.includes("verify") ||
@@ -72,13 +70,12 @@ export default function LoginForm() {
         if (email) {
           setUnverifiedEmail(email)
           setError(
-            "Your email is not verified. Please check your inbox for the verification link or request a new one."
+            "Your email is not verified. Please verify your email before logging in."
           )
         } else {
           setError("Please verify your email before logging in.")
         }
       } else {
-        // Other NextAuth errors
         setError(decodeURIComponent(errorParam))
       }
     }
@@ -124,34 +121,41 @@ export default function LoginForm() {
     e.preventDefault()
     setError("")
     setUnverifiedEmail(null)
-    setIsLoading(true)
 
-    // console.log("[Login] Starting login process with:", { email })
+    // Validate turnstile token
+    if (!turnstileToken) {
+      setError("Please complete the security check")
+      toast({
+        title: "Verification required",
+        description: "Please complete the security check to continue",
+        variant: "destructive",
+      })
+      return
+    }
+
+    setIsLoading(true)
 
     try {
       // First, validate login credentials and check email verification
-      // console.log("[Login] Validating credentials...")
       const validationResponse = await fetch("/api/auth/validate-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          turnstileToken,
+        }),
       })
 
-      // console.log(
-      //   "[Login] Validation response status:",
-      //   validationResponse.status
-      // )
       const validationData = await validationResponse.json()
-      // console.log("[Login] Validation data:", validationData)
 
       // If email is not verified, show verification needed message
       if (validationResponse.status === 403 && !validationData.verified) {
-        // console.log("[Login] Email not verified:", email)
         setUnverifiedEmail(email)
         setError(
-          "Your email is not verified. Please check your inbox for the verification link or request a new one."
+          "Your email is not verified. Please verify your email before logging in."
         )
         toast({
           title: "Verification required",
@@ -163,7 +167,6 @@ export default function LoginForm() {
 
       // If other validation error
       if (!validationResponse.ok) {
-        // console.log("[Login] Validation failed:", validationData.message)
         setError(validationData.message || "Invalid credentials")
         toast({
           title: "Login failed",
@@ -174,18 +177,15 @@ export default function LoginForm() {
       }
 
       // If validation passed, proceed with actual login
-      // console.log("[Login] Validation passed, proceeding with signIn...")
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
+        turnstileToken,
         callbackUrl: "/dashboard",
       })
 
-      // console.log("[Login] SignIn result:", result)
-
       if (result?.error) {
-        // console.log("[Login] SignIn error:", result.error)
         setError(result.error)
         toast({
           title: "Login failed",
@@ -193,7 +193,6 @@ export default function LoginForm() {
           variant: "destructive",
         })
       } else if (result?.ok) {
-        // console.log("[Login] SignIn successful, redirecting to dashboard...")
         toast({
           title: "Login successful",
           description: "You are now logged in",
@@ -201,13 +200,11 @@ export default function LoginForm() {
 
         // Add a delay to ensure session is established
         setTimeout(() => {
-          // console.log("[Login] Executing redirect to dashboard...")
           router.push("/dashboard")
           router.refresh()
         }, 500)
       }
     } catch (error) {
-      // console.error("[Login] Unexpected login error:", error)
       setError("An unexpected error occurred. Please try again.")
       toast({
         title: "Login failed",
@@ -219,187 +216,151 @@ export default function LoginForm() {
     }
   }
 
-  const handleForgotPassword = () => {
-    router.push("/forgot-password")
-  }
-
   return (
-    <div className="flex min-h-screen w-full">
-      {/* Left Column - Login Form */}
-      <div className="flex w-full flex-col items-center justify-center p-8 lg:w-2/5">
-        <div className="w-full max-w-md rounded-xl bg-[#181818] p-10 shadow-lg backdrop-blur-md">
-          <div className="flex flex-col items-center">
-            <a href="/">
-              <svg
-                width="48px"
-                height="48px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+    <div className="w-full max-w-md">
+      <div className="auth-card">
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold text-white">Welcome back</h1>
+          <p className="mt-2 text-sm text-slate-400">
+            Sign in to your account to continue
+          </p>
+        </div>
+
+        {error && (
+          <div className="mb-6 rounded-lg bg-red-500/10 p-3 text-sm text-red-500">
+            <p>{error}</p>
+            {unverifiedEmail && (
+              <button
+                onClick={handleResendVerification}
+                disabled={resendingEmail}
+                className="mt-2 inline-flex items-center text-xs font-medium text-red-400 hover:text-red-300"
               >
-                <path
-                  d="M19.4491 6.94063V9.45062C19.4491 10.1606 18.7291 10.6206 18.0591 10.3706C17.2191 10.0606 16.2891 9.94062 15.3091 10.0406C12.9291 10.3006 10.4891 12.5906 10.0891 14.9606C9.75906 16.9306 10.3891 18.7706 11.5991 20.0706C12.1491 20.6706 11.7791 21.6406 10.9691 21.7306C10.2791 21.8106 9.59906 21.7906 9.21906 21.5106L3.71906 17.4006C3.06906 16.9106 2.53906 15.8506 2.53906 15.0306V6.94063C2.53906 5.81063 3.39906 4.57063 4.44906 4.17063L9.94906 2.11062C10.5191 1.90063 11.4591 1.90063 12.0291 2.11062L17.5291 4.17063C18.5891 4.57063 19.4491 5.81063 19.4491 6.94063Z"
-                  fill="#ededed"
-                />
-                <path
-                  d="M16 11.5117C13.52 11.5117 11.5 13.5317 11.5 16.0117C11.5 18.4917 13.52 20.5117 16 20.5117C18.48 20.5117 20.5 18.4917 20.5 16.0117C20.5 13.5217 18.48 11.5117 16 11.5117Z"
-                  fill="#f0f0f0"
-                />
-                <path
-                  d="M21 22.0009C20.73 22.0009 20.48 21.8909 20.29 21.7109C20.25 21.6609 20.2 21.6109 20.17 21.5509C20.13 21.5009 20.1 21.4409 20.08 21.3809C20.05 21.3209 20.03 21.2609 20.02 21.2009C20.01 21.1309 20 21.0709 20 21.0009C20 20.8709 20.03 20.7409 20.08 20.6209C20.13 20.4909 20.2 20.3909 20.29 20.2909C20.52 20.0609 20.87 19.9509 21.19 20.0209C21.26 20.0309 21.32 20.0509 21.38 20.0809C21.44 20.1009 21.5 20.1309 21.55 20.1709C21.61 20.2009 21.66 20.2509 21.71 20.2909C21.8 20.3909 21.87 20.4909 21.92 20.6209C21.97 20.7409 22 20.8709 22 21.0009C22 21.2609 21.89 21.5209 21.71 21.7109C21.66 21.7509 21.61 21.7909 21.55 21.8309C21.5 21.8709 21.44 21.9009 21.38 21.9209C21.32 21.9509 21.26 21.9709 21.19 21.9809C21.13 21.9909 21.06 22.0009 21 22.0009Z"
-                  fill="#ededed"
-                />
-              </svg>
-            </a>
-            <h1 className="mb-6 text-center text-xl">Welcome Back</h1>
-            {error && (
-              <div className="mb-4 w-full rounded-md bg-red-500/10 p-3 text-sm text-red-500">
-                {error}
-                {unverifiedEmail && (
-                  <div className="mt-2">
-                    <Button
-                      variant="link"
-                      size="sm"
-                      className="h-auto p-0 text-blue-500"
-                      onClick={handleResendVerification}
-                      disabled={resendingEmail}
-                    >
-                      {resendingEmail
-                        ? "Sending..."
-                        : "Resend verification email"}
-                    </Button>
-                  </div>
+                {resendingEmail ? (
+                  <>
+                    <Loader2 className="mr-1.5 h-3 w-3 animate-spin" />
+                    Sending verification email...
+                  </>
+                ) : (
+                  <>Resend verification email</>
                 )}
-              </div>
-            )}
-            {verificationStatus === "verified" && (
-              <div className="mb-4 w-full rounded-md bg-green-500/10 p-3 text-sm text-green-500">
-                Your email has been verified successfully! You can now log in.
-              </div>
+              </button>
             )}
           </div>
+        )}
 
-          {/* Email and Password Form */}
-          <form className="space-y-4" onSubmit={handleSubmit}>
+        {verificationStatus === "verified" && (
+          <div className="mb-6 rounded-lg bg-green-500/10 p-3 text-sm text-green-500">
+            <p>
+              Your email has been verified successfully. You can now log in.
+            </p>
+          </div>
+        )}
+
+        {verificationStatus === "registered" && (
+          <div className="mb-6 rounded-lg bg-blue-500/10 p-3 text-sm text-blue-400">
+            <p>
+              Your account has been created. Please check your email to verify
+              your account.
+            </p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-1">
+            <label htmlFor="email" className="auth-label">
+              Email address
+            </label>
             <div className="relative">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <Input
-                type="email"
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                <AtSign className="h-4 w-4" />
+              </div>
+              <input
                 id="email"
-                name="email"
-                placeholder="Enter your email address"
+                type="email"
+                placeholder="name@example.com"
+                autoComplete="email"
+                required
+                className="auth-input pl-10"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
+                disabled={isLoading}
               />
             </div>
-            <div className="relative">
-              <label htmlFor="password" className="text-sm font-medium">
+          </div>
+
+          <div className="space-y-1">
+            <div className="flex items-center justify-between">
+              <label htmlFor="password" className="auth-label">
                 Password
               </label>
-              <Input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
               <button
                 type="button"
-                className="absolute right-2 top-2 text-xs text-stone-400 hover:underline"
-                onClick={handleForgotPassword}
+                onClick={() => router.push("/forgot-password")}
+                className="text-xs font-medium text-slate-400 hover:text-slate-300"
               >
                 Forgot password?
               </button>
             </div>
-            <Button
-              type="submit"
-              className="w-full rounded-md"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
-
-          {/* Footer */}
-          <footer className="mt-6 text-center text-sm text-slate-300">
-            Dont have an account?{" "}
-            <a
-              href="/register"
-              className="font-medium text-green-500 hover:underline"
-            >
-              Sign up
-            </a>
-          </footer>
-        </div>
-      </div>
-
-      {/* Right Column - Visual Section */}
-      <div className="hidden h-full lg:block lg:w-3/5">
-        <div className="fixed right-0 top-0 flex h-full w-full items-center justify-center bg-background p-10 lg:w-3/5">
-          {/* Background Image */}
-          <div className="relative h-full w-full overflow-hidden rounded-3xl bg-white/10">
-            <Image
-              src="/images/assets/sound-effects.webp"
-              alt="Sound Effects Library"
-              layout="fill"
-              objectFit="contain"
-              className="scale-75 rounded-3xl"
-            />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            {/* Text Overlay */}
-            <div className="absolute bottom-10 left-10 max-w-[80%] text-white">
-              <div className="mb-2 text-xs uppercase text-stone-400">
-                Latest updates
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                <KeyRound className="h-4 w-4" />
               </div>
-              <h2 className="text-2xl xl:text-4xl">
-                Building technology to help small game creators access larger
-                asset collections
-              </h2>
-            </div>
-            {/* Navigation Arrows */}
-            <div className="absolute bottom-10 right-10 flex space-x-4">
-              <Button variant="outline" className="h-12 w-12 rounded-md">
-                {/* Left Arrow */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </Button>
-              <Button variant="outline" className="h-12 w-12 rounded-md">
-                {/* Right Arrow */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Button>
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                autoComplete="current-password"
+                required
+                className="auth-input pl-10 pr-10"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-300"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
             </div>
           </div>
+
+          {/* Add turnstile component before the submit button */}
+          <div className="mt-4 flex justify-center">
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              onVerify={(token: string) => setTurnstileToken(token)}
+              refreshExpired="auto"
+              responseField={false}
+              id={turnstileId}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={isLoading || !turnstileToken}
+            className="auth-button mt-2"
+          >
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
+            {isLoading ? "Signing in..." : "Sign in"}
+          </button>
+        </form>
+
+        <div className="mt-6 flex items-center justify-center gap-x-1 text-xs text-slate-400">
+          <span>Don&apos;t have an account?</span>
+          <Link
+            href="/register"
+            className="font-medium text-slate-300 hover:text-white"
+          >
+            Create one now
+          </Link>
         </div>
       </div>
     </div>

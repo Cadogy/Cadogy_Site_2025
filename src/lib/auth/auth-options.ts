@@ -64,6 +64,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        turnstileToken: { label: "Turnstile Token", type: "text" },
       },
       async authorize(credentials) {
         // Connect to database
@@ -73,22 +74,15 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials")
         }
 
+        // We don't need to verify the turnstile token here because it's already
+        // verified in the validate-login API route before this is called
+
         // Find user by email
         const user = await User.findOne({ email: credentials.email })
 
         if (!user || !user.password) {
           throw new Error("No user found with this email")
         }
-
-        // Log verification status for debugging
-        // console.log("User verification status:", {
-        //   email: user.email,
-        //   emailVerified: user.emailVerified,
-        //   hasVerification:
-        //     user.emailVerified !== undefined && user.emailVerified !== null,
-        //   verifiedType: typeof user.emailVerified,
-        //   isDate: user.emailVerified instanceof Date,
-        // })
 
         // Check if email is verified - using strict check
         if (

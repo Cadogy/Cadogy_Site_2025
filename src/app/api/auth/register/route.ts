@@ -21,7 +21,31 @@ const registerSchema = z.object({
       message: "Password must contain at least one lowercase letter",
     })
     .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+  turnstileToken: z.string().min(1, { message: "Security check is required" }),
 })
+
+// Verify Cloudflare Turnstile token
+async function verifyTurnstileToken(token: string): Promise<boolean> {
+  try {
+    const formData = new FormData()
+    formData.append("secret", process.env.TURNSTILE_SECRET_KEY!)
+    formData.append("response", token)
+
+    const result = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+
+    const outcome = await result.json()
+    return outcome.success
+  } catch (error) {
+    console.error("Error verifying Turnstile token:", error)
+    return false
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -37,10 +61,19 @@ export async function POST(request: Request) {
       )
     }
 
+    const { email, password, turnstileToken } = result.data
+
+    // Verify Turnstile token
+    const isValidToken = await verifyTurnstileToken(turnstileToken)
+    if (!isValidToken) {
+      return NextResponse.json(
+        { message: "Security check failed. Please try again." },
+        { status: 400 }
+      )
+    }
+
     // Connect to database
     await connectToDatabase()
-
-    const { email, password } = result.data
 
     // Check if user already exists
     const existingUser = await User.findOne({ email })

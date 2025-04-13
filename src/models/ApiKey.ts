@@ -23,7 +23,6 @@ const ApiKeySchema = new Schema<ApiKey>(
     key: {
       type: String,
       required: true,
-      unique: true,
     },
     name: {
       type: String,
@@ -58,7 +57,7 @@ const ApiKeySchema = new Schema<ApiKey>(
 
 // Create indexes for better performance
 ApiKeySchema.index({ userId: 1, isActive: 1 })
-ApiKeySchema.index({ key: 1 })
+ApiKeySchema.index({ key: 1 }, { unique: true })
 
 export default mongoose.models.ApiKey ||
   mongoose.model<ApiKey>("ApiKey", ApiKeySchema)
