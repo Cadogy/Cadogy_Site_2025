@@ -2,6 +2,7 @@
 
 import { Suspense } from "react"
 import Link from "next/link"
+import { useUserData } from "@/providers/UserDataProvider"
 import { BellIcon, Coins } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,7 +12,8 @@ import { UserProfileSkeleton } from "@/components/skeleton/user-profile-skeleton
 import DashboardNav from "./dashboard-nav"
 
 interface DashboardHeaderProps {
-  userData: {
+  // Optional userData prop for backward compatibility
+  userData?: {
     id: string
     name: string | null
     email: string | null
@@ -20,7 +22,21 @@ interface DashboardHeaderProps {
   } | null
 }
 
-export function DashboardHeader({ userData }: DashboardHeaderProps) {
+export function DashboardHeader({
+  userData: propUserData,
+}: DashboardHeaderProps) {
+  // Use the centralized user data from context
+  const { userData: contextUserData, isLoading } = useUserData()
+
+  // Use prop data if provided (for backward compatibility), otherwise use context data
+  const userData = propUserData || {
+    id: contextUserData.id,
+    name: contextUserData.name,
+    email: contextUserData.email,
+    image: contextUserData.image,
+    tokenBalance: contextUserData.tokenBalance,
+  }
+
   return (
     <>
       <header className="sticky top-0 z-30 border-b bg-background">
@@ -72,7 +88,7 @@ export function DashboardHeader({ userData }: DashboardHeaderProps) {
 
             {/* User profile */}
             <Suspense fallback={<UserProfileSkeleton />}>
-              {userData ? (
+              {userData && !isLoading ? (
                 <UserProfile user={userData} />
               ) : (
                 <UserProfileSkeleton />

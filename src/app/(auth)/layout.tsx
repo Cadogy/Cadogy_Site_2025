@@ -6,6 +6,7 @@ import type { Viewport } from "next"
 import { Inter } from "next/font/google"
 import { SessionProvider } from "@/providers/SessionProvider"
 import { ToastProvider } from "@/providers/toast-provider"
+import { UserDataProvider } from "@/providers/UserDataProvider"
 import NextTopLoader from "nextjs-toploader"
 
 import { cn } from "@/lib/utils"
@@ -69,7 +70,9 @@ export default function AuthLayout({
               speed={200}
             />
 
-            <ToastProvider autoDismissTimeout={5000}>{children}</ToastProvider>
+            <ToastProvider autoDismissTimeout={5000}>
+              <UserDataProvider>{children}</UserDataProvider>
+            </ToastProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

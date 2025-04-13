@@ -2,6 +2,7 @@
 
 import { Suspense, useCallback, useEffect, useState } from "react"
 import Link from "next/link"
+import { useUserData } from "@/providers/UserDataProvider"
 import { useSession } from "next-auth/react"
 
 import { Button } from "@/components/ui/button"
@@ -41,112 +42,16 @@ export default function DashboardLayout({
  * Dashboard-specific navigation component with auth checking
  */
 function DashboardNavigation() {
-  const { data: session, status } = useSession()
-  const [userData, setUserData] = useState<{
-    id: string
-    name: string | null
-    email: string | null
-    image: string | null
-    tokenBalance?: number
-  } | null>(null)
+  const { userData, isLoading } = useUserData()
+  const { data: session } = useSession()
 
-  // Define type for userData within the fetchUserData function
-  type UserDataType = {
-    id: string
-    name: string | null
-    email: string | null
-    image: string | null
-    tokenBalance?: number
+  // Redirect if not authenticated
+  if (!isLoading && !userData && !session) {
+    window.location.href = "/login"
+    return null
   }
 
-  // Fetch user data from API with useCallback
-  const fetchUserData = useCallback(async () => {
-    try {
-      // First, fetch basic user profile
-      const profileResponse = await fetch("/api/user/profile")
-      let userData: UserDataType
-
-      if (profileResponse.ok) {
-        const profileData = await profileResponse.json()
-        userData = {
-          id: profileData.id,
-          name: profileData.name,
-          email: profileData.email,
-          image: profileData.image,
-        }
-      } else {
-        // Fallback to session data for basic info
-        userData = {
-          id: session?.user?.id || "",
-          name: session?.user?.name || null,
-          email: session?.user?.email || null,
-          image: session?.user?.image || null,
-        }
-      }
-
-      // Now fetch token balance from dashboard API
-      try {
-        const tokenResponse = await fetch("/api/dashboard/usage", {
-          cache: "no-store",
-          headers: {
-            "x-timestamp": Date.now().toString(),
-          },
-        })
-
-        if (tokenResponse.ok) {
-          const dashboardData = await tokenResponse.json()
-          userData.tokenBalance = dashboardData.user?.tokenBalance || 0
-          // console.log("Token balance fetched:", userData.tokenBalance)
-        }
-      } catch (tokenError) {
-        console.error("Error fetching token balance:", tokenError)
-      }
-
-      // Set the combined user data
-      setUserData(userData)
-    } catch (error) {
-      console.error("Error fetching user data:", error)
-      // Fallback to session data
-      setUserData({
-        id: session?.user?.id || "",
-        name: session?.user?.name || null,
-        email: session?.user?.email || null,
-        image: session?.user?.image || null,
-      })
-    }
-  }, [
-    session?.user?.id,
-    session?.user?.name,
-    session?.user?.email,
-    session?.user?.image,
-  ])
-
-  // Fetch user data when session is authenticated
-  useEffect(() => {
-    if (status === "authenticated" && session?.user?.id) {
-      fetchUserData()
-    }
-  }, [status, session?.user?.id, fetchUserData])
-
-  // Redirect to login if not authenticated
-  if (status === "unauthenticated") {
-    return (
-      <div className="sticky top-0 z-50 flex h-16 items-center justify-center bg-red-500/10 px-4">
-        <p className="text-sm text-red-600 dark:text-red-400">
-          Not authenticated -
-          <Link href="/login" className="ml-1 font-medium underline">
-            Login now
-          </Link>
-        </p>
-      </div>
-    )
-  }
-
-  return (
-    <div className="sticky top-0 z-50">
-      <DashboardHeader userData={userData} />
-    </div>
-  )
+  return <DashboardHeader />
 }
 
 /**

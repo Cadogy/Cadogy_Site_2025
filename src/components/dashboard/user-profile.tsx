@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useUserData } from "@/providers/UserDataProvider"
 import {
   BoltIcon,
   ChevronDownIcon,
@@ -21,7 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 interface UserProfileProps {
-  user: {
+  // Make user optional since we can get it from context
+  user?: {
     id: string
     name: string | null
     email: string | null
@@ -29,7 +31,18 @@ interface UserProfileProps {
   }
 }
 
-export function UserProfile({ user }: UserProfileProps) {
+export function UserProfile({ user: propUser }: UserProfileProps) {
+  // Get user data from context if not provided via props
+  const { userData: contextUser } = useUserData()
+
+  // Use prop data if provided, otherwise use context data
+  const user = propUser || {
+    id: contextUser.id,
+    name: contextUser.name,
+    email: contextUser.email,
+    image: contextUser.image,
+  }
+
   // Get initials for avatar fallback
   const getInitials = () => {
     if (user?.name) {
