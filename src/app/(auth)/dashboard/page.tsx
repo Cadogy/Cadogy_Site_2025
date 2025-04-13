@@ -1,49 +1,75 @@
-"use client"
+import type { Metadata } from "next"
 
-import { AlertCircle } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { siteConfig } from "@/config/site"
+import { DashboardContent } from "@/components/dashboard/dashboard-content"
 
-import { useDashboardData } from "@/hooks/use-dashboard-data"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { ApiKeyCard } from "@/components/dashboard/api-key-card"
-import { GettingStartedCard } from "@/components/dashboard/getting-started-card"
-import { StatsCards } from "@/components/dashboard/stats-cards"
-import { SystemAlerts } from "@/components/dashboard/system-alerts"
-import { WelcomeCard } from "@/components/dashboard/welcome-card"
+export const metadata: Metadata = {
+  title: `Dashboard - ${siteConfig.name}`,
+  description:
+    "Manage your Cadogy account, API keys, and view your usage statistics.",
+  keywords: [
+    ...siteConfig.keywords,
+    "dashboard",
+    "API keys",
+    "analytics",
+    "user profile",
+    "admin panel",
+  ],
+  authors: [{ name: siteConfig.author, url: siteConfig.url.author }],
+  creator: siteConfig.author,
+  publisher: siteConfig.name,
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: true,
+      noimageindex: true,
+    },
+  },
+  alternates: {
+    canonical: `${siteConfig.url.base}/dashboard`,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: `${siteConfig.url.base}/dashboard`,
+    title: `Dashboard - ${siteConfig.name}`,
+    description:
+      "Access your Cadogy account dashboard, manage your API keys, and view usage statistics.",
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} Dashboard Preview`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Dashboard - ${siteConfig.name}`,
+    description:
+      "Access your Cadogy account dashboard, manage your API keys, and view usage statistics.",
+    images: [siteConfig.ogImage],
+    creator: "@cadogy",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 2,
+  },
+  category: "Dashboard",
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": `${siteConfig.name} Dashboard`,
+    "format-detection": "telephone=no",
+  },
+}
 
 export default function DashboardPage() {
-  const { data: session } = useSession()
-  const { isLoading, error, userStats, systemAlerts } = useDashboardData()
-
-  return (
-    <div className="space-y-6">
-      {/* Error message if data fetching failed */}
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {/* Welcome message */}
-      <WelcomeCard session={session} />
-
-      {/* System Alerts */}
-      <SystemAlerts alerts={systemAlerts} />
-
-      {/* Stats Cards */}
-      <StatsCards stats={userStats} isLoading={isLoading} />
-
-      {/* API Key Quick Info */}
-      <ApiKeyCard
-        isLoading={isLoading}
-        hasApiKey={userStats.hasApiKey}
-        apiKey={userStats.apiKey}
-      />
-
-      {/* Getting Started */}
-      <GettingStartedCard />
-    </div>
-  )
+  return <DashboardContent />
 }

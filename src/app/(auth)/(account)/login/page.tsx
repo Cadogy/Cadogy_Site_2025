@@ -6,7 +6,8 @@ import LoginForm from "@/components/auth/login-form"
 
 export const metadata: Metadata = {
   title: `Clients Login - Cadogy`,
-  description: "",
+  description:
+    "Login to your Cadogy account to access your API keys and manage your account.",
   keywords: [],
   openGraph: {
     title: `Clients Login - Cadogy`,

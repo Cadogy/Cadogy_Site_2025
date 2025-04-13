@@ -27,5 +27,5 @@ export const siteConfig: SiteConfig = {
   // links: {
   //   github: "https://github.com/redpangilinan/next-entree",
   // },
-  ogImage: `${env.NEXT_PUBLIC_APP_URL}/og.jpg`,
+  ogImage: `${env.NEXT_PUBLIC_APP_URL}/images/cadogy_opengraph_banner.jpg`,
 }

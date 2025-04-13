@@ -5,8 +5,9 @@ import { siteConfig } from "@/config/site"
 import RegisterForm from "@/components/auth/register-form"
 
 export const metadata: Metadata = {
-  title: "Register | Cadogy",
-  description: "Create a new account with Cadogy",
+  title: "Register - Cadogy",
+  description:
+    "Create an account to access the powerful Cadogy API for clients.",
   keywords: ["register", "sign up", "account"],
   openGraph: {
     title: `Register - Cadogy`,

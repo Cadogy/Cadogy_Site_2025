@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import ResetPasswordForm from "@/components/auth/reset-password-form"
 
 export const metadata: Metadata = {
-  title: "Reset Password | Cadogy",
+  title: "Reset Password - Cadogy",
   description: "Reset your password to regain access to your account",
 }
 
