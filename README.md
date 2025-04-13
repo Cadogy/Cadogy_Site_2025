@@ -7,7 +7,7 @@
 
 ## About Cadogy Agency
 
-A modern, responsive, and feature-rich web application for Cadogy Agency built with Next.js 14+, TypeScript, and a headless WordPress CMS integration.
+A modern, responsive, and feature-rich web application for Cadogy Agency built with Next.js 14+, TypeScript, and a headless WordPress CMS integration. The platform includes comprehensive user authentication, email verification, API management, and a rich interactive UI experience.
 
 ## Features
 
@@ -16,11 +16,16 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 - **Responsive Design**: Mobile-first approach with adaptive layouts
 - **Dark/Light Mode**: Theme switching with system preference detection
 - **CMS Integration**: Headless WordPress API for content management
-- **Authentication**: User registration, login, and profile management
+- **Authentication**: Complete user registration, login, email verification, and profile management
+- **Email System**: Professional email templates with responsive design and dark mode styling
+- **Toast Notifications**: Custom toast system with auto-dismiss and progress indicators
 - **Articles System**: Blog posts with categories, tags, and search functionality
-- **Interactive UI**: Carousels, animations, and micro-interactions using Framer Motion
+- **API Management**: API key generation, usage tracking, and quota management
+- **Interactive UI**: Carousels, animations, and micro-interactions using Framer Motion and GSAP
 - **Accessibility**: ARIA compliant components with keyboard navigation support
 - **Three.js Integration**: 3D rendering capabilities with React Three Fiber
+- **Session Management**: Secure user sessions with NextAuth.js
+- **Global CDN**: Cloudflare integration for enhanced performance and security
 
 ## Tech Stack
 
@@ -28,14 +33,19 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 - **Language**: TypeScript
 - **Styling**: TailwindCSS with class-variance-authority
 - **UI Components**: shadcn/ui (Radix UI + Tailwind)
+- **Animation**:
+  - Framer Motion for UI animations
+  - GSAP for advanced animations and transitions
 - **State Management**: React Hooks
 - **Forms**: React Hook Form with Zod validation
-- **Authentication**: NextAuth.js
-- **Database**: MongoDB
-- **CMS**: Headless WordPress API
-- **Animation**: Framer Motion
+- **Authentication**: NextAuth.js with custom email verification flow
+- **Database**: MongoDB for user data and application state
+- **CMS**: Headless WordPress API with custom integration
+- **Email Service**: Resend.com with custom responsive templates
 - **3D Rendering**: Three.js with React Three Fiber
-- **API Integration**: Axios
+- **API Integration**: Custom API client with rate limiting and authentication
+- **CDN & Security**: Cloudflare for edge caching and DDoS protection
+- **Notifications**: Custom toast system with progress indicators
 
 ## Project Structure
 
@@ -43,9 +53,12 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 ├── src/
 │   ├── app/               # Next.js application routes (App Router)
 │   │   ├── (auth)/        # Authentication-related routes
+│   │   ├── api/           # API routes and endpoints
 │   │   └── (default)/     # Main application routes
 │   ├── components/        # Reusable UI components
+│   │   ├── auth/          # Authentication components
 │   │   ├── body/          # Page-specific components
+│   │   ├── dashboard/     # Dashboard components
 │   │   ├── elements/      # Reusable UI elements
 │   │   ├── home/          # Homepage-specific components
 │   │   ├── mdx/           # MDX rendering components
@@ -53,7 +66,10 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 │   ├── config/            # Configuration files
 │   ├── hooks/             # Custom React hooks
 │   ├── lib/               # Utility functions
+│   │   ├── auth/          # Authentication utilities
+│   │   ├── email/         # Email templates and utilities
 │   │   └── wordpress-api.ts  # WordPress API integration
+│   ├── providers/         # React context providers
 │   ├── styles/            # Global styles
 │   └── types/             # TypeScript type definitions
 ├── public/                # Static assets
@@ -67,16 +83,21 @@ A modern, responsive, and feature-rich web application for Cadogy Agency built w
 - Node.js 18+ (LTS recommended)
 - pnpm (recommended) or npm
 - Git
+- MongoDB instance or connection string
+- WordPress instance with REST API enabled
+- Resend.com API key for email functionality
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/your-org/cadogy-fs.git
 cd cadogy-fs
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 # or
@@ -84,12 +105,21 @@ npm install
 ```
 
 3. Set up your environment variables:
+
 ```bash
 cp .env.example .env.local
 ```
-Edit `.env.local` with your configuration values.
+
+Edit `.env.local` with your configuration values including:
+
+- Database connection strings
+- NextAuth secrets
+- WordPress API endpoints
+- Resend API keys
+- Cloudflare tokens (if applicable)
 
 4. Run the development server:
+
 ```bash
 pnpm dev
 # or
@@ -118,9 +148,38 @@ The application integrates with a headless WordPress instance for content manage
 - Content formatting and HTML entity decoding
 - Cache-busting for WordPress images
 
+### Email System
+
+The application includes a comprehensive email system with:
+
+- Professional responsive email templates
+- Dark mode styling consistent with the app theme
+- Email verification flow with automatic redirect
+- Password reset functionality
+- Custom branding and styling
+
+### User Authentication
+
+Complete authentication system with:
+
+- User registration with email verification
+- Password reset flow
+- Session management with NextAuth.js
+- API token generation for programmatic access
+- Role-based authorization
+
 ## Deployment
 
-This application is designed to be deployed on Vercel or any Next.js-compatible hosting service.
+This application is designed to be deployed on Vercel or any Next.js-compatible hosting service with Cloudflare integration for enhanced performance and security.
+
+### Cloudflare Setup
+
+For Cloudflare integration:
+
+1. Create a Cloudflare account and add your domain
+2. Set up Cloudflare Pages or Web Workers as needed
+3. Configure environment variables in Cloudflare dashboard
+4. Set up appropriate caching rules
 
 ## License
 
