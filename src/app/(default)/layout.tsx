@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
+import { SessionProvider } from "@/providers/SessionProvider"
 import NextTopLoader from "nextjs-toploader"
 
 import { siteConfig } from "@/config/site"
@@ -96,8 +97,8 @@ export async function generateMetadata({
       googleBot: {
         index: true,
         follow: true,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
     verification: {
@@ -185,23 +186,26 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
+          enableSystem
           disableTransitionOnChange
         >
-          <NextTopLoader 
-            color="#60a5fa"
-            initialPosition={0.08}
-            height={2}
-            showSpinner={false}
-            easing="ease"
-            speed={200}
-          />
-          <NavigationMenu />
-          <PageTransition>
-            <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">
-              {children}
-            </main>
-          </PageTransition>
-          <Footer />
+          <SessionProvider>
+            <NextTopLoader
+              color="#60a5fa"
+              initialPosition={0.08}
+              height={3}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+            />
+            <NavigationMenu />
+            <PageTransition>
+              <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">
+                {children}
+              </main>
+            </PageTransition>
+            <Footer />
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

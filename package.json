@@ -11,6 +11,7 @@
     "format:check": "pnpm prettier ./src --check"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.8.0",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.9.0",
     "@mdx-js/loader": "^3.0.1",
@@ -64,10 +65,11 @@
     "input-otp": "^1.2.4",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.330.0",
-    "mongodb": "^6.9.0",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.2",
     "motion": "^12.6.5",
     "next": "14.1.1",
-    "next-auth": "^4.24.7",
+    "next-auth": "^4.24.11",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
     "nextjs-toploader": "^3.8.16",
@@ -78,16 +80,18 @@
     "react-icons": "^5.3.0",
     "react-resizable-panels": "^2.1.3",
     "recharts": "^2.12.7",
+    "resend": "^4.2.0",
     "sonner": "^1.5.0",
     "swr": "^2.3.3",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.174.0",
     "vaul": "^0.9.4",
-    "zod": "^3.23.4"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20.12.7",
