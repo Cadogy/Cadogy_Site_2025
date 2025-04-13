@@ -39,27 +39,16 @@ export default function Home() {
       </section>
 
       {/* Main Content Sections - Added consistent padding and spacing */}
-      <div className="mx-auto max-w-[94%] px-4 pb-24 md:max-w-[90%] lg:px-8">
+      <div className="mx-auto max-w-[94%] px-4 md:max-w-[90%] lg:px-8">
         {/* Technical Expertise Section */}
-        <section className="mb-32">
+        <section className="">
           <TechnicalExpert />
         </section>
 
         {/* Web Infrastructure & SEO Expertise Section */}
-        <section className="mb-16">
+        <section className="">
           <WebInfastructure />
         </section>
-
-        {/* Learn More Link */}
-        <div className="flex justify-center pt-8">
-          <Link
-            href="/who-we-are"
-            className="group flex items-center space-x-1 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90"
-          >
-            <span>Learn more about our team</span>
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-        </div>
       </div>
     </div>
   )

@@ -12,8 +12,8 @@ const GoodAtSection = () => {
   }
 
   return (
-    <div>
-      <div className="py-6 text-center">
+    <div className="my-24 lg:my-48">
+      <div className="py-24 text-center">
         <h2 className="mb-4 text-5xl font-medium tracking-tight text-foreground">
           What We&apos;re Good At
         </h2>

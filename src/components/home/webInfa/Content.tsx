@@ -14,8 +14,8 @@ import {
 
 const Content = () => {
   return (
-    <div>
-      <div className="flex flex-col items-center py-6 text-center">
+    <div className="my-24 lg:my-48">
+      <div className="flex flex-col items-center py-24 text-center">
         <h2 className="mb-4 text-5xl font-medium tracking-tight text-foreground">
           Fast Sites That Google Loves
         </h2>

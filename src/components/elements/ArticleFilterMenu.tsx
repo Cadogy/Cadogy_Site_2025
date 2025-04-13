@@ -200,7 +200,7 @@ export default function ArticleFilterMenu({
                       )
                       setSelectedCategory("")
                     }}
-                    className={`rounded-full px-3 py-1 text-xs transition hover:bg-neutral-700 ${
+                    className={`rounded-md px-3 py-1 text-xs transition hover:bg-neutral-700 ${
                       selectedTag === tag.id.toString()
                         ? "bg-blue-500/20 text-blue-400"
                         : "bg-neutral-800 text-slate-200"

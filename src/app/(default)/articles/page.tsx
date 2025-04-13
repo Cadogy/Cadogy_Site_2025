@@ -1,5 +1,6 @@
 import { Metadata, ResolvingMetadata } from "next"
 import Link from "next/link"
+import { Search } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import {
@@ -16,8 +17,9 @@ import ArticleListView from "@/components/elements/ArticleListView"
 import ArticlePagination from "@/components/elements/ArticlePagination"
 import ArticleSearch from "@/components/elements/ArticleSearch"
 import ArticleGrid from "@/components/elements/ArticlesGrid"
-import ArticlesHero from "@/components/elements/ArticlesHero"
 import ArticleViewToggle from "@/components/elements/ArticleViewToggle"
+import GeminiScan from "@/components/elements/GeminiScan"
+import NoArticlesFound from "@/components/elements/NoArticlesFound"
 
 // Generate metadata for the Articles page
 export async function generateMetadata(
@@ -67,6 +69,7 @@ export async function generateMetadata(
   }
 }
 
+// Update the Articles component to use the new NoArticlesFound component
 export default async function Articles({
   searchParams,
 }: {
@@ -92,21 +95,6 @@ export default async function Articles({
   const filteredCategories = categories.filter(
     (category) => category.name.toLowerCase() !== "uncategorized"
   )
-
-  // Get featured articles for the hero section (always get latest 3 regardless of filters)
-  const featuredArticlesData = await getPosts({ page: 1, perPage: 3 })
-  const featuredArticles = featuredArticlesData.posts.map((post) => {
-    const featuredImage =
-      post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || PLACEHOLDER_IMAGE
-
-    return {
-      title: decodeHtml(post.title.rendered),
-      date: formatDate(post.date),
-      description: extractExcerpt(post.excerpt.rendered),
-      coverImage: featuredImage,
-      slug: `/articles/${post.slug}`,
-    }
-  })
 
   // Map WordPress posts to the format expected by the article components
   const articles = posts.map((post) => {
@@ -139,141 +127,158 @@ export default async function Articles({
   }
 
   return (
-    <div className="mx-auto max-w-[94%] px-4 py-16 sm:px-6 md:max-w-[90%] lg:px-8">
-      {/* Main Content Area with Sidebar */}
-      <div className="flex flex-col gap-8 lg:flex-row">
-        {/* Sidebar - Hidden on mobile, visible on lg screens and up */}
-        <div className="hidden w-full lg:block lg:w-1/4">
-          <div className="lg:sticky lg:top-24">
-            <div className="rounded-lg bg-neutral-900/50 p-6">
-              {/* Search - now functional */}
-              <ArticleSearch />
-
-              {/* Categories */}
-              <div className="mb-6 border-t border-neutral-800 pt-6">
-                <h4 className="mb-3 text-lg font-medium text-slate-100">
-                  Categories
-                </h4>
-                <ul className="space-y-2">
-                  {filteredCategories.map((category) => (
-                    <li key={category.id}>
-                      <Link
-                        href={`/articles?category=${category.id}&page=1`}
-                        className={`flex items-center justify-between text-sm transition hover:text-blue-400 ${
-                          categoryId === category.id.toString()
-                            ? "text-blue-400"
-                            : "text-slate-200"
-                        }`}
-                      >
-                        <span>{category.name}</span>
-                        <span className="rounded-md bg-neutral-800 px-2 py-0.5 text-xs text-slate-400">
-                          {category.count}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Popular Tags */}
-              <div className="border-t border-neutral-800 pt-6">
-                <h4 className="mb-3 text-lg font-medium text-slate-100">
-                  Popular Tags
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {tags
-                    .filter((tag) => tag.count > 0)
-                    .slice(0, 10)
-                    .map((tag) => (
-                      <Link
-                        key={tag.id}
-                        href={`/articles?tag=${tag.id}&page=1`}
-                        className={`rounded-full px-3 py-1 text-xs transition hover:bg-neutral-700 ${
-                          tagId === tag.id.toString()
-                            ? "bg-blue-500/20 text-blue-400"
-                            : "bg-neutral-800 text-slate-200"
-                        }`}
-                      >
-                        #{tag.name}
-                      </Link>
-                    ))}
-                </div>
-              </div>
-
-              {/* Statistics */}
-              <div className="mt-6 border-t border-neutral-800 pt-6">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-400">Total articles:</span>
-                  <span className="font-medium text-slate-200">
-                    {totalPosts}
-                  </span>
-                </div>
-              </div>
-
-              {/* Clear Filters - only show if filters are applied */}
-              {(search || categoryId || tagId) && (
-                <div className="mt-6 border-t border-neutral-800 pt-6">
-                  <Link
-                    href="/articles"
-                    className="inline-block w-full rounded-md bg-neutral-800 px-4 py-2 text-center text-sm font-medium text-slate-200 transition hover:bg-neutral-700"
-                  >
-                    Clear All Filters
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
+    <div className="flex min-h-screen w-full flex-col bg-background">
+      {/* Simple header section */}
+      <div className="relative w-full bg-gradient-to-r from-primary/20 to-primary/5 py-5 lg:py-12">
+        <div className="mx-auto max-w-[94%] px-4 sm:px-6 md:max-w-[90%] lg:px-8">
+          <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            Articles & Insights
+          </h1>
+          <p className="max-w-2xl text-muted-foreground">
+            Explore our collection of {totalPosts} articles on web development,
+            technology, and digital innovation.
+          </p>
         </div>
+      </div>
 
-        {/* All Articles */}
-        <div className="w-full lg:w-3/4">
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-col">
-              <h2 className="text-2xl font-bold text-slate-100">
-                {resultsTitle}
-              </h2>
-              {totalPosts > 0 && (
-                <p className="mt-1 text-sm text-slate-400">
-                  Showing {articles.length} of {totalPosts} articles
-                </p>
-              )}
-            </div>
+      <div className="mx-auto w-full max-w-[94%] flex-1 px-4 py-10 sm:px-6 md:max-w-[90%] md:py-16 lg:px-8">
+        {/* Main Content Area with Sidebar */}
+        <div className="flex flex-col gap-8 lg:flex-row">
+          {/* Sidebar - Hidden on mobile, visible on lg screens and up */}
+          <div className="hidden w-full lg:block lg:w-1/4">
+            <div className="lg:sticky lg:top-24">
+              <div className="rounded-lg bg-card p-6 shadow-sm lg:pl-0">
+                {/* Search - now functional */}
+                <ArticleSearch />
 
-            <div className="flex w-full items-center justify-between sm:w-auto sm:gap-2">
-              {/* Filter Button - Only show on mobile/tablet */}
-              <div className="lg:hidden">
-                <ArticleFilterMenu
-                  categories={filteredCategories}
-                  tags={tags}
-                  currentCategoryId={categoryId}
-                  currentTagId={tagId}
-                  totalPosts={totalPosts}
-                  hasActiveFilters={!!(search || categoryId || tagId)}
-                />
+                {/* Categories */}
+                <div className="mb-6 border-t border-border pt-6">
+                  <h4 className="mb-3 text-lg font-medium text-foreground">
+                    Categories
+                  </h4>
+                  <ul className="space-y-2">
+                    {filteredCategories.map((category) => (
+                      <li key={category.id}>
+                        <Link
+                          href={`/articles?category=${category.id}&page=1`}
+                          className={`flex items-center justify-between text-sm transition hover:text-primary ${
+                            categoryId === category.id.toString()
+                              ? "text-primary"
+                              : "text-muted-foreground"
+                          }`}
+                        >
+                          <span>{category.name}</span>
+                          <span className="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                            {category.count}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Popular Tags */}
+                <div className="border-t border-border pt-6">
+                  <h4 className="mb-3 text-lg font-medium text-foreground">
+                    Popular Tags
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {tags
+                      .filter((tag) => tag.count > 0)
+                      .slice(0, 10)
+                      .map((tag) => (
+                        <Link
+                          key={tag.id}
+                          href={`/articles?tag=${tag.id}&page=1`}
+                          className={`rounded-md px-3 py-1 text-xs transition hover:bg-muted/80 ${
+                            tagId === tag.id.toString()
+                              ? "bg-primary/20 text-primary"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          #{tag.name}
+                        </Link>
+                      ))}
+                  </div>
+                </div>
+
+                {/* Statistics */}
+                <div className="mt-6 border-t border-border pt-6">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      Total articles:
+                    </span>
+                    <span className="font-medium text-foreground">
+                      {totalPosts}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Clear Filters - only show if filters are applied */}
+                {(search || categoryId || tagId) && (
+                  <div className="mt-6 border-t border-border pt-6">
+                    <Link
+                      href="/articles"
+                      className="inline-block w-full rounded-md bg-muted px-4 py-2 text-center text-sm font-medium text-foreground transition hover:bg-muted/80"
+                    >
+                      Clear All Filters
+                    </Link>
+                  </div>
+                )}
               </div>
-
-              {/* View Toggle - now functional */}
-              <ArticleViewToggle />
             </div>
           </div>
 
-          {/* Articles in either Grid or List view */}
-          {articles.length > 0 ? (
-            view === "grid" ? (
-              <ArticleGrid articles={articles} />
-            ) : (
-              <ArticleListView articles={articles} />
-            )
-          ) : (
-            <div className="flex h-64 items-center justify-center rounded-lg bg-neutral-900/50">
-              <p className="text-center text-slate-400">
-                No articles found. Try adjusting your search criteria.
-              </p>
-            </div>
-          )}
+          {/* All Articles */}
+          <div className="flex w-full flex-col lg:w-3/4">
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col">
+                <h2 className="text-2xl font-bold text-foreground">
+                  {resultsTitle}
+                </h2>
+                {totalPosts > 0 && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Showing {articles.length} of {totalPosts} articles
+                  </p>
+                )}
+              </div>
 
-          {/* Pagination - now functional */}
-          <ArticlePagination currentPage={page} totalPages={totalPages} />
+              <div className="flex w-full items-center justify-between sm:w-auto sm:gap-2">
+                {/* Filter Button - Only show on mobile/tablet */}
+                <div className="lg:hidden">
+                  <ArticleFilterMenu
+                    categories={filteredCategories}
+                    tags={tags}
+                    currentCategoryId={categoryId}
+                    currentTagId={tagId}
+                    totalPosts={totalPosts}
+                    hasActiveFilters={!!(search || categoryId || tagId)}
+                  />
+                </div>
+
+                {/* View Toggle - now functional */}
+                <ArticleViewToggle />
+              </div>
+            </div>
+
+            {/* Articles in either Grid or List view */}
+            {articles.length > 0 ? (
+              <div className="flex-1">
+                {view === "grid" ? (
+                  <ArticleGrid articles={articles} />
+                ) : (
+                  <ArticleListView articles={articles} />
+                )}
+              </div>
+            ) : (
+              <NoArticlesFound />
+            )}
+
+            {/* Pagination - now functional */}
+            <div className="mt-auto pt-6">
+              <ArticlePagination currentPage={page} totalPages={totalPages} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

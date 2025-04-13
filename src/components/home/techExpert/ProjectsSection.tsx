@@ -163,13 +163,13 @@ const ProjectsSection = () => {
 
   return (
     <motion.div
-      className="mt-16 pt-8 sm:pt-12"
+      className="my-24 lg:my-48"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6 }}
     >
-      <div className="mb-8 py-6 text-center">
+      <div className="mb-8 py-24 text-center">
         <h3 className="mb-4 text-5xl font-medium tracking-tight text-foreground">
           Projects We&apos;re Excited About
         </h3>
