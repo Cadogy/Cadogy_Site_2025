@@ -76,12 +76,6 @@ const RegisterForm = () => {
         throw new Error(data.message || "Registration failed")
       }
 
-      toast({
-        title: "Account created!",
-        description: "Please check your email to verify your account.",
-        variant: "default",
-      })
-
       // Show verification message instead of redirecting
       setVerificationSent(true)
     } catch (error: any) {
