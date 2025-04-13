@@ -1,7 +1,9 @@
 # Cadogy Agency
 
 <div align="center">
-  <img src="/public/images/cadogy_agency_github_demo.jpg" alt="Cadogy Agency Demo" />
+  <img src="/public/images/cadogy_agency_frontend.jpg" width="350px" height="auto" alt="Cadogy Agency Frontend" />
+  <img src="/public/images/cadogy_agency_dashboard.png" width="350px" height="auto" alt="Cadogy Agency Backend" />
+  <img src="/public/images/cadogy_agency_email.png" width="350px" height="auto" alt="Cadogy Agency Emails" />
   <p>Developed by <a href="https://www.cadogy.com">Cadogy</a></p>
 </div>
 
