@@ -23,18 +23,15 @@ const ApiUsageSchema = new Schema<ApiUsage>(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true,
     },
     apiKeyId: {
       type: Schema.Types.ObjectId,
       ref: "ApiKey",
       required: true,
-      index: true,
     },
     endpoint: {
       type: String,
       required: true,
-      index: true,
     },
     method: {
       type: String,
@@ -51,7 +48,6 @@ const ApiUsageSchema = new Schema<ApiUsage>(
     timestamp: {
       type: Date,
       default: Date.now,
-      index: true,
     },
     ip: {
       type: String,

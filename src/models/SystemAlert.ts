@@ -33,22 +33,18 @@ const SystemAlertSchema = new Schema<SystemAlert>(
       type: String,
       enum: ["system", "user"],
       default: "system",
-      index: true,
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      index: true,
     },
     isActive: {
       type: Boolean,
       default: true,
-      index: true,
     },
     startDate: {
       type: Date,
       default: Date.now,
-      index: true,
     },
     endDate: {
       type: Date,

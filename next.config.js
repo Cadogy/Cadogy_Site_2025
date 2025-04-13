@@ -4,6 +4,33 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Add webpack configuration to exclude node_modules from processing
+  webpack: (config, { isServer }) => {
+    // Handle HTML files properly
+    config.module.rules.push({
+      test: /\.html$/,
+      include: /node_modules/,
+      type: "asset/resource",
+    })
+
+    // Prevent client-side loading of server-only modules
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        bcrypt: false,
+        crypto: false,
+        fs: false,
+        path: false,
+        os: false,
+      }
+    }
+
+    return config
+  },
+  // Prevent server-only packages from being bundled on the client
+  experimental: {
+    serverComponentsExternalPackages: ["bcrypt"],
+  },
   async headers() {
     return [
       {

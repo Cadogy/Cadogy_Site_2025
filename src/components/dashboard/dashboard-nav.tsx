@@ -156,7 +156,7 @@ export default function DashboardNav() {
 
         <div className="ml-auto flex h-8 justify-end gap-x-2">
           <Link
-            href="/support"
+            href="/contact"
             className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus-visible:ring-1 focus-visible:ring-ring active:translate-y-px"
           >
             Get Support

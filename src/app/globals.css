@@ -6,7 +6,7 @@
   .animate-gradient-x {
     animation: gradient 15s ease infinite;
   }
-  
+
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -23,7 +23,7 @@
   .refresh-pulse {
     animation: refreshPulse 1s ease-in-out;
   }
-  
+
   @keyframes refreshPulse {
     0% {
       opacity: 1;
@@ -42,4 +42,26 @@
     mix-blend-mode: overlay;
     pointer-events: none;
   }
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #62749d #0a0a0a;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #62749d;
+  border-radius: 6px;
+  border: 0px solid #ffffff;
 }

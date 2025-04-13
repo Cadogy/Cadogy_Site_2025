@@ -4,14 +4,17 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
+  BoltIcon,
   ChevronDownIcon,
   KeyIcon,
+  KeySquareIcon,
   LayoutDashboardIcon,
   LogOutIcon,
   SettingsIcon,
   UserIcon,
 } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
+import { FaBolt, FaCog, FaHome, FaKey } from "react-icons/fa"
 
 import { siteConfig } from "@/config/site"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -30,7 +33,53 @@ export function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredText, setHoveredText] = useState(siteConfig.name)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [userData, setUserData] = useState<{
+    id: string
+    name: string | null
+    email: string | null
+    image: string | null
+  } | null>(null)
   const lastRefreshTime = useRef<number>(0)
+
+  // Fetch user data when session is available
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (status === "authenticated" && session?.user) {
+        try {
+          // Try to fetch user data from API
+          const response = await fetch("/api/user/profile")
+          if (response.ok) {
+            const data = await response.json()
+            setUserData({
+              id: data.id,
+              name: data.name,
+              email: data.email,
+              image: data.image,
+            })
+          } else {
+            // Fallback to session data if API fails
+            setUserData({
+              id: (session.user.id as string) || "",
+              name: session.user.name || null,
+              email: session.user.email || null,
+              image: session.user.image || null,
+            })
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error)
+          // Fallback to session data
+          setUserData({
+            id: (session.user.id as string) || "",
+            name: session.user.name || null,
+            email: session.user.email || null,
+            image: session.user.image || null,
+          })
+        }
+      }
+    }
+
+    fetchUserData()
+  }, [session, status])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,13 +147,23 @@ export function NavigationMenu() {
 
   // Get user's initials for avatar fallback
   const getInitials = () => {
-    if (!session?.user?.name) return "U"
-    return session.user.name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase()
-      .substring(0, 2)
+    if (userData?.name) {
+      return userData.name
+        .split(" ")
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase()
+        .substring(0, 2)
+    }
+    if (session?.user?.name) {
+      return session.user.name
+        .split(" ")
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase()
+        .substring(0, 2)
+    }
+    return "U"
   }
 
   return (
@@ -151,35 +210,44 @@ export function NavigationMenu() {
         </Link>
 
         {/* Desktop Navigation Layout - Logo | Nav Menu | Login Button */}
-        <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
-          {/* Centered Navigation Menu */}
+        <div className="hidden md:flex md:flex-1 md:items-center">
+          {/* LEFT: Logo section is already handled above */}
+          <div className="w-[120px] flex-none">
+            {/* Empty space to balance the layout */}
+          </div>
+
+          {/* CENTER: Navigation Menu - true center not dependent on sides */}
           <div className="flex flex-1 justify-center">
             <nav className="flex items-center gap-6 text-sm">
               <Link
                 href="/who-we-are"
-                className="text-sm transition duration-150"
+                className="text-sm font-medium transition-colors hover:text-foreground/80"
               >
                 Who We Are
               </Link>
-              <Link href="/the-api" className="text-sm transition duration-150">
+              <Link
+                href="/the-api"
+                className="text-sm font-medium transition-colors hover:text-foreground/80"
+              >
                 The API
               </Link>
               <Link
                 href="/articles"
-                className="text-sm transition duration-150"
+                className="text-sm font-medium transition-colors hover:text-foreground/80"
               >
                 Articles
               </Link>
-              <Link href="/contact" className="text-sm transition duration-150">
+              <Link
+                href="/contact"
+                className="text-sm font-medium transition-colors hover:text-foreground/80"
+              >
                 Contact
               </Link>
             </nav>
           </div>
 
-          {/* Right-aligned Authentication UI */}
-          <div className="flex items-center space-x-4">
-            {/* <ModeToggle /> */}
-
+          {/* RIGHT: Authentication UI with fixed width */}
+          <div className="flex w-[180px] flex-none items-center justify-end">
             {status === "loading" ? (
               // Loading state
               <div className="flex h-9 w-28 animate-pulse items-center justify-center rounded-md bg-muted/30">
@@ -197,14 +265,16 @@ export function NavigationMenu() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={session.user?.image || ""}
-                        alt={session.user?.name || "User"}
+                        src={userData?.image || session?.user?.image || ""}
+                        alt={userData?.name || session?.user?.name || "User"}
                       />
                       <AvatarFallback>{getInitials()}</AvatarFallback>
                     </Avatar>
                     <span className="max-w-[100px] truncate text-sm">
-                      {session.user?.name ||
-                        session.user?.email?.split("@")[0] ||
+                      {userData?.name ||
+                        session?.user?.name ||
+                        userData?.email?.split("@")[0] ||
+                        session?.user?.email?.split("@")[0] ||
                         "User"}
                     </span>
                     <ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
@@ -213,14 +283,14 @@ export function NavigationMenu() {
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-0.5 leading-none">
-                      {session.user?.name && (
+                      {(userData?.name || session?.user?.name) && (
                         <p className="text-sm font-medium">
-                          {session.user.name}
+                          {userData?.name || session?.user?.name}
                         </p>
                       )}
-                      {session.user?.email && (
+                      {(userData?.email || session?.user?.email) && (
                         <p className="text-xs text-muted-foreground">
-                          {session.user.email}
+                          {userData?.email || session?.user?.email}
                         </p>
                       )}
                     </div>
@@ -231,26 +301,35 @@ export function NavigationMenu() {
                       href="/dashboard"
                       className="flex cursor-pointer items-center"
                     >
-                      <LayoutDashboardIcon className="mr-2 h-4 w-4" />
+                      <FaHome className="mr-2 h-4 w-4" />
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/profile"
+                      href="/dashboard/api-keys"
                       className="flex cursor-pointer items-center"
                     >
-                      <UserIcon className="mr-2 h-4 w-4" />
-                      Profile
+                      <FaKey className="mr-2 h-4 w-4" />
+                      My Keys
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/settings"
+                      href="/dashboard/settings"
                       className="flex cursor-pointer items-center"
                     >
-                      <SettingsIcon className="mr-2 h-4 w-4" />
+                      <FaCog className="mr-2 h-4 w-4" />
                       Settings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/dashboard/usage"
+                      className="flex cursor-pointer items-center"
+                    >
+                      <FaBolt className="mr-2 h-4 w-4" />
+                      Usage
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -288,8 +367,8 @@ export function NavigationMenu() {
             >
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src={session.user?.image || ""}
-                  alt={session.user?.name || "User"}
+                  src={userData?.image || session?.user?.image || ""}
+                  alt={userData?.name || session?.user?.name || "User"}
                 />
                 <AvatarFallback>{getInitials()}</AvatarFallback>
               </Avatar>
@@ -381,7 +460,7 @@ export function NavigationMenu() {
           </div>
 
           <div
-            className="ml-2 mt-10 flex w-full flex-col space-y-4"
+            className="ml-2 flex w-full flex-col space-y-4"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on menu items
           >
             {/* Display user info if logged in */}
@@ -390,17 +469,17 @@ export function NavigationMenu() {
                 <div className="mb-2 flex items-center space-x-3">
                   <Avatar className="h-12 w-12">
                     <AvatarImage
-                      src={session.user?.image || ""}
-                      alt={session.user?.name || "User"}
+                      src={userData?.image || session?.user?.image || ""}
+                      alt={userData?.name || session?.user?.name || "User"}
                     />
                     <AvatarFallback>{getInitials()}</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="font-medium">
-                      {session.user?.name || "User"}
+                      {userData?.name || session?.user?.name || "User"}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                      {session.user?.email}
+                      {userData?.email || session?.user?.email}
                     </span>
                   </div>
                 </div>
@@ -475,9 +554,9 @@ export function NavigationMenu() {
                   className="justify-start text-xl text-foreground"
                   asChild
                 >
-                  <Link href="/profile" onClick={closeMenu}>
-                    <UserIcon className="mr-2 h-5 w-5" />
-                    Profile
+                  <Link href="/dashboard/api-keys" onClick={closeMenu}>
+                    <FaKey className="mr-2 h-5 w-5" />
+                    My Keys
                   </Link>
                 </Button>
 
@@ -487,9 +566,21 @@ export function NavigationMenu() {
                   className="justify-start text-xl text-foreground"
                   asChild
                 >
-                  <Link href="/settings" onClick={closeMenu}>
+                  <Link href="/dashboard/settings" onClick={closeMenu}>
                     <SettingsIcon className="mr-2 h-5 w-5" />
                     Settings
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="justify-start text-xl text-foreground"
+                  asChild
+                >
+                  <Link href="/dashboard/usage" onClick={closeMenu}>
+                    <FaBolt className="mr-2 h-5 w-5" />
+                    Usage
                   </Link>
                 </Button>
 

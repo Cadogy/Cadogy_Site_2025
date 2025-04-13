@@ -23,7 +23,7 @@ export function DashboardHeader({ userData }: DashboardHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-30 border-b bg-background">
-        <div className="mx-auto flex max-w-[86%] items-center justify-between py-4 sm:px-6 md:max-w-[90%] lg:px-8">
+        <div className="mx-auto flex items-center justify-between px-4 py-4 sm:px-6 md:max-w-[90%] lg:px-8">
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center">
               <svg

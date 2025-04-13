@@ -1,5 +1,25 @@
 import mongoose from "mongoose"
 
+// Disable duplicate index warnings in development
+if (process.env.NODE_ENV === "development") {
+  mongoose.set("strictQuery", false)
+  // Suppress specific warnings
+  const originalWarn = mongoose.set("debug", false)
+  const originalConsoleWarn = console.warn
+
+  console.warn = function (message: any) {
+    if (
+      message &&
+      typeof message === "string" &&
+      (message.includes("Duplicate schema index") ||
+        message.includes("[MONGOOSE] Warning: Duplicate schema index"))
+    ) {
+      return // Suppress duplicate index warnings
+    }
+    originalConsoleWarn.apply(console, arguments as any)
+  }
+}
+
 const MONGODB_URI = process.env.MONGODB_URI
 
 if (!MONGODB_URI) {
