@@ -182,7 +182,10 @@ export function NavigationMenu() {
 
             {status === "loading" ? (
               // Loading state
-              <div className="h-8 w-28 animate-pulse rounded-md bg-muted"></div>
+              <div className="flex h-9 w-28 animate-pulse items-center justify-center rounded-md bg-muted/30">
+                <div className="mr-2 h-8 w-8 rounded-full bg-muted/50"></div>
+                <div className="h-4 w-12 rounded bg-muted/50"></div>
+              </div>
             ) : session ? (
               // Authenticated state with user dropdown
               <DropdownMenu>
@@ -275,7 +278,7 @@ export function NavigationMenu() {
         {/* Mobile: Show user avatar if logged in, otherwise menu toggle */}
         <div className="flex items-center md:hidden">
           {status === "loading" ? (
-            <div className="h-8 w-8 animate-pulse rounded-full bg-muted"></div>
+            <div className="h-6 w-6 animate-pulse rounded-full bg-muted"></div>
           ) : session ? (
             <Button
               variant="ghost"
