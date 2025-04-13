@@ -49,6 +49,7 @@
     "@t3-oss/env-nextjs": "^0.9.2",
     "@tippyjs/react": "^4.2.6",
     "@types/mdx": "^2.0.13",
+    "@uploadthing/react": "^7.3.0",
     "@use-gesture/react": "^10.3.1",
     "axios": "^1.8.4",
     "axois": "^0.0.1-security",
@@ -86,6 +87,7 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.174.0",
+    "uploadthing": "^7.6.0",
     "vaul": "^0.9.4",
     "zod": "^3.24.2"
   },

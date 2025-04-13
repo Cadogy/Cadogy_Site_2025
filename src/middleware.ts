@@ -25,7 +25,16 @@ const publicPaths = [
 const publicApiRoutes = [
   "/api/auth/",
   "/api/public/",
+  "/api/uploadthing",
   // Add other public API routes here
+]
+
+// API routes that should use session auth instead of API key auth
+const sessionAuthApiRoutes = [
+  "/api/dashboard/",
+  "/api/user/",
+  "/api/settings/",
+  // Add other session-based API routes here
 ]
 
 // List of trusted hosts to allow auth
@@ -95,7 +104,8 @@ export async function middleware(request: NextRequest) {
   // Check if this is an API route that requires API key
   if (
     pathname.startsWith("/api/") &&
-    !publicApiRoutes.some((route) => pathname.startsWith(route))
+    !publicApiRoutes.some((route) => pathname.startsWith(route)) &&
+    !sessionAuthApiRoutes.some((route) => pathname.startsWith(route))
   ) {
     // Get API key from request header or query parameter
     const apiKey =
@@ -114,6 +124,35 @@ export async function middleware(request: NextRequest) {
     }
 
     // API key is valid, proceed
+    return NextResponse.next()
+  }
+
+  // Check for session auth for dashboard API routes
+  if (
+    pathname.startsWith("/api/dashboard/") ||
+    pathname.startsWith("/api/user/")
+  ) {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+      secureCookie: process.env.NODE_ENV === "production",
+    })
+
+    if (!token) {
+      console.log("[Middleware] No session for protected API route:", pathname)
+      return new NextResponse(
+        JSON.stringify({
+          error: "Unauthorized",
+          message: "You must be signed in to access this API endpoint",
+        }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
+
+    // Session token is valid, proceed
     return NextResponse.next()
   }
 

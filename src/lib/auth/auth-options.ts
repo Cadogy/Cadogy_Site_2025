@@ -123,6 +123,10 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id
         token.role = user.role
+        // Explicitly copy these properties to ensure they're in the token
+        token.name = user.name
+        token.email = user.email
+        token.image = user.image
       }
       return token
     },
@@ -130,6 +134,10 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id as string
         session.user.role = token.role as string
+        // Ensure name, email and image are correctly passed to the session
+        session.user.name = (token.name as string) ?? ""
+        session.user.email = (token.email as string) ?? ""
+        session.user.image = token.image as string | undefined
       }
       return session
     },
