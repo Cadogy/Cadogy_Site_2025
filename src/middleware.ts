@@ -26,6 +26,7 @@ const publicApiRoutes = [
   "/api/auth/",
   "/api/public/",
   "/api/uploadthing",
+  "/api/webhooks/stripe",
   // Add other public API routes here
 ]
 
@@ -34,6 +35,7 @@ const sessionAuthApiRoutes = [
   "/api/dashboard/",
   "/api/user/",
   "/api/settings/",
+  "/api/payments/",
   // Add other session-based API routes here
 ]
 
@@ -141,7 +143,8 @@ export async function middleware(request: NextRequest) {
   // Check for session auth for dashboard API routes
   if (
     pathname.startsWith("/api/dashboard/") ||
-    pathname.startsWith("/api/user/")
+    pathname.startsWith("/api/user/") ||
+    pathname.startsWith("/api/payments/")
   ) {
     const token = await getToken({
       req: request,
