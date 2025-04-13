@@ -82,8 +82,16 @@ export function Footer() {
 
   return (
     <footer className="relative w-full bg-neutral-900/10 backdrop-blur-sm dark:bg-neutral-900/40">
+      {/* Full width background  image blend*/}
+      <div
+        className="absolute inset-0 z-[-1] h-full w-full bg-cover bg-[8%_100%] bg-no-repeat opacity-20 mix-blend-luminosity lg:bg-[100%_80%]"
+        style={{
+          backgroundImage:
+            "url('/images/assets/backgrounds/Hillsboro-Lighthouse_alt.jpg')",
+        }}
+      ></div>
       {/* Gradient blend at top */}
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent"></div>
 
       <motion.div
         className="relative mx-auto w-full px-6 py-12 sm:px-8 md:max-w-[90%] md:px-10 md:py-16 lg:px-12"
@@ -122,11 +130,11 @@ export function Footer() {
         </div>
 
         {/* Navigation Grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-4 md:gap-x-8 md:gap-y-0 lg:gap-x-16">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 md:flex md:flex-wrap md:justify-between md:gap-x-0 md:gap-y-0 lg:gap-x-0">
           {/* Column 1 - Company */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-3 md:space-y-6"
+            className="flex flex-col space-y-3 md:mb-8 md:w-auto md:min-w-[150px] md:space-y-6"
           >
             <h3 className="text-sm font-medium text-foreground md:text-lg">
               Company
@@ -180,7 +188,7 @@ export function Footer() {
           {/* Column 2 - Account */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-3 md:space-y-6"
+            className="flex flex-col space-y-3 md:mb-8 md:w-auto md:min-w-[150px] md:space-y-6"
           >
             <h3 className="text-sm font-medium text-foreground md:text-lg">
               Account
@@ -234,7 +242,7 @@ export function Footer() {
           {/* Column 3 - Resources */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-3 md:space-y-6"
+            className="flex flex-col space-y-3 md:mb-8 md:w-auto md:min-w-[150px] md:space-y-6"
           >
             <h3 className="text-sm font-medium text-foreground md:text-lg">
               Resources
@@ -288,7 +296,7 @@ export function Footer() {
           {/* Column 4 - Policies */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-3 md:space-y-6"
+            className="flex flex-col space-y-3 md:mb-8 md:w-auto md:min-w-[150px] md:space-y-6"
           >
             <h3 className="text-sm font-medium text-foreground md:text-lg">
               Policies
@@ -341,8 +349,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-6 border-t border-border pt-6 md:mt-16 md:flex-row md:pt-10">
-          <p className="text-center text-xs text-muted-foreground md:text-left md:text-sm">
+        <div className="mt-10 flex flex-col justify-between gap-6 border-border pt-6 md:mt-16 md:flex-row md:pt-10 lg:items-center">
+          <p className="text-left text-xs text-muted-foreground md:text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights
             reserved.
           </p>
