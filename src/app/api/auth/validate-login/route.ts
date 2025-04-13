@@ -55,11 +55,11 @@ export async function POST(request: Request) {
     }
 
     // Check if email is verified
-    console.log("Email verification status:", {
-      email: user.email,
-      emailVerified: user.emailVerified,
-      type: typeof user.emailVerified,
-    })
+    // console.log("Email verification status:", {
+    //   email: user.email,
+    //   emailVerified: user.emailVerified,
+    //   type: typeof user.emailVerified,
+    // })
 
     // Use the same verification check as in auth-options.ts
     if (

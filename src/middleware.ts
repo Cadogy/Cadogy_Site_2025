@@ -50,30 +50,30 @@ const trustedHosts = [
 export async function middleware(request: NextRequest) {
   const { pathname, searchParams, host } = request.nextUrl
 
-  console.log("[Middleware] Processing request:", {
-    pathname,
-    host,
-    url: request.url,
-    hasCallbackParam: searchParams.has("callbackUrl"),
-  })
+  // console.log("[Middleware] Processing request:", {
+  //   pathname,
+  //   host,
+  //   url: request.url,
+  //   hasCallbackParam: searchParams.has("callbackUrl"),
+  // })
 
   // Log all cookies for debugging
-  console.log(
-    "[Middleware] Request cookies:",
-    Array.from(request.cookies.getAll()).map((c) => ({
-      name: c.name,
-      value: c.value ? "present" : "empty",
-    }))
-  )
+  // console.log(
+  //   "[Middleware] Request cookies:",
+  //   Array.from(request.cookies.getAll()).map((c) => ({
+  //     name: c.name,
+  //     value: c.value ? "present" : "empty",
+  //   }))
+  // )
 
   // For multi-domain auth - Check if request is from a trusted host
   const isTrustedHost = trustedHosts.some(
     (trustedHost) => host.includes(trustedHost) || host === trustedHost
   )
-  console.log("[Middleware] Host check:", { host, isTrustedHost })
+  // console.log("[Middleware] Host check:", { host, isTrustedHost })
 
   if (!isTrustedHost && pathname.startsWith("/api/auth")) {
-    console.log("[Middleware] Rejecting untrusted host for auth API")
+    // console.log("[Middleware] Rejecting untrusted host for auth API")
     return new NextResponse(
       JSON.stringify({ error: "Unauthorized - Invalid host" }),
       {
@@ -107,7 +107,7 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/auth/callback/credentials" ||
     pathname === "/api/auth/callback/google"
   ) {
-    console.log("[Middleware] Auth callback detected, checking for callbackUrl")
+    // console.log("[Middleware] Auth callback detected, checking for callbackUrl")
     // This will be handled by NextAuth's default behavior
     return NextResponse.next()
   }
@@ -150,7 +150,7 @@ export async function middleware(request: NextRequest) {
     })
 
     if (!token) {
-      console.log("[Middleware] No session for protected API route:", pathname)
+      // console.log("[Middleware] No session for protected API route:", pathname)
       return new NextResponse(
         JSON.stringify({
           error: "Unauthorized",
@@ -171,10 +171,10 @@ export async function middleware(request: NextRequest) {
   const isProtectedPath = protectedPaths.some(
     (path) => pathname === path || pathname.startsWith(`${path}/`)
   )
-  console.log("[Middleware] Path protection check:", {
-    pathname,
-    isProtectedPath,
-  })
+  // console.log("[Middleware] Path protection check:", {
+  //   pathname,
+  //   isProtectedPath,
+  // })
 
   // Skip middleware for public paths or specific API routes
   if (
@@ -185,7 +185,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/_next/") ||
     pathname.includes(".")
   ) {
-    console.log("[Middleware] Skipping middleware for public path")
+    // console.log("[Middleware] Skipping middleware for public path")
     return NextResponse.next()
   }
 
@@ -193,16 +193,16 @@ export async function middleware(request: NextRequest) {
   const sessionTokenCookie =
     request.cookies.get("next-auth.session-token") ||
     request.cookies.get("__Secure-next-auth.session-token")
-  console.log(
-    "[Middleware] Session token cookie:",
-    sessionTokenCookie ? "present" : "not found"
-  )
+  // console.log(
+  //   "[Middleware] Session token cookie:",
+  //   sessionTokenCookie ? "present" : "not found"
+  // )
 
   // Get the token with detailed options for debugging
-  console.log("[Middleware] Getting token with params:", {
-    secret: process.env.NEXTAUTH_SECRET ? "present" : "missing",
-    secureCookie: process.env.NODE_ENV === "production",
-  })
+  // console.log("[Middleware] Getting token with params:", {
+  //   secret: process.env.NEXTAUTH_SECRET ? "present" : "missing",
+  //   secureCookie: process.env.NODE_ENV === "production",
+  // })
 
   const token = await getToken({
     req: request,
@@ -210,18 +210,18 @@ export async function middleware(request: NextRequest) {
     secureCookie: process.env.NODE_ENV === "production", // explicitly set secure cookie based on environment
   })
 
-  console.log("[Middleware] Auth token check:", {
-    pathname,
-    hasToken: !!token,
-    isProtectedPath,
-    tokenId: token?.id ? "present" : "missing",
-  })
+  // console.log("[Middleware] Auth token check:", {
+  //   pathname,
+  //   hasToken: !!token,
+  //   isProtectedPath,
+  //   tokenId: token?.id ? "present" : "missing",
+  // })
 
   // Redirect to login if no token and trying to access protected route
   if (!token && isProtectedPath) {
-    console.log(
-      "[Middleware] No token for protected path, redirecting to login"
-    )
+    // console.log(
+    //   "[Middleware] No token for protected path, redirecting to login"
+    // )
     const url = new URL("/login", request.url)
     url.searchParams.set("callbackUrl", encodeURI(request.nextUrl.pathname))
     return NextResponse.redirect(url)
@@ -229,13 +229,13 @@ export async function middleware(request: NextRequest) {
 
   // Redirect to dashboard after successful login if we're on login page with valid session
   if (token && (pathname === "/login" || pathname === "/register")) {
-    console.log("[Middleware] User already logged in, redirecting to dashboard")
+    // console.log("[Middleware] User already logged in, redirecting to dashboard")
     const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
     const decodedCallbackUrl = decodeURIComponent(callbackUrl)
     return NextResponse.redirect(new URL(decodedCallbackUrl, request.url))
   }
 
-  console.log("[Middleware] Proceeding with request")
+  // console.log("[Middleware] Proceeding with request")
   return NextResponse.next()
 }
 

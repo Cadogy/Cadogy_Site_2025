@@ -66,7 +66,7 @@ export function HeroCarousel({
         // Clear any cached posts first
         setPosts([])
         setLoading(true)
-        
+
         const fetchedPosts = await getAllPosts()
         setPosts(fetchedPosts)
         setError(null)
@@ -82,15 +82,15 @@ export function HeroCarousel({
 
     // Create event listener for refreshing carousel from navbar logo click
     const handleRefreshCarousel = () => {
-      console.log('Refreshing hero carousel slides...')
+      // console.log('Refreshing hero carousel slides...')
       setCurrentSlide(0) // Reset to first slide
-      
+
       // Set refreshing state to true for animation
       setIsRefreshing(true)
-      
+
       // Fetch new posts
       fetchPosts()
-      
+
       // Reset refreshing state after a short delay to show animation
       setTimeout(() => {
         setIsRefreshing(false)
@@ -98,11 +98,11 @@ export function HeroCarousel({
     }
 
     // Add event listener
-    window.addEventListener('refreshHeroCarousel', handleRefreshCarousel)
+    window.addEventListener("refreshHeroCarousel", handleRefreshCarousel)
 
     // Cleanup
     return () => {
-      window.removeEventListener('refreshHeroCarousel', handleRefreshCarousel)
+      window.removeEventListener("refreshHeroCarousel", handleRefreshCarousel)
     }
   }, [customSlides])
 
@@ -343,7 +343,7 @@ export function HeroCarousel({
             index === (currentSlide - 1 + slides.length) % slides.length
 
           // Ensure the image URL has cache busting
-          const slideImage = slide.image.includes('wp.cadogy.com') 
+          const slideImage = slide.image.includes("wp.cadogy.com")
             ? preventImageCaching(slide.image)
             : slide.image
 

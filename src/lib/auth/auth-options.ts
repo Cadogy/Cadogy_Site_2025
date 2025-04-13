@@ -81,14 +81,14 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Log verification status for debugging
-        console.log("User verification status:", {
-          email: user.email,
-          emailVerified: user.emailVerified,
-          hasVerification:
-            user.emailVerified !== undefined && user.emailVerified !== null,
-          verifiedType: typeof user.emailVerified,
-          isDate: user.emailVerified instanceof Date,
-        })
+        // console.log("User verification status:", {
+        //   email: user.email,
+        //   emailVerified: user.emailVerified,
+        //   hasVerification:
+        //     user.emailVerified !== undefined && user.emailVerified !== null,
+        //   verifiedType: typeof user.emailVerified,
+        //   isDate: user.emailVerified instanceof Date,
+        // })
 
         // Check if email is verified - using strict check
         if (

@@ -74,7 +74,7 @@ export async function PUT(request: NextRequest) {
           const fileKey = previousImageUrl.split("/").pop()
           if (fileKey) {
             await utapi.deleteFiles(fileKey)
-            console.log("Deleted file from UploadThing:", fileKey)
+            // console.log("Deleted file from UploadThing:", fileKey)
           }
         } catch (deleteError) {
           console.error("Error deleting file from UploadThing:", deleteError)

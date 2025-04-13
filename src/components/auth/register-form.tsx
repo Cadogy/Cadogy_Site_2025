@@ -51,7 +51,7 @@ const RegisterForm = () => {
         throw new Error(data.message || "Registration failed")
       }
 
-      console.log("Registration successful:", data)
+      // console.log("Registration successful:", data)
 
       toast({
         title: "Account created!",
@@ -62,7 +62,7 @@ const RegisterForm = () => {
       // Show verification message instead of redirecting
       setVerificationSent(true)
     } catch (error: any) {
-      console.error("Registration error:", error)
+      // console.error("Registration error:", error)
       setError(
         error.message || "An unexpected error occurred. Please try again."
       )

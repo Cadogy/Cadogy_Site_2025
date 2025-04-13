@@ -14,13 +14,13 @@ export async function GET(request: NextRequest) {
   // Check if user is authenticated
   const session = await getServerSession(authOptions)
 
-  console.log(
-    "API Keys - GET: Session in API route:",
-    session ? "Session exists" : "No session found"
-  )
+  // console.log(
+  //   "API Keys - GET: Session in API route:",
+  //   session ? "Session exists" : "No session found"
+  // )
 
   if (!session?.user?.id) {
-    console.log("Unauthorized access attempt to /api/dashboard/api-keys")
+    // console.log("Unauthorized access attempt to /api/dashboard/api-keys")
     return NextResponse.json(
       {
         error: "Unauthorized",
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    console.log("User authenticated for API keys:", session.user.email)
+    // console.log("User authenticated for API keys:", session.user.email)
     const apiKeys = await getUserApiKeys(session.user.id)
 
     // Format API keys for frontend
@@ -62,13 +62,13 @@ export async function POST(request: NextRequest) {
   // Check if user is authenticated
   const session = await getServerSession(authOptions)
 
-  console.log(
-    "API Keys - POST: Session in API route:",
-    session ? "Session exists" : "No session found"
-  )
+  // console.log(
+  //   "API Keys - POST: Session in API route:",
+  //   session ? "Session exists" : "No session found"
+  // )
 
   if (!session?.user?.id) {
-    console.log("Unauthorized POST attempt to /api/dashboard/api-keys")
+    // console.log("Unauthorized POST attempt to /api/dashboard/api-keys")
     return NextResponse.json(
       {
         error: "Unauthorized",
@@ -86,9 +86,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 })
     }
 
-    console.log(
-      `Creating API key for user ${session.user.email}: ${name}, type=${type || "primary"}`
-    )
+    // console.log(
+    //   `Creating API key for user ${session.user.email}: ${name}, type=${type || "primary"}`
+    // )
 
     const newApiKey = await createApiKey(
       session.user.id,

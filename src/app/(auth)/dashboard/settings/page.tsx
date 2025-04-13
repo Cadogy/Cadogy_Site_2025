@@ -100,7 +100,7 @@ export default function SettingsPage() {
         setName(userData.name || "")
         setEmail(userData.email || "")
         setProfileImage(userData.image || null)
-        console.log("Fetched user data:", userData)
+        //console.log("Fetched user data:", userData)
       } else {
         console.error("Failed to fetch user data")
         // Fallback to session data if API fails

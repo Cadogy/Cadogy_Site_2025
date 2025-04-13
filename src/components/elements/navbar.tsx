@@ -95,7 +95,7 @@ export function NavigationMenu() {
     const timeSinceLastRefresh = now - lastRefreshTime.current
 
     if (timeSinceLastRefresh > 3000) {
-      console.log("Triggering carousel refresh...")
+      // console.log("Triggering carousel refresh...")
       lastRefreshTime.current = now
       window.dispatchEvent(new CustomEvent("refreshHeroCarousel"))
 

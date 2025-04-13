@@ -10,13 +10,13 @@ export async function GET(request: NextRequest) {
   // Check if user is authenticated
   const session = await getServerSession(authOptions)
 
-  console.log(
-    "Session in API route:",
-    session ? "Session exists" : "No session found"
-  )
+  // console.log(
+  //   "Session in API route:",
+  //   session ? "Session exists" : "No session found"
+  // )
 
   if (!session?.user) {
-    console.log("Unauthorized access attempt to /api/dashboard/usage")
+    // console.log("Unauthorized access attempt to /api/dashboard/usage")
     return NextResponse.json(
       {
         error: "Unauthorized",
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    console.log("User authenticated:", session.user.email)
+    // console.log("User authenticated:", session.user.email)
 
     // Get all data in parallel
     const [usageStats, apiKey, alerts] = await Promise.all([

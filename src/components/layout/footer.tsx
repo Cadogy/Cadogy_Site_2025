@@ -9,15 +9,10 @@ import { cn } from "@/lib/utils"
 export function Footer() {
   const currentYear = new Date().getFullYear()
   const pathname = usePathname()
-  const isDashboardRoute = pathname?.startsWith("/dashboard")
-
-  useEffect(() => {
-    console.log("Footer component rendered")
-  }, [])
 
   return (
     <footer className="w-full border-t border-border/40 bg-background py-6">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[90%] px-4 lg:px-0">
         {/* Main footer content */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and company info */}

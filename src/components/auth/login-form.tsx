@@ -25,18 +25,18 @@ export default function LoginForm() {
 
   // Log session status changes
   useEffect(() => {
-    console.log("[Session] Current auth status:", status)
-    console.log("[Session] Session data:", session)
+    // console.log("[Session] Current auth status:", status)
+    // console.log("[Session] Session data:", session)
 
     if (status === "authenticated" && session) {
-      console.log("[Session] User is authenticated, session exists")
+      // console.log("[Session] User is authenticated, session exists")
       // Check if we need to redirect
       const callbackUrl = searchParams.get("callbackUrl")
       if (callbackUrl) {
-        console.log("[Session] Redirecting to callback URL:", callbackUrl)
+        // console.log("[Session] Redirecting to callback URL:", callbackUrl)
         router.push(callbackUrl)
       } else if (window.location.pathname === "/login") {
-        console.log("[Session] Redirecting authenticated user to dashboard")
+        // console.log("[Session] Redirecting authenticated user to dashboard")
         router.push("/dashboard")
       }
     }
@@ -126,11 +126,11 @@ export default function LoginForm() {
     setUnverifiedEmail(null)
     setIsLoading(true)
 
-    console.log("[Login] Starting login process with:", { email })
+    // console.log("[Login] Starting login process with:", { email })
 
     try {
       // First, validate login credentials and check email verification
-      console.log("[Login] Validating credentials...")
+      // console.log("[Login] Validating credentials...")
       const validationResponse = await fetch("/api/auth/validate-login", {
         method: "POST",
         headers: {
@@ -139,16 +139,16 @@ export default function LoginForm() {
         body: JSON.stringify({ email, password }),
       })
 
-      console.log(
-        "[Login] Validation response status:",
-        validationResponse.status
-      )
+      // console.log(
+      //   "[Login] Validation response status:",
+      //   validationResponse.status
+      // )
       const validationData = await validationResponse.json()
-      console.log("[Login] Validation data:", validationData)
+      // console.log("[Login] Validation data:", validationData)
 
       // If email is not verified, show verification needed message
       if (validationResponse.status === 403 && !validationData.verified) {
-        console.log("[Login] Email not verified:", email)
+        // console.log("[Login] Email not verified:", email)
         setUnverifiedEmail(email)
         setError(
           "Your email is not verified. Please check your inbox for the verification link or request a new one."
@@ -163,7 +163,7 @@ export default function LoginForm() {
 
       // If other validation error
       if (!validationResponse.ok) {
-        console.log("[Login] Validation failed:", validationData.message)
+        // console.log("[Login] Validation failed:", validationData.message)
         setError(validationData.message || "Invalid credentials")
         toast({
           title: "Login failed",
@@ -174,7 +174,7 @@ export default function LoginForm() {
       }
 
       // If validation passed, proceed with actual login
-      console.log("[Login] Validation passed, proceeding with signIn...")
+      // console.log("[Login] Validation passed, proceeding with signIn...")
       const result = await signIn("credentials", {
         redirect: false,
         email,
@@ -182,10 +182,10 @@ export default function LoginForm() {
         callbackUrl: "/dashboard",
       })
 
-      console.log("[Login] SignIn result:", result)
+      // console.log("[Login] SignIn result:", result)
 
       if (result?.error) {
-        console.log("[Login] SignIn error:", result.error)
+        // console.log("[Login] SignIn error:", result.error)
         setError(result.error)
         toast({
           title: "Login failed",
@@ -193,7 +193,7 @@ export default function LoginForm() {
           variant: "destructive",
         })
       } else if (result?.ok) {
-        console.log("[Login] SignIn successful, redirecting to dashboard...")
+        // console.log("[Login] SignIn successful, redirecting to dashboard...")
         toast({
           title: "Login successful",
           description: "You are now logged in",
@@ -201,13 +201,13 @@ export default function LoginForm() {
 
         // Add a delay to ensure session is established
         setTimeout(() => {
-          console.log("[Login] Executing redirect to dashboard...")
+          // console.log("[Login] Executing redirect to dashboard...")
           router.push("/dashboard")
           router.refresh()
         }, 500)
       }
     } catch (error) {
-      console.error("[Login] Unexpected login error:", error)
+      // console.error("[Login] Unexpected login error:", error)
       setError("An unexpected error occurred. Please try again.")
       toast({
         title: "Login failed",
