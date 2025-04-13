@@ -47,29 +47,63 @@ function DashboardNavigation() {
     name: string | null
     email: string | null
     image: string | null
+    tokenBalance?: number
   } | null>(null)
+
+  // Define type for userData within the fetchUserData function
+  type UserDataType = {
+    id: string
+    name: string | null
+    email: string | null
+    image: string | null
+    tokenBalance?: number
+  }
 
   // Fetch user data from API with useCallback
   const fetchUserData = useCallback(async () => {
     try {
-      const response = await fetch("/api/user/profile")
-      if (response.ok) {
-        const data = await response.json()
-        setUserData({
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          image: data.image,
-        })
+      // First, fetch basic user profile
+      const profileResponse = await fetch("/api/user/profile")
+      let userData: UserDataType
+
+      if (profileResponse.ok) {
+        const profileData = await profileResponse.json()
+        userData = {
+          id: profileData.id,
+          name: profileData.name,
+          email: profileData.email,
+          image: profileData.image,
+        }
       } else {
-        // Fallback to session data
-        setUserData({
+        // Fallback to session data for basic info
+        userData = {
           id: session?.user?.id || "",
           name: session?.user?.name || null,
           email: session?.user?.email || null,
           image: session?.user?.image || null,
-        })
+        }
       }
+
+      // Now fetch token balance from dashboard API
+      try {
+        const tokenResponse = await fetch("/api/dashboard/usage", {
+          cache: "no-store",
+          headers: {
+            "x-timestamp": Date.now().toString(),
+          },
+        })
+
+        if (tokenResponse.ok) {
+          const dashboardData = await tokenResponse.json()
+          userData.tokenBalance = dashboardData.user?.tokenBalance || 0
+          // console.log("Token balance fetched:", userData.tokenBalance)
+        }
+      } catch (tokenError) {
+        console.error("Error fetching token balance:", tokenError)
+      }
+
+      // Set the combined user data
+      setUserData(userData)
     } catch (error) {
       console.error("Error fetching user data:", error)
       // Fallback to session data

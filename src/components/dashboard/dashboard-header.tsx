@@ -2,7 +2,7 @@
 
 import { Suspense } from "react"
 import Link from "next/link"
-import { BellIcon } from "lucide-react"
+import { BellIcon, Coins } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { UserProfile } from "@/components/dashboard/user-profile"
@@ -16,6 +16,7 @@ interface DashboardHeaderProps {
     name: string | null
     email: string | null
     image: string | null
+    tokenBalance?: number
   } | null
 }
 
@@ -47,6 +48,14 @@ export function DashboardHeader({ userData }: DashboardHeaderProps) {
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Token Balance - visible on large screens */}
+            <div className="hidden items-center space-x-2 text-muted-foreground md:flex">
+              <span className="font-medium">
+                {userData?.tokenBalance?.toLocaleString() || 0}
+              </span>
+              <Coins className="h-5 w-5" />
+            </div>
+
             <Button
               variant="ghost"
               size="icon"

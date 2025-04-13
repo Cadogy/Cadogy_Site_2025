@@ -49,13 +49,13 @@ export default function VerifyEmailForm() {
 
       try {
         verificationAttempted.current = true
-        console.log("Verifying email with token:", token)
+        // console.log("Verifying email with token:", token)
         const response = await fetch(`/api/auth/verify-email?token=${token}`, {
           method: "GET",
         })
 
         const data = await response.json()
-        console.log("API response:", response.status, data)
+        // console.log("API response:", response.status, data)
 
         // Check user record regardless of response status
         // This is a workaround for cases where the API updates the database

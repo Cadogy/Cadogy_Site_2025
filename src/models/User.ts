@@ -7,6 +7,7 @@ export interface IUser {
   image?: string
   password?: string
   role: "user" | "admin"
+  tokenBalance: number
   createdAt: Date
   updatedAt: Date
 }
@@ -30,6 +31,10 @@ const UserSchema = new Schema<IUser>(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+    tokenBalance: {
+      type: Number,
+      default: 0,
     },
   },
   {

@@ -35,19 +35,20 @@ declare global {
   var mongoose: {
     conn: mongoose.Connection | null
     promise: Promise<mongoose.Connection> | null
+    db: any | null
   }
 }
 
 // Initialize global mongoose connection object
-global.mongoose = global.mongoose || { conn: null, promise: null }
+global.mongoose = global.mongoose || { conn: null, promise: null, db: null }
 
 /**
- * Connect to MongoDB
+ * Connect to MongoDB and return the database instance
  */
-export const connectToDatabase = async (): Promise<mongoose.Connection> => {
-  if (global.mongoose.conn) {
-    // Use existing connection
-    return global.mongoose.conn
+export const connectToDatabase = async () => {
+  if (global.mongoose.conn && global.mongoose.db) {
+    // Use existing connection and database
+    return global.mongoose.db
   }
 
   if (!global.mongoose.promise) {
@@ -58,9 +59,16 @@ export const connectToDatabase = async (): Promise<mongoose.Connection> => {
 
   try {
     global.mongoose.conn = await global.mongoose.promise
-    return global.mongoose.conn
+
+    // Get the MongoDB native driver's db instance
+    if (!global.mongoose.db) {
+      global.mongoose.db = global.mongoose.conn.db
+    }
+
+    return global.mongoose.db
   } catch (e) {
     global.mongoose.promise = null
+    global.mongoose.db = null
     throw e
   }
 }
