@@ -75,7 +75,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
 
   // Function to refresh data
   const refreshUserData = useCallback(() => {
-    console.log("Manual user data refresh requested")
+    // console.log("Manual user data refresh requested")
     setLastRefresh(Date.now())
   }, [])
 
@@ -86,7 +86,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
       return
     }
 
-    console.log("Fetching user data...")
+    // console.log("Fetching user data...")
     setIsLoading(true)
     setError(null)
 
@@ -151,7 +151,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
         systemAlerts: dashboard.alerts || [],
       })
 
-      console.log("User data updated successfully")
+      // console.log("User data updated successfully")
     } catch (err) {
       console.error("Error fetching user data:", err)
       setError("Failed to load user data. Please refresh or try again later.")

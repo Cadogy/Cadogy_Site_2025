@@ -27,30 +27,47 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // console.log("Dashboard API - User authenticated:", session.user.email)
-    const db = await connectToDatabase()
+    // Connect to the database with error handling
+    let userData = null
+    let db
 
-    // Get user data directly from MongoDB including token balance
-    const userObjectId = new mongoose.Types.ObjectId(session.user.id)
-    // console.log("Dashboard API - User ObjectId:", userObjectId)
+    try {
+      db = await connectToDatabase()
 
-    // Use direct MongoDB to get the user document
-    const usersCollection = db.collection("users")
-    const userData = await usersCollection.findOne({ _id: userObjectId })
+      if (db) {
+        // Get user data directly from MongoDB including token balance
+        const userObjectId = new mongoose.Types.ObjectId(session.user.id)
 
-    // console.log(
-    //   "Dashboard API - User data retrieved:",
-    //   userData ? "Found" : "Not found",
-    //   "Token balance:",
-    //   userData?.tokenBalance
-    // )
+        // Check if collection exists before accessing it
+        const collections = await db
+          .listCollections({ name: "users" })
+          .toArray()
 
-    // Get all data in parallel
-    const [usageStats, apiKey, alerts] = await Promise.all([
-      getCurrentUserApiUsage(),
-      getCurrentUserApiKey(),
-      getCurrentUserAlerts(),
-    ])
+        if (collections.length > 0) {
+          const usersCollection = db.collection("users")
+          userData = await usersCollection.findOne({ _id: userObjectId })
+        }
+      }
+    } catch (dbError) {
+      console.error("Database connection error:", dbError)
+      // Continue with the API response even if DB connection fails
+    }
+
+    // Get all data in parallel with proper error handling
+    let usageStats = null
+    let apiKey = null
+    let alerts = null
+
+    try {
+      ;[usageStats, apiKey, alerts] = await Promise.all([
+        getCurrentUserApiUsage(),
+        getCurrentUserApiKey(),
+        getCurrentUserAlerts(),
+      ])
+    } catch (dataError) {
+      console.error("Error fetching additional data:", dataError)
+      // Continue with available data
+    }
 
     // Format API key for frontend - handle null case
     const formattedApiKey = apiKey
@@ -74,9 +91,22 @@ export async function GET(request: NextRequest) {
         registeredAt: userData?.createdAt || new Date(),
         tokenBalance: userData?.tokenBalance || 0,
       },
-      usageStats,
+      usageStats: usageStats || {
+        totalCalls: 0,
+        usage: [],
+        daily: [],
+        monthly: [],
+        billing: {
+          totalCalls: 0,
+          remainingQuota: 0,
+          usagePercentage: 0,
+          daysRemaining: 0,
+          quota: 0,
+          resetDate: new Date(),
+        },
+      },
       apiKey: formattedApiKey,
-      alerts,
+      alerts: alerts || [],
     }
 
     // console.log(

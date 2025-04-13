@@ -11,6 +11,7 @@ import {
   LayoutDashboardIcon,
   LogOutIcon,
   SettingsIcon,
+  ShieldIcon,
   UserIcon,
 } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
@@ -332,6 +333,23 @@ export function NavigationMenu() {
                       Usage
                     </Link>
                   </DropdownMenuItem>
+
+                  {/* Admin Panel option for admin users */}
+                  {session?.user?.role === "admin" && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href="/admin"
+                          className="flex cursor-pointer items-center"
+                        >
+                          <ShieldIcon className="mr-2 h-4 w-4" />
+                          Admin Panel
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="flex cursor-pointer items-center text-destructive focus:text-destructive"
@@ -583,6 +601,21 @@ export function NavigationMenu() {
                     Usage
                   </Link>
                 </Button>
+
+                {/* Admin Panel link - only visible to admins */}
+                {session.user.role === "admin" && (
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="justify-start text-xl text-foreground"
+                    asChild
+                  >
+                    <Link href="/admin" onClick={closeMenu}>
+                      <ShieldIcon className="mr-2 h-5 w-5" />
+                      Admin Panel
+                    </Link>
+                  </Button>
+                )}
 
                 <Button
                   variant="ghost"

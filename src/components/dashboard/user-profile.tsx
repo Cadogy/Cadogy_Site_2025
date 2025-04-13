@@ -7,6 +7,7 @@ import {
   LayoutDashboardIcon,
   LogOutIcon,
   SettingsIcon,
+  ShieldAlertIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 import { FaBolt, FaCog, FaHome, FaKey } from "react-icons/fa"
@@ -28,6 +29,8 @@ interface UserProfileProps {
     name: string | null
     email: string | null
     image: string | null
+    role?: string | null
+    isAdmin?: boolean
   }
 }
 
@@ -41,7 +44,11 @@ export function UserProfile({ user: propUser }: UserProfileProps) {
     name: contextUser.name,
     email: contextUser.email,
     image: contextUser.image,
+    role: contextUser.role,
   }
+
+  // Check if user is admin either from props or role value
+  const isAdmin = user.isAdmin || user.role === "admin"
 
   // Get initials for avatar fallback
   const getInitials = () => {
@@ -125,6 +132,20 @@ export function UserProfile({ user: propUser }: UserProfileProps) {
             Usage
           </Link>
         </DropdownMenuItem>
+
+        {/* Admin Panel link - only visible to admins */}
+        {isAdmin && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/admin" className="flex cursor-pointer items-center">
+                <ShieldAlertIcon className="mr-2 h-4 w-4" />
+                Admin Panel
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="flex cursor-pointer items-center text-destructive focus:text-destructive"

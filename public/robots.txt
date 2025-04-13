@@ -2,6 +2,9 @@
 User-agent: *
 Allow: /
 
+# Block admin section completely
+Disallow: /admin/
+
 # Disallow WordPress admin pages if they exist
 Disallow: /wp-admin/
 Disallow: /wp-login.php

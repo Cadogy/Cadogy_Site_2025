@@ -3,7 +3,7 @@
 import { Suspense } from "react"
 import Link from "next/link"
 import { useUserData } from "@/providers/UserDataProvider"
-import { BellIcon, Coins } from "lucide-react"
+import { BellIcon, Coins, ShieldAlert } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { UserProfile } from "@/components/dashboard/user-profile"
@@ -19,6 +19,7 @@ interface DashboardHeaderProps {
     email: string | null
     image: string | null
     tokenBalance?: number
+    role?: string | null
   } | null
 }
 
@@ -35,7 +36,11 @@ export function DashboardHeader({
     email: contextUserData.email,
     image: contextUserData.image,
     tokenBalance: contextUserData.tokenBalance,
+    role: contextUserData.role || null,
   }
+
+  // Check if user is an admin
+  const isAdmin = userData?.role === "admin"
 
   return (
     <>
@@ -89,7 +94,7 @@ export function DashboardHeader({
             {/* User profile */}
             <Suspense fallback={<UserProfileSkeleton />}>
               {userData && !isLoading ? (
-                <UserProfile user={userData} />
+                <UserProfile user={{ ...userData, isAdmin }} />
               ) : (
                 <UserProfileSkeleton />
               )}

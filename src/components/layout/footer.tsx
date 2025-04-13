@@ -1,7 +1,13 @@
 import { useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "lucide-react"
+import {
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  XIcon,
+} from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -47,15 +53,15 @@ export function Footer() {
             </p>
             <div className="flex space-x-4 pt-2">
               <a
-                href="https://twitter.com/cadogy"
+                href="https://www.instagram.com/cadogyweb"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground"
               >
-                <TwitterIcon className="h-5 w-5" />
+                <InstagramIcon className="h-5 w-5" />
               </a>
               <a
-                href="https://github.com/cadogy"
+                href="https://www.github.com/cadogy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground"
@@ -63,7 +69,7 @@ export function Footer() {
                 <GithubIcon className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com/company/cadogy"
+                href="https://www.linkedin.com/company/cadogy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground"

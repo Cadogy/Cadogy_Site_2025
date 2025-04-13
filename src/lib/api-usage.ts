@@ -317,28 +317,49 @@ export const getCurrentUserApiUsage = async (): Promise<{
     resetDate: Date
   }
 } | null> => {
-  const session = await getServerSession(authOptions)
+  try {
+    const session = await getServerSession(authOptions)
 
-  if (!session?.user?.id) {
-    return null
-  }
+    if (!session?.user?.id) {
+      return null
+    }
 
-  const userId = session.user.id
+    // Ensure database is connected before proceeding
+    await connectToDatabase()
 
-  // Get all the data in parallel
-  const [totalCalls, usage, daily, monthly, billing] = await Promise.all([
-    getTotalApiCalls(userId),
-    getApiUsageByEndpoint(userId),
-    getDailyApiUsage(userId),
-    getMonthlyApiUsage(userId),
-    getCurrentBillingCycle(userId),
-  ])
+    // Use Promise.all to get all stats in parallel
+    const [totalCalls, usageByEndpoint, dailyUsage, monthlyUsage, billingInfo] =
+      await Promise.all([
+        getTotalApiCalls(session.user.id),
+        getApiUsageByEndpoint(session.user.id),
+        getDailyApiUsage(session.user.id),
+        getMonthlyApiUsage(session.user.id),
+        getCurrentBillingCycle(session.user.id),
+      ])
 
-  return {
-    totalCalls,
-    usage,
-    daily,
-    monthly,
-    billing,
+    return {
+      totalCalls,
+      usage: usageByEndpoint,
+      daily: dailyUsage,
+      monthly: monthlyUsage,
+      billing: billingInfo,
+    }
+  } catch (error) {
+    console.error("Error getting user API usage:", error)
+    // Return default empty data structure instead of null
+    return {
+      totalCalls: 0,
+      usage: [],
+      daily: [],
+      monthly: [],
+      billing: {
+        totalCalls: 0,
+        remainingQuota: 0,
+        usagePercentage: 0,
+        daysRemaining: 0,
+        quota: 0,
+        resetDate: new Date(),
+      },
+    }
   }
 }
