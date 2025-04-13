@@ -7,7 +7,7 @@ const fromEmail = process.env.FROM_EMAIL || "noreply@cadogy.com"
  * Send a verification email to the user
  */
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify-email?token=${token}`
+  const confirmUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`
 
   try {
     const data = await resend.emails.send({
@@ -34,7 +34,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
  * Send a password reset email to the user
  */
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password?token=${token}`
+  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`
 
   try {
     const data = await resend.emails.send({

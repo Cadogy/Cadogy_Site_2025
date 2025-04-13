@@ -16,7 +16,8 @@ const publicPaths = [
   "/",
   "/login",
   "/register",
-  "/auth/verify-email",
+  "/verify-email",
+  "/reset-password",
   "/forgot-password",
 ]
 
@@ -28,7 +29,26 @@ const publicApiRoutes = [
 ]
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname, searchParams } = request.nextUrl
+
+  // Handle redirects for old email links
+  if (pathname === "/auth/verify-email") {
+    const token = searchParams.get("token")
+    const redirectUrl = new URL(
+      `/verify-email${token ? `?token=${token}` : ""}`,
+      request.url
+    )
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  if (pathname === "/auth/reset-password") {
+    const token = searchParams.get("token")
+    const redirectUrl = new URL(
+      `/reset-password${token ? `?token=${token}` : ""}`,
+      request.url
+    )
+    return NextResponse.redirect(redirectUrl)
+  }
 
   // Check if this is an API route that requires API key
   if (
