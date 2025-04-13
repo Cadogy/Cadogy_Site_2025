@@ -1,54 +1,17 @@
-"use client"
+import { Suspense } from "react"
+import { Metadata } from "next"
 
-import React, { useState } from "react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+import ForgotPasswordForm from "@/components/auth/forgot-password-form"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+export const metadata: Metadata = {
+  title: "Forgot Password | Cadogy",
+  description: "Reset your password to regain access to your account",
+}
 
-const ForgotPasswordPage = () => {
-  const router = useRouter()
-  const [email, setEmail] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-    setIsLoading(true)
-
-    try {
-      const response = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Password reset request failed")
-      }
-
-      setSuccess(true)
-    } catch (error: any) {
-      console.error("Forgot password error:", error)
-      setError(
-        error.message || "An unexpected error occurred. Please try again."
-      )
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
+function ForgotPasswordLoading() {
   return (
     <div className="flex min-h-screen w-full">
-      {/* Left Column - Form */}
-      <div className="flex w-full flex-col items-center justify-center p-8 lg:w-2/5">
+      <div className="flex w-full flex-col items-center justify-center p-8">
         <div className="w-full max-w-md rounded-xl bg-[#181818] p-10 shadow-lg backdrop-blur-md">
           <div className="flex flex-col items-center">
             <a href="/">
@@ -74,80 +37,8 @@ const ForgotPasswordPage = () => {
               </svg>
             </a>
             <h1 className="mb-6 text-center text-xl">Forgot Password</h1>
-            {error && (
-              <div className="mb-4 w-full rounded-md bg-red-500/10 p-3 text-sm text-red-500">
-                {error}
-              </div>
-            )}
-            {success ? (
-              <div className="mb-4 w-full rounded-md bg-green-500/10 p-3 text-sm text-green-500">
-                Password reset email sent! Please check your inbox for further
-                instructions.
-              </div>
-            ) : (
-              <form className="w-full space-y-4" onSubmit={handleSubmit}>
-                <div className="relative">
-                  <label htmlFor="email" className="text-sm font-medium">
-                    Email
-                  </label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full rounded-md"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Sending..." : "Reset Password"}
-                </Button>
-              </form>
-            )}
-
-            {/* Footer */}
-            <footer className="mt-6 text-center text-sm text-slate-300">
-              Remember your password?{" "}
-              <a
-                href="/login"
-                className="font-medium text-green-500 hover:underline"
-              >
-                Sign in
-              </a>
-            </footer>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column - Visual Section */}
-      <div className="hidden h-full lg:block lg:w-3/5">
-        <div className="fixed right-0 top-0 flex h-full w-full items-center justify-center bg-background p-10 lg:w-3/5">
-          {/* Background Image */}
-          <div className="relative h-full w-full overflow-hidden rounded-3xl bg-white/10">
-            <Image
-              src="/images/assets/sound-effects.webp"
-              alt="Sound Effects Library"
-              layout="fill"
-              objectFit="contain"
-              className="scale-75 rounded-3xl"
-            />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            {/* Text Overlay */}
-            <div className="absolute bottom-10 left-10 max-w-[80%] text-white">
-              <div className="mb-2 text-xs uppercase text-stone-400">
-                Latest updates
-              </div>
-              <h2 className="text-2xl xl:text-4xl">
-                Building technology to help small game creators access larger
-                asset collections
-              </h2>
+            <div className="mb-4 text-center">
+              <p>Loading...</p>
             </div>
           </div>
         </div>
@@ -156,4 +47,10 @@ const ForgotPasswordPage = () => {
   )
 }
 
-export default ForgotPasswordPage
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={<ForgotPasswordLoading />}>
+      <ForgotPasswordForm />
+    </Suspense>
+  )
+}

@@ -4,6 +4,9 @@ import { VerificationToken } from "@/models/VerificationToken"
 
 import { connectToDatabase } from "@/lib/mongodb"
 
+// Mark this route as dynamic to allow request.url usage
+export const dynamic = "force-dynamic"
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
