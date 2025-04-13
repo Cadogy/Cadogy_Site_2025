@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
+// In development mode, we can bypass the Turnstile verification
+const isDevelopment = process.env.NODE_ENV === "development"
+
 export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -26,7 +29,9 @@ export default function LoginForm() {
     null
   )
   const [showPassword, setShowPassword] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(
+    isDevelopment ? "development_bypass_token" : null
+  )
   const [turnstileId] = useState(uuidv4())
 
   // Handle session changes
@@ -102,11 +107,6 @@ export default function LoginForm() {
       })
     } catch (error: any) {
       console.error("Resend verification error:", error)
-      toast({
-        title: "Failed to resend verification email",
-        description: error.message || "An unexpected error occurred",
-        variant: "destructive",
-      })
     } finally {
       setResendingEmail(false)
     }
@@ -117,14 +117,9 @@ export default function LoginForm() {
     setError("")
     setUnverifiedEmail(null)
 
-    // Validate turnstile token
-    if (!turnstileToken) {
+    // Validate turnstile token (skip in development mode)
+    if (!isDevelopment && !turnstileToken) {
       setError("Please complete the security check")
-      toast({
-        title: "Verification required",
-        description: "Please complete the security check to continue",
-        variant: "destructive",
-      })
       return
     }
 
@@ -152,22 +147,12 @@ export default function LoginForm() {
         setError(
           "Your email is not verified. Please verify your email before logging in."
         )
-        toast({
-          title: "Verification required",
-          description: "Please verify your email before logging in.",
-          variant: "destructive",
-        })
         return
       }
 
       // If other validation error
       if (!validationResponse.ok) {
         setError(validationData.message || "Invalid credentials")
-        toast({
-          title: "Login failed",
-          description: validationData.message || "Invalid credentials",
-          variant: "destructive",
-        })
         return
       }
 
@@ -325,20 +310,22 @@ export default function LoginForm() {
             </div>
           </div>
 
-          {/* Add turnstile component before the submit button */}
-          <div className="mt-4 flex justify-center">
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-              onVerify={(token: string) => setTurnstileToken(token)}
-              refreshExpired="auto"
-              responseField={false}
-              id={turnstileId}
-            />
-          </div>
+          {/* Add turnstile component before the submit button (only in production) */}
+          {!isDevelopment && (
+            <div className="mt-4 flex justify-center">
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                onVerify={(token: string) => setTurnstileToken(token)}
+                refreshExpired="auto"
+                responseField={false}
+                id={turnstileId}
+              />
+            </div>
+          )}
 
           <button
             type="submit"
-            disabled={isLoading || !turnstileToken}
+            disabled={isLoading || (!isDevelopment && !turnstileToken)}
             className="auth-button mt-2"
           >
             {isLoading ? (

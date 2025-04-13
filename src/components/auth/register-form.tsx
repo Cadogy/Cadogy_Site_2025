@@ -10,6 +10,9 @@ import { v4 as uuidv4 } from "uuid"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "@/components/ui/use-toast"
 
+// In development mode, we can bypass the Turnstile verification
+const isDevelopment = process.env.NODE_ENV === "development"
+
 const RegisterForm = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +24,9 @@ const RegisterForm = () => {
   const [verificationSent, setVerificationSent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(
+    isDevelopment ? "development_bypass_token" : null
+  )
   const [turnstileId] = useState(uuidv4())
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,8 +44,8 @@ const RegisterForm = () => {
       return
     }
 
-    // Validate turnstile token
-    if (!turnstileToken) {
+    // Validate turnstile token (skip in development mode)
+    if (!isDevelopment && !turnstileToken) {
       setError("Please complete the security check")
       toast({
         title: "Verification required",
@@ -253,14 +258,14 @@ const RegisterForm = () => {
             <label htmlFor="terms" className="text-xs text-slate-300">
               I agree to the{" "}
               <Link
-                href="/terms"
+                href="/policies/terms-of-use"
                 className="text-slate-200 underline hover:text-white"
               >
                 Terms of Service
               </Link>{" "}
               and{" "}
               <Link
-                href="/privacy"
+                href="/policies/privacy-policy"
                 className="text-slate-200 underline hover:text-white"
               >
                 Privacy Policy
@@ -268,19 +273,22 @@ const RegisterForm = () => {
             </label>
           </div>
 
-          <div className="mt-4 flex justify-center">
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-              onVerify={(token: string) => setTurnstileToken(token)}
-              refreshExpired="auto"
-              responseField={false}
-              id={turnstileId}
-            />
-          </div>
+          {/* Add turnstile component before the submit button (only in production) */}
+          {!isDevelopment && (
+            <div className="mt-4 flex justify-center">
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                onVerify={(token: string) => setTurnstileToken(token)}
+                refreshExpired="auto"
+                responseField={false}
+                id={turnstileId}
+              />
+            </div>
+          )}
 
           <button
             type="submit"
-            disabled={isLoading || !turnstileToken}
+            disabled={isLoading || (!isDevelopment && !turnstileToken)}
             className="auth-button mt-6"
           >
             {isLoading ? (
