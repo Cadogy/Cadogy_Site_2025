@@ -7,6 +7,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion"
 import {
   AlertCircle,
   BookText,
+  Coins,
   FileCode,
   Key,
   LayoutDashboard,
@@ -26,6 +27,11 @@ const navItems = [
     name: "API Keys",
     href: "/dashboard/api-keys",
     icon: Key,
+  },
+  {
+    name: "Top-up",
+    href: "/dashboard/tokens",
+    icon: Coins,
   },
   {
     name: "Docs",

@@ -54,7 +54,7 @@ export function DashboardContent() {
       {/* Stats Cards */}
       <StatsCards stats={statsData} isLoading={isLoading} />
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4">
         {/* API Key Quick Info */}
         <ApiKeyCard
           isLoading={isLoading}
@@ -63,11 +63,11 @@ export function DashboardContent() {
         />
 
         {/* Token Management Card */}
-        <TokenManagement
+        {/* <TokenManagement
           initialBalance={userData.tokenBalance}
           onBalanceChange={handleTokenBalanceChange}
           onRefreshRequest={refreshUserData}
-        />
+        /> */}
       </div>
 
       {/* Getting Started */}
