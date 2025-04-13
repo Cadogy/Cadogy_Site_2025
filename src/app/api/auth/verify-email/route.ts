@@ -36,9 +36,16 @@ export async function GET(request: Request) {
       return NextResponse.json({ message: "User not found" }, { status: 404 })
     }
 
-    // Update user
-    user.emailVerified = new Date()
-    await user.save()
+    // Update user - ensure emailVerified is set as a Date object
+    const now = new Date()
+    console.log("Setting emailVerified to:", now)
+
+    const updateResult = await User.updateOne(
+      { _id: user._id },
+      { $set: { emailVerified: now } }
+    )
+
+    console.log("Update result:", updateResult)
 
     // Delete token
     await VerificationToken.deleteOne({ _id: verificationToken._id })

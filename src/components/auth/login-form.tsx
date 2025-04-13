@@ -26,6 +26,7 @@ export default function LoginForm() {
     // Check if there are verification status params
     const verified = searchParams.get("verified") === "true"
     const registered = searchParams.get("registered") === "true"
+    const errorParam = searchParams.get("error")
 
     if (verified) {
       setVerificationStatus("verified")
@@ -36,6 +37,30 @@ export default function LoginForm() {
       })
     } else if (registered) {
       setVerificationStatus("registered")
+    }
+
+    // Handle NextAuth error parameter in URL
+    if (errorParam) {
+      if (errorParam === "CredentialsSignin") {
+        // Generic credentials error, could be unverified email or wrong password
+        setError("Invalid email or password.")
+      } else if (
+        errorParam.includes("verify") ||
+        errorParam.includes("Verify")
+      ) {
+        const email = searchParams.get("email")
+        if (email) {
+          setUnverifiedEmail(email)
+          setError(
+            "Your email is not verified. Please check your inbox for the verification link or request a new one."
+          )
+        } else {
+          setError("Please verify your email before logging in.")
+        }
+      } else {
+        // Other NextAuth errors
+        setError(decodeURIComponent(errorParam))
+      }
     }
   }, [searchParams])
 
@@ -82,6 +107,43 @@ export default function LoginForm() {
     setIsLoading(true)
 
     try {
+      // First, validate login credentials and check email verification
+      const validationResponse = await fetch("/api/auth/validate-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const validationData = await validationResponse.json()
+
+      // If email is not verified, show verification needed message
+      if (validationResponse.status === 403 && !validationData.verified) {
+        setUnverifiedEmail(email)
+        setError(
+          "Your email is not verified. Please check your inbox for the verification link or request a new one."
+        )
+        toast({
+          title: "Verification required",
+          description: "Please verify your email before logging in.",
+          variant: "destructive",
+        })
+        return
+      }
+
+      // If other validation error
+      if (!validationResponse.ok) {
+        setError(validationData.message || "Invalid credentials")
+        toast({
+          title: "Login failed",
+          description: validationData.message || "Invalid credentials",
+          variant: "destructive",
+        })
+        return
+      }
+
+      // If validation passed, proceed with actual login
       const result = await signIn("credentials", {
         redirect: false,
         email,
@@ -89,11 +151,6 @@ export default function LoginForm() {
       })
 
       if (result?.error) {
-        // Check if the error is about unverified email
-        if (result.error.includes("Please verify your email")) {
-          setUnverifiedEmail(email)
-        }
-
         setError(result.error)
         toast({
           title: "Login failed",
