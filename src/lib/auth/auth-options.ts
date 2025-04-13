@@ -16,35 +16,45 @@ export const authOptions: NextAuthOptions = {
   // Cookie configuration for both production and development environments
   cookies: {
     sessionToken: {
-      name: `next-auth.session-token`,
+      name:
+        process.env.NODE_ENV === "production"
+          ? `__Secure-next-auth.session-token`
+          : `next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        // Modified to handle IP addresses in development
         secure: process.env.NODE_ENV === "production",
-        // Remove domain restriction for development
         domain:
           process.env.NODE_ENV === "production" ? ".cadogy.com" : undefined,
       },
     },
-    // Explicitly configure other cookies to ensure consistency
     callbackUrl: {
-      name: `next-auth.callback-url`,
+      name:
+        process.env.NODE_ENV === "production"
+          ? `__Secure-next-auth.callback-url`
+          : `next-auth.callback-url`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: process.env.NODE_ENV === "production",
+        domain:
+          process.env.NODE_ENV === "production" ? ".cadogy.com" : undefined,
       },
     },
     csrfToken: {
-      name: `next-auth.csrf-token`,
+      name:
+        process.env.NODE_ENV === "production"
+          ? `__Secure-next-auth.csrf-token`
+          : `next-auth.csrf-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: process.env.NODE_ENV === "production",
+        domain:
+          process.env.NODE_ENV === "production" ? ".cadogy.com" : undefined,
       },
     },
   },
@@ -123,7 +133,6 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id
         token.role = user.role
-        // Explicitly copy these properties to ensure they're in the token
         token.name = user.name
         token.email = user.email
         token.image = user.image
@@ -134,12 +143,40 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id as string
         session.user.role = token.role as string
-        // Ensure name, email and image are correctly passed to the session
         session.user.name = (token.name as string) ?? ""
         session.user.email = (token.email as string) ?? ""
         session.user.image = token.image as string | undefined
       }
       return session
+    },
+    async redirect({ url, baseUrl }) {
+      // Allow relative callback URLs
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`
+      }
+
+      // Allow callbacks to permitted domains
+      const allowedDomains = [
+        "cadogy.com",
+        "www.cadogy.com",
+        "app.cadogy.com",
+        "localhost:3000",
+        "192.168.1.66:3000",
+        "192.168.1.66",
+      ]
+
+      const isAllowedDomain = allowedDomains.some(
+        (domain) =>
+          url.startsWith(`http://${domain}`) ||
+          url.startsWith(`https://${domain}`)
+      )
+
+      if (isAllowedDomain) {
+        return url
+      }
+
+      // Default to dashboard
+      return `${baseUrl}/dashboard`
     },
   },
   debug: process.env.NODE_ENV === "development",

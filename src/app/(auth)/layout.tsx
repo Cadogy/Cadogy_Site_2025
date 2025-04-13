@@ -36,6 +36,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // We'll conditionally render the appropriate navigation & layout structure here
+  // This ensures headers/footers don't transition, only content does
+  const pathname = usePathname()
+  const isDashboardRoute = pathname?.startsWith("/dashboard")
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -63,12 +68,7 @@ export default function RootLayout({
           }
         `}</style>
       </head>
-      <body
-        className={cn(
-          "h-screen overflow-hidden bg-background antialiased",
-          inter.className
-        )}
-      >
+      <body className={cn("bg-background antialiased", inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -84,9 +84,35 @@ export default function RootLayout({
               easing="ease"
               speed={200}
             />
-            <PageTransition>
-              <RouteContentWrapper>{children}</RouteContentWrapper>
-            </PageTransition>
+
+            {/* Simple flex layout with natural flow */}
+            <div className="flex min-h-screen flex-col">
+              {/* Header */}
+              <div className="sticky top-0 z-50">
+                {isDashboardRoute ? <DashboardNavigation /> : <AppNavbar />}
+              </div>
+
+              {/* Main content with PageTransition */}
+              <PageTransition>
+                <main className="flex-1">
+                  {isDashboardRoute ? (
+                    <DashboardContent>{children}</DashboardContent>
+                  ) : (
+                    <div className="min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-124px)]">
+                      {children}
+                    </div>
+                  )}
+                </main>
+              </PageTransition>
+
+              {/* Footer only on desktop for dashboard routes */}
+              <div
+                className={cn(isDashboardRoute ? "hidden lg:block" : "block")}
+              >
+                <Footer />
+              </div>
+            </div>
+
             <Toaster />
           </SessionProvider>
         </ThemeProvider>
@@ -96,12 +122,9 @@ export default function RootLayout({
 }
 
 /**
- * RouteContentWrapper - Determines the layout based on the current route
- * Handles auth checking and user data for dashboard routes
+ * Dashboard-specific navigation component with auth checking
  */
-function RouteContentWrapper({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  const isDashboardRoute = pathname?.startsWith("/dashboard")
+function DashboardNavigation() {
   const { data: session, status } = useSession()
   const [userData, setUserData] = useState<{
     id: string
@@ -109,12 +132,9 @@ function RouteContentWrapper({ children }: { children: React.ReactNode }) {
     email: string | null
     image: string | null
   } | null>(null)
-  const [isLoadingUser, setIsLoadingUser] = useState(true)
 
   // Fetch user data from API with useCallback
   const fetchUserData = useCallback(async () => {
-    if (!isDashboardRoute) return // Only fetch for dashboard routes
-
     try {
       const response = await fetch("/api/user/profile")
       if (response.ok) {
@@ -143,11 +163,8 @@ function RouteContentWrapper({ children }: { children: React.ReactNode }) {
         email: session?.user?.email || null,
         image: session?.user?.image || null,
       })
-    } finally {
-      setIsLoadingUser(false)
     }
   }, [
-    isDashboardRoute,
     session?.user?.id,
     session?.user?.name,
     session?.user?.email,
@@ -156,32 +173,50 @@ function RouteContentWrapper({ children }: { children: React.ReactNode }) {
 
   // Fetch user data when session is authenticated
   useEffect(() => {
-    if (isDashboardRoute && status === "authenticated" && session?.user?.id) {
+    if (status === "authenticated" && session?.user?.id) {
       fetchUserData()
-    } else if (isDashboardRoute && status !== "loading") {
-      setIsLoadingUser(false)
     }
-  }, [isDashboardRoute, status, session?.user?.id, fetchUserData])
+  }, [status, session?.user?.id, fetchUserData])
 
-  // Standard layout for regular pages
-  if (!isDashboardRoute) {
+  // Redirect to login if not authenticated
+  if (status === "unauthenticated") {
     return (
-      <div className="flex h-screen max-h-screen flex-col">
-        <div className="sticky top-0 z-50">
-          <AppNavbar />
-        </div>
-        <main className="flex-1 overflow-y-auto">{children}</main>
-        <div className="sticky bottom-0 z-40">
-          <Footer />
-        </div>
+      <div className="sticky top-0 z-50 flex h-16 items-center justify-center bg-red-500/10 px-4">
+        <p className="text-sm text-red-600 dark:text-red-400">
+          Not authenticated -
+          <Link href="/login" className="ml-1 font-medium underline">
+            Login now
+          </Link>
+        </p>
       </div>
     )
   }
 
-  // Redirect to login if not authenticated for dashboard routes
-  if (isDashboardRoute && status === "unauthenticated") {
+  return (
+    <div className="sticky top-0 z-50">
+      <DashboardHeader userData={userData} />
+    </div>
+  )
+}
+
+/**
+ * Dashboard content component with loading states
+ */
+function DashboardContent({ children }: { children: React.ReactNode }) {
+  const { status } = useSession()
+  const [isLoadingUser, setIsLoadingUser] = useState(true)
+
+  useEffect(() => {
+    if (status !== "loading") {
+      // Give a small delay for better UX
+      const timer = setTimeout(() => setIsLoadingUser(false), 500)
+      return () => clearTimeout(timer)
+    }
+  }, [status])
+
+  if (status === "unauthenticated") {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-[50vh] items-center justify-center p-4">
         <div className="text-center">
           <h1 className="mb-4 text-2xl font-bold">Access Denied</h1>
           <p className="mb-6 text-muted-foreground">
@@ -195,27 +230,18 @@ function RouteContentWrapper({ children }: { children: React.ReactNode }) {
     )
   }
 
-  // Dashboard layout
   return (
-    <div className="flex h-screen max-h-screen flex-col">
-      <div className="sticky top-0 z-50">
-        <DashboardHeader userData={userData} />
-      </div>
-      <main className="flex-1 overflow-y-auto p-4 sm:p-6">
-        <div className="mx-auto px-0 md:max-w-[90%]">
-          <div className="w-full pb-6 lg:pb-0">
-            <Suspense fallback={<DashboardContentSkeleton />}>
-              {status === "loading" || isLoadingUser ? (
-                <DashboardContentSkeleton />
-              ) : (
-                children
-              )}
-            </Suspense>
-          </div>
+    <div className="flex min-h-[calc(100vh-64px)] flex-col p-4 pb-[94px] sm:p-6 lg:min-h-[calc(100vh-140px)] lg:pb-6">
+      <div className="mx-auto h-full w-full px-0 md:max-w-[90%]">
+        <div className="h-full w-full">
+          <Suspense fallback={<DashboardContentSkeleton />}>
+            {status === "loading" || isLoadingUser ? (
+              <DashboardContentSkeleton />
+            ) : (
+              children
+            )}
+          </Suspense>
         </div>
-      </main>
-      <div className="sticky bottom-0 z-40">
-        <Footer />
       </div>
     </div>
   )

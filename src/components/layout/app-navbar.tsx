@@ -4,7 +4,10 @@ import { NavigationMenu } from "@/components/elements/navbar"
 
 export function AppNavbar() {
   return (
-    <div className="w-full bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
+    <div
+      className="w-full bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+      style={{ height: "121px" }}
+    >
       <NavigationMenu />
     </div>
   )

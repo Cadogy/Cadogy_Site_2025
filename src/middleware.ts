@@ -41,6 +41,7 @@ const sessionAuthApiRoutes = [
 const trustedHosts = [
   "cadogy.com",
   "www.cadogy.com",
+  "app.cadogy.com",
   "localhost:3000",
   "192.168.1.66:3000",
   "192.168.1.66", // Added without port for IP address flexibility
@@ -99,6 +100,16 @@ export async function middleware(request: NextRequest) {
       request.url
     )
     return NextResponse.redirect(redirectUrl)
+  }
+
+  // Handle sign-in redirect - get proper callbackUrl from query params
+  if (
+    pathname === "/api/auth/callback/credentials" ||
+    pathname === "/api/auth/callback/google"
+  ) {
+    console.log("[Middleware] Auth callback detected, checking for callbackUrl")
+    // This will be handled by NextAuth's default behavior
+    return NextResponse.next()
   }
 
   // Check if this is an API route that requires API key
@@ -179,7 +190,9 @@ export async function middleware(request: NextRequest) {
   }
 
   // Check for session token cookie directly
-  const sessionTokenCookie = request.cookies.get("next-auth.session-token")
+  const sessionTokenCookie =
+    request.cookies.get("next-auth.session-token") ||
+    request.cookies.get("__Secure-next-auth.session-token")
   console.log(
     "[Middleware] Session token cookie:",
     sessionTokenCookie ? "present" : "not found"
@@ -210,8 +223,16 @@ export async function middleware(request: NextRequest) {
       "[Middleware] No token for protected path, redirecting to login"
     )
     const url = new URL("/login", request.url)
-    url.searchParams.set("callbackUrl", encodeURI(pathname))
+    url.searchParams.set("callbackUrl", encodeURI(request.nextUrl.pathname))
     return NextResponse.redirect(url)
+  }
+
+  // Redirect to dashboard after successful login if we're on login page with valid session
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    console.log("[Middleware] User already logged in, redirecting to dashboard")
+    const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
+    const decodedCallbackUrl = decodeURIComponent(callbackUrl)
+    return NextResponse.redirect(new URL(decodedCallbackUrl, request.url))
   }
 
   console.log("[Middleware] Proceeding with request")
