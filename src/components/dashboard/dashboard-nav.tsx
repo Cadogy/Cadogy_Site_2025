@@ -6,12 +6,14 @@ import { usePathname, useRouter } from "next/navigation"
 import { motion, useMotionValueEvent, useScroll } from "framer-motion"
 import {
   AlertCircle,
+  BookOpen,
   BookText,
   Coins,
   FileCode,
   Key,
   LayoutDashboard,
   Settings,
+  Sparkles,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -24,7 +26,7 @@ const navItems = [
     icon: LayoutDashboard,
   },
   {
-    name: "API Keys",
+    name: "Keys",
     href: "/dashboard/api-keys",
     icon: Key,
   },
@@ -34,9 +36,9 @@ const navItems = [
     icon: Coins,
   },
   {
-    name: "Docs",
-    href: "/dashboard/docs",
-    icon: BookText,
+    name: "Tools",
+    href: "/dashboard/tools",
+    icon: Sparkles,
   },
   {
     name: "Usage",
@@ -161,6 +163,13 @@ export default function DashboardNav() {
         </div>
 
         <div className="ml-auto flex h-8 justify-end gap-x-2">
+          <Link
+            href="/dashboard/docs"
+            className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus:outline-none focus-visible:ring-1 focus-visible:ring-ring active:translate-y-px"
+          >
+            <BookOpen className="mr-1.5 h-3.5 w-3.5" />
+            Documentation
+          </Link>
           <Link
             href="/contact"
             className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus-visible:ring-1 focus-visible:ring-ring active:translate-y-px"
