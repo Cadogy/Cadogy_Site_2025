@@ -55,11 +55,6 @@ export default function VerifyEmailForm() {
           response.ok
         ) {
           setSuccess(true)
-          toast({
-            title: "Email verified",
-            description: "Your email has been verified successfully!",
-            variant: "default",
-          })
           return
         }
 

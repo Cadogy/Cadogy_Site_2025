@@ -49,11 +49,6 @@ export default function LoginForm() {
 
     if (verified) {
       setVerificationStatus("verified")
-      toast({
-        title: "Email verified!",
-        description: "Your email has been verified. You can now log in.",
-        variant: "default",
-      })
     } else if (registered) {
       setVerificationStatus("registered")
     }
