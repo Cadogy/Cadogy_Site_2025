@@ -91,6 +91,19 @@ export function NavigationMenu() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMenuOpen])
+
   const refreshCarousel = () => {
     const now = Date.now()
     const timeSinceLastRefresh = now - lastRefreshTime.current
@@ -175,7 +188,7 @@ export function NavigationMenu() {
           : "bg-background"
       }`}
     >
-      <div className="mx-auto flex max-w-[86%] items-center justify-between py-4 sm:px-6 md:max-w-[90%] lg:px-8">
+      <div className="mx-auto flex max-w-[86%] items-center justify-between py-4 lg:px-0">
         {/* Logo Section with Cipher Effect */}
         <Link
           href="/"
@@ -226,12 +239,12 @@ export function NavigationMenu() {
               >
                 Who We Are
               </Link>
-              <Link
+              {/* <Link
                 href="/the-api"
                 className="text-sm font-medium transition-colors hover:text-foreground/80"
               >
                 The API
-              </Link>
+              </Link> */}
               <Link
                 href="/articles"
                 className="text-sm font-medium transition-colors hover:text-foreground/80"
@@ -242,7 +255,7 @@ export function NavigationMenu() {
                 href="/contact"
                 className="text-sm font-medium transition-colors hover:text-foreground/80"
               >
-                Contact
+                Contact Us
               </Link>
             </nav>
           </div>
@@ -516,7 +529,7 @@ export function NavigationMenu() {
               </Link>
             </Button>
 
-            <Button
+            {/* <Button
               variant="ghost"
               size="lg"
               className="justify-start text-xl text-foreground"
@@ -525,7 +538,7 @@ export function NavigationMenu() {
               <Link href="/the-api" onClick={closeMenu}>
                 The API
               </Link>
-            </Button>
+            </Button> */}
 
             <Button
               variant="ghost"

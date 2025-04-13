@@ -4,8 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
-import { Github, Youtube, Linkedin } from "lucide-react"
+import { ArrowUpRight, Github, Linkedin, Youtube } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 
@@ -82,7 +81,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="relative w-full bg-neutral-900/10 dark:bg-neutral-900/40 backdrop-blur-sm">
+    <footer className="relative w-full bg-neutral-900/10 backdrop-blur-sm dark:bg-neutral-900/40">
       {/* Gradient blend at top */}
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
 
@@ -114,10 +113,11 @@ export function Footer() {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            className="max-w-md text-left text-sm text-muted-foreground md:text-base md:text-right"
+            className="max-w-md text-left text-sm text-muted-foreground md:text-right md:text-base"
           >
-            Cadogy is a web development agency in Pompano Beach, FL, crafting custom websites, fullstack apps, 
-            and secure infrastructure that help businesses grow online.
+            Cadogy is a web development agency in Pompano Beach, FL, crafting
+            custom websites, fullstack apps, and secure infrastructure that help
+            businesses grow online.
           </motion.div>
         </div>
 
@@ -128,7 +128,9 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-lg">Company</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">
+              Company
+            </h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -136,7 +138,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Who We Are"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Who We Are</span>
                   <motion.span
@@ -155,7 +159,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Our Charter"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Our Charter</span>
                   <motion.span
@@ -171,22 +177,26 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Column 2 - API */}
+          {/* Column 2 - Account */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-lg">API</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">
+              Account
+            </h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
-                  href="/the-api"
+                  href="/dashboard"
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
-                  aria-label="API Overview"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  aria-label="Dashboard"
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
-                  <span>Overview</span>
+                  <span>Dashboard</span>
                   <motion.span
                     className="ml-1 inline-block"
                     initial={{ x: 0 }}
@@ -199,13 +209,15 @@ export function Footer() {
               </motion.li>
               <motion.li variants={itemVariants}>
                 <Link
-                  href="/the-api/features"
+                  href="/dashboard/usage"
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
-                  aria-label="API Features"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  aria-label="Usage"
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
-                  <span>Features</span>
+                  <span>Usage</span>
                   <motion.span
                     className="ml-1 inline-block"
                     initial={{ x: 0 }}
@@ -224,7 +236,9 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-lg">Resources</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">
+              Resources
+            </h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -232,7 +246,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Articles"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Articles</span>
                   <motion.span
@@ -251,7 +267,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Contact Us"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Contact Us</span>
                   <motion.span
@@ -272,7 +290,9 @@ export function Footer() {
             variants={itemVariants}
             className="flex flex-col space-y-3 md:space-y-6"
           >
-            <h3 className="text-sm font-medium text-foreground md:text-lg">Policies</h3>
+            <h3 className="text-sm font-medium text-foreground md:text-lg">
+              Policies
+            </h3>
             <ul className="flex flex-col space-y-2 md:space-y-4">
               <motion.li variants={itemVariants}>
                 <Link
@@ -280,7 +300,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Terms of Use"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Terms of Use</span>
                   <motion.span
@@ -299,7 +321,9 @@ export function Footer() {
                   className="flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground md:text-base"
                   tabIndex={0}
                   aria-label="Privacy Policy"
-                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.click()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && e.currentTarget.click()
+                  }
                 >
                   <span>Privacy Policy</span>
                   <motion.span
@@ -349,7 +373,7 @@ export function Footer() {
                 />
               </svg>
             </motion.a>
-            <motion.a
+            {/* <motion.a
               href="https://www.youtube.com/Cadogy"
               target="_blank"
               rel="noopener noreferrer"
@@ -372,7 +396,7 @@ export function Footer() {
                   d="M16.79 5.475s-.156-1.067-.637-1.536c-.61-.617-1.29-.62-1.603-.656-2.238-.158-5.597-.158-5.597-.158h-.006s-3.36 0-5.597.158c-.313.036-.994.039-1.603.656-.481.469-.635 1.536-.635 1.536S.95 6.73.95 7.982v1.174c0 1.252.16 2.507.16 2.507s.156 1.067.634 1.536c.61.617 1.41.596 1.765.662 1.282.118 5.441.154 5.441.154s3.363-.006 5.6-.16c.313-.036.994-.04 1.603-.656.481-.469.638-1.536.638-1.536s.159-1.252.159-2.507V7.982c0-1.252-.16-2.507-.16-2.507ZM7.298 10.58V6.228l4.322 2.184-4.322 2.168Z"
                 />
               </svg>
-            </motion.a>
+            </motion.a> */}
             <motion.a
               href="https://www.linkedin.com/company/Cadogy"
               target="_blank"
