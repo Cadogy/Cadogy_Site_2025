@@ -37,41 +37,6 @@ const RegisterPage = () => {
             <h1 className="mb-6 text-center text-xl">Welcome To Cadogy</h1>
           </div>
 
-          {/* OAuth Buttons */}
-          <div className="space-y-4">
-            <Button
-              variant="outline"
-              className="flex w-full items-center justify-center gap-2"
-            >
-              <Image
-                src="/images/assets/logos/google.svg"
-                alt="Google"
-                width={20}
-                height={20}
-              />
-              Sign up with Google
-            </Button>
-            <Button
-              variant="outline"
-              className="flex w-full items-center justify-center gap-2"
-            >
-              <Image
-                src="/images/assets/logos/github.svg"
-                alt="GitHub"
-                width={20}
-                height={20}
-              />
-              Sign up with GitHub
-            </Button>
-          </div>
-
-          {/* Divider */}
-          <div className="mb-6 mt-6 flex items-center">
-            <hr className="flex-grow border-stone-400/20" />
-            <span className="mx-2 text-stone-400">Or sign up with email</span>
-            <hr className="flex-grow border-stone-400/20" />
-          </div>
-
           {/* Registration Form */}
           <form className="space-y-4">
             <div className="relative">
