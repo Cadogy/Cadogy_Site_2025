@@ -8,19 +8,34 @@ const nextConfig = {
     return [
       {
         // Apply these headers to all routes
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'no-store, must-revalidate',
+            key: "Cache-Control",
+            value: "no-store, must-revalidate",
           },
           {
-            key: 'Pragma',
-            value: 'no-cache',
+            key: "Pragma",
+            value: "no-cache",
           },
           {
-            key: 'Expires',
-            value: '0',
+            key: "Expires",
+            value: "0",
+          },
+        ],
+      },
+    ]
+  },
+  // Handle CORS for authentication across domains
+  async rewrites() {
+    return [
+      {
+        source: "/api/auth/:path*",
+        destination: "/api/auth/:path*",
+        has: [
+          {
+            type: "host",
+            value: "(?<host>.*)",
           },
         ],
       },

@@ -28,8 +28,50 @@ const publicApiRoutes = [
   // Add other public API routes here
 ]
 
+// List of trusted hosts to allow auth
+const trustedHosts = [
+  "cadogy.com",
+  "www.cadogy.com",
+  "localhost:3000",
+  "192.168.1.66:3000",
+  "192.168.1.66", // Added without port for IP address flexibility
+]
+
 export async function middleware(request: NextRequest) {
-  const { pathname, searchParams } = request.nextUrl
+  const { pathname, searchParams, host } = request.nextUrl
+
+  console.log("[Middleware] Processing request:", {
+    pathname,
+    host,
+    url: request.url,
+    hasCallbackParam: searchParams.has("callbackUrl"),
+  })
+
+  // Log all cookies for debugging
+  console.log(
+    "[Middleware] Request cookies:",
+    Array.from(request.cookies.getAll()).map((c) => ({
+      name: c.name,
+      value: c.value ? "present" : "empty",
+    }))
+  )
+
+  // For multi-domain auth - Check if request is from a trusted host
+  const isTrustedHost = trustedHosts.some(
+    (trustedHost) => host.includes(trustedHost) || host === trustedHost
+  )
+  console.log("[Middleware] Host check:", { host, isTrustedHost })
+
+  if (!isTrustedHost && pathname.startsWith("/api/auth")) {
+    console.log("[Middleware] Rejecting untrusted host for auth API")
+    return new NextResponse(
+      JSON.stringify({ error: "Unauthorized - Invalid host" }),
+      {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+  }
 
   // Handle redirects for old email links
   if (pathname === "/auth/verify-email") {
@@ -79,6 +121,10 @@ export async function middleware(request: NextRequest) {
   const isProtectedPath = protectedPaths.some(
     (path) => pathname === path || pathname.startsWith(`${path}/`)
   )
+  console.log("[Middleware] Path protection check:", {
+    pathname,
+    isProtectedPath,
+  })
 
   // Skip middleware for public paths or specific API routes
   if (
@@ -89,22 +135,47 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/_next/") ||
     pathname.includes(".")
   ) {
+    console.log("[Middleware] Skipping middleware for public path")
     return NextResponse.next()
   }
 
-  // Get the token
+  // Check for session token cookie directly
+  const sessionTokenCookie = request.cookies.get("next-auth.session-token")
+  console.log(
+    "[Middleware] Session token cookie:",
+    sessionTokenCookie ? "present" : "not found"
+  )
+
+  // Get the token with detailed options for debugging
+  console.log("[Middleware] Getting token with params:", {
+    secret: process.env.NEXTAUTH_SECRET ? "present" : "missing",
+    secureCookie: process.env.NODE_ENV === "production",
+  })
+
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
+    secureCookie: process.env.NODE_ENV === "production", // explicitly set secure cookie based on environment
+  })
+
+  console.log("[Middleware] Auth token check:", {
+    pathname,
+    hasToken: !!token,
+    isProtectedPath,
+    tokenId: token?.id ? "present" : "missing",
   })
 
   // Redirect to login if no token and trying to access protected route
   if (!token && isProtectedPath) {
+    console.log(
+      "[Middleware] No token for protected path, redirecting to login"
+    )
     const url = new URL("/login", request.url)
     url.searchParams.set("callbackUrl", encodeURI(pathname))
     return NextResponse.redirect(url)
   }
 
+  console.log("[Middleware] Proceeding with request")
   return NextResponse.next()
 }
 

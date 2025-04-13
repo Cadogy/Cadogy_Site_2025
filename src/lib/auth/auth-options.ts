@@ -13,6 +13,41 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
+  // Cookie configuration for both production and development environments
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        // Modified to handle IP addresses in development
+        secure: process.env.NODE_ENV === "production",
+        // Remove domain restriction for development
+        domain:
+          process.env.NODE_ENV === "production" ? ".cadogy.com" : undefined,
+      },
+    },
+    // Explicitly configure other cookies to ensure consistency
+    callbackUrl: {
+      name: `next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+    csrfToken: {
+      name: `next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -99,4 +134,5 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
+  debug: process.env.NODE_ENV === "development",
 }
