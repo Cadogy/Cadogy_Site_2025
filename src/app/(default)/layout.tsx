@@ -3,6 +3,7 @@ import "@/styles/globals.css"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { SessionProvider } from "@/providers/SessionProvider"
+import { ToastProvider } from "@/providers/toast-provider"
 import NextTopLoader from "nextjs-toploader"
 
 import { siteConfig } from "@/config/site"
@@ -199,12 +200,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
               speed={200}
             />
             <NavigationMenu />
-            <PageTransition>
-              <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">
-                {children}
-              </main>
-            </PageTransition>
-            <Footer />
+            <ToastProvider autoDismissTimeout={4000}>
+              <PageTransition>
+                <main className="flex min-h-[calc(100vh-4rem)] flex-col justify-center">
+                  {children}
+                </main>
+              </PageTransition>
+              <Footer />
+            </ToastProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

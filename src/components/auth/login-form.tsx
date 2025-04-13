@@ -173,11 +173,6 @@ export default function LoginForm() {
           variant: "destructive",
         })
       } else if (result?.ok) {
-        toast({
-          title: "Login successful",
-          description: "You are now logged in",
-        })
-
         // Add a delay to ensure session is established
         setTimeout(() => {
           router.push("/dashboard")

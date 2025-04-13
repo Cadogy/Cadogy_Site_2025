@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { CheckCircle, Loader2, XCircle } from "lucide-react"
 import { z } from "zod"
@@ -13,10 +13,21 @@ export default function VerifyEmailForm() {
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
   const verificationAttempted = useRef(false)
+  const redirectDelay = 5 // seconds before redirect
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
+  const [countdown, setCountdown] = useState(redirectDelay)
+
+  // Define handleGoToLogin with useCallback to avoid unnecessary re-renders
+  const handleGoToLogin = useCallback(() => {
+    if (success) {
+      router.push("/login?verified=true")
+    } else {
+      router.push("/login")
+    }
+  }, [router, success])
 
   useEffect(() => {
     // Prevent duplicate API calls (especially in StrictMode)
@@ -55,6 +66,11 @@ export default function VerifyEmailForm() {
           response.ok
         ) {
           setSuccess(true)
+          toast({
+            title: "Email verified",
+            description:
+              "Your email has been successfully verified. Redirecting to login...",
+          })
           return
         }
 
@@ -64,11 +80,6 @@ export default function VerifyEmailForm() {
         setError(
           error.message || "An unexpected error occurred. Please try again."
         )
-        toast({
-          title: "Verification failed",
-          description: error.message || "An unexpected error occurred",
-          variant: "destructive",
-        })
       } finally {
         setIsLoading(false)
       }
@@ -77,13 +88,17 @@ export default function VerifyEmailForm() {
     verifyEmail()
   }, [token])
 
-  const handleGoToLogin = () => {
-    if (success) {
-      router.push("/login?verified=true")
-    } else {
-      router.push("/login")
+  // Handle automatic redirect after success
+  useEffect(() => {
+    if (success && countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+      return () => clearTimeout(timer)
+    } else if (success && countdown === 0) {
+      handleGoToLogin()
     }
-  }
+  }, [success, countdown, handleGoToLogin])
 
   return (
     <div className="w-full max-w-md">
@@ -126,6 +141,10 @@ export default function VerifyEmailForm() {
                   Your email has been verified successfully! You can now log in
                   to your account.
                 </p>
+                <p className="mt-3 text-green-200">
+                  Redirecting to login in {countdown} second
+                  {countdown !== 1 ? "s" : ""}...
+                </p>
               </div>
             </div>
           </div>
@@ -133,7 +152,7 @@ export default function VerifyEmailForm() {
 
         <div className="mt-8">
           <button onClick={handleGoToLogin} className="auth-button">
-            Go to Login
+            {success ? "Login Now" : "Go to Login"}
           </button>
         </div>
       </div>

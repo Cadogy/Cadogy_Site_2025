@@ -5,10 +5,10 @@ import "@/styles/globals.css"
 import type { Viewport } from "next"
 import { Inter } from "next/font/google"
 import { SessionProvider } from "@/providers/SessionProvider"
+import { ToastProvider } from "@/providers/toast-provider"
 import NextTopLoader from "nextjs-toploader"
 
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -69,9 +69,7 @@ export default function AuthLayout({
               speed={200}
             />
 
-            {children}
-
-            <Toaster />
+            <ToastProvider autoDismissTimeout={5000}>{children}</ToastProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

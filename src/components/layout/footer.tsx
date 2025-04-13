@@ -12,7 +12,7 @@ export function Footer() {
 
   return (
     <footer className="w-full border-t border-border/40 bg-background py-6">
-      <div className="mx-auto max-w-[90%] px-4 lg:px-0">
+      <div className="mx-auto max-w-[90%] px-4 lg:px-8">
         {/* Main footer content */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and company info */}
