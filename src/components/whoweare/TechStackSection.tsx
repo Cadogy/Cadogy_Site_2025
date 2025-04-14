@@ -317,7 +317,7 @@ const TechStackSection = () => {
             <p className="text-sm text-muted-foreground">
               Our technology stack is carefully selected to provide the perfect
               balance of performance, reliability, and flexibility for each
-              client's unique requirements.
+              client&apos;s unique requirements.
             </p>
           </div>
         </div>
