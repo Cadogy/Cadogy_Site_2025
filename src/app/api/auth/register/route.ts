@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   try {
     await connectToDatabase()
 
-    const settings = await SiteSettings.findOne().lean()
+    const settings = await SiteSettings.findOne().lean() as any
     if (settings && !settings.registrationEnabled) {
       return NextResponse.json(
         {

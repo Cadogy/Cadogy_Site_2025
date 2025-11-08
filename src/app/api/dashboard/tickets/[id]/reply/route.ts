@@ -59,7 +59,7 @@ export async function POST(
 
     await ticket.save()
 
-    const user = await User.findById(session.user.id).lean()
+    const user = await User.findById(session.user.id).lean() as any
 
     return NextResponse.json({
       success: true,
