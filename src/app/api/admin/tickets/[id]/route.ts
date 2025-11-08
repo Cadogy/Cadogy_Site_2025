@@ -35,7 +35,7 @@ export async function GET(
   try {
     await connectToDatabase()
 
-    const ticket = await Ticket.findById(params.id).lean()
+    const ticket = await Ticket.findById(params.id).lean() as any
 
     if (!ticket) {
       return NextResponse.json(
