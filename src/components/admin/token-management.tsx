@@ -147,7 +147,7 @@ export function TokenOperationsDialog({
       setSelectedUser("")
       setAmount(100)
       setReason("")
-      
+
       if (onSuccess) {
         onSuccess()
       }
@@ -176,7 +176,7 @@ export function TokenOperationsDialog({
             <DialogHeader>
               <DialogTitle>Manage User Tokens</DialogTitle>
               <DialogDescription>
-                Add or deduct tokens from a user's balance
+                Add or deduct tokens from a user&apos;s balance
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -233,12 +233,15 @@ export function TokenOperationsDialog({
                   </div>
                   <div className="col-span-3 flex items-center gap-2">
                     <span className="font-semibold">{selectedUserBalance}</span>
-                    <span className="text-sm text-muted-foreground">tokens</span>
-                    {operationType === "deduct" && amount > selectedUserBalance && (
-                      <span className="text-xs text-red-600">
-                        ⚠ Insufficient balance
-                      </span>
-                    )}
+                    <span className="text-sm text-muted-foreground">
+                      tokens
+                    </span>
+                    {operationType === "deduct" &&
+                      amount > selectedUserBalance && (
+                        <span className="text-xs text-red-600">
+                          ⚠ Insufficient balance
+                        </span>
+                      )}
                   </div>
                 </div>
               )}
@@ -384,7 +387,9 @@ export function TransactionsTable({ refresh }: { refresh?: number }) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div>{new Date(transaction.timestamp).toLocaleDateString()}</div>
+                    <div>
+                      {new Date(transaction.timestamp).toLocaleDateString()}
+                    </div>
                     <div className="text-xs text-muted-foreground">
                       {new Date(transaction.timestamp).toLocaleTimeString()}
                     </div>
@@ -402,7 +407,10 @@ export function TransactionsTable({ refresh }: { refresh?: number }) {
                     </span>
                   </TableCell>
                   <TableCell>
-                    <div className="max-w-xs truncate" title={transaction.reason}>
+                    <div
+                      className="max-w-xs truncate"
+                      title={transaction.reason}
+                    >
                       {transaction.reason || "—"}
                     </div>
                   </TableCell>
