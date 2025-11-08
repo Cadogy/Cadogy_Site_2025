@@ -52,7 +52,7 @@ export function DashboardContent() {
       <SystemAlerts alerts={userData.systemAlerts} />
 
       {/* Stats Cards */}
-      <StatsCards stats={statsData} isLoading={isLoading} />
+      {/* <StatsCards stats={statsData} isLoading={isLoading} /> */}
 
       <div className="grid gap-4">
         {/* API Key Quick Info */}
@@ -71,7 +71,7 @@ export function DashboardContent() {
       </div>
 
       {/* Getting Started */}
-      <GettingStartedCard />
+      {/* <GettingStartedCard /> */}
     </div>
   )
 }

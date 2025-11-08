@@ -265,7 +265,7 @@ export function NavigationMenu() {
             {status === "loading" ? (
               // Loading state
               <div className="flex h-9 w-28 animate-pulse items-center justify-center rounded-md bg-muted/30">
-                <div className="mr-2 h-8 w-8 rounded-full bg-muted/50"></div>
+                <div className="mr-2 h-8 w-8 rounded-lg bg-muted/50"></div>
                 <div className="h-4 w-12 rounded bg-muted/50"></div>
               </div>
             ) : session ? (
@@ -325,7 +325,7 @@ export function NavigationMenu() {
                       className="flex cursor-pointer items-center"
                     >
                       <FaKey className="mr-2 h-4 w-4" />
-                      My Keys
+                      API Keys
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -335,15 +335,6 @@ export function NavigationMenu() {
                     >
                       <FaCog className="mr-2 h-4 w-4" />
                       Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href="/dashboard/usage"
-                      className="flex cursor-pointer items-center"
-                    >
-                      <FaBolt className="mr-2 h-4 w-4" />
-                      Usage
                     </Link>
                   </DropdownMenuItem>
 
@@ -388,7 +379,7 @@ export function NavigationMenu() {
         {/* Mobile: Show user avatar if logged in, otherwise menu toggle */}
         <div className="flex items-center md:hidden">
           {status === "loading" ? (
-            <div className="h-6 w-6 animate-pulse rounded-full bg-muted"></div>
+            <div className="h-6 w-6 animate-pulse rounded-lg bg-muted"></div>
           ) : session ? (
             <Button
               variant="ghost"
@@ -587,7 +578,7 @@ export function NavigationMenu() {
                 >
                   <Link href="/dashboard/api-keys" onClick={closeMenu}>
                     <FaKey className="mr-2 h-5 w-5" />
-                    My Keys
+                    API Keys
                   </Link>
                 </Button>
 
@@ -600,18 +591,6 @@ export function NavigationMenu() {
                   <Link href="/dashboard/settings" onClick={closeMenu}>
                     <SettingsIcon className="mr-2 h-5 w-5" />
                     Settings
-                  </Link>
-                </Button>
-
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="justify-start text-xl text-foreground"
-                  asChild
-                >
-                  <Link href="/dashboard/usage" onClick={closeMenu}>
-                    <FaBolt className="mr-2 h-5 w-5" />
-                    Usage
                   </Link>
                 </Button>
 

@@ -4,9 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   BarChart,
-  Bell,
   Info,
-  Key,
+  MessageSquare,
   Settings,
   Users,
   Wallet,
@@ -36,19 +35,14 @@ export default function AdminNav() {
       icon: <Users className="h-5 w-5" />,
     },
     {
+      title: "Tickets",
+      href: "/admin/tickets",
+      icon: <MessageSquare className="h-5 w-5" />,
+    },
+    {
       title: "Tokens",
       href: "/admin/tokens",
       icon: <Wallet className="h-5 w-5" />,
-    },
-    {
-      title: "API Keys",
-      href: "/admin/api-keys",
-      icon: <Key className="h-5 w-5" />,
-    },
-    {
-      title: "Alerts",
-      href: "/admin/alerts",
-      icon: <Bell className="h-5 w-5" />,
     },
     {
       title: "Settings",

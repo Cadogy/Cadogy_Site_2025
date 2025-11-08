@@ -111,7 +111,7 @@ export function UserProfile({ user: propUser }: UserProfileProps) {
             className="flex cursor-pointer items-center"
           >
             <FaKey className="mr-2 h-4 w-4" />
-            My Keys
+            API Keys
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
@@ -123,7 +123,7 @@ export function UserProfile({ user: propUser }: UserProfileProps) {
             Settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        {/* <DropdownMenuItem asChild>
           <Link
             href="/dashboard/usage"
             className="flex cursor-pointer items-center"
@@ -131,7 +131,7 @@ export function UserProfile({ user: propUser }: UserProfileProps) {
             <FaBolt className="mr-2 h-4 w-4" />
             Usage
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         {/* Admin Panel link - only visible to admins */}
         {isAdmin && (

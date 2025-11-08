@@ -375,7 +375,7 @@ export default async function AdminDashboardPage() {
                   <span className="text-sm">API Service</span>
                   <span className="flex items-center text-sm">
                     <span
-                      className={`mr-2 h-2 w-2 rounded-full ${
+                      className={`mr-2 h-2 w-2 rounded-lg ${
                         stats.systemStatus.api === "operational"
                           ? "bg-green-500"
                           : stats.systemStatus.api === "degraded"
@@ -394,7 +394,7 @@ export default async function AdminDashboardPage() {
                   <span className="text-sm">Database</span>
                   <span className="flex items-center text-sm">
                     <span
-                      className={`mr-2 h-2 w-2 rounded-full ${
+                      className={`mr-2 h-2 w-2 rounded-lg ${
                         stats.systemStatus.database === "operational"
                           ? "bg-green-500"
                           : stats.systemStatus.database === "degraded"
@@ -413,7 +413,7 @@ export default async function AdminDashboardPage() {
                   <span className="text-sm">Authentication</span>
                   <span className="flex items-center text-sm">
                     <span
-                      className={`mr-2 h-2 w-2 rounded-full ${
+                      className={`mr-2 h-2 w-2 rounded-lg ${
                         stats.systemStatus.authentication === "operational"
                           ? "bg-green-500"
                           : stats.systemStatus.authentication === "degraded"

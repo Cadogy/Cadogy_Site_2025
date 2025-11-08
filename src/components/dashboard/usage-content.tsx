@@ -230,10 +230,10 @@ export function UsageContent() {
                 <div className="text-2xl font-bold">
                   {usageData.usagePercentage.toFixed(1)}%
                 </div>
-                <div className="mt-2 h-2 w-full rounded-full bg-secondary">
+                <div className="mt-2 h-2 w-full rounded-lg bg-secondary">
                   <div
                     className={cn(
-                      "h-full rounded-full",
+                      "h-full rounded-lg",
                       usageData.usagePercentage > 80
                         ? "bg-destructive"
                         : "bg-primary"
@@ -312,9 +312,9 @@ export function UsageContent() {
                             {endpoint.count.toLocaleString()}
                           </p>
                         </div>
-                        <div className="h-2 w-full rounded-full bg-secondary">
+                        <div className="h-2 w-full rounded-lg bg-secondary">
                           <div
-                            className="h-full rounded-full bg-primary"
+                            className="h-full rounded-lg bg-primary"
                             style={{ width: `${endpoint.percentage}%` }}
                           />
                         </div>

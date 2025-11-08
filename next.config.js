@@ -3,6 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: true,
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "utfs.io",
+    //     pathname: "/**",
+    //   },
+    // ],
   },
   // Add webpack configuration to exclude node_modules from processing
   webpack: (config, { isServer }) => {

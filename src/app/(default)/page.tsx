@@ -46,9 +46,9 @@ export default function Home() {
         </section>
 
         {/* Web Infrastructure & SEO Expertise Section */}
-        <section className="">
+        {/* <section className="">
           <WebInfastructure />
-        </section>
+        </section> */}
       </div>
     </div>
   )

@@ -36,17 +36,18 @@ export async function generateMetadata({
   params: { slug?: string }
   searchParams: Record<string, string | string[] | undefined>
 }): Promise<Metadata> {
-  // Determine the current path based on segmented pathname
   const isHomePage = !params.slug
 
-  // Base metadata that will be used for all routes
+  const { getSiteSettings } = await import("@/lib/get-site-settings")
+  const dynamicSettings = await getSiteSettings()
+
   const baseMetadata: Metadata = {
     metadataBase: new URL(siteConfig.url.base),
     title: {
-      default: `${siteConfig.name} - ${siteConfig.slogan}`,
+      default: `${dynamicSettings.siteName} - ${dynamicSettings.siteSlogan}`,
       template: `%s`,
     },
-    description: siteConfig.description,
+    description: dynamicSettings.siteDescription,
     keywords: siteConfig.keywords,
     authors: [
       {
@@ -65,9 +66,9 @@ export async function generateMetadata({
       type: "website",
       locale: "en_US",
       url: siteConfig.url.base,
-      title: `${siteConfig.name} - ${siteConfig.slogan}`,
-      description: siteConfig.description,
-      siteName: siteConfig.name,
+      title: dynamicSettings.siteName,
+      description: dynamicSettings.siteDescription,
+      siteName: dynamicSettings.siteName,
       images: [
         {
           url: siteConfig.ogImage,
@@ -79,8 +80,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${siteConfig.name} - ${siteConfig.slogan}`,
-      description: siteConfig.description,
+      title: dynamicSettings.siteName,
+      description: dynamicSettings.siteDescription,
       images: [siteConfig.ogImage],
       creator: "@_rdev7",
     },

@@ -135,7 +135,7 @@ export default function NoArticlesFound() {
             ref={searchIconRef}
             className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 p-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/20 p-3">
               <Search className="h-6 w-6 text-primary" />
             </div>
           </div>
@@ -158,9 +158,9 @@ export default function NoArticlesFound() {
               >
                 {/* Document lines */}
                 <div className="mt-3 space-y-1.5 px-2">
-                  <div className="h-1 w-8 rounded-full bg-muted-foreground/20"></div>
-                  <div className="h-1 w-6 rounded-full bg-muted-foreground/20"></div>
-                  <div className="h-1 w-7 rounded-full bg-muted-foreground/20"></div>
+                  <div className="h-1 w-8 rounded-lg bg-muted-foreground/20"></div>
+                  <div className="h-1 w-6 rounded-lg bg-muted-foreground/20"></div>
+                  <div className="h-1 w-7 rounded-lg bg-muted-foreground/20"></div>
                 </div>
               </div>
             ))}

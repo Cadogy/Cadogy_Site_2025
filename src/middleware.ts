@@ -53,8 +53,8 @@ const trustedHosts = [
   "www.cadogy.com",
   "app.cadogy.com",
   "localhost:3000",
-  "192.168.1.66:3000",
-  "192.168.1.66", // Added without port for IP address flexibility
+  "192.168.1.144:3000",
+  "192.168.1.144",
 ]
 
 export async function middleware(request: NextRequest) {

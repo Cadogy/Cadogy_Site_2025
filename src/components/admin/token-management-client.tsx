@@ -1,24 +1,27 @@
 "use client"
 
-import { Suspense } from "react"
+import { useState } from "react"
 
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
 import {
   TokenOperationsDialog,
   TransactionsTable,
 } from "@/components/admin/token-management"
 
 export function TokenManagementClient() {
+  const [refreshKey, setRefreshKey] = useState(0)
+
+  const handleTransactionSuccess = () => {
+    setRefreshKey((prev) => prev + 1)
+  }
+
   return (
     <>
       <Card className="p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Token Operations</h2>
-          <Suspense fallback={<Skeleton className="h-10 w-24" />}>
-            <TokenOperationsDialog />
-          </Suspense>
+          <TokenOperationsDialog onSuccess={handleTransactionSuccess} />
         </div>
         <p className="text-sm text-muted-foreground">
           Add or deduct tokens from user accounts. All operations are logged.
@@ -33,19 +36,7 @@ export function TokenManagementClient() {
           </p>
         </div>
         <Separator className="my-4" />
-        <Suspense
-          fallback={
-            <div className="space-y-4">
-              {Array(5)
-                .fill(null)
-                .map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
-                ))}
-            </div>
-          }
-        >
-          <TransactionsTable />
-        </Suspense>
+        <TransactionsTable refresh={refreshKey} />
       </Card>
     </>
   )

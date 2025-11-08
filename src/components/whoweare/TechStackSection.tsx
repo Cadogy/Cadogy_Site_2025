@@ -233,16 +233,13 @@ const TechStackSection = () => {
   }
 
   return (
-    <div
+    <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-background/50 py-16 md:py-24"
+      className="relative w-full overflow-hidden py-20 md:py-32"
     >
-      <div className="container relative z-10 px-4">
+      <div className="mx-auto px-0">
         <div ref={headerRef} className="mb-10 flex flex-col gap-6 text-center">
           <div className="mx-auto">
-            <div className="mb-4 inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
-              Our Tools
-            </div>
             <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
               Technology Stack
             </h2>
@@ -288,7 +285,7 @@ const TechStackSection = () => {
               className="tech-item group flex flex-col items-center gap-3 rounded-xl border border-border/50 bg-card/70 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-border hover:bg-card/90 hover:shadow"
             >
               <div className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
-                <div className="absolute inset-0 scale-0 rounded-full bg-primary/5 transition-transform duration-300 group-hover:scale-100"></div>
+                <div className="absolute inset-0 scale-0 rounded-lg bg-primary/5 transition-transform duration-300 group-hover:scale-100"></div>
                 <Image
                   src={tech.logo}
                   alt={tech.name}
@@ -311,18 +308,8 @@ const TechStackSection = () => {
             </div>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <div className="inline-block max-w-2xl rounded-xl border border-border/50 bg-card/50 px-6 py-5 backdrop-blur-sm">
-            <p className="text-sm text-muted-foreground">
-              Our technology stack is carefully selected to provide the perfect
-              balance of performance, reliability, and flexibility for each
-              client&apos;s unique requirements.
-            </p>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
   )
 }
 

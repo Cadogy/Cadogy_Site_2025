@@ -2,6 +2,7 @@ import crypto from "crypto"
 import { NextResponse } from "next/server"
 import { User } from "@/models/User"
 import { VerificationToken } from "@/models/VerificationToken"
+import { SiteSettings } from "@/models/SiteSettings"
 import { z } from "zod"
 
 import { hashPassword } from "@/lib/auth"
@@ -57,10 +58,21 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
 
 export async function POST(request: Request) {
   try {
-    // Parse request body
+    await connectToDatabase()
+
+    const settings = await SiteSettings.findOne().lean()
+    if (settings && !settings.registrationEnabled) {
+      return NextResponse.json(
+        {
+          message:
+            "User registration is currently disabled. Please contact an administrator.",
+        },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
 
-    // Validate input
     const result = registerSchema.safeParse(body)
     if (!result.success) {
       return NextResponse.json(
@@ -81,9 +93,6 @@ export async function POST(request: Request) {
         )
       }
     }
-
-    // Connect to database
-    await connectToDatabase()
 
     // Check if user already exists
     const existingUser = await User.findOne({ email })

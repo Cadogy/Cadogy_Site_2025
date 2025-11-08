@@ -83,7 +83,7 @@ export default function ArticlePagination({
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`flex h-10 w-10 items-center justify-center rounded-full border border-neutral-800 transition ${
+        className={`flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-800 transition ${
           currentPage === 1
             ? "cursor-not-allowed opacity-50"
             : "text-slate-400 hover:bg-neutral-800 hover:text-slate-100"
@@ -99,7 +99,7 @@ export default function ArticlePagination({
           <button
             key={index}
             onClick={() => handlePageChange(page)}
-            className={`flex h-10 w-10 items-center justify-center rounded-full transition ${
+            className={`flex h-10 w-10 items-center justify-center rounded-lg transition ${
               page === currentPage
                 ? "bg-blue-500 text-white"
                 : "border border-neutral-800 text-slate-400 hover:bg-neutral-800 hover:text-slate-100"
@@ -121,7 +121,7 @@ export default function ArticlePagination({
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`flex h-10 w-10 items-center justify-center rounded-full border border-neutral-800 transition ${
+        className={`flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-800 transition ${
           currentPage === totalPages
             ? "cursor-not-allowed opacity-50"
             : "text-slate-400 hover:bg-neutral-800 hover:text-slate-100"

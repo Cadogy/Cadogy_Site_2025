@@ -1,10 +1,12 @@
 "use client"
 
 import { Suspense, useCallback, useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { useUserData } from "@/providers/UserDataProvider"
 import { useSession } from "next-auth/react"
 
+import { useSiteSettings } from "@/hooks/use-site-settings"
 import { Button } from "@/components/ui/button"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { PageTransition } from "@/components/elements/PageTransition"
@@ -16,23 +18,45 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
+  const { settings } = useSiteSettings()
+
   return (
-    <div className="flex min-h-screen flex-col">
-      {/* Header */}
-      <div className="sticky top-0 z-50">
-        <DashboardNavigation />
-      </div>
+    <div className="relative flex min-h-screen flex-col">
+      {settings?.dashboardBackgroundImage && (
+        <>
+          <div
+            className="pointer-events-none fixed inset-0 z-0"
+            style={{
+              opacity: settings.dashboardBackgroundOpacity || 0.1,
+            }}
+          >
+            <Image
+              src={settings.dashboardBackgroundImage}
+              alt="Dashboard background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="pointer-events-none fixed inset-0 z-0 bg-gradient-to-b from-background via-background/95 to-transparent" />
+          <div className="pointer-events-none fixed inset-0 z-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        </>
+      )}
 
-      {/* Main content with PageTransition */}
-      <PageTransition>
-        <main className="flex-1">
-          <DashboardContent>{children}</DashboardContent>
-        </main>
-      </PageTransition>
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <div className="sticky top-0 z-50">
+          <DashboardNavigation />
+        </div>
 
-      {/* Footer only on desktop for dashboard routes */}
-      <div className="hidden lg:block">
-        <Footer />
+        <PageTransition>
+          <main className="flex-1">
+            <DashboardContent>{children}</DashboardContent>
+          </main>
+        </PageTransition>
+
+        <div className="hidden lg:block">
+          <Footer />
+        </div>
       </div>
     </div>
   )

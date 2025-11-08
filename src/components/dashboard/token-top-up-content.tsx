@@ -207,7 +207,7 @@ export function TokenTopUpContent() {
               <CardTitle className="flex items-center justify-between">
                 {pkg.description}
                 {pkg.isPopular && (
-                  <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                  <span className="rounded-lg bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                     Popular
                   </span>
                 )}

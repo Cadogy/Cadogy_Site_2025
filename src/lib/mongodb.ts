@@ -3,10 +3,10 @@ import mongoose from "mongoose"
 // Disable duplicate index warnings in development
 if (process.env.NODE_ENV === "development") {
   mongoose.set("strictQuery", false)
-  // Suppress specific warnings
-  const originalWarn = mongoose.set("debug", false)
-  const originalConsoleWarn = console.warn
+  mongoose.set("debug", false)
 
+  // Suppress console.warn warnings
+  const originalConsoleWarn = console.warn
   console.warn = function (message: any) {
     if (
       message &&
@@ -14,10 +14,25 @@ if (process.env.NODE_ENV === "development") {
       (message.includes("Duplicate schema index") ||
         message.includes("[MONGOOSE] Warning: Duplicate schema index"))
     ) {
-      return // Suppress duplicate index warnings
+      return
     }
     originalConsoleWarn.apply(console, arguments as any)
   }
+
+  // Suppress Node.js process warnings
+  const originalEmit = process.emit as any
+  process.emit = function (event: string, warning: any) {
+    if (event === "warning") {
+      const message = warning?.message || warning?.toString() || ""
+      if (
+        message.includes("Duplicate schema index") ||
+        message.includes("[MONGOOSE]")
+      ) {
+        return false
+      }
+    }
+    return originalEmit.apply(process, arguments as any)
+  } as any
 }
 
 const MONGODB_URI = process.env.MONGODB_URI

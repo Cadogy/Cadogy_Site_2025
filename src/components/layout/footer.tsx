@@ -1,32 +1,76 @@
-import { useEffect } from "react"
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import {
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  XIcon,
-} from "lucide-react"
+import { Github, Instagram, Linkedin, Mail, MapPin, Shield } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
-  const pathname = usePathname()
+  const [siteName, setSiteName] = useState(siteConfig.name)
+  const [footerDescription, setFooterDescription] = useState(
+    "Crafting exceptional digital experiences through innovative web development, secure infrastructure, and custom solutions for businesses in South Florida and beyond."
+  )
+  const [contactEmail, setContactEmail] = useState("hello@cadogy.com")
+  const [contactAddress, setContactAddress] = useState("Pompano Beach, FL")
+  const [socialInstagram, setSocialInstagram] = useState(
+    "https://www.instagram.com/cadogyweb"
+  )
+  const [socialGithub, setSocialGithub] = useState(
+    "https://www.github.com/cadogy"
+  )
+  const [socialLinkedin, setSocialLinkedin] = useState(
+    "https://www.linkedin.com/company/cadogy"
+  )
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch("/api/settings")
+        if (response.ok) {
+          const data = await response.json()
+          if (data.settings) {
+            if (data.settings.siteName) {
+              setSiteName(data.settings.siteName)
+            }
+            if (data.settings.footerDescription) {
+              setFooterDescription(data.settings.footerDescription)
+            }
+            if (data.settings.contactEmail) {
+              setContactEmail(data.settings.contactEmail)
+            }
+            if (data.settings.contactAddress) {
+              setContactAddress(data.settings.contactAddress)
+            }
+            if (data.settings.socialInstagram) {
+              setSocialInstagram(data.settings.socialInstagram)
+            }
+            if (data.settings.socialGithub) {
+              setSocialGithub(data.settings.socialGithub)
+            }
+            if (data.settings.socialLinkedin) {
+              setSocialLinkedin(data.settings.socialLinkedin)
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching settings:", error)
+      }
+    }
+
+    fetchSettings()
+  }, [])
 
   return (
-    <footer className="w-full border-t border-border/40 bg-background py-6">
-      <div className="mx-auto max-w-[90%] px-4 lg:px-8">
-        {/* Main footer content */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {/* Logo and company info */}
-          <div className="space-y-3">
-            <div className="flex items-center">
+    <footer className="relative w-full border-t bg-background">
+      <div className="mx-auto max-w-[90%] px-4 py-12 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Link href="/" className="mb-4 flex items-center">
               <svg
-                width="20px"
-                height="20px"
+                width="24px"
+                height="24px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,128 +87,52 @@ export function Footer() {
                   fillOpacity="0.5"
                 />
               </svg>
-              <span className="ml-2 font-medium">
-                {siteConfig?.name || "Cadogy"}
+              <span className="ml-2 text-lg font-semibold">
+                {siteConfig.name}
               </span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Web Development Experts in Pompano Beach, FL crafting custom
-              websites, fullstack apps, and secure infrastructure.
+            </Link>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {footerDescription}
             </p>
-            <div className="flex space-x-4 pt-2">
-              <a
-                href="https://www.instagram.com/cadogyweb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <InstagramIcon className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.github.com/cadogy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <GithubIcon className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/cadogy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <LinkedinIcon className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
-          {/* Company links */}
-          <div>
-            <h3 className="mb-3 text-sm font-medium">Company</h3>
-            <ul className="space-y-2 text-sm">
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-sm font-semibold">Company</h3>
+            <ul className="space-y-3 text-sm">
               <li>
                 <Link
                   href="/who-we-are"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Who We Are
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/the-api"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  The API
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link
                   href="/articles"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Articles
+                  Blog & Articles
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Contact Us
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources links */}
-          <div>
-            <h3 className="mb-3 text-sm font-medium">Resources</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/dashboard/docs"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/api-keys"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  API Keys
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/usage"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Usage
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/settings"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Settings
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal links */}
-          <div>
-            <h3 className="mb-3 text-sm font-medium">Legal</h3>
-            <ul className="space-y-2 text-sm">
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-sm font-semibold">Resources</h3>
+            <ul className="space-y-3 text-sm">
               <li>
                 <Link
                   href="/policies/privacy-policy"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Privacy Policy
                 </Link>
@@ -172,33 +140,78 @@ export function Footer() {
               <li>
                 <Link
                   href="/policies/terms-of-use"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/cookies"
-                  className="text-muted-foreground hover:text-foreground"
+            </ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <h3 className="mb-4 text-sm font-semibold">Contact</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2">
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <span className="text-muted-foreground">{contactAddress}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <a
+                  href={`mailto:${contactEmail}`}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Cookie Policy
-                </Link>
+                  {contactEmail}
+                </a>
               </li>
             </ul>
+            <div className="mt-4 flex space-x-3">
+              <a
+                href={socialInstagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="Instagram"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-background transition-all hover:border-foreground/20 hover:bg-accent">
+                  <Instagram className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+                </div>
+              </a>
+              <a
+                href={socialGithub}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="GitHub"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-background transition-all hover:border-foreground/20 hover:bg-accent">
+                  <Github className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+                </div>
+              </a>
+              <a
+                href={socialLinkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="LinkedIn"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-background transition-all hover:border-foreground/20 hover:bg-accent">
+                  <Linkedin className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Copyright bar */}
-        <div className="mt-8 border-t border-border/40 pt-6">
-          <div className="flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0">
+        <div className="mt-12 border-t border-border/40 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-xs text-muted-foreground">
-              © {currentYear} {siteConfig?.name || "Cadogy"}. All rights
-              reserved.
+              © {currentYear} {siteName}. All rights reserved.
             </p>
-            <p className="text-xs text-muted-foreground">
-              Made with ❤️ in Pompano Beach, Florida
-            </p>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Shield className="h-3 w-3" />
+              <span>Secure & Trusted Development Partner</span>
+            </div>
           </div>
         </div>
       </div>

@@ -173,7 +173,7 @@ export function UserManagementTable() {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <span
-                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                      className={`inline-flex items-center rounded-lg px-2.5 py-0.5 text-xs font-medium ${
                         user.role === "admin"
                           ? "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
                           : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"

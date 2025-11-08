@@ -12,7 +12,7 @@ export function WelcomeCard({ session }: WelcomeCardProps) {
     <div className="rounded-lg border bg-card p-6 shadow-sm">
       <h2 className="text-xl font-semibold">Welcome back, {userName}</h2>
       <p className="mt-2 text-muted-foreground">
-        Here&apos;s an overview of your API usage and account information.
+        Here&apos;s an overview of your account.
       </p>
     </div>
   )

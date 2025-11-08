@@ -52,7 +52,7 @@ export function UploadAvatar({
         </Avatar>
 
         {imageUrl && isHovering && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50">
+          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50">
             <Pencil className="h-5 w-5 text-white" />
           </div>
         )}

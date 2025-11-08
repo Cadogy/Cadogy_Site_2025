@@ -1,9 +1,9 @@
-import Content from "./webInfa/Content"
+import TabsSection from "./webInfa/TabsSection"
 
 const WebInfastructure = () => {
   return (
     <>
-      <Content />
+      <TabsSection />
     </>
   )
 }

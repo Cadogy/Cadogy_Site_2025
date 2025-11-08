@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { User } from "@/models/User"
+import { TokenTransaction } from "@/models/TokenTransaction"
 import mongoose from "mongoose"
 import { getServerSession } from "next-auth"
 
@@ -52,7 +53,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Calculate new token balance based on operation
+    const previousBalance = user.tokenBalance
+
     let newBalance = user.tokenBalance
     let actualChange = 0
 
@@ -62,9 +64,17 @@ export async function POST(request: NextRequest) {
         actualChange = amount
         break
       case "deduct":
-        // Prevent negative balance
-        actualChange = Math.min(amount, user.tokenBalance)
-        newBalance = Math.max(0, user.tokenBalance - amount)
+        if (amount > user.tokenBalance) {
+          return NextResponse.json(
+            {
+              error: "Bad Request",
+              message: `Cannot deduct ${amount} tokens. User only has ${user.tokenBalance} tokens available.`,
+            },
+            { status: 400 }
+          )
+        }
+        actualChange = -amount
+        newBalance = user.tokenBalance - amount
         break
       case "set":
         actualChange = amount - user.tokenBalance
@@ -77,17 +87,24 @@ export async function POST(request: NextRequest) {
         )
     }
 
-    // Update user's token balance
     user.tokenBalance = newBalance
     await user.save()
 
-    // TODO: Log token transaction in a separate collection
+    await TokenTransaction.create({
+      userId: user._id.toString(),
+      adminId: session.user.id,
+      tokens: actualChange,
+      operation,
+      reason: reason || `Token ${operation}`,
+      previousBalance,
+      newBalance,
+    })
 
     return NextResponse.json({
       id: user._id.toString(),
       name: user.name,
       email: user.email,
-      previousBalance: user.tokenBalance - actualChange,
+      previousBalance,
       newBalance: user.tokenBalance,
       change: actualChange,
       operation,
@@ -104,10 +121,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET token transaction history
 export async function GET(request: NextRequest) {
   try {
-    // Check if user is authenticated and has admin role
     const session = await getServerSession(authOptions)
 
     if (!session?.user || session.user.role !== "admin") {
@@ -119,56 +134,51 @@ export async function GET(request: NextRequest) {
 
     await connectToDatabase()
 
-    // Extract query parameters
     const { searchParams } = request.nextUrl
     const userId = searchParams.get("userId")
     const limit = parseInt(searchParams.get("limit") || "50")
 
-    // For now, return mock data since we don't have a token transaction model yet
-    // TODO: Implement actual token transaction history from database
-    const mockTransactions = [
-      {
-        id: "1",
-        userId: "507f1f77bcf86cd799439011",
-        userName: "John Doe",
-        userEmail: "john@example.com",
-        adminId: session.user.id,
-        adminName: session.user.name,
-        tokens: 500,
-        operation: "add",
-        reason: "Promotional bonus",
-        timestamp: new Date("2023-06-15"),
-      },
-      {
-        id: "2",
-        userId: "507f1f77bcf86cd799439012",
-        userName: "Jane Smith",
-        userEmail: "jane@example.com",
-        adminId: session.user.id,
-        adminName: session.user.name,
-        tokens: -100,
-        operation: "deduct",
-        reason: "API usage fee",
-        timestamp: new Date("2023-06-10"),
-      },
-      {
-        id: "3",
-        userId: "507f1f77bcf86cd799439013",
-        userName: "Robert Johnson",
-        userEmail: "robert@example.com",
-        adminId: session.user.id,
-        adminName: session.user.name,
-        tokens: 1000,
-        operation: "add",
-        reason: "Subscription upgrade",
-        timestamp: new Date("2023-06-05"),
-      },
-    ]
+    const query = userId ? { userId } : {}
+
+    const transactions = await TokenTransaction.find(query)
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean()
+
+    const userIds = [...new Set(transactions.map((t: any) => t.userId))]
+    const adminIds = [...new Set(transactions.map((t: any) => t.adminId))]
+    const allIds = [...new Set([...userIds, ...adminIds])]
+
+    const users = await User.find({ _id: { $in: allIds } }).lean()
+    const userMap = new Map(
+      users.map((u: any) => [
+        u._id.toString(),
+        { name: u.name, email: u.email, role: u.role },
+      ])
+    )
+
+    const formattedTransactions = transactions.map((t: any) => {
+      const user = userMap.get(t.userId)
+      const admin = userMap.get(t.adminId)
+      return {
+        id: t._id.toString(),
+        userId: t.userId,
+        userName: user?.name || "Unknown User",
+        userEmail: user?.email || "",
+        adminId: t.adminId,
+        adminName: admin?.name || "Unknown Admin",
+        adminEmail: admin?.email || "",
+        tokens: t.tokens,
+        operation: t.operation,
+        reason: t.reason,
+        timestamp: t.createdAt,
+      }
+    })
 
     return NextResponse.json({
-      transactions: mockTransactions,
+      transactions: formattedTransactions,
       meta: {
-        total: mockTransactions.length,
+        total: formattedTransactions.length,
         limit,
       },
     })
@@ -229,10 +239,10 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Apply token operation to each user
     const results = []
 
     for (const user of users) {
+      const previousBalance = user.tokenBalance
       let newBalance = user.tokenBalance
       let actualChange = 0
 
@@ -255,21 +265,27 @@ export async function PUT(request: NextRequest) {
           continue
       }
 
-      // Update user's token balance
       user.tokenBalance = newBalance
       await user.save()
 
-      // Add to results
+      await TokenTransaction.create({
+        userId: user._id.toString(),
+        adminId: session.user.id,
+        tokens: actualChange,
+        operation: operation as "add" | "deduct" | "set",
+        reason: reason || `Bulk ${operation} operation`,
+        previousBalance,
+        newBalance,
+      })
+
       results.push({
         id: user._id.toString(),
         name: user.name,
         email: user.email,
-        previousBalance: user.tokenBalance - actualChange,
+        previousBalance,
         newBalance: user.tokenBalance,
         change: actualChange,
       })
-
-      // TODO: Log token transaction in a separate collection
     }
 
     return NextResponse.json({

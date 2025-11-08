@@ -33,7 +33,7 @@ const GeminiScan = () => {
       {Array.from({ length: 240 }).map((_, i) => (
         <span
           key={i}
-          className="gemini-dot block h-1.5 w-1.5 rounded-full bg-white opacity-20"
+          className="gemini-dot block h-1.5 w-1.5 rounded-lg bg-white opacity-20"
         />
       ))}
       <div className="animate-sweep pointer-events-none absolute inset-0 z-50 bg-gradient-to-br from-transparent via-white/10 to-transparent" />

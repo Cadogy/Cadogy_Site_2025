@@ -61,20 +61,22 @@ const WhoWeAreContent = () => {
         <HeroSection />
       </section>
 
-      {/* Mission Section - Unique layout with visual elements */}
-      <section className="section relative">
-        <MissionSection />
-      </section>
+      <div className="mx-auto max-w-[94%] px-4 md:max-w-[90%] lg:px-8">
+        {/* Mission Section - Unique layout with visual elements */}
+        <section className="section relative">
+          <MissionSection />
+        </section>
 
-      {/* Team Section - Clean profile cards with interactions */}
-      <section className="section relative bg-gradient-to-b from-background to-background/70">
-        <TeamSection />
-      </section>
+        {/* Team Section - Clean profile cards with interactions */}
+        <section className="section relative">
+          <TeamSection />
+        </section>
 
-      {/* Tech Stack Section - Interactive grid */}
-      <section className="section relative">
-        <TechStackSection />
-      </section>
+        {/* Tech Stack Section - Interactive grid */}
+        <section className="section relative">
+          <TechStackSection />
+        </section>
+      </div>
     </div>
   )
 }

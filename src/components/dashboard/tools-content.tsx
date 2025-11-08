@@ -245,7 +245,7 @@ export function DashboardToolsContent() {
                   <tool.icon className="h-5 w-5 text-primary" />
                 </div>
                 {tool.comingSoon && (
-                  <span className="rounded-full border border-amber-300/30 bg-amber-100/10 px-2.5 py-0.5 text-xs font-medium text-amber-500 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
+                  <span className="rounded-lg border border-amber-300/30 bg-amber-100/10 px-2.5 py-0.5 text-xs font-medium text-amber-500 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
                     Coming Soon
                   </span>
                 )}

@@ -38,7 +38,7 @@ export default function ArticleSearch() {
       />
       <button
         type="submit"
-        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:bg-neutral-800 hover:text-slate-200"
+        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 hover:bg-neutral-800 hover:text-slate-200"
       >
         <Search className="h-4 w-4" />
       </button>

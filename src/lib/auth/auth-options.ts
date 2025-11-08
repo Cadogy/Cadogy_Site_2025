@@ -155,8 +155,8 @@ export const authOptions: NextAuthOptions = {
         "www.cadogy.com",
         "app.cadogy.com",
         "localhost:3000",
-        "192.168.1.66:3000",
-        "192.168.1.66",
+        "192.168.1.144:3000",
+        "192.168.1.144",
       ]
 
       const isAllowedDomain = allowedDomains.some(

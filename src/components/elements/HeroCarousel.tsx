@@ -299,7 +299,7 @@ export function HeroCarousel({
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
-                className={`h-1.5 rounded-full sm:h-2 ${
+                className={`h-1.5 rounded-lg sm:h-2 ${
                   index === 0
                     ? "w-4 animate-pulse bg-white sm:w-6"
                     : "w-1.5 animate-pulse bg-white/60 sm:w-2"
@@ -379,7 +379,7 @@ export function HeroCarousel({
                           <img
                             src={slide.authorImage}
                             alt={slide.authorName}
-                            className="mr-2 h-5 w-5 rounded-full sm:h-6 sm:w-6"
+                            className="mr-2 h-5 w-5 rounded-lg sm:h-6 sm:w-6"
                           />
                         )}
                         <span className="text-xs text-slate-300 sm:text-sm">

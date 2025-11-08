@@ -58,7 +58,7 @@ const ArticleHeader: FC<ArticleHeaderProps> = ({
                   alt={authorName}
                   width={24}
                   height={24}
-                  className="mr-2 rounded-full"
+                  className="mr-2 rounded-lg"
                 />
               )}
               <span className="text-sm font-medium">{authorName}</span>

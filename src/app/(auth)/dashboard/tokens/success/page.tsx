@@ -105,7 +105,7 @@ export default function TokenPurchaseSuccessPage() {
       ) : purchaseDetails.success ? (
         <Card>
           <CardHeader className="text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <CheckCircle className="h-6 w-6 text-primary" />
             </div>
             <CardTitle className="text-center text-2xl">

@@ -315,13 +315,13 @@ export default function AuthAccountLayout({
       {/* Mouse trail element */}
       <div
         ref={mouseTrailRef}
-        className="pointer-events-none absolute z-0 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 blur-xl"
+        className="pointer-events-none absolute z-0 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 blur-xl"
       ></div>
 
       {/* Animated gradient orbs */}
-      <div className="animate-blob absolute -left-40 -top-40 h-80 w-80 rounded-full bg-purple-700/20 blur-3xl filter"></div>
-      <div className="animate-blob animation-delay-2000 absolute -right-20 top-0 h-72 w-72 rounded-full bg-blue-700/20 blur-3xl filter"></div>
-      <div className="animate-blob animation-delay-4000 absolute -bottom-40 left-20 h-72 w-72 rounded-full bg-teal-700/20 blur-3xl filter"></div>
+      <div className="animate-blob absolute -left-40 -top-40 h-80 w-80 rounded-lg bg-purple-700/20 blur-3xl filter"></div>
+      <div className="animate-blob animation-delay-2000 absolute -right-20 top-0 h-72 w-72 rounded-lg bg-blue-700/20 blur-3xl filter"></div>
+      <div className="animate-blob animation-delay-4000 absolute -bottom-40 left-20 h-72 w-72 rounded-lg bg-teal-700/20 blur-3xl filter"></div>
 
       {/* Main content */}
       <PageTransition>

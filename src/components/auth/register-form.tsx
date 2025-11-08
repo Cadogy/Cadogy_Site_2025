@@ -9,12 +9,13 @@ import { v4 as uuidv4 } from "uuid"
 
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "@/components/ui/use-toast"
+import { useSiteSettings } from "@/hooks/use-site-settings"
 
-// In development mode, we can bypass the Turnstile verification
 const isDevelopment = process.env.NODE_ENV === "development"
 
 const RegisterForm = () => {
   const router = useRouter()
+  const { settings, isLoading: settingsLoading } = useSiteSettings()
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -28,6 +29,42 @@ const RegisterForm = () => {
     isDevelopment ? "development_bypass_token" : null
   )
   const [turnstileId] = useState(uuidv4())
+
+  if (settingsLoading) {
+    return (
+      <div className="w-full max-w-md">
+        <div className="auth-card">
+          <div className="flex flex-col items-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            <p className="mt-2 text-sm text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (settings && !settings.registrationEnabled) {
+    return (
+      <div className="w-full max-w-md">
+        <div className="auth-card">
+          <div className="flex flex-col items-center space-y-4 py-8">
+            <Info className="h-12 w-12 text-muted-foreground" />
+            <h2 className="text-2xl font-bold">Registration Disabled</h2>
+            <p className="text-center text-sm text-muted-foreground">
+              New user registrations are currently disabled. Please contact an
+              administrator for more information.
+            </p>
+            <Link
+              href="/login"
+              className="text-sm text-primary hover:underline"
+            >
+              Return to Login
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

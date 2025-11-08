@@ -34,7 +34,7 @@ function ProfileSectionSkeleton() {
         <div className="space-y-6">
           <div className="space-y-4">
             <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-              <Skeleton className="h-20 w-20 rounded-full" />
+              <Skeleton className="h-20 w-20 rounded-lg" />
               <div className="flex flex-col space-y-2">
                 <Skeleton className="h-5 w-32" />
                 <Skeleton className="h-4 w-48" />

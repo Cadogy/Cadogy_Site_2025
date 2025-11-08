@@ -10,10 +10,12 @@ import {
   BookText,
   Coins,
   FileCode,
+  Home,
   Key,
   LayoutDashboard,
   Settings,
   Sparkles,
+  Ticket,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -25,25 +27,30 @@ const navItems = [
     href: "/dashboard",
     icon: LayoutDashboard,
   },
+  // {
+  //   name: "Keys",
+  //   href: "/dashboard/api-keys",
+  //   icon: Key,
+  // },
+  // {
+  //   name: "Top-up",
+  //   href: "/dashboard/tokens",
+  //   icon: Coins,
+  // },
+  // {
+  //   name: "Tools",
+  //   href: "/dashboard/tools",
+  //   icon: Sparkles,
+  // },
+  // {
+  //   name: "Usage",
+  //   href: "/dashboard/usage",
+  //   icon: FileCode,
+  // },
   {
-    name: "Keys",
-    href: "/dashboard/api-keys",
-    icon: Key,
-  },
-  {
-    name: "Top-up",
-    href: "/dashboard/tokens",
-    icon: Coins,
-  },
-  {
-    name: "Tools",
-    href: "/dashboard/tools",
-    icon: Sparkles,
-  },
-  {
-    name: "Usage",
-    href: "/dashboard/usage",
-    icon: FileCode,
+    name: "Inquiries",
+    href: "/dashboard/tickets",
+    icon: Ticket,
   },
   {
     name: "Settings",
@@ -163,18 +170,18 @@ export default function DashboardNav() {
         </div>
 
         <div className="ml-auto flex h-8 justify-end gap-x-2">
-          <Link
-            href="/dashboard/docs"
+          {/* <Link
+            href="/"
             className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus:outline-none focus-visible:ring-1 focus-visible:ring-ring active:translate-y-px"
           >
-            <BookOpen className="mr-1.5 h-3.5 w-3.5" />
-            Documentation
-          </Link>
+            <Home className="mr-1.5 h-3.5 w-3.5" />
+            Home
+          </Link> */}
           <Link
-            href="/contact"
+            href="/dashboard/tickets/new"
             className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus-visible:ring-1 focus-visible:ring-ring active:translate-y-px"
           >
-            Get Support
+            Get In Touch
           </Link>
         </div>
       </div>
@@ -251,7 +258,7 @@ export default function DashboardNav() {
         className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
       >
         <div className="flex h-full w-full items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <div className="h-8 w-8 animate-spin rounded-lg border-4 border-primary border-t-transparent"></div>
         </div>
       </motion.div>
     )

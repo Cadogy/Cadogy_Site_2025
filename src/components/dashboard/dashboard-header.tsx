@@ -77,7 +77,7 @@ export function DashboardHeader({
               <Coins className="h-5 w-5" />
             </div>
 
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               asChild
@@ -85,11 +85,11 @@ export function DashboardHeader({
             >
               <Link href="/dashboard/notifications">
                 <BellIcon className="h-5 w-5" />
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-white">
+                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[10px] text-white">
                   3
                 </span>
               </Link>
-            </Button>
+            </Button> */}
 
             {/* User profile */}
             <Suspense fallback={<UserProfileSkeleton />}>

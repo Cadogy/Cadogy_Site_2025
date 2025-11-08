@@ -334,7 +334,7 @@ const TimelineEvent = ({
       {/* Timeline line and icon */}
       <div className="flex flex-col items-center">
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded-full ${bgClass} z-10 shadow-sm`}
+          className={`flex h-12 w-12 items-center justify-center rounded-lg ${bgClass} z-10 shadow-sm`}
         >
           <div className={textClass}>{icon}</div>
         </div>
@@ -378,7 +378,7 @@ const WhoWeAreContent = () => {
         <div className="absolute bottom-0 left-0 -mb-96 -ml-96 opacity-40">
           <div className="aspect-square h-[800px] rounded-md bg-gradient-to-tr from-blue-500/30 to-purple-500/20 blur-[200px]" />
         </div>
-        <div className="absolute left-1/4 top-1/2 h-64 w-64 rounded-full bg-cyan-500/10 mix-blend-multiply blur-[120px]"></div>
+        <div className="absolute left-1/4 top-1/2 h-64 w-64 rounded-lg bg-cyan-500/10 mix-blend-multiply blur-[120px]"></div>
 
         <div className="relative mx-auto max-w-[94%] px-4 pb-20 pt-20 sm:px-6 md:max-w-[90%] lg:px-8">
           <motion.div
@@ -640,7 +640,7 @@ const WhoWeAreContent = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn Profile"
-                        className="rounded-full border border-border bg-card/80 p-2 transition-colors hover:bg-card"
+                        className="rounded-lg border border-border bg-card/80 p-2 transition-colors hover:bg-card"
                       >
                         <svg
                           className="h-4 w-4 text-foreground"
@@ -653,7 +653,7 @@ const WhoWeAreContent = () => {
                       <a
                         href="mailto:charles@cadogy.com"
                         aria-label="Email Contact"
-                        className="rounded-full border border-border bg-card/80 p-2 transition-colors hover:bg-card"
+                        className="rounded-lg border border-border bg-card/80 p-2 transition-colors hover:bg-card"
                       >
                         <svg
                           className="h-4 w-4 text-foreground"
@@ -775,7 +775,7 @@ const WhoWeAreContent = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn Profile"
-                        className="rounded-full border border-border bg-card/80 p-2 transition-colors hover:bg-card"
+                        className="rounded-lg border border-border bg-card/80 p-2 transition-colors hover:bg-card"
                       >
                         <svg
                           className="h-4 w-4 text-foreground"
@@ -788,7 +788,7 @@ const WhoWeAreContent = () => {
                       <a
                         href="mailto:dylan@cadogy.com"
                         aria-label="Email Contact"
-                        className="rounded-full border border-border bg-card/80 p-2 transition-colors hover:bg-card"
+                        className="rounded-lg border border-border bg-card/80 p-2 transition-colors hover:bg-card"
                       >
                         <svg
                           className="h-4 w-4 text-foreground"
@@ -816,10 +816,10 @@ const WhoWeAreContent = () => {
       {/* Tech Stack Section */}
       <section className="relative overflow-hidden border-y border-border bg-neutral-900/30">
         {/* Decorative blur elements */}
-        <div className="pointer-events-none absolute right-0 top-1/4 h-[700px] w-[700px] -translate-y-1/2 translate-x-1/3 rounded-full bg-gradient-to-bl from-primary/10 via-blue-500/5 to-transparent opacity-40 blur-[250px]"></div>
-        <div className="pointer-events-none absolute bottom-1/4 left-0 h-[700px] w-[700px] -translate-x-1/3 translate-y-1/2 rounded-full bg-gradient-to-tr from-indigo-500/10 via-purple-500/5 to-transparent opacity-40 blur-[250px]"></div>
-        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-500/5 mix-blend-overlay blur-[120px]"></div>
-        <div className="absolute bottom-0 right-1/4 h-40 w-40 rounded-full bg-rose-500/5 mix-blend-multiply blur-[80px]"></div>
+        <div className="pointer-events-none absolute right-0 top-1/4 h-[700px] w-[700px] -translate-y-1/2 translate-x-1/3 rounded-lg bg-gradient-to-bl from-primary/10 via-blue-500/5 to-transparent opacity-40 blur-[250px]"></div>
+        <div className="pointer-events-none absolute bottom-1/4 left-0 h-[700px] w-[700px] -translate-x-1/3 translate-y-1/2 rounded-lg bg-gradient-to-tr from-indigo-500/10 via-purple-500/5 to-transparent opacity-40 blur-[250px]"></div>
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-sky-500/5 mix-blend-overlay blur-[120px]"></div>
+        <div className="absolute bottom-0 right-1/4 h-40 w-40 rounded-lg bg-rose-500/5 mix-blend-multiply blur-[80px]"></div>
 
         <div className="relative z-10 mx-auto max-w-[94%] px-4 pb-16 pt-16 sm:px-6 md:max-w-[90%] md:py-24 lg:px-8">
           <motion.div
@@ -980,9 +980,9 @@ const WhoWeAreContent = () => {
 
             <div className="relative overflow-hidden">
               {/* Decorative elements */}
-              <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-bl from-primary/10 via-blue-500/5 to-transparent blur-[150px]"></div>
-              <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-tr from-blue-500/10 via-indigo-500/5 to-transparent blur-[150px]"></div>
-              <div className="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-purple-500/5 opacity-50 blur-[60px]"></div>
+              <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/2 rounded-lg bg-gradient-to-bl from-primary/10 via-blue-500/5 to-transparent blur-[150px]"></div>
+              <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-lg bg-gradient-to-tr from-blue-500/10 via-indigo-500/5 to-transparent blur-[150px]"></div>
+              <div className="absolute bottom-0 right-0 h-32 w-32 rounded-lg bg-purple-500/5 opacity-50 blur-[60px]"></div>
 
               <div className="relative z-10 p-8 text-center md:p-12 lg:p-16">
                 <div className="mb-4 inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
