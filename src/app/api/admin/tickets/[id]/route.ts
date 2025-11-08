@@ -44,7 +44,7 @@ export async function GET(
       )
     }
 
-    const user = await User.findById(ticket.userId).lean()
+    const user = await User.findById(ticket.userId).lean() as any
 
     const messageAuthorIds = [
       ...new Set(ticket.messages.map((m: any) => m.authorId)),
