@@ -564,51 +564,45 @@ const WhoWeAreContent = () => {
                       <h3 className="text-xl font-medium text-white">
                         Charles Knapp
                       </h3>
-                      <p className="text-sm text-white/70">
-                        Chief Technology Officer
-                      </p>
+                      <p className="text-sm text-white/70">Co-Founder · CTO</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-6 md:col-span-2 md:p-8">
                   <div className="mb-4 inline-flex items-center rounded-md bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500 dark:text-blue-400">
-                    Co-Founder
+                    Co-Founder &amp; CTO
                   </div>
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
-                      Charles Knapp is a distinguished expert in cybersecurity
-                      and digital infrastructure with a proven track record of
-                      delivering enterprise-grade solutions. His methodical
-                      approach to system architecture and security
-                      implementation has helped numerous organizations establish
-                      robust digital frameworks that withstand modern
-                      cybersecurity challenges.
+                      Charles likes building things that are hard to break — and
+                      then trying to break them anyway. He lives where security,
+                      infrastructure, and weird edge cases overlap, turning
+                      messy systems into fast, reliable, and resilient ones.
                     </p>
                     <p className="text-muted-foreground">
-                      As CTO, Charles leads our technical strategy and
-                      implementation, specializing in deploying advanced DNS
-                      security protocols and developing proprietary anti-piracy
-                      technologies. His architectural expertise spans cloud
-                      infrastructure optimization, high-availability systems,
-                      and secure application development using the MERN stack
-                      ecosystem.
+                      At Cadogy, Charles leads the technical side of the house:
+                      architecture, security, and hands-on engineering. From DNS
+                      hardening and DDoS mitigation to custom apps, automation,
+                      and internal tools, he is usually the one wiring
+                      everything together, locking it down, and shaving
+                      milliseconds off the stack.
                     </p>
 
                     <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
                       <div className="rounded-lg border border-blue-100/50 bg-blue-50/50 p-4 dark:border-blue-800/20 dark:bg-blue-900/10">
                         <h4 className="mb-2 text-sm font-medium text-foreground">
-                          Core Expertise
+                          Core Focus
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                            Enterprise Security
+                            Security Engineering
                           </span>
                           <span className="rounded-md bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400">
                             Infrastructure Design
                           </span>
                           <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
-                            DDoS Protection
+                            DDoS &amp; DNS Protection
                           </span>
                           <span className="rounded-md bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
                             System Architecture
@@ -617,14 +611,14 @@ const WhoWeAreContent = () => {
                       </div>
                       <div className="rounded-lg border border-indigo-100/50 bg-indigo-50/50 p-4 dark:border-indigo-800/20 dark:bg-indigo-900/10">
                         <h4 className="mb-2 text-sm font-medium text-foreground">
-                          Technical Leadership
+                          How He Works
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                            Application Security
+                            Hands-On Architecture
                           </span>
                           <span className="rounded-md bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900/30 dark:text-teal-400">
-                            Cloud Infrastructure
+                            Cloud &amp; DevOps
                           </span>
                           <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
                             IP Protection
@@ -700,7 +694,7 @@ const WhoWeAreContent = () => {
                         Dylan Safra
                       </h3>
                       <p className="text-sm text-white/70">
-                        Chief Strategy Officer
+                        Co-Founder · CFO &amp; Strategy
                       </p>
                     </div>
                   </div>
@@ -708,61 +702,56 @@ const WhoWeAreContent = () => {
 
                 <div className="p-6 md:col-span-2 md:p-8">
                   <div className="mb-4 inline-flex items-center rounded-md bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500 dark:text-green-400">
-                    Co-Founder
+                    Co-Founder &amp; CFO
                   </div>
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
-                      Dylan Safra is an accomplished digital strategist with
-                      extensive experience in data-driven business
-                      transformation and growth optimization. Combining
-                      technical proficiency with strategic vision, he has
-                      successfully led numerous enterprise clients through
-                      digital transformations that deliver measurable business
-                      outcomes and competitive advantages.
+                      Dylan thinks in numbers, systems, and outcomes. He keeps
+                      projects grounded in reality — making sure the ideas are
+                      not just exciting, but sustainable, shippable, and aligned
+                      with the bigger picture.
                     </p>
                     <p className="text-muted-foreground">
-                      As CSO, Dylan directs our product strategy and client
-                      solutions, leveraging his expertise in SEO optimization,
-                      automation systems, and performance analytics. His
-                      integrated approach to technology deployment ensures our
-                      solutions not only meet technical requirements but drive
-                      tangible business value through enhanced user experiences
-                      and operational efficiencies.
+                      At Cadogy, Dylan steers finance, operations, and product
+                      strategy. From pricing models and forecasting to search,
+                      funnels, and client roadmaps, he focuses on the levers
+                      that actually move the needle while keeping timelines,
+                      people, and priorities in sync.
                     </p>
 
                     <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
                       <div className="rounded-lg border border-green-100/50 bg-green-50/50 p-4 dark:border-green-800/20 dark:bg-green-900/10">
                         <h4 className="mb-2 text-sm font-medium text-foreground">
-                          Core Expertise
+                          Core Focus
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                            Digital Strategy
+                            Finance &amp; Operations
                           </span>
                           <span className="rounded-md bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
-                            Search Optimization
+                            Search &amp; SEO
                           </span>
                           <span className="rounded-md bg-rose-100 px-2.5 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900/30 dark:text-rose-400">
                             Process Automation
                           </span>
                           <span className="rounded-md bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                            Growth Engineering
+                            Growth Strategy
                           </span>
                         </div>
                       </div>
                       <div className="rounded-lg border border-emerald-100/50 bg-emerald-50/50 p-4 dark:border-emerald-800/20 dark:bg-emerald-900/10">
                         <h4 className="mb-2 text-sm font-medium text-foreground">
-                          Strategic Leadership
+                          How He Works
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           <span className="rounded-md bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                            Data Analysis
+                            Data-Driven Decisions
                           </span>
                           <span className="rounded-md bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
-                            Market Positioning
+                            Roadmapping &amp; Priorities
                           </span>
                           <span className="rounded-md bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                            Client Solutions
+                            Client &amp; Partner Alignment
                           </span>
                         </div>
                       </div>

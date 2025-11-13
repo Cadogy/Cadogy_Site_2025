@@ -22,7 +22,7 @@ const HeroSection = () => {
 
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5"></div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 py-20 md:px-12">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center px-6 py-20 pt-32 md:px-12 md:pt-56">
         <div className="w-full text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +30,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6 }}
             className="mb-8 text-5xl font-medium tracking-tight text-foreground md:text-7xl lg:text-8xl"
           >
-            Smart, fast, and unapologetically different.
+            We work at high speed with high standards.
           </motion.h1>
 
           <motion.p
@@ -39,9 +39,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mx-auto mb-16 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl"
           >
-            We&apos;re builders who turned curiosity into craft — and that craft
-            into a career. Technology isn&apos;t just what we do, it&apos;s part
-            of how we think.
+            We ship fast, adapt instantly, and outperform slower competitors.
           </motion.p>
 
           <motion.div
@@ -58,14 +56,14 @@ const HeroSection = () => {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
-            <span className="text-border">|</span>
+            {/* <span className="text-border">|</span> */}
 
-            <Link
+            {/* <Link
               href="/our-charter"
               className="transition-colors hover:text-foreground"
             >
               Our charter
-            </Link>
+            </Link> */}
           </motion.div>
         </div>
       </div>

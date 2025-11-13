@@ -23,7 +23,7 @@ const OurCharterContent = () => {
 
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5"></div>
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 py-20 md:px-12">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center px-6 py-20 pt-32 md:px-12 md:pt-56">
           <div className="w-full text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

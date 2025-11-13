@@ -9,7 +9,7 @@ const TeamSection = () => {
       id: 1,
       name: "Charles Knapp",
       role: "Co-Founder & CTO",
-      bio: "Architect of secure, scalable systems. Passionate about solving complex technical challenges with elegant solutions.",
+      bio: "Charles leads security, infrastructure, and a lot of the under-the-hood engineering that keeps our systems fast, stable, and hard to kill.",
       image: "/images/authors/charles_k_author.jpg",
       linkedin: "https://www.linkedin.com/in/charlesknapp",
       email: "mailto:charles@cadogy.com",
@@ -17,8 +17,8 @@ const TeamSection = () => {
     {
       id: 2,
       name: "Dylan Safra",
-      role: "Co-Founder & CSO",
-      bio: "Strategist and optimizer. Obsessed with turning data into actionable insights and driving measurable growth.",
+      role: "Co-Founder & CFO",
+      bio: "Dylan turns chaos into clarity—aligning budgets, timelines, and growth so the things we dream up actually make it out the door.",
       image: "/images/authors/dylan_s_author.jpg",
       linkedin: "https://www.linkedin.com/in/dylansafra",
       email: "mailto:dylan@cadogy.com",
@@ -26,8 +26,8 @@ const TeamSection = () => {
   ]
 
   return (
-    <section className="w-full py-20 md:py-32">
-      <div className="mx-auto px-0">
+    <section className="w-full rounded-lg bg-secondary/20 py-20 md:py-32">
+      <div className="mx-auto px-4 md:px-6 lg:px-8">
         <div className="mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -36,7 +36,7 @@ const TeamSection = () => {
             transition={{ duration: 0.5 }}
             className="max-w-3xl text-xl leading-relaxed text-muted-foreground md:text-2xl"
           >
-            Same birthday. Same passions. It turns out that kind of cosmic
+            Same birthday. Same passions. It turns out that kind of
             synchronicity comes with a built-in knack for building cool things
             side by side.
           </motion.p>
