@@ -41,12 +41,6 @@ export async function GET() {
       priority: '0.8',
     },
     {
-      url: `${baseUrl}/our-charter`,
-      lastmod: currentDate,
-      changefreq: 'yearly',
-      priority: '0.6',
-    },
-    {
       url: `${baseUrl}/policies/terms-of-use`,
       lastmod: currentDate,
       changefreq: 'yearly',

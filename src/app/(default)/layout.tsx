@@ -12,6 +12,7 @@ import { Footer } from "@/components/elements/footer"
 import { NavigationMenu } from "@/components/elements/navbar"
 import { PageTransition } from "@/components/elements/PageTransition"
 import { ThemeProvider } from "@/components/theme-provider"
+import { OrganizationSchema } from "@/components/seo/organization-schema"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,6 +29,11 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
 }
+
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
 
 export async function generateMetadata({
   params,
@@ -185,6 +191,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           inter.className
         )}
       >
+        {/* SEO: Organization Schema - applies to all pages */}
+        <OrganizationSchema />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

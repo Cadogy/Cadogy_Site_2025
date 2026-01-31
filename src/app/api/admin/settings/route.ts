@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth"
 import { siteConfig } from "@/config/site"
 import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
+import { revalidateAllPages } from "@/lib/revalidate-content"
 
 export async function GET(request: NextRequest) {
   try {
@@ -206,6 +207,9 @@ export async function PATCH(request: NextRequest) {
       siteName: settings.siteName,
       updatedAt: settings.updatedAt,
     })
+
+    // Revalidate all pages since settings affect global site data
+    revalidateAllPages()
 
     return NextResponse.json({
       success: true,

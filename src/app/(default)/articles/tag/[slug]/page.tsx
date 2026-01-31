@@ -11,6 +11,12 @@ import {
   PLACEHOLDER_IMAGE,
 } from "@/lib/wordpress-api"
 import ArticlesGrid from "@/components/elements/ArticlesGrid"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
+
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
 
 // Generate metadata for the tag page
 export async function generateMetadata({
@@ -115,6 +121,15 @@ export default async function TagPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* SEO: Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Articles", url: "/articles" },
+          { name: tag.name, url: `/articles/tag/${params.slug}` },
+        ]}
+      />
+
       <div className="mb-12 text-center">
         <span className="mb-4 inline-block rounded-md bg-blue-500/20 px-3 py-1 text-sm text-blue-400">
           #{tag.name}

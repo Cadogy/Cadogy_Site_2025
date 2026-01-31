@@ -4,6 +4,11 @@ import { siteConfig } from "@/config/site"
 import { getSiteSettings } from "@/lib/get-site-settings"
 import WhoWeAreContent from "@/components/whoweare/WhoWeAreContent"
 
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
 

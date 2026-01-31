@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
 import { Ticket } from "@/models/Ticket"
+import { revalidatePath } from "next/cache"
 
 export async function POST(
   request: NextRequest,
@@ -64,6 +65,9 @@ export async function POST(
     ticket.lastReplyBy = "admin"
 
     await ticket.save()
+
+    // Revalidate ticket detail page
+    revalidatePath(`/admin/tickets/${params.id}`)
 
     return NextResponse.json({
       message: "Reply sent successfully",

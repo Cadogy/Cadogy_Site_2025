@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
+import { revalidatePath } from "next/cache"
 
 // GET a specific user by ID
 export async function GET(
@@ -120,6 +121,9 @@ export async function PUT(
     // Save updated user
     await user.save()
 
+    // Revalidate admin users list
+    revalidatePath("/admin/users")
+
     // Return updated user
     return NextResponse.json({
       id: user._id.toString(),
@@ -179,6 +183,9 @@ export async function DELETE(
         { status: 404 }
       )
     }
+
+    // Revalidate admin users list
+    revalidatePath("/admin/users")
 
     // Return success message
     return NextResponse.json({

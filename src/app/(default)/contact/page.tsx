@@ -5,6 +5,11 @@ import { getSiteSettings } from "@/lib/get-site-settings"
 
 import ContactForm from "./ContactForm"
 
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
 

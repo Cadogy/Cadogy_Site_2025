@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
+import { revalidatePath } from "next/cache"
 
 // Adjust tokens for a user
 export async function POST(request: NextRequest) {
@@ -99,6 +100,9 @@ export async function POST(request: NextRequest) {
       previousBalance,
       newBalance,
     })
+
+    // Revalidate admin tokens page
+    revalidatePath("/admin/tokens")
 
     return NextResponse.json({
       id: user._id.toString(),
@@ -287,6 +291,9 @@ export async function PUT(request: NextRequest) {
         change: actualChange,
       })
     }
+
+    // Revalidate admin tokens page
+    revalidatePath("/admin/tokens")
 
     return NextResponse.json({
       success: true,

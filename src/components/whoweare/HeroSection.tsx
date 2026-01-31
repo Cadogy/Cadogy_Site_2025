@@ -57,13 +57,6 @@ const HeroSection = () => {
             </Link>
 
             {/* <span className="text-border">|</span> */}
-
-            {/* <Link
-              href="/our-charter"
-              className="transition-colors hover:text-foreground"
-            >
-              Our charter
-            </Link> */}
           </motion.div>
         </div>
       </div>

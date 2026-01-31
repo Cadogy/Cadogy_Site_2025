@@ -2,10 +2,21 @@
 User-agent: *
 Allow: /
 
-# Block admin section completely
+# Block admin and user sections
 Disallow: /admin/
+Disallow: /dashboard/
 
-# Disallow WordPress admin pages if they exist
+# Block API routes
+Disallow: /api/
+
+# Block authentication pages
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+
+# Disallow WordPress admin pages
 Disallow: /wp-admin/
 Disallow: /wp-login.php
 
@@ -15,5 +26,4 @@ Disallow: /test/
 Disallow: /dev/
 
 # Sitemaps
-Sitemap: https://www.cadogy.com/sitemap.xml
-Sitemap: https://www.cadogy.com/articles-sitemap.xml 
+Sitemap: https://www.cadogy.com/sitemap-index.xml

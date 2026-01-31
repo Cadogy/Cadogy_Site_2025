@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description:
     "Create an account to access the powerful Cadogy API for clients.",
   keywords: ["register", "sign up", "account"],
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: `Register - Cadogy`,
     description: "Create a new account",

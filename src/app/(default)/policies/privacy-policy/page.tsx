@@ -3,6 +3,11 @@ import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
 
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
+
 export const metadata: Metadata = {
   title: `Privacy Policy - ${siteConfig.name}`,
   description:

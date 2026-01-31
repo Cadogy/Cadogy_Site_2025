@@ -11,6 +11,12 @@ import {
   PLACEHOLDER_IMAGE,
 } from "@/lib/wordpress-api"
 import ArticlesGrid from "@/components/elements/ArticlesGrid"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
+
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
 
 // Generate metadata for the category page
 export async function generateMetadata({
@@ -120,6 +126,15 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* SEO: Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Articles", url: "/articles" },
+          { name: category.name, url: `/articles/category/${params.slug}` },
+        ]}
+      />
+
       <div className="mb-12 text-center">
         <h1 className="mb-2 text-4xl font-bold text-slate-100">
           {category.name}

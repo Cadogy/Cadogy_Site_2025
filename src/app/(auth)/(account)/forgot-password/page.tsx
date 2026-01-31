@@ -6,6 +6,10 @@ import ForgotPasswordForm from "@/components/auth/forgot-password-form"
 export const metadata: Metadata = {
   title: "Forgot Password - Cadogy",
   description: "Reset your password to regain access to your account",
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 // Simple loading fallback for the Suspense boundary

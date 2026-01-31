@@ -13,6 +13,11 @@ import {
   PLACEHOLDER_IMAGE,
 } from "@/lib/wordpress-api"
 import ArticleFilterMenu from "@/components/elements/ArticleFilterMenu"
+
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
 import ArticleListView from "@/components/elements/ArticleListView"
 import ArticlePagination from "@/components/elements/ArticlePagination"
 import ArticleSearch from "@/components/elements/ArticleSearch"

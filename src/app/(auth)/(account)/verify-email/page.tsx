@@ -6,6 +6,10 @@ import VerifyEmailForm from "@/components/auth/verify-email-form"
 export const metadata: Metadata = {
   title: "Verify Email - Cadogy",
   description: "Verify your email address to complete registration",
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 // Simple loading fallback for the Suspense boundary

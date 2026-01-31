@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
 import { Ticket } from "@/models/Ticket"
 import { User } from "@/models/User"
+import { revalidatePath } from "next/cache"
 
 export async function GET(
   request: NextRequest,
@@ -153,6 +154,10 @@ export async function PATCH(
       )
     }
 
+    // Revalidate admin tickets pages
+    revalidatePath("/admin/tickets")
+    revalidatePath(`/admin/tickets/${params.id}`)
+
     return NextResponse.json({
       message: "Ticket updated successfully",
       ticket: {
@@ -211,6 +216,9 @@ export async function DELETE(
         { status: 404 }
       )
     }
+
+    // Revalidate admin tickets list
+    revalidatePath("/admin/tickets")
 
     return NextResponse.json({
       message: "Ticket deleted successfully",

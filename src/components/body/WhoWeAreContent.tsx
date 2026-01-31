@@ -992,12 +992,6 @@ const WhoWeAreContent = () => {
                     <span>Contact Us</span>
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
-                  <Link
-                    href="/our-charter"
-                    className="group inline-flex items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-muted"
-                  >
-                    <span>Read Our Charter</span>
-                  </Link>
                 </div>
               </div>
             </div>

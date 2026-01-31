@@ -12,6 +12,12 @@ import {
   preventImageCaching,
 } from "@/lib/wordpress-api"
 import ArticleCore from "@/components/elements/ArticleCore"
+import { ArticleSchema } from "@/components/seo/article-schema"
+
+// Cache configuration - on-demand revalidation only
+export const revalidate = false
+export const fetchCache = "force-cache"
+export const dynamicParams = true
 
 // Generate metadata for each post
 export async function generateMetadata({
@@ -115,6 +121,21 @@ export default async function ArticlePage({
 
   return (
     <>
+      {/* SEO: Article Schema */}
+      <ArticleSchema
+        post={{
+          title,
+          slug: params.slug,
+          excerpt: description,
+          date: post.date,
+          modified: post.modified,
+          featuredImage,
+          author: { name: authorName },
+          categories: categories.map((cat) => ({ name: cat.name })),
+          tags: tags.map((tag) => ({ name: tag.name })),
+        }}
+      />
+
       <ArticleCore
         audioSrc=""
         title={title}

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/auth/auth-options"
 import { connectToDatabase } from "@/lib/mongodb"
+import { revalidatePath } from "next/cache"
 
 // GET all users with pagination and filtering
 export async function GET(request: NextRequest) {
@@ -138,6 +139,9 @@ export async function POST(request: NextRequest) {
     })
 
     await newUser.save()
+
+    // Revalidate admin users list
+    revalidatePath("/admin/users")
 
     return NextResponse.json(
       {
