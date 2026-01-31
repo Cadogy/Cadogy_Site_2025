@@ -12,6 +12,7 @@ import { ServicesBentoSection } from "@/components/home/ServicesBentoSection"
 import { TechnologyShowcaseSection } from "@/components/home/TechnologyShowcaseSection"
 import { ProcessSection } from "@/components/home/ProcessSection"
 import { CaseStudiesSection } from "@/components/home/CaseStudiesSection"
+import { CTASection } from "@/components/home/CTASection"
 import TechnicalExpert from "@/components/home/technicalExpert"
 import WebInfastructure from "@/components/home/webInfastructure"
 
@@ -71,6 +72,13 @@ export default function Home() {
 
       {/* Case Studies Section */}
       <CaseStudiesSection />
+
+      {/* CTA Section */}
+      <CTASection
+        headline="Ready to Start Your Project?"
+        subheadline="Let's build something amazing together. Get in touch with our team today."
+        primaryCTA={{ text: "Start Your Project", href: "/contact" }}
+      />
     </div>
   )
 }
