@@ -8,6 +8,7 @@ import { HeroCarousel } from "@/components/elements/HeroCarousel"
 import TextSlideEffect from "@/components/elements/TextSlideEffect"
 import { StatsSection } from "@/components/stats/StatsSection"
 import { getStatsData } from "@/lib/stats/utils"
+import { ServicesBentoSection } from "@/components/home/ServicesBentoSection"
 import TechnicalExpert from "@/components/home/technicalExpert"
 import WebInfastructure from "@/components/home/webInfastructure"
 
@@ -42,6 +43,9 @@ export default function Home() {
 
       {/* Stats Section */}
       <StatsSection stats={getStatsData()} />
+
+      {/* Services Bento Section */}
+      <ServicesBentoSection />
 
       {/* Main Content Sections - Added consistent padding and spacing */}
       <div className="mx-auto max-w-[94%] px-4 md:max-w-[90%] lg:px-8">

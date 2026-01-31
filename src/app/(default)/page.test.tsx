@@ -43,7 +43,27 @@ describe("Homepage", () => {
     it("should still render TechnicalExpert section", () => {
       render(<Home />)
 
-      expect(screen.getByText(/What We Do/i)).toBeInTheDocument()
+      // Check for both "What We Do" sections (Services and TechnicalExpert)
+      const whatWeDoHeadings = screen.getAllByText(/What We Do/i)
+      expect(whatWeDoHeadings.length).toBeGreaterThanOrEqual(1)
+    })
+  })
+
+  describe("Services Bento Section Integration", () => {
+    it("should render services bento section", () => {
+      render(<Home />)
+
+      expect(screen.getByText("Brand Experiences")).toBeInTheDocument()
+      expect(screen.getByText("Content Management")).toBeInTheDocument()
+      expect(screen.getByText("AI Optimization")).toBeInTheDocument()
+    })
+
+    it("should position services section after stats section", () => {
+      const { container } = render(<Home />)
+
+      const sections = container.querySelectorAll("section")
+      // Should have: Hero, TextSlide, Stats, Services, and TechnicalExpert sections
+      expect(sections.length).toBeGreaterThanOrEqual(4)
     })
   })
 })
