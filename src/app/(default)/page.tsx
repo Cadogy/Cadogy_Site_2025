@@ -46,10 +46,10 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <StatsSection stats={getStatsData()} />
+      {/* <StatsSection stats={getStatsData()} /> */}
 
       {/* Services Bento Section */}
-      <ServicesBentoSection />
+      {/* <ServicesBentoSection /> */}
 
       {/* Main Content Sections - Added consistent padding and spacing */}
       <div className="mx-auto max-w-[94%] px-4 md:max-w-[90%] lg:px-8">
@@ -65,20 +65,20 @@ export default function Home() {
       </div>
 
       {/* Technology Showcase Section */}
-      <TechnologyShowcaseSection />
+      {/* <TechnologyShowcaseSection /> */}
 
       {/* Process Section */}
-      <ProcessSection />
+      {/* <ProcessSection /> */}
 
       {/* Case Studies Section */}
-      <CaseStudiesSection />
+      {/* <CaseStudiesSection /> */}
 
       {/* CTA Section */}
-      <CTASection
+      {/* <CTASection
         headline="Ready to Start Your Project?"
         subheadline="Let's build something amazing together. Get in touch with our team today."
         primaryCTA={{ text: "Start Your Project", href: "/contact" }}
-      />
+      /> */}
     </div>
   )
 }

@@ -44,7 +44,9 @@
       "Bash(do sed -i 's|@/lib/utils/pinnedFeatureHelpers|@/src/modules/marketplace/utils/pinnedFeatureHelpers|g' \"$file\")",
       "Bash(for file in \"app/\\(auth\\)/dashboard/orders/view/[id]/page.tsx\" \"app/\\(auth\\)/dashboard/sellers/orders/page.tsx\" \"app/\\(auth\\)/dashboard/wallet/page.tsx\" \"app/\\(auth\\)/pbadmin/users/page.tsx\" \"app/api/categories/route.ts\" \"app/api/search/hero/route.ts\" \"app/api/user/fetch-by-email/route.ts\" \"app/api/user/fetch-by-id/route.ts\" \"app/api/user/profile/[id]/route.ts\")",
       "Bash(do sed -i 's|@/lib/utils/serialization|@/src/modules/marketplace/utils/serialization|g' \"$file\")",
-      "WebFetch(domain:stripe.com)"
+      "WebFetch(domain:stripe.com)",
+      "Bash(pnpm add:*)",
+      "Bash(npm test:*)"
     ]
   }
 }

@@ -15,6 +15,7 @@
 
 # production
 /build
+/tasks
 
 # misc
 .DS_Store
