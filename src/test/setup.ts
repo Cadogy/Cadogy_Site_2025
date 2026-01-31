@@ -20,6 +20,6 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
 } as unknown as typeof ResizeObserver
 
-afterEach(() => {
-  cleanup()
-})
+// afterEach(() => {
+//   cleanup()
+// })

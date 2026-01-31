@@ -46,7 +46,8 @@
       "Bash(do sed -i 's|@/lib/utils/serialization|@/src/modules/marketplace/utils/serialization|g' \"$file\")",
       "WebFetch(domain:stripe.com)",
       "Bash(pnpm add:*)",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(npm audit fix:*)"
     ]
   }
 }
