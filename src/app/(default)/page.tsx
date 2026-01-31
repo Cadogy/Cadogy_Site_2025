@@ -11,6 +11,7 @@ import { getStatsData } from "@/lib/stats/utils"
 import { ServicesBentoSection } from "@/components/home/ServicesBentoSection"
 import { TechnologyShowcaseSection } from "@/components/home/TechnologyShowcaseSection"
 import { ProcessSection } from "@/components/home/ProcessSection"
+import { CaseStudiesSection } from "@/components/home/CaseStudiesSection"
 import TechnicalExpert from "@/components/home/technicalExpert"
 import WebInfastructure from "@/components/home/webInfastructure"
 
@@ -67,6 +68,9 @@ export default function Home() {
 
       {/* Process Section */}
       <ProcessSection />
+
+      {/* Case Studies Section */}
+      <CaseStudiesSection />
     </div>
   )
 }
