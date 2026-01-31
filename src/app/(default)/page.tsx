@@ -10,6 +10,7 @@ import { StatsSection } from "@/components/stats/StatsSection"
 import { getStatsData } from "@/lib/stats/utils"
 import { ServicesBentoSection } from "@/components/home/ServicesBentoSection"
 import { TechnologyShowcaseSection } from "@/components/home/TechnologyShowcaseSection"
+import { ProcessSection } from "@/components/home/ProcessSection"
 import TechnicalExpert from "@/components/home/technicalExpert"
 import WebInfastructure from "@/components/home/webInfastructure"
 
@@ -63,6 +64,9 @@ export default function Home() {
 
       {/* Technology Showcase Section */}
       <TechnologyShowcaseSection />
+
+      {/* Process Section */}
+      <ProcessSection />
     </div>
   )
 }
